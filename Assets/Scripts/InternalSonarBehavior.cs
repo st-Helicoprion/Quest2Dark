@@ -23,13 +23,9 @@ public class InternalSonarBehavior : MonoBehaviour
             transform.localPosition += new Vector3(0, 10f * Time.deltaTime, 0);
 
         }
-        else DestroyInternalSonar();
+        else Destroy(this.gameObject);
 
     }
 
-    void DestroyInternalSonar()
-    {
-        SonarManager.isInternalSonarActive = false;
-        Destroy(this.gameObject);
-    }
+
 }

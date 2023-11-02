@@ -7,25 +7,48 @@ public class HitboxManager : MonoBehaviour
 {
     public List<int> hitboxIDList = new List<int>();
     public bool isSonarUp;
-    
+    public float countToResetSonar;
 
     // Update is called once per frame
     void Update()
     {
-        if (hitboxIDList.Count >= 1)
-        {
-            DetectHitboxOrder();
-            
-        }
-        else Debug.Log("no hits");
+        DetectCicadaActive();
 
     }
 
+    void DetectCicadaActive()
+    {
+        if (hitboxIDList.Count >= 1)
+        {
+            DetectHitboxOrder();
 
+        }
+        else countToResetSonar+=Time.deltaTime;
+
+        if (countToResetSonar > 1.5f)
+        {
+            ResetCicada();
+            countToResetSonar = 0;
+        }
+    }
 
     void DetectHitboxOrder()
     {
-        StartCoroutine(DelayToResetCicada());
+
+        if(hitboxIDList.Count < 4)
+        {
+            countToResetSonar += Time.deltaTime;
+        }
+
+        if (hitboxIDList.Count>=2)
+        {
+            if (hitboxIDList[0] == hitboxIDList[1])
+            {
+                ResetCicada();
+
+            }
+        }
+
         if (hitboxIDList.Count > 4)
         {
             
@@ -33,13 +56,12 @@ public class HitboxManager : MonoBehaviour
             {
                 isSonarUp= true;
                 ClearHitboxList();
-                
+                countToResetSonar = 0;
             }
             else
             {
                 ClearHitboxList();
-                isSonarUp = false;
-
+                
             }
 
         }
@@ -51,14 +73,14 @@ public class HitboxManager : MonoBehaviour
         hitboxIDList.Clear();
     }
        
-    IEnumerator DelayToResetCicada()
+    void ResetCicada()
     {
-        if(isSonarUp)
+        if (isSonarUp)
         {
-            yield return new WaitForSeconds(3);
             isSonarUp = false;
 
         }
+        else return;
     }
   
 }

@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 772255626385386006}
   - component: {fileID: 309060733884891351}
   - component: {fileID: -4772116136713394101}
+  - component: {fileID: -1520800905326931129}
+  - component: {fileID: 4838498212904555399}
   m_Layer: 0
   m_Name: SpinningTop
-  m_TagString: Untagged
+  m_TagString: SpinningTop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3207326128619926945}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 46.45, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -43,7 +45,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3207326128619926945}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 100
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -60,7 +62,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!135 &309060733884891351
 SphereCollider:
@@ -235,6 +237,39 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &-1520800905326931129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3207326128619926945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fbc8c379ac140d49b5057b6f890d2fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemID: 3
+--- !u!114 &4838498212904555399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3207326128619926945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c091e8f39da568409ce3da863230eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  top: {fileID: 0}
+  topSonarPrefab: {fileID: 5034980323273796318, guid: d5d0807ea008a2e4e9021736bd84e7b3, type: 3}
+  pullTrigger: {fileID: 0}
+  topThreshold: {fileID: 0}
+  topSonarCount: 0
+  topSonarCountToShrink: 0
+  maxSonarSize: 30
+  anim: {fileID: 0}
 --- !u!1001 &794078023218653446
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -310,8 +345,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ca03468f49bd69c43acbdf6c1be062ab, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3882504377908414122}
   m_SourcePrefab: {fileID: 100100000, guid: ca03468f49bd69c43acbdf6c1be062ab, type: 3}
+--- !u!1 &559651490040992855 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ca03468f49bd69c43acbdf6c1be062ab, type: 3}
+  m_PrefabInstance: {fileID: 794078023218653446}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3882504377908414122
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559651490040992855}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6dc5009d039e6234c87aabe176d6c87b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &905109984408833773 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ca03468f49bd69c43acbdf6c1be062ab, type: 3}

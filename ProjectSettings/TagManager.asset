@@ -8,6 +8,16 @@ TagManager:
   - Cicada
   - Enemy
   - Sonar
+  - Finger
+  - Giant
+  - Hopter
+  - TopThreshold
+  - LeftHand
+  - RightHand
+  - PullTrigger
+  - ToySpawn
+  - SpinningTop
+  - Gun
   layers:
   - Default
   - TransparentFX
