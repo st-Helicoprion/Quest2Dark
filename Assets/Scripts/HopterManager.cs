@@ -5,10 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class HopterManager : MonoBehaviour
 {
-    public static Transform hopter;
     public int hopterMaxNum;
     public float hopterCount;
-    public GameObject hopterPrefab,summonHopter, hopterToolPrefab;
+    public GameObject hopterPrefab,summonHopter;
     public static GameObject[] enemiesInScene;
     public static List<GameObject> untaggedEnemies = new List<GameObject>();
     public static List<GameObject> hoptersInScene = new List<GameObject>();
@@ -20,16 +19,8 @@ public class HopterManager : MonoBehaviour
     {
         hopterMaxNum = 2;
         untaggedEnemies.Clear();
-    }
-
-    public static void CheckForHopter()
-    {
-        if (GameObject.FindGameObjectWithTag("Hopter") != null)
-        {
-            hopter = GameObject.Find("Hopter(Clone)").transform;
-            anim = hopter.transform.GetChild(0).GetComponent<Animator>();
-        }
-        else return;
+        //demo code
+        StartCoroutine(FindEnemies());
     }
 
     public static IEnumerator FindEnemies()
@@ -56,7 +47,7 @@ public class HopterManager : MonoBehaviour
 
     void SendOutHopter()
     {
-        SpinAnim();
+        //SpinAnim();
         Debug.Log("hopter out");
         summonHopter = Instantiate(hopterPrefab, transform.position, Quaternion.identity);
         hoptersInScene.Add(summonHopter);
@@ -64,8 +55,19 @@ public class HopterManager : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.transform == hopter)
+
+        if(other.CompareTag("Hopter"))
         {
+            
+
+            if (anim == null)
+            {
+                //anim = other.transform.GetChild(0).GetComponent<Animator>();
+               
+                //demo code
+                anim=other.GetComponent<Animator>();
+            }
+
             if (hoptersInScene.Count < hopterMaxNum)
             {
                 SendOutHopter();

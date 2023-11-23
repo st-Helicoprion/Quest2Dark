@@ -2,23 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 
 public class ToolboxManager : MonoBehaviour
 {
-    public Transform mainCamera, toolbox, toolboxParent;
+    public Transform mainCamera, toolboxParent;
     public Animator anim;
     public static List<int> itemIDList = new List<int>();
     public static List<GameObject> keyItemsSave = new List<GameObject>();
- 
 
+    public InputActionReference summonToolboxInputLeft;
+    public InputActionReference summonToolboxInputRight;
+
+    private void OnEnable()
+    {
+        summonToolboxInputLeft.action.performed += SummonToolbox;
+        summonToolboxInputLeft.action.canceled += HideToolbox;
+
+        summonToolboxInputRight.action.performed += SummonToolbox;
+        summonToolboxInputRight.action.canceled += HideToolbox;
+    }
     // Start is called before the first frame update
     void Start()
     {
         ClearItemIDList();
         toolboxParent = this.transform.parent;
-        toolbox = this.transform;
+   
     }
 
     // Update is called once per frame
@@ -31,6 +42,26 @@ public class ToolboxManager : MonoBehaviour
     public void ClearItemIDList()
     {
         itemIDList.Clear();
+    }
+
+    void SummonToolbox(InputAction.CallbackContext summonInput)
+    {
+        if (summonInput.ReadValue<float>() == 1&&this!=null)
+        {
+            this.transform.gameObject.SetActive(true);
+
+        }
+        else return;
+    }
+
+    void HideToolbox(InputAction.CallbackContext summonInput)
+    {
+        if (summonInput.ReadValue<float>() == 0&&this != null)
+        {
+            this.transform.gameObject.SetActive(false);
+
+        }
+        else return;
     }
 
    public static void RemoveToyPrefabInGameManager()

@@ -6,6 +6,7 @@ public class ExitRoomTrigger : MonoBehaviour
 {   
     public static bool isReadytoPlay;
     public float counter;
+    public Animator doorAnim;
 
     private void Start()
     {
@@ -15,7 +16,7 @@ public class ExitRoomTrigger : MonoBehaviour
     void RestartCount()
     {
         isReadytoPlay = false;
-        counter = 10;
+        counter = 5;
     }
 
     IEnumerator ReadyToBegin()
@@ -23,7 +24,7 @@ public class ExitRoomTrigger : MonoBehaviour
         isReadytoPlay = true;
         yield return new WaitForEndOfFrame();
         isReadytoPlay = false;
-        counter = 10;
+        counter = 5;
     }
 
     private void OnTriggerStay(Collider other)
@@ -45,14 +46,18 @@ public class ExitRoomTrigger : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
             RestartCount();
+            doorAnim.SetTrigger("Close");
+        }
         else return;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-            StartCoroutine(ReadyToBegin());
+            doorAnim.SetTrigger("Open");
+                //StartCoroutine(ReadyToBegin());
 
     }
 }

@@ -22,6 +22,9 @@ public class SonarManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //use for mechanic test otherwise disable
+        CheckForHitBoxManager();
+
         SonarHeightClamp();
         ActivateInternalSonar();
         DetectSonar();
@@ -30,7 +33,7 @@ public class SonarManager : MonoBehaviour
 
     public static void CheckForHitBoxManager()
     {
-        if (GameObject.FindGameObjectWithTag("Cicada") != null)
+        if (GameObject.FindGameObjectWithTag("Cicada") != null&&hitboxManager==null)
         {
             hitboxManager = FindObjectOfType<HitboxManager>();
         }

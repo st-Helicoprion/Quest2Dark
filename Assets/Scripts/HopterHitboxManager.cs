@@ -7,12 +7,13 @@ using UnityEngine;
 public class HopterHitboxManager : MonoBehaviour
 {
     public Material enemyFoundMaterial;
-    public Transform enemy;
-    public float hopterCount;
+    public Transform enemy, playerCam;
+    public float hopterCount, visualAidCount;
     public bool enemyTagged, targetFound;
 
     private void Start()
     {
+       playerCam = GameObject.Find("Main Camera").transform;
        StartCoroutine(FindUntaggedEnemy());
     }
 
@@ -33,6 +34,7 @@ public class HopterHitboxManager : MonoBehaviour
 
     IEnumerator FindUntaggedEnemy()
     {
+        
         if (HopterManager.untaggedEnemies.Count > 0)
         {
             enemy = HopterManager.untaggedEnemies[0].transform;
@@ -44,18 +46,28 @@ public class HopterHitboxManager : MonoBehaviour
         else yield break;
     }
     void HopterMoveToTarget()
-    {
-        transform.GetChild(2).gameObject.SetActive(true);
-        
-        Vector3 targetDirection = (enemy.transform.position + new Vector3(0, 5, 0)) - transform.position;
-        if (!enemyTagged)
+    {  
+        visualAidCount += Time.deltaTime;
+
+        if (visualAidCount > 2)
         {
-            transform.position += 0.2f * Time.deltaTime * targetDirection;
+            Vector3 targetDirection = (enemy.transform.position + new Vector3(0, 5, 0)) - transform.position;
+            if (!enemyTagged)
+            {
+                transform.LookAt(targetDirection);
+                transform.position += Time.deltaTime * targetDirection;
+            }
+            else hopterCount += Time.deltaTime;
+
         }
-        else hopterCount += Time.deltaTime;
+        else
+        {
+            transform.forward= playerCam.forward;
+            transform.position += 5 * Time.deltaTime * playerCam.forward;
+        }
 
 
-        if (hopterCount > 100)
+            if (hopterCount > 100)
         {
             hopterCount = 0;
             HopterManager.untaggedEnemies.Add(enemy.gameObject);
@@ -65,11 +77,12 @@ public class HopterHitboxManager : MonoBehaviour
 
     }
 
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Finger"))
         {
-            transform.GetChild(2).GetComponent<MeshRenderer>().material = enemyFoundMaterial;
+            transform.GetChild(1).GetComponent<MeshRenderer>().material = enemyFoundMaterial;
             transform.position = enemy.position + new Vector3(0, 5, 0);
             enemyTagged = true;
 

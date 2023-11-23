@@ -122,7 +122,7 @@ Transform:
   m_GameObject: {fileID: 3367301561494065325}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.625, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -287,7 +287,7 @@ Transform:
   m_GameObject: {fileID: 3431769153163163511}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.25, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -310,9 +310,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
-  toolbox: {fileID: 0}
   toolboxParent: {fileID: 0}
   anim: {fileID: 0}
+  summonToolboxInputLeft: {fileID: -1933264127102390071, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  summonToolboxInputRight: {fileID: -741667397773074983, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!1 &3651886004855544528
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,7 +343,7 @@ Transform:
   m_GameObject: {fileID: 3651886004855544528}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.25, y: 0, z: 0}
+  m_LocalPosition: {x: -0.5, y: 0, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -541,7 +542,7 @@ Transform:
   m_GameObject: {fileID: 5653783622702454217}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: 0}
+  m_LocalPosition: {x: -1.5, y: 0, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -709,7 +710,7 @@ Transform:
   m_GameObject: {fileID: 7082098353372623057}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.125, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children:

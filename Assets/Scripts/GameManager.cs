@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit;
 
+[RequireComponent(typeof(AudioSource))]
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     public GameObject playerPrefab, toolbox;
     public List<GameObject> keyItem = new();
     public GameObject[] enemyPrefab;
+    public AudioSource audioSource;
     
 
     private void Awake()
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
         else
         {
             instance = this;
+            audioSource= GetComponent<AudioSource>();
             ToolboxManager.StoreKeyItemList();
             DontDestroyOnLoad(gameObject);
         }
@@ -52,7 +55,7 @@ public class GameManager : MonoBehaviour
             SpawnPlayerOnMap();
         }
 
-        if(InteractionManager.killPlayer)
+        if(EnemyInteractionManager.killPlayer)
         {
             PlayerDeath();
             
@@ -83,6 +86,7 @@ public class GameManager : MonoBehaviour
         toolboxSpawn = GameObject.FindGameObjectsWithTag("ToySpawn");
         player.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
 
+        AudioManager.instance.CheckBGMToPlay();
         StartCoroutine(ToolboxManager.ResetKeyItemList());
         StartCoroutine(SpawnPlayerEquip());
 
@@ -114,17 +118,17 @@ public class GameManager : MonoBehaviour
         //remove player spawn point
         Destroy(spawnPoints.GetChild(spawnPointID).gameObject);
 
+        AudioManager.instance.CheckBGMToPlay();
         StartCoroutine(SpawnPlayerEquip());
         
         yield return null;
         
         Debug.Log("Game area loaded");
         
-        player.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
-        player.GetComponentInChildren<TextMeshProUGUI>().text = "Find Toys \n 0/3";
+        /*player.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
+        player.GetComponentInChildren<TextMeshProUGUI>().text = "Toys Found\n"+ToolboxManager.itemIDList.Count+"/4";*/
         yield return new WaitForSeconds(3);
 
-        player.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
         StartCoroutine(SpawnKeyItem());
         
     }
@@ -138,6 +142,16 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Enemy spawned");
       
             }
+
+        /*//temporary code for demo
+        for (int i = 0; i < 1; i++)
+        {
+            Debug.Log("enemyID is : " + enemyID);
+            Instantiate(enemyPrefab[enemyID + 1], spawnPoints.GetChild(UnityEngine.Random.Range(0, spawnPoints.childCount - 1)).transform.position + new Vector3(0, 5, 0), Quaternion.identity);
+            Debug.Log("Demo enemy spawned");
+
+        }*/
+
         yield return null;
             StartCoroutine(HopterManager.FindEnemies());
     }
@@ -179,25 +193,36 @@ public class GameManager : MonoBehaviour
 
     void BindKeyItemToManagers()
     {
-        HopterManager.CheckForHopter();
         SonarManager.CheckForHitBoxManager();
     }
 
     void KeyItemFound() //player gets key item, spawns in more enemies
     {
         Debug.Log("Key item found");
+
+        StartCoroutine(UpdateToyFoundMessage());
         
         enemyID++;
         if (enemyID < enemyPrefab.Length)
         {
             StartCoroutine(SpawnEnemies());
+            
         }
         else 
         {
             enemyID = 0;
             StartCoroutine(SpawnEnemies());
-
+           
         }
+    }
+
+    IEnumerator UpdateToyFoundMessage()
+    {
+        audioSource.PlayOneShot(AudioManager.instance.UISFXAudioClips[0]);
+        player.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
+        player.GetComponentInChildren<TextMeshProUGUI>().text = "Toys Found\n" + ToolboxManager.itemIDList.Count + "/4";
+        yield return new WaitForSeconds(3);
+        player.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
     }
     #endregion
 
@@ -230,7 +255,7 @@ public class GameManager : MonoBehaviour
         player.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
         player.GetComponentInChildren<TextMeshProUGUI>().text = "You are Dead";
         
-        InteractionManager.killPlayer = false;
+        EnemyInteractionManager.killPlayer = false;
         yield return new WaitForSeconds(5);
 
         SpawnPlayerInRoom();

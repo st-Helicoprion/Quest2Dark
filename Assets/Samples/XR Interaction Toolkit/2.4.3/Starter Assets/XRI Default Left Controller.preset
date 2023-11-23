@@ -179,7 +179,7 @@ Preset:
   - target: {fileID: 0}
     propertyPath: m_IsTrackedAction.m_Reference
     value: 
-    objectReference: {fileID: 840156964685210860, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_TrackingStateAction.m_UseReference
     value: 1
@@ -660,6 +660,86 @@ Preset:
     propertyPath: m_TranslateAnchorAction.m_Reference
     value: 
     objectReference: {fileID: 7779212132400271959, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleToggleAction.m_UseReference
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleToggleAction.m_Action.m_Name
+    value: Scale Toggle
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleToggleAction.m_Action.m_Type
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleToggleAction.m_Action.m_ExpectedControlType
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleToggleAction.m_Action.m_Id
+    value: 4ad366fb-24b8-4030-99f4-3647774eb4c6
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleToggleAction.m_Action.m_Processors
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleToggleAction.m_Action.m_Interactions
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleToggleAction.m_Action.m_SingletonActionBindings.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleToggleAction.m_Action.m_Flags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleToggleAction.m_Reference
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleDeltaAction.m_UseReference
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleDeltaAction.m_Action.m_Name
+    value: Scale Delta
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleDeltaAction.m_Action.m_Type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleDeltaAction.m_Action.m_ExpectedControlType
+    value: Vector2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleDeltaAction.m_Action.m_Id
+    value: 5b41e25e-38cf-41c9-a089-eb455f1fc73c
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleDeltaAction.m_Action.m_Processors
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleDeltaAction.m_Action.m_Interactions
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleDeltaAction.m_Action.m_SingletonActionBindings.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleDeltaAction.m_Action.m_Flags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ScaleDeltaAction.m_Reference
+    value: 
+    objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_ButtonPressPoint
     value: 0.5

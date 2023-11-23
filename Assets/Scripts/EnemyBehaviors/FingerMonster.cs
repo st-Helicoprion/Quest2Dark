@@ -4,24 +4,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(AudioSource))]
 public class FingerMonster : MonoBehaviour
 {
     //monster behavior type : trap-like, passive, mostly immobile
-
     public NavMeshAgent agent;
     public Transform target;
     public Vector3 idleTarget;
     public Material chaseMaterial, idleMaterial;
-    public bool refreshTarget, chasing, creeping, isNearPlayer;
-    public float count, creepCount;
+    //public bool creeping, isNearPlayer, refreshTarget;
+    //public float count, creepCount;
+    public bool isControlled;
     public GameObject attackHitbox;
     public Animator anim;
+    public AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();   
+        agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         attackHitbox = this.transform.Find("AttackHitbox").gameObject;
 
@@ -30,6 +33,8 @@ public class FingerMonster : MonoBehaviour
 
     private void Update()
     {
+        DetectTargetReached();
+
         /*if (!chasing && !creeping)
         {
             DetectTargetReached();
@@ -37,33 +42,48 @@ public class FingerMonster : MonoBehaviour
             CreepToPlayer();
         }*/ //behavior : creeping to player and then stopping
 
-        DetectTargetReached();
-
-        if (!chasing)
+        if(isControlled)
         {
-            FreezeMonster();
+            ForcedSonarDetected();
         }
 
     }
 
-    public void SonarDetected(Collider other)//monster starts to chase player
+    public void DetectedFeedback()
     {
-        
+        if (!audioSource.isPlaying)
+            audioSource.PlayOneShot(AudioManager.instance.FingerMonsterAudioClips[0]);
+
         SkinnedMeshRenderer renderer = GetComponentInChildren<SkinnedMeshRenderer>();
         Material[] enemyMat = renderer.materials;
         enemyMat[1] = chaseMaterial;
         renderer.materials = enemyMat;
-        agent.speed = 3;
-        agent.SetDestination(other.transform.position);
-        agent.transform.LookAt(other.transform.position);
+
         RunAnim();
         Debug.Log("sonar detected");
-
         attackHitbox.SetActive(true);
     }
 
-    void FreezeMonster()
+    public void SonarDetected(Collider other)//monster starts to chase source of noise
     {
+        DetectedFeedback();
+        agent.speed = 3;
+        agent.SetDestination(other.transform.position);
+        agent.transform.LookAt(other.transform.position);  
+    }
+
+    public void ForcedSonarDetected()//monster starts to chase player
+    {
+        DetectedFeedback();
+        agent.speed = 3;
+        agent.SetDestination(target.position);
+        agent.transform.LookAt(target.position);
+    }
+
+    public void FreezeMonster()
+    {
+        audioSource.Stop();
+
         SkinnedMeshRenderer renderer = GetComponentInChildren<SkinnedMeshRenderer>();
         Material[] enemyMat = renderer.materials;
         enemyMat[1] = idleMaterial;
@@ -80,18 +100,18 @@ public class FingerMonster : MonoBehaviour
         Material[] enemyMat = renderer.materials;
         enemyMat[1] = idleMaterial;
         renderer.materials = enemyMat;
-        idleTarget = this.transform.position + new Vector3(UnityEngine.Random.Range(-8, 8), 0, UnityEngine.Random.Range(-8, 8));
+        int rand1 = UnityEngine.Random.Range(-8, -3), rand2 = UnityEngine.Random.Range(3, 8);
+        idleTarget = this.transform.position + new Vector3(rand1, 0, rand2);
         agent.speed = 1;
         agent.SetDestination(idleTarget);
         WalkAnim();
-        
+        Debug.Log("Stone summoned and roaming");
     }
 
     void DetectTargetReached() //monster stops when reaching random target
     {
         if (Mathf.Abs(agent.transform.position.x - idleTarget.x) < 2)
         {
-            refreshTarget = true;
             FreezeMonster();
         }
         else return;
@@ -108,56 +128,57 @@ public class FingerMonster : MonoBehaviour
         
     }
 
-    void RefreshIdleTarget()
-    {
-        CheckPlayerDistance();
-        if (refreshTarget == true)
-        {
-            refreshTarget = false;
-            if (!isNearPlayer)
-            {
-                Debug.Log("idleTarget refreshed");
-                Wander();
-            }
-            else return;
-        }
-        else return;
-    }
+    #region CreepingBehavior
+    /* void RefreshIdleTarget()
+     {
+         CheckPlayerDistance();
+         if (refreshTarget == true)
+         {
+             refreshTarget = false;
+             if (!isNearPlayer)
+             {
+                 Debug.Log("idleTarget refreshed");
+                 Wander();
+             }
+             else return;
+         }
+         else return;
+     }*/
 
-    void CreepToPlayer()//to keep player from standing still
-    {
-        
-        if (target.GetComponent<CharacterController>().velocity == Vector3.zero && !isNearPlayer)
-        {
-            if (!creeping)
-                creepCount += Time.deltaTime;
+    /* void CreepToPlayer()//to keep player from standing still
+     {
 
-        }
-        else if (!chasing)
-        {
-            FreezeMonster();
-        }
-        else return;
+         if (target.GetComponent<CharacterController>().velocity == Vector3.zero && !isNearPlayer)
+         {
+             if (!creeping)
+                 creepCount += Time.deltaTime;
 
-            if (creepCount > 10)
-        {
-            StartCoroutine(CreepCoroutine());
-            creepCount = 0;
-        }
-    }
-    IEnumerator CreepCoroutine()
-    {
-        Debug.Log("player not moving");
-        agent.SetDestination(target.position);
-        creeping = true;
+         }
+         else if (!chasing)
+         {
+             FreezeMonster();
+         }
+         else return;
 
-        yield return new WaitForSeconds(5);
+             if (creepCount > 10)
+         {
+             StartCoroutine(CreepCoroutine());
+             creepCount = 0;
+         }
+     }*/
+    /* IEnumerator CreepCoroutine()
+     {
+         Debug.Log("player not moving");
+         agent.SetDestination(target.position);
+         creeping = true;
 
-        RefreshIdleTarget();
-        creeping= false;
-    }
+         yield return new WaitForSeconds(5);
 
-    void CheckPlayerDistance()
+         RefreshIdleTarget();
+         creeping= false;
+     }*/
+
+    /*void CheckPlayerDistance()
     {
         float distToPlayer = Vector3.Distance(transform.position, target.position);
         if (distToPlayer <20)
@@ -165,23 +186,17 @@ public class FingerMonster : MonoBehaviour
             isNearPlayer = true;
         }
         else isNearPlayer = false;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        //monster enters inside sonar
-        if(other.CompareTag("Sonar"))
-        {
-            chasing = true;
-            SonarDetected(other);//starts to chase sonar source
-        }
-    }
+    }*/
+    #endregion
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.CompareTag("Sonar"))
+        if (other.CompareTag("Sonar"))
         {
-            chasing = true;
+            ForcedSonarDetected();
+        }
+        else if (other.CompareTag("TopSonar"))
+        {
             SonarDetected(other);
         }
     }
@@ -189,9 +204,12 @@ public class FingerMonster : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         //monster leaves sonar and stops moving
-        if (other.CompareTag("Sonar"))
+        if(other.CompareTag("Sonar")&&!isControlled)
         {
-            chasing= false;
+            FreezeMonster();
+        }
+        if(other.CompareTag("TopSonar")&&!isControlled)
+        {
             FreezeMonster();
         }
     }
@@ -199,9 +217,9 @@ public class FingerMonster : MonoBehaviour
     #region Animator
     void RunAnim()
     {
-        anim.SetBool("Run", true);
         anim.SetBool("Walk", false);
         anim.SetBool("Idle", false);
+        anim.SetBool("Run", true);
     }
 
     void IdleAnim()
@@ -214,8 +232,8 @@ public class FingerMonster : MonoBehaviour
     void WalkAnim()
     {
         anim.SetBool("Run", false);
-        anim.SetBool("Walk", true);
         anim.SetBool("Idle", false);
+        anim.SetBool("Walk", true);
     }
     #endregion
 }

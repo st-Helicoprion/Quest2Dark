@@ -152,7 +152,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 5378867951508601959}
   m_Layer: 0
   m_Name: HopterProj
-  m_TagString: Hopter
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -257,7 +257,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyFoundMaterial: {fileID: 2100000, guid: d3d66b67465f4b0429b3c839ddb0f509, type: 2}
   enemy: {fileID: 0}
+  playerCam: {fileID: 0}
   hopterCount: 0
+  visualAidCount: 0
   enemyTagged: 0
   targetFound: 0
 --- !u!1001 &1363324362924217728

@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using UnityEngine.LowLevel;
 using UnityEngine.UIElements.Experimental;
 
+[RequireComponent(typeof(AudioSource))]
 public class StickGiant : MonoBehaviour
 {
     //monster behavior type : watchtower, creeper, trap-like, passive 
@@ -17,6 +18,7 @@ public class StickGiant : MonoBehaviour
     public bool refreshTarget, creeping, isNearPlayer, tracking;
     public float count, creepCount;
     public LineRenderer lineToPlayer;
+    public AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,7 @@ public class StickGiant : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").transform;
         attackHitbox = this.transform.Find("AttackHitbox").gameObject;
         lineToPlayer = GetComponent<LineRenderer>();
+        audioSource = GetComponent<AudioSource>();
         
     }
 
@@ -37,15 +40,17 @@ public class StickGiant : MonoBehaviour
             CreepToPlayer();
         }
 
-        if (tracking)
-        {
-            AlertAllMonsters();
-        }
-        }
+        AlertAllMonsters();
+       
+    }
 
     void Wander()//monster walks randomly around map
     {
-
+        if (!audioSource.isPlaying)
+        {
+            Debug.Log("GROWL");
+            audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
+        }
         idleTarget = this.transform.position + new Vector3(UnityEngine.Random.Range(-5, 5), 0, UnityEngine.Random.Range(-5, 5));
         agent.speed = 1;
         agent.SetDestination(idleTarget);
@@ -92,6 +97,11 @@ public class StickGiant : MonoBehaviour
         if (distToPlayer < minDistance)
         {
             isNearPlayer = true;
+            if (!audioSource.isPlaying)
+            {
+                Debug.Log("GROWL");
+                audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
+            }
             agent.speed = 0;
         }
         else isNearPlayer = false;
@@ -128,7 +138,15 @@ public class StickGiant : MonoBehaviour
 
     void AlertAllMonsters()
     {
+        if (tracking)
+        {
             agent.speed = 0;
+
+            if(!audioSource.isPlaying)
+            {
+                Debug.Log("ROAR");
+                audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[1]);
+            }
 
             lineToPlayer.enabled = true;
             lineToPlayer.SetPosition(0, this.transform.position + new Vector3(0, 15, 0));
@@ -143,14 +161,19 @@ public class StickGiant : MonoBehaviour
                 {
                     if (allAgents[i].gameObject.CompareTag("Finger"))
                     {
-                         allAgents[i].gameObject.GetComponent<FingerMonster>().SonarDetected(target.Find("PlayerSonar").GetComponent<Collider>());
+                        allAgents[i].GetComponent<FingerMonster>().ForcedSonarDetected();
+                        allAgents[i].GetComponent<FingerMonster>().isControlled= true;
                     }
-                    
+
                 }
 
             }
 
+
             CheckForRemoveTracker();
+
+        }
+        else return;
         
         
     }
@@ -158,6 +181,7 @@ public class StickGiant : MonoBehaviour
     void CheckForRemoveTracker()
     {
         CheckPlayerDistance(40);
+
         if(!isNearPlayer)
         {
             Debug.Log("target lost");
@@ -167,26 +191,35 @@ public class StickGiant : MonoBehaviour
 
     void RemoveTracker()
     {
-        tracking=false;
+        audioSource.Stop();
+
+        tracking = false;
         lineToPlayer.enabled = false;
         agent.speed = 1;
         NavMeshAgent[] allAgents = FindObjectsOfType<NavMeshAgent>();
-        Debug.Log("all enemies alerted");
+
+        Debug.Log("all enemies calm");
         for (int i = 0; i < allAgents.Length; i++)
         {
-            if (allAgents[i].gameObject.CompareTag("Finger")&&allAgents[i].gameObject.GetComponent<FingerMonster>().chasing)
+            if (allAgents[i].gameObject.CompareTag("Finger"))
             {
-                allAgents[i].GetComponent<FingerMonster>().chasing = false;
+                allAgents[i].GetComponent<FingerMonster>().FreezeMonster();
+                allAgents[i].GetComponent<FingerMonster>().isControlled = false;
             }
 
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if(other.CompareTag("Sonar"))
+        if (other.CompareTag("Sonar"))
         {
             agent.speed = 0;
+            if (!audioSource.isPlaying)
+            {
+                Debug.Log("GROWL");
+                audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
+            }
         }
     }
 }

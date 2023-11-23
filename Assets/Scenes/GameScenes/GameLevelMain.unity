@@ -135,13 +135,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Banboo Path
       objectReference: {fileID: 0}
-    - target: {fileID: 1703654384247474176, guid: 7255ef949c6e5a64eaf421fa43aae4b6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -16.89
+    - target: {fileID: 6488406440285452976, guid: 7255ef949c6e5a64eaf421fa43aae4b6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2678896903614158631, guid: 7255ef949c6e5a64eaf421fa43aae4b6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -15.2
+    - target: {fileID: 6488406440285452976, guid: 7255ef949c6e5a64eaf421fa43aae4b6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6488406440285452976, guid: 7255ef949c6e5a64eaf421fa43aae4b6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6488406440285452976, guid: 7255ef949c6e5a64eaf421fa43aae4b6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -183,16 +187,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7637190434721602866, guid: 7255ef949c6e5a64eaf421fa43aae4b6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -17.41
+    - target: {fileID: 7839375576656963639, guid: 7255ef949c6e5a64eaf421fa43aae4b6, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: edfd74352f3da124f9d7052eda89113b, type: 2}
+    - target: {fileID: 7839375576656963639, guid: 7255ef949c6e5a64eaf421fa43aae4b6, type: 3}
+      propertyPath: m_CollectObjects
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8692576633086599416, guid: 7255ef949c6e5a64eaf421fa43aae4b6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -17.91
+    - target: {fileID: 7839375576656963639, guid: 7255ef949c6e5a64eaf421fa43aae4b6, type: 3}
+      propertyPath: m_OverrideTileSize
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839375576656963639, guid: 7255ef949c6e5a64eaf421fa43aae4b6, type: 3}
+      propertyPath: m_OverrideVoxelSize
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4390638257472317820, guid: 7255ef949c6e5a64eaf421fa43aae4b6, type: 3}
+    - {fileID: 4613046830574673277, guid: 7255ef949c6e5a64eaf421fa43aae4b6, type: 3}
+    - {fileID: 5264598301237461802, guid: 7255ef949c6e5a64eaf421fa43aae4b6, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7255ef949c6e5a64eaf421fa43aae4b6, type: 3}

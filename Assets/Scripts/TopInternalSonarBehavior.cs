@@ -21,14 +21,16 @@ public class TopInternalSonarBehavior : MonoBehaviour
         }
         else
         {
-            if(this.transform.GetComponent<SphereCollider>().center.y>-3)
+            if(!TopSonarManager.isSpinTop)
             {
-                this.transform.GetComponent<SphereCollider>().center += new Vector3(0, -1, 0);
+                if(this.transform.GetComponent<SphereCollider>().center.y>-3)
+                {
+                    this.transform.GetComponent<SphereCollider>().center += new Vector3(0, -1, 0);
+                }
+                else
+                Destroy(this.gameObject);
             }
-            else
-            Destroy(this.gameObject);
-            
-
+            else Destroy(this.gameObject);
         }
     }
 }

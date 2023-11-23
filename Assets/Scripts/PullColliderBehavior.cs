@@ -17,6 +17,13 @@ public class PullColliderBehavior : MonoBehaviour
         
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("LeftHand") || other.CompareTag("RightHand"))
+        {
+            
+        }
+    }
     private void OnTriggerExit(Collider other)
     {
         if(other.CompareTag("LeftHand")||other.CompareTag("RightHand"))

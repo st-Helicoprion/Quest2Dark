@@ -18,6 +18,7 @@ TagManager:
   - ToySpawn
   - SpinningTop
   - Gun
+  - TopSonar
   layers:
   - Default
   - TransparentFX

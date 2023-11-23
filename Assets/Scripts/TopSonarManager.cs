@@ -6,7 +6,7 @@ public class TopSonarManager : MonoBehaviour
 {
     public Transform top;
     public GameObject topSonarPrefab, pullTrigger, topThreshold;
-    public float topSonarCount, topSonarCountToShrink;
+    public float topSonarCount;
     public static bool isSpinTop;
     public int maxSonarSize;
     public Animator anim;
@@ -17,8 +17,10 @@ public class TopSonarManager : MonoBehaviour
         top = this.transform;
         topThreshold = GameObject.FindWithTag("TopThreshold");
         topThreshold.GetComponent<BoxCollider>().enabled = false;
+
         pullTrigger = FindObjectOfType<PullColliderBehavior>().gameObject;
         pullTrigger.GetComponent<BoxCollider>().enabled = false;
+
         isSpinTop= false;
         anim = transform.GetChild(0).GetComponent<Animator>();
     }
@@ -32,33 +34,8 @@ public class TopSonarManager : MonoBehaviour
             ActivateTopSonar();
 
         }
-     
-
     }
-
    
-    void CheckTopSonarHitMaxSize()
-    {
-        if (top.localScale.x > maxSonarSize)
-        {
-            topSonarCountToShrink += Time.deltaTime;
-            if (topSonarCountToShrink > 5)
-            {
-                ShrinkTopSonar();
-                topSonarCount = 0;
-            }
-        }
-        else return;
-    }
-
-    void ShrinkTopSonar()
-    {
-        if(top.localScale.x>0.2f)
-        {
-            top.localScale -= new Vector3(Time.deltaTime, Time.deltaTime, Time.deltaTime)*10;
-        }
-    }
-
     void ActivateTopSonar()
     {
         topSonarCount += Time.deltaTime;
@@ -106,11 +83,14 @@ public class TopSonarManager : MonoBehaviour
 
     void SpinAnim()
     {
+        top.up = Vector3.up;
         anim.SetBool("Spin", true);
+        top.GetChild(0).GetChild(0).gameObject.SetActive(true);
     }
 
     void StopAnim()
     {
         anim.SetBool("Spin", false);
+        top.GetChild(0).GetChild(0).gameObject.SetActive(false);
     }
 }
