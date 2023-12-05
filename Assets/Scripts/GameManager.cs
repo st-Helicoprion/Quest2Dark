@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,12 +15,13 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
    
     public Transform spawnPoints, roomSpawn, player;
-    public GameObject[] toolboxSpawn;
     public int spawnPointID, lastFoundItemID, curFoundItemID;
     public static int enemyID;
-    public int[] playerEquipID;
-    public GameObject playerPrefab, toolbox;
+    public List<int> playerEquipID = new();
+    public GameObject playerPrefab;
+    //public List<KeyItemReporter> keyItem = new();
     public List<GameObject> keyItem = new();
+    public GameObject[] equipSpawnPoints;
     public GameObject[] enemyPrefab;
     public AudioSource audioSource;
     
@@ -45,6 +48,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
        SpawnPlayerInRoom();
+       
       
     }
     // Update is called once per frame
@@ -83,12 +87,13 @@ public class GameManager : MonoBehaviour
         roomSpawn = GameObject.Find("RoomSpawn").transform;
         Instantiate(playerPrefab, roomSpawn.position + new Vector3(0, 5, 0), Quaternion.identity);
         player = FindObjectOfType<XROrigin>().transform;
-        toolboxSpawn = GameObject.FindGameObjectsWithTag("ToySpawn");
         player.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
 
         AudioManager.instance.CheckBGMToPlay();
         StartCoroutine(ToolboxManager.ResetKeyItemList());
+
         StartCoroutine(SpawnPlayerEquip());
+        
 
         yield return null;
         Debug.Log("main area loaded");
@@ -113,29 +118,30 @@ public class GameManager : MonoBehaviour
         //spawn player into map
         Instantiate(playerPrefab, spawnPoints.GetChild(spawnPointID).position + new Vector3(0, 5, 0), Quaternion.identity);
         player = FindObjectOfType<XROrigin>().transform;
-        toolboxSpawn = GameObject.FindGameObjectsWithTag("ToySpawn");
+        //ToolboxManager.instance.ClearItemIDList();
+        StartCoroutine(SpawnPlayerEquip());
+        
 
         //remove player spawn point
         Destroy(spawnPoints.GetChild(spawnPointID).gameObject);
 
         AudioManager.instance.CheckBGMToPlay();
-        StartCoroutine(SpawnPlayerEquip());
         
         yield return null;
         
         Debug.Log("Game area loaded");
         
-        /*player.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
-        player.GetComponentInChildren<TextMeshProUGUI>().text = "Toys Found\n"+ToolboxManager.itemIDList.Count+"/4";*/
         yield return new WaitForSeconds(3);
 
-        StartCoroutine(SpawnKeyItem());
         
+        StartCoroutine(SpawnKeyItem());
+        //ToolboxManager.instance.InitialHideToolbox();
+
     }
     IEnumerator SpawnEnemies()
     {
         //UnityEngine.Random.Range(1, 3)
-            for (int i = 0; i < UnityEngine.Random.Range(1, 3); i++)
+            for (int i = 0; i < 3; i++)
             {
                 Debug.Log("enemyID is : " + enemyID);
                 Instantiate(enemyPrefab[enemyID], spawnPoints.GetChild(UnityEngine.Random.Range(0,spawnPoints.childCount-1)).transform.position + new Vector3(0, 5, 0), Quaternion.identity);
@@ -143,8 +149,8 @@ public class GameManager : MonoBehaviour
       
             }
 
-        /*//temporary code for demo
-        for (int i = 0; i < 1; i++)
+        //temporary code for demo
+        /*for (int i = 0; i < 1; i++)
         {
             Debug.Log("enemyID is : " + enemyID);
             Instantiate(enemyPrefab[enemyID + 1], spawnPoints.GetChild(UnityEngine.Random.Range(0, spawnPoints.childCount - 1)).transform.position + new Vector3(0, 5, 0), Quaternion.identity);
@@ -161,11 +167,18 @@ public class GameManager : MonoBehaviour
     IEnumerator SpawnPlayerEquip()
     {
         yield return new WaitForSeconds(1);
-        for(int i = 0; i< playerEquipID.Length; i++)
-        {
-            Instantiate(keyItem[playerEquipID[i]], toolboxSpawn[i].transform.position, Quaternion.identity);
 
+        equipSpawnPoints = GameObject.FindGameObjectsWithTag("ToySpawn");
+
+        for(int i = 0; i< playerEquipID.Count; i++)
+        {
+            Debug.Log("total player equip id :"+playerEquipID.Count);
+            Debug.Log("total equip spwn points :" + equipSpawnPoints.Length);
+            Instantiate(keyItem[playerEquipID[i]], equipSpawnPoints[i].transform.position, Quaternion.identity);
+            Debug.Log("equipments loaded");
         }
+
+        StartCoroutine(ToolboxManager.instance.InitialHideToolbox());
         BindKeyItemToManagers();
     }
     IEnumerator SpawnKeyItem()
@@ -188,12 +201,16 @@ public class GameManager : MonoBehaviour
         yield return null;
         Debug.Log("Ready to bind key items");
         BindKeyItemToManagers();
-     
+       
     }
 
-    void BindKeyItemToManagers()
+    public static void BindKeyItemToManagers()
     {
         SonarManager.CheckForHitBoxManager();
+
+        PlayerStateManager.CheckPlayerState();
+
+        
     }
 
     void KeyItemFound() //player gets key item, spawns in more enemies

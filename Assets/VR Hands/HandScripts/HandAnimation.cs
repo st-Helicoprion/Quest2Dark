@@ -9,6 +9,7 @@ public class HandAnimation : MonoBehaviour
     [SerializeField] private InputActionReference pinchAction;
     private Animator animator;
     public bool isGripping, handNotEmpty;
+    
 
     private void OnEnable()
     {
@@ -16,11 +17,13 @@ public class HandAnimation : MonoBehaviour
         /*gripAction.action.performed += Gripping;
         gripAction.action.canceled += GripRelease;*/
         gripAction.action.performed += GripState;
+        gripAction.action.canceled += GripState;
 
         /*//pinch
         pinchAction.action.performed += Pinching;
         pinchAction.action.canceled += PinchRelease;*/
     }
+
 
     private void Awake() => animator = GetComponent<Animator>();
 
@@ -30,6 +33,8 @@ public class HandAnimation : MonoBehaviour
     {
         if (obj.ReadValue<float>() == 1)
         {
+            PlayerStateManager.CheckPlayerState();
+
             if (animator != null)
             {
                 if (!isGripping)
@@ -46,8 +51,9 @@ public class HandAnimation : MonoBehaviour
             }
             else return;
 
+
         }
-        else if (this != null)
+        else if (obj.ReadValue<float>() == 0 && this != null)
             StartCoroutine(CheckForEmptyHand());
         else return;
     }
@@ -60,7 +66,7 @@ public class HandAnimation : MonoBehaviour
 
     public IEnumerator CheckForEmptyHand()
     {
-        yield return new WaitForSeconds(1);
+        yield return null;
 
             if(handNotEmpty)
             {
@@ -77,7 +83,7 @@ public class HandAnimation : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.name=="CicadaStick"||other.name=="SpinningTop(Clone)"||other.name=="WoodAirplane(Clone)"||other.name=="Gun(Clone)")
+        if (other.CompareTag("Cicada") || other.CompareTag("Gun") || other.CompareTag("Hopter") || other.CompareTag("SpinningTop"))
         {
             handNotEmpty = true;
         }
@@ -86,8 +92,8 @@ public class HandAnimation : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.name == "CicadaStick" || other.name == "SpinningTop(Clone)" || other.name == "WoodAirplane(Clone)" || other.name == "Gun(Clone)")
-        {
+        if (other.CompareTag("Cicada") || other.CompareTag("Gun") || other.CompareTag("Hopter") || other.CompareTag("SpinningTop"))
+        { 
             handNotEmpty = false;
             StartCoroutine(CheckForEmptyHand());
         }

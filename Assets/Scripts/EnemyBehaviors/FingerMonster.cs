@@ -14,7 +14,7 @@ public class FingerMonster : MonoBehaviour
     public Material chaseMaterial, idleMaterial;
     //public bool creeping, isNearPlayer, refreshTarget;
     //public float count, creepCount;
-    public bool isControlled;
+    public bool isControlled, isChasing;
     public GameObject attackHitbox;
     public Animator anim;
     public AudioSource audioSource;
@@ -51,17 +51,18 @@ public class FingerMonster : MonoBehaviour
 
     public void DetectedFeedback()
     {
-        if (!audioSource.isPlaying)
-            audioSource.PlayOneShot(AudioManager.instance.FingerMonsterAudioClips[0]);
+        /*if (!audioSource.isPlaying)
+            audioSource.PlayOneShot(AudioManager.instance.FingerMonsterAudioClips[0]);*/
 
         SkinnedMeshRenderer renderer = GetComponentInChildren<SkinnedMeshRenderer>();
         Material[] enemyMat = renderer.materials;
         enemyMat[1] = chaseMaterial;
         renderer.materials = enemyMat;
-
+        
         RunAnim();
         Debug.Log("sonar detected");
         attackHitbox.SetActive(true);
+        isChasing = true;
     }
 
     public void SonarDetected(Collider other)//monster starts to chase source of noise
@@ -92,6 +93,7 @@ public class FingerMonster : MonoBehaviour
         IdleAnim();
 
         attackHitbox.SetActive(false);
+        isChasing = false;
     }
 
     void Wander()//monster walks randomly around map
@@ -110,7 +112,7 @@ public class FingerMonster : MonoBehaviour
 
     void DetectTargetReached() //monster stops when reaching random target
     {
-        if (Mathf.Abs(agent.transform.position.x - idleTarget.x) < 2)
+        if (Mathf.Abs(agent.transform.position.x - idleTarget.x) < 2&&!isChasing)
         {
             FreezeMonster();
         }
@@ -195,7 +197,7 @@ public class FingerMonster : MonoBehaviour
         {
             ForcedSonarDetected();
         }
-        else if (other.CompareTag("TopSonar"))
+        else if (other.CompareTag("TopSonar")) //does this equal hierarchy of sonar ?
         {
             SonarDetected(other);
         }

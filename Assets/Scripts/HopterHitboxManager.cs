@@ -54,8 +54,8 @@ public class HopterHitboxManager : MonoBehaviour
             Vector3 targetDirection = (enemy.transform.position + new Vector3(0, 5, 0)) - transform.position;
             if (!enemyTagged)
             {
-                transform.LookAt(targetDirection);
-                transform.position += Time.deltaTime * targetDirection;
+                transform.forward= (enemy.transform.position + new Vector3(0, 5, 0)) - transform.forward;
+                transform.position += 0.2f*Time.deltaTime * targetDirection;
             }
             else hopterCount += Time.deltaTime;
 

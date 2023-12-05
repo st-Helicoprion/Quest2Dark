@@ -171,18 +171,17 @@ MonoBehaviour:
   spawnPoints: {fileID: 0}
   roomSpawn: {fileID: 0}
   player: {fileID: 0}
-  toolboxSpawn: []
   spawnPointID: 0
   lastFoundItemID: 0
   curFoundItemID: 0
-  playerEquipID: 00000000
+  playerEquipID: 01000000
   playerPrefab: {fileID: 4845216885473641645, guid: 368df7df2a68d174b916c9d015cb6bef, type: 3}
-  toolbox: {fileID: 3431769153163163511, guid: 2910f1ed3ccdea847bb160a095e8b7c3, type: 3}
   keyItem:
   - {fileID: 2639221473899419195, guid: 75b07e13dcf730f48986a1e29bf96f36, type: 3}
   - {fileID: 6847865421160022036, guid: 8637d3569f0caf545b9a6defbb6e1e37, type: 3}
   - {fileID: 8301825593925316189, guid: 15c5d566e1e4b71478e0462b87684fff, type: 3}
   - {fileID: 3207326128619926945, guid: 955a16eb2e4a15049a5bb45fb67e0c49, type: 3}
+  equipSpawnPoints: []
   enemyPrefab:
   - {fileID: 7967271812147102683, guid: 5eb49acaf45cfa646be70a8d1c091c4b, type: 3}
   - {fileID: 5154442430296897734, guid: 1195be25e4903dd4c94c4285fc340e18, type: 3}

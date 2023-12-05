@@ -46,7 +46,7 @@ public class StickGiant : MonoBehaviour
 
     void Wander()//monster walks randomly around map
     {
-        if (!audioSource.isPlaying)
+        if (!audioSource.isPlaying && !tracking)
         {
             Debug.Log("GROWL");
             audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
@@ -97,7 +97,7 @@ public class StickGiant : MonoBehaviour
         if (distToPlayer < minDistance)
         {
             isNearPlayer = true;
-            if (!audioSource.isPlaying)
+            if (!audioSource.isPlaying&&!tracking)
             {
                 Debug.Log("GROWL");
                 audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
@@ -215,7 +215,7 @@ public class StickGiant : MonoBehaviour
         if (other.CompareTag("Sonar"))
         {
             agent.speed = 0;
-            if (!audioSource.isPlaying)
+            if (!audioSource.isPlaying&&!tracking)
             {
                 Debug.Log("GROWL");
                 audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);

@@ -16,7 +16,7 @@ public class ExitRoomTrigger : MonoBehaviour
     void RestartCount()
     {
         isReadytoPlay = false;
-        counter = 5;
+        counter = 2;
     }
 
     IEnumerator ReadyToBegin()
@@ -24,7 +24,7 @@ public class ExitRoomTrigger : MonoBehaviour
         isReadytoPlay = true;
         yield return new WaitForEndOfFrame();
         isReadytoPlay = false;
-        counter = 5;
+        counter = 2;
     }
 
     private void OnTriggerStay(Collider other)

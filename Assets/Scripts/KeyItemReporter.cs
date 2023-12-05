@@ -5,14 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class KeyItemReporter : MonoBehaviour
 {
+    public static KeyItemReporter instance;
     public int itemID;
     public static bool itemFound;
 
-    private void OnTriggerEnter(Collider other)
+
+    private void OnTriggerStay(Collider other)
     {
         if(SceneManager.GetActiveScene().name == "GameLevelMain")
         {
-            if (other.CompareTag("Player") && !ToolboxManager.itemIDList.Contains(itemID))
+            if (other.CompareTag("LeftHand") && !ToolboxManager.itemIDList.Contains(itemID)|| 
+                other.CompareTag("RightHand") && !ToolboxManager.itemIDList.Contains(itemID)||
+                other.CompareTag("ToySpawn") && !ToolboxManager.itemIDList.Contains(itemID))
             {
                 ToolboxManager.itemIDList.Add(itemID);
                 itemFound = true;
@@ -20,6 +24,19 @@ public class KeyItemReporter : MonoBehaviour
             }
         }
 
-        
     }
+
+    /*private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("LeftHand") || other.CompareTag("RightHand"))
+        {
+            if(this.GetComponent<Rigidbody>()!=null)
+            {
+                this.GetComponent<Rigidbody>().isKinematic = false;
+
+            }
+            
+        }
+    }*/
+
 }

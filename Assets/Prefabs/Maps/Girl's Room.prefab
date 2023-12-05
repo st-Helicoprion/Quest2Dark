@@ -5403,6 +5403,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4574642131181487392}
     m_Modifications:
+    - target: {fileID: 1086534410602335791, guid: d73b157e54a03c141bbe6a570940af4c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1086534410602335791, guid: d73b157e54a03c141bbe6a570940af4c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1086534410602335791, guid: d73b157e54a03c141bbe6a570940af4c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4968292132983482089, guid: d73b157e54a03c141bbe6a570940af4c, type: 3}
       propertyPath: m_Name
       value: Door corac-size

@@ -23,7 +23,7 @@ public class SonarManager : MonoBehaviour
     void Update()
     {
         //use for mechanic test otherwise disable
-        CheckForHitBoxManager();
+        //CheckForHitBoxManager();
 
         SonarHeightClamp();
         ActivateInternalSonar();
@@ -68,7 +68,7 @@ public class SonarManager : MonoBehaviour
         {
             internalSonarCount += Time.deltaTime;
 
-            if (internalSonarCount>1)
+            if (internalSonarCount>2)
             {
                 Instantiate(internalSonar, sonar.parent);
                 internalSonarCount= 0;

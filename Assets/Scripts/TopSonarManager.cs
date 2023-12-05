@@ -5,24 +5,21 @@ using UnityEngine;
 public class TopSonarManager : MonoBehaviour
 {
     public Transform top;
-    public GameObject topSonarPrefab, pullTrigger, topThreshold;
+    public GameObject topSonarPrefab;
     public float topSonarCount;
-    public static bool isSpinTop;
+    public static bool isSpinTop, isInBox, isReadyToSpin, isInHand, isNotFound;
     public int maxSonarSize;
     public Animator anim;
+    public EquipVisibilityManager visibilityManager;
 
     // Start is called before the first frame update
     void Start()
     {
         top = this.transform;
-        topThreshold = GameObject.FindWithTag("TopThreshold");
-        topThreshold.GetComponent<BoxCollider>().enabled = false;
-
-        pullTrigger = FindObjectOfType<PullColliderBehavior>().gameObject;
-        pullTrigger.GetComponent<BoxCollider>().enabled = false;
-
         isSpinTop= false;
+        isNotFound = true;
         anim = transform.GetChild(0).GetComponent<Animator>();
+        visibilityManager=GetComponent<EquipVisibilityManager>();
     }
 
     // Update is called once per frame
@@ -41,7 +38,7 @@ public class TopSonarManager : MonoBehaviour
         topSonarCount += Time.deltaTime;
         SpinAnim();
 
-        if (topSonarCount>1)
+        if (topSonarCount>2)
         {
             Instantiate(topSonarPrefab, transform.position, Quaternion.identity);
             Debug.Log("sonar released");
@@ -49,35 +46,50 @@ public class TopSonarManager : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if(other.CompareTag("TopThreshold") && !isSpinTop)
+        if (collision.transform.CompareTag("Ground"))
         {
-            Debug.Log("top released");
-            topThreshold.GetComponent<BoxCollider>().enabled = false;
-            pullTrigger.GetComponent<BoxCollider>().enabled = true;
+            visibilityManager.isHideable = false;
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if(other.CompareTag("TopThreshold"))
         {
-            isSpinTop = false;
-            topThreshold.GetComponent<BoxCollider>().enabled = true;
-            pullTrigger.GetComponent<BoxCollider>().enabled = false;
-            Debug.Log("top retracted");
-            StopAnim();
+            Debug.Log("top released");
+            isReadyToSpin = true;
+            isSpinTop= false;
+            isInBox= false;
+            isInHand= false;
+            visibilityManager.isHideable= false;
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if(other.CompareTag("LeftHand")||other.CompareTag("RightHand"))
         {
+            isReadyToSpin = false;
             isSpinTop = false;
-            pullTrigger.GetComponent<BoxCollider>().enabled = false;
+            isInBox = false;
+            isInHand = true;
+            isNotFound = false;
+            visibilityManager.isHideable = false;
             StopAnim();
+            Debug.Log("top retracted");
+        }
+
+        if(other.CompareTag("ToySpawn"))
+        {
+            isReadyToSpin = false;
+            isSpinTop = false;
+            isInBox = true;
+            isInHand = false;
+            if (ToolboxManager.instance.isVisible)
+                visibilityManager.isHideable = true;
+            Debug.Log("top retracted");
         }
     }
 

@@ -4,32 +4,28 @@ using UnityEngine;
 
 public class PullColliderBehavior : MonoBehaviour
 {
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    public GameObject pullPrompt;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("LeftHand") || other.CompareTag("RightHand"))
         {
-            
+            Instantiate(pullPrompt, other.transform);
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if(other.CompareTag("LeftHand")||other.CompareTag("RightHand"))
         {
+            TopSonarManager.isReadyToSpin = false;
             TopSonarManager.isSpinTop= true;
-            this.GetComponent<BoxCollider>().enabled=false;
+            TopSonarManager.isInBox = false;
+            TopSonarManager.isInHand = false;
+
+            if(other.transform.Find("PullPrompt(Clone)")!=null)
+            {
+                Destroy(other.transform.Find("PullPrompt(Clone)").gameObject);
+            }
+            
         }
     }
 }

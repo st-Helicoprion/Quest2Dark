@@ -19,6 +19,8 @@ TagManager:
   - SpinningTop
   - Gun
   - TopSonar
+  - Buzz
+  - Ground
   layers:
   - Default
   - TransparentFX

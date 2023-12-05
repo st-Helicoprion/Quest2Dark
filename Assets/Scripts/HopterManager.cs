@@ -13,7 +13,6 @@ public class HopterManager : MonoBehaviour
     public static List<GameObject> hoptersInScene = new List<GameObject>();
     public static Animator anim;
 
-
     // Start is called before the first frame update
     void Start()
     {

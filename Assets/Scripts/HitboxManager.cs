@@ -6,14 +6,36 @@ using UnityEngine;
 public class HitboxManager : MonoBehaviour
 {
     public List<int> hitboxIDList = new List<int>();
+    public Collider[] hitboxes;
     public bool isSonarUp;
     public float countToResetSonar;
 
+    private void Start()
+    {
+        hitboxes= GetComponentsInChildren<Collider>();
+    }
     // Update is called once per frame
     void Update()
     {
         DetectCicadaActive();
+        SetHitBoxState();
+    }
 
+    void SetHitBoxState()
+    {
+        for(int i =0; i<hitboxes.Length; i++)
+        {
+            if (CicadaStateReporter.isInBox)
+            {
+                hitboxes[i].enabled= false;
+            }
+            else if(CicadaStateReporter.isInHand)
+            {
+                hitboxes[i].enabled= true;
+            }
+                
+        }
+        
     }
 
     void DetectCicadaActive()

@@ -98,11 +98,11 @@ Material:
     - Vector1_11C113FB: 1
     - Vector1_8BFE93: 0.01
     - Vector1_9C2A9182: 0.5
-    - Vector1_A8806370: 0.5
+    - Vector1_A8806370: 0.25
     - Vector1_B30C7C99: 1
     - Vector1_CA9CCF7C: 1
     - Vector1_D2BDC462: -1
-    - Vector1_D4FE4FD2: 0.25
+    - Vector1_D4FE4FD2: 0.01
     - Vector1_F2D06F47: 0.03
     - _AlphaClip: 0
     - _Blend: 0
@@ -139,4 +139,5 @@ Material:
     - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _Vector3: {r: 2.04, g: 1.94, b: -2.23, a: 0}
   m_BuildTextureStacks: []

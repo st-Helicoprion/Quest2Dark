@@ -14,7 +14,7 @@ public class HitReporter : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Cicada"))
+        if (other.CompareTag("Buzz"))
         {
             hitboxManager.hitboxIDList.Add(hitboxID);
         }
