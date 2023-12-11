@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2493231321860370988}
   - component: {fileID: 2426085481934766219}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: VRGrabPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ GameObject:
   - component: {fileID: 3568948883759329671}
   - component: {fileID: -3713989220425824419}
   - component: {fileID: -4599550717785756370}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hopter
   m_TagString: Hopter
   m_Icon: {fileID: 0}
@@ -373,6 +373,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 3d6cc8519755ea24a8697cf1e72d607c, type: 3}
       propertyPath: m_Name
       value: Hopter
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3d6cc8519755ea24a8697cf1e72d607c, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

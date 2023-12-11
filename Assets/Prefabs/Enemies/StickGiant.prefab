@@ -123,6 +123,7 @@ MonoBehaviour:
   giantCountToKill: 0
   rend: {fileID: 0}
   giantEnemy: {fileID: 0}
+  enemyCollider: {fileID: 0}
 --- !u!1001 &5424915352813372823
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -788,11 +789,11 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
-  MaxDistance: 350
+  MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -808,6 +809,15 @@ AudioSource:
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.18897069
+      value: 0.3323505
+      inSlope: -1.3384695
+      outSlope: -1.3384695
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.42957297
+      outWeight: 0.48441592
     - serializedVersion: 3
       time: 1
       value: 0
@@ -855,7 +865,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0

@@ -51,9 +51,7 @@ public class FingerMonster : MonoBehaviour
 
     public void DetectedFeedback()
     {
-        /*if (!audioSource.isPlaying)
-            audioSource.PlayOneShot(AudioManager.instance.FingerMonsterAudioClips[0]);*/
-
+        audioSource.volume = 1;
         SkinnedMeshRenderer renderer = GetComponentInChildren<SkinnedMeshRenderer>();
         Material[] enemyMat = renderer.materials;
         enemyMat[1] = chaseMaterial;
@@ -68,22 +66,30 @@ public class FingerMonster : MonoBehaviour
     public void SonarDetected(Collider other)//monster starts to chase source of noise
     {
         DetectedFeedback();
-        agent.speed = 3;
+        agent.speed = 2.5f;
         agent.SetDestination(other.transform.position);
-        agent.transform.LookAt(other.transform.position);  
+        agent.transform.LookAt(other.transform.position);
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(AudioManager.instance.FingerMonsterAudioClips[0]);
+        }
     }
 
     public void ForcedSonarDetected()//monster starts to chase player
     {
         DetectedFeedback();
-        agent.speed = 3;
+        agent.speed = 2.5f;
         agent.SetDestination(target.position);
         agent.transform.LookAt(target.position);
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(AudioManager.instance.FingerMonsterAudioClips[0]);
+        }
     }
 
     public void FreezeMonster()
     {
-        audioSource.Stop();
+        StartCoroutine(AudioVolumeFade());
 
         SkinnedMeshRenderer renderer = GetComponentInChildren<SkinnedMeshRenderer>();
         Material[] enemyMat = renderer.materials;
@@ -191,16 +197,26 @@ public class FingerMonster : MonoBehaviour
     }*/
     #endregion
 
+    IEnumerator AudioVolumeFade()
+    {
+        while (audioSource.volume > 0)
+            audioSource.volume -= 0.1f;
+        yield return null;
+        audioSource.Stop();
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Sonar"))
         {
             ForcedSonarDetected();
         }
-        else if (other.CompareTag("TopSonar")) //does this equal hierarchy of sonar ?
+
+        if (other.CompareTag("TopSonar"))
         {
             SonarDetected(other);
         }
+
     }
 
     private void OnTriggerExit(Collider other)
@@ -238,4 +254,5 @@ public class FingerMonster : MonoBehaviour
         anim.SetBool("Walk", true);
     }
     #endregion
+
 }

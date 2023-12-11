@@ -11,13 +11,22 @@ public class EnemyInteractionManager : MonoBehaviour
     public float giantCountToKill;
     public MeshRenderer rend;
     public StickGiant giantEnemy;
+    public Collider enemyCollider;
 
     public void Start()
     {
+        enemyCollider = GetComponent<Collider>();
         CheckForRenderer();
         CheckEnemyType();
     }
 
+    private void Update()
+    {
+        if(giantEnemy!=null&&!giantEnemy.tracking)
+        {
+            enemyCollider.enabled = true;
+        }
+    }
     void CheckForRenderer()
     {
         if (GetComponent<MeshRenderer>() != null)
@@ -78,10 +87,11 @@ public class EnemyInteractionManager : MonoBehaviour
 
     void GiantPlaceTracker(Collider other)
     {
+        giantEnemy.audioSource.Stop();
         if(other.CompareTag("Player"))
         {
            giantEnemy.tracking = true;
-
+            enemyCollider.enabled = false;
         }
     }
 
