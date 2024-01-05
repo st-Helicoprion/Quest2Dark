@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class HitReporter : MonoBehaviour
 {
-    public HitboxManager hitboxManager;
+    public CicadaHitboxManager hitboxManager;
     public int hitboxID;
 
     private void Start()
     {
-        hitboxManager = GameObject.FindObjectOfType<HitboxManager>();
+        hitboxManager = GameObject.FindObjectOfType<CicadaHitboxManager>();
     }
     private void OnTriggerEnter(Collider other)
     {

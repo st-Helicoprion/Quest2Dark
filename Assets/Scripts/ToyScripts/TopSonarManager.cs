@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,17 +7,17 @@ public class TopSonarManager : MonoBehaviour
 {
     public Transform top;
     public GameObject effectAreaSonar, sonarDust;
-    public static bool isSpinTop, isInBox, isReadyToSpin, isInHand, isNotFound, domainExpanded;
-    public int maxSonarSize;
+    public static bool isSpinning, isInBox, isReadyToSpin, isInHand, domainExpanded;
     public Animator anim;
     public EquipVisibilityManager visibilityManager;
+    public float topLifetime;
+    public ToyToolboxInteractionManager toolboxInteractionHelper;
 
     // Start is called before the first frame update
     void Start()
     {
         top = this.transform;
-        isSpinTop= false;
-        isNotFound = true;
+        isSpinning= false;
         anim = transform.GetChild(0).GetComponent<Animator>();
         visibilityManager=GetComponent<EquipVisibilityManager>();
     }
@@ -24,7 +25,7 @@ public class TopSonarManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isSpinTop)
+        if(isSpinning)
         {
             ActivateTopSonar();
         }
@@ -40,59 +41,96 @@ public class TopSonarManager : MonoBehaviour
             Instantiate(effectAreaSonar, transform.position, Quaternion.identity);
 
         }
-        else return;
-    }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.transform.CompareTag("Ground"))
+        topLifetime -= Time.deltaTime;
+
+        if (topLifetime<0)
         {
-            visibilityManager.isHideable = false;
+            
         }
     }
 
+    void ReturnToToolbox()
+    {
+        isSpinning = false;
+        StopAnim();
+
+                visibilityManager.isHideable = true;
+                toolboxInteractionHelper.HopToEmptyBox();
+                top.GetComponent<Rigidbody>().isKinematic = true;
+                Debug.Log("top returned");
+
+         
+                topLifetime = 5;
+                domainExpanded = false;
+            
+        
+
+       
+
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+
+        if (other.CompareTag("LeftHand")|| other.CompareTag("RightHand"))
+        {
+            isInHand = true;
+            isInBox = false;
+            visibilityManager.isHideable = false;
+
+            top.GetComponent<Rigidbody>().isKinematic = false;
+            transform.parent = null;
+        }
+    }
     private void OnTriggerExit(Collider other)
     {
         if(other.CompareTag("TopThreshold"))
         {
             Debug.Log("top released");
             isReadyToSpin = true;
-            isSpinTop= false;
+            isSpinning= false;
             isInBox= false;
             isInHand= false;
+            domainExpanded=false;
             visibilityManager.isHideable= false;
 
-            PlayerStateManager.CheckPlayerState();
+          
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.CompareTag("LeftHand")||other.CompareTag("RightHand"))
+
+        if(other.CompareTag("ToyBox"))
         {
             isReadyToSpin = false;
-            isSpinTop = false;
-            isInBox = false;
-            isInHand = true;
-            isNotFound = false;
-            visibilityManager.isHideable = false;
-            StopAnim();
-            Debug.Log("top retracted");
-
-            PlayerStateManager.CheckPlayerState();
-        }
-
-        if(other.CompareTag("ToySpawn"))
-        {
-            isReadyToSpin = false;
-            isSpinTop = false;
+            isSpinning = false;
             isInBox = true;
             isInHand = false;
+            domainExpanded = false;
+            topLifetime = 5;
             if (ToolboxManager.instance.isVisible)
                 visibilityManager.isHideable = true;
             Debug.Log("top retracted");
+        }
+        else if(other.CompareTag("LeftHand")||
+            other.CompareTag("RightHand"))
+        {
+            
+            isReadyToSpin = false;
+            isSpinning = false;
+         
+            visibilityManager.isHideable = false;
+            domainExpanded= false;
+            topLifetime = 5;
 
-            PlayerStateManager.CheckPlayerState();
+            top.GetComponent<Rigidbody>().isKinematic = false;
+            top.parent = null;
+
+            StopAnim();
+            Debug.Log("top retracted");
         }
     }
 

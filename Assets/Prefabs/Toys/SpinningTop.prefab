@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 3207326128619926945}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.205, y: 0, z: -0.264}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -46,7 +46,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3207326128619926945}
   serializedVersion: 4
-  m_Mass: 100
+  m_Mass: 1000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_ThrowVelocityScale: 1.5
   m_ThrowAngularVelocityScale: 1
   m_ForceGravityOnDetach: 0
-  m_RetainTransformParent: 1
+  m_RetainTransformParent: 0
   m_AttachPointCompatibilityMode: 0
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
@@ -243,12 +243,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   top: {fileID: 0}
-  topSonarPrefab: {fileID: 5034980323273796318, guid: d5d0807ea008a2e4e9021736bd84e7b3, type: 3}
+  effectAreaSonar: {fileID: 6891091253013425382, guid: 529163314be00ca489f8f270de922dea, type: 3}
   sonarDust: {fileID: 1987906448490049895}
-  topSonarCount: 0
-  maxSonarSize: 30
   anim: {fileID: 0}
   visibilityManager: {fileID: 0}
+  topLifetime: 5
+  toolboxInteractionHelper: {fileID: 0}
 --- !u!114 &431916408495797021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,7 +264,6 @@ MonoBehaviour:
   itemSkin:
   - {fileID: 2072980055378032002}
   - {fileID: 2302126083990593310}
-  itemCollider: []
   itemReporter: {fileID: 0}
   isHideable: 0
 --- !u!65 &2658648683609950844
@@ -366,7 +365,7 @@ TrailRenderer:
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.04760895
+    widthMultiplier: 0.0153828375
     widthCurve:
       serializedVersion: 2
       m_Curve:

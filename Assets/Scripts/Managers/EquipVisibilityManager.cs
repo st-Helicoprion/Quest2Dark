@@ -5,7 +5,6 @@ using UnityEngine;
 public class EquipVisibilityManager : MonoBehaviour
 {
     public Renderer[] itemSkin;
-    public Collider[] itemCollider;
     public KeyItemReporter itemReporter;
     public bool isHideable;
 
@@ -32,13 +31,16 @@ public class EquipVisibilityManager : MonoBehaviour
                     {
                         itemSkin[i].enabled = true;
                     }
-                    else if (ToolboxManager.instance.isHidden&&isHideable)
+                    else if (!ToolboxManager.instance.isVisible&&isHideable)
                     {
                         itemSkin[i].enabled = false;
+
                     }
                 }
                 else return;
             }
+
+           
         }
         else return;
         

@@ -21,6 +21,8 @@ TagManager:
   - TopSonar
   - Buzz
   - Ground
+  - ToyBox
+  - PullPrompt
   layers:
   - Default
   - TransparentFX

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using Unity.XR.CoreUtils;
 using UnityEngine;
@@ -24,7 +25,12 @@ public class GameManager : MonoBehaviour
     public GameObject[] equipSpawnPoints;
     public GameObject[] enemyPrefab;
     public AudioSource audioSource;
-    
+
+    //labyrinth code
+    public GameObject labyrinthMap;
+    public Vector3[] mapRotations, mapPositions;
+    public float enemySpawnInterval;
+    public NavMeshSurface mapAIPath;
 
     private void Awake()
     {
@@ -47,9 +53,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       SpawnPlayerInRoom();
-       
-      
+        SpawnPlayerInRoom();
+        //demo code
+        //player = FindObjectOfType<XROrigin>().transform;
+
     }
     // Update is called once per frame
     void Update()
@@ -79,8 +86,8 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator RoomSpawnCoroutine()
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("RogueRoomScene");
-        while(!asyncLoad.isDone)
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("LabyrinthGameScene");
+        while (!asyncLoad.isDone)
         {
             yield return null;
         }
@@ -89,11 +96,14 @@ public class GameManager : MonoBehaviour
         player = FindObjectOfType<XROrigin>().transform;
         player.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
 
+        labyrinthMap = GameObject.Find("MAZE");
+        mapAIPath = GameObject.Find("LevelTerrain").GetComponent<NavMeshSurface>();
+        labyrinthMap.transform.parent.gameObject.SetActive(false);
+
         AudioManager.instance.CheckBGMToPlay();
         StartCoroutine(ToolboxManager.ResetKeyItemList());
 
         StartCoroutine(SpawnPlayerEquip());
-        
 
         yield return null;
         Debug.Log("main area loaded");
@@ -106,26 +116,12 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator MapSpawnCoroutine()
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("GameLevelMain");
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
-        enemyID = -1;
+        RandomizeMapEntryPoint();
+        yield return new WaitForSeconds(1);
+        mapAIPath.BuildNavMesh();
         spawnPoints = GameObject.Find("SpawnPoints").transform;
-        spawnPointID = UnityEngine.Random.Range(0,spawnPoints.childCount-1);
 
-        //spawn player into map
-        Instantiate(playerPrefab, spawnPoints.GetChild(spawnPointID).position + new Vector3(0, 5, 0), Quaternion.identity);
-        player = FindObjectOfType<XROrigin>().transform;
-        //ToolboxManager.instance.ClearItemIDList();
-        StartCoroutine(SpawnPlayerEquip());
-        
-
-        //remove player spawn point
-        Destroy(spawnPoints.GetChild(spawnPointID).gameObject);
-
-        AudioManager.instance.CheckBGMToPlay();
+        //AudioManager.instance.CheckBGMToPlay();
         
         yield return null;
         
@@ -135,19 +131,34 @@ public class GameManager : MonoBehaviour
 
         
         StartCoroutine(SpawnKeyItem());
+        StartCoroutine(SpawnEnemies());
         //ToolboxManager.instance.InitialHideToolbox();
 
+    }
+
+    void RandomizeMapEntryPoint()
+    {
+        int entryPointID = UnityEngine.Random.Range(0,mapRotations.Length);
+
+        labyrinthMap.transform.parent.gameObject.SetActive(true);
+
+        labyrinthMap.transform.localPosition = mapPositions[entryPointID];
+        labyrinthMap.transform.eulerAngles = mapRotations[entryPointID];
+
+        
     }
     IEnumerator SpawnEnemies()
     {
         //UnityEngine.Random.Range(1, 3)
-            for (int i = 0; i < 3; i++)
-            {
-                Debug.Log("enemyID is : " + enemyID);
-                Instantiate(enemyPrefab[enemyID], spawnPoints.GetChild(UnityEngine.Random.Range(0,spawnPoints.childCount-1)).transform.position + new Vector3(0, 5, 0), Quaternion.identity);
-                Debug.Log("Enemy spawned");
+
+        for (int i = 0; i < 3; i++)
+        {
+            enemyID = UnityEngine.Random.Range(0, enemyPrefab.Length);
+            Debug.Log("enemyID is : " + enemyID);
+            Instantiate(enemyPrefab[enemyID], spawnPoints.GetChild(UnityEngine.Random.Range(0,spawnPoints.childCount)).transform.position + new Vector3(0, 5, 0), Quaternion.identity);
+            Debug.Log("Enemy spawned");
       
-            }
+        }
 
         //temporary code for demo
         /*for (int i = 0; i < 1; i++)
@@ -158,8 +169,21 @@ public class GameManager : MonoBehaviour
 
         }*/
 
-        yield return null;
-            //StartCoroutine(HopterManager.FindEnemies());
+        yield return new WaitForSeconds(enemySpawnInterval);
+        StartCoroutine(SpawnEnemies());
+        
+    }
+
+    void CheckToSpawnEnemy()
+    {
+        float intervalReset = 120;
+        enemySpawnInterval -= Time.deltaTime;
+           
+        if(enemySpawnInterval<0)
+        {
+            enemySpawnInterval = intervalReset;
+            StartCoroutine(SpawnEnemies());
+        }
     }
     #endregion
 
@@ -178,19 +202,19 @@ public class GameManager : MonoBehaviour
             Debug.Log("equipments loaded");
         }
 
-        StartCoroutine(ToolboxManager.instance.InitialHideToolbox());
-        BindKeyItemToManagers();
+      
     }
+
     IEnumerator SpawnKeyItem()
     {
         List<int> usedSpawnIDs = new List<int>();
         for(int i =0; i<keyItem.Count; i++)
         {
-            int n = UnityEngine.Random.Range(0, spawnPoints.childCount-1);
+            int n = UnityEngine.Random.Range(0, spawnPoints.childCount);
             while (usedSpawnIDs.Contains(n))
             {
                 Debug.Log("same spawn point skipped");
-                n = UnityEngine.Random.Range(0, spawnPoints.childCount-1);
+                n = UnityEngine.Random.Range(0, spawnPoints.childCount);
 
             }
 
@@ -200,37 +224,17 @@ public class GameManager : MonoBehaviour
         }
         yield return null;
         Debug.Log("Ready to bind key items");
-        BindKeyItemToManagers();
+        
        
     }
 
-    public static void BindKeyItemToManagers()
-    {
-        SonarManager.CheckForHitBoxManager();
-
-        PlayerStateManager.CheckPlayerState();
-
-        
-    }
 
     void KeyItemFound() //player gets key item, spawns in more enemies
     {
         Debug.Log("Key item found");
 
-        StartCoroutine(UpdateToyFoundMessage());
+        //StartCoroutine(UpdateToyFoundMessage());
         
-        enemyID++;
-        if (enemyID < enemyPrefab.Length)
-        {
-            StartCoroutine(SpawnEnemies());
-            
-        }
-        else 
-        {
-            enemyID = 0;
-            StartCoroutine(SpawnEnemies());
-           
-        }
     }
 
     IEnumerator UpdateToyFoundMessage()

@@ -10,14 +10,12 @@ public class GroundToyPusher : MonoBehaviour
     {
         if (collision.transform.TryGetComponent<KeyItemReporter>(out KeyItemReporter keyItem))
         {
-            if(keyItem.itemID==3&&TopSonarManager.isNotFound)
-            {
-                Instantiate(pushPedestal, collision.transform.position + new Vector3(0, -2, 0), Quaternion.identity);
-            }
+           
 
             if(keyItem.itemID!=3)
             {
-                Instantiate(pushPedestal, collision.transform.position + new Vector3(0, -2, 0), Quaternion.identity);
+                
+                Instantiate(pushPedestal, collision.transform.transform.position + new Vector3(0, -2.5f, 0), Quaternion.identity);
             }
         }
     }

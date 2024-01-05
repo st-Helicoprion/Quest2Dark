@@ -5,15 +5,21 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameScenes/MainScene.unity
     guid: 6fb39878510a0c44fa5696e774ccbfce
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameScenes/RogueRoomScene.unity
     guid: 769f365532199984aa904adbba74d885
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameScenes/GameLevelMain.unity
     guid: 5fc4c0e7b90cc7042b55ffe10f9262b5
+  - enabled: 1
+    path: Assets/Scenes/GameScenes/MechanicsTest.unity
+    guid: dc042e81166a8864d89530fd62a7b047
+  - enabled: 0
+    path: Assets/Scenes/LabyrinthGameScene/LabyrinthGameScene.unity
+    guid: f01484f258a588941856458a0cb0880d
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}

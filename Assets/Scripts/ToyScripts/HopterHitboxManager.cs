@@ -15,6 +15,7 @@ public class HopterHitboxManager : MonoBehaviour
     private void Start()
     {
        playerCam = GameObject.Find("Main Camera").transform;
+       SetFlightDirection();
        //StartCoroutine(FindUntaggedEnemy());
     }
 
@@ -38,7 +39,7 @@ public class HopterHitboxManager : MonoBehaviour
 
     }
 
-    IEnumerator FindUntaggedEnemy()
+   /* IEnumerator FindUntaggedEnemy()
     {
         //code component to auto-track enemies [IGNORE]
         if (HopterManager.untaggedEnemies.Count > 0)
@@ -50,6 +51,11 @@ public class HopterHitboxManager : MonoBehaviour
             Debug.Log("first enemy removed from list");
         }
         else yield break;
+    }*/
+
+    void SetFlightDirection()
+    {
+        transform.parent.forward = playerCam.forward;
     }
 
     void HopterMoveForward()
@@ -57,10 +63,9 @@ public class HopterHitboxManager : MonoBehaviour
         HopterSonarSummon();
         hopterLifeCount += Time.deltaTime;
 
-        transform.forward = playerCam.forward;
-        transform.position += 8 * Time.deltaTime * transform.forward;
+        transform.parent.position += 4 * Time.deltaTime * transform.parent.forward;
 
-        if (hopterLifeCount > 20)
+        if (hopterLifeCount > 10)
         {
             hopterLifeCount = 0;
             Destroy(this.gameObject);
@@ -91,7 +96,7 @@ public class HopterHitboxManager : MonoBehaviour
     {
         visualAidCount += Time.deltaTime;
 
-        if (visualAidCount > 1)
+        if (visualAidCount > .5f)
         {
             Instantiate(hopterSonarPrefab, transform.position, Quaternion.identity);
             Debug.Log("plane sonar released");
@@ -99,7 +104,7 @@ public class HopterHitboxManager : MonoBehaviour
         }
     }
 
-    void HopterMoveToTarget()
+   /* void HopterMoveToTarget()
     {
         //code component to auto-track enemies [IGNORE]
         visualAidCount += Time.deltaTime;
@@ -134,7 +139,7 @@ public class HopterHitboxManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-    }
+    }*/
 
     
     private void OnTriggerEnter(Collider other)

@@ -16,15 +16,16 @@ public class ExitRoomTrigger : MonoBehaviour
     void RestartCount()
     {
         isReadytoPlay = false;
-        counter = 2;
+        counter = 1;
     }
 
     IEnumerator ReadyToBegin()
     {
         isReadytoPlay = true;
+        this.GetComponent<Collider>().enabled = false;
         yield return new WaitForEndOfFrame();
         isReadytoPlay = false;
-        counter = 2;
+        counter = 1;
     }
 
     private void OnTriggerStay(Collider other)

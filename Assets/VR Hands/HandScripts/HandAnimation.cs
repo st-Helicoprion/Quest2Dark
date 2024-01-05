@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
 [RequireComponent(typeof(Animator))]
 public class HandAnimation : MonoBehaviour
@@ -8,7 +9,10 @@ public class HandAnimation : MonoBehaviour
     [SerializeField] private InputActionReference gripAction;
     [SerializeField] private InputActionReference pinchAction;
     private Animator animator;
-    public bool isGripping, handNotEmpty;
+    public bool grip, handNotEmpty;
+    public int handID;
+    public static int itemID;
+    public CircleLightManager circleLightManager;
     
 
     private void OnEnable()
@@ -33,19 +37,13 @@ public class HandAnimation : MonoBehaviour
     {
         if (obj.ReadValue<float>() == 1)
         {
-            PlayerStateManager.CheckPlayerState();
 
             if (animator != null)
             {
-                if (!isGripping)
+                if (!grip)
                 {
                     animator.SetFloat("Grip", 1f);
-                    isGripping = true;
-                }
-                else
-                {
-                    animator.SetFloat("Grip", 0f);
-                    isGripping = false;
+                    grip = true;
                 }
 
             }
@@ -54,7 +52,11 @@ public class HandAnimation : MonoBehaviour
 
         }
         else if (obj.ReadValue<float>() == 0 && this != null)
+        {
             StartCoroutine(CheckForEmptyHand());
+            grip= false;
+        }
+            
         else return;
     }
 
@@ -70,32 +72,49 @@ public class HandAnimation : MonoBehaviour
 
             if(handNotEmpty)
             {
-                isGripping = true;
+                
                 animator.SetFloat("Grip", 1f);
+                
             }
             else
             {
-                isGripping = false;
+                
                 animator.SetFloat("Grip", 0f);
+               
             }
            
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Cicada") || other.CompareTag("Gun") || other.CompareTag("Hopter") || other.CompareTag("SpinningTop"))
+        if (other.TryGetComponent<KeyItemReporter>(out KeyItemReporter keyItem))
         {
             handNotEmpty = true;
+            itemID = keyItem.itemID;
+            circleLightManager.ChangeLightColor(itemID);
+            StartCoroutine(CheckForEmptyHand());
+        }
+
+        
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.TryGetComponent<KeyItemReporter>(out _))
+        {
+            handNotEmpty = true;
+            StartCoroutine(CheckForEmptyHand());
         }
 
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Cicada") || other.CompareTag("Gun") || other.CompareTag("Hopter") || other.CompareTag("SpinningTop"))
-        { 
+        if (other.TryGetComponent<KeyItemReporter>(out _))
+        {
             handNotEmpty = false;
             StartCoroutine(CheckForEmptyHand());
         }
+
+
     }
 }

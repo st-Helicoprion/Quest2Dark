@@ -12,11 +12,6 @@ public class TubLimiter : MonoBehaviour
     void Update()
     {
         tubPivotPoint.LookAt(stickPivotPoint);
-
-        if (cicadaStick == null)
-        {
-            Destroy(this.gameObject.transform.parent.gameObject);
-        }
        
     }
 

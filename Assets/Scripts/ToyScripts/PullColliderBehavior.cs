@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -10,63 +11,51 @@ public class PullColliderBehavior : MonoBehaviour
 {
     public GameObject pullPrompt;
     public List<GameObject> promptPool = new List<GameObject>();
-    public Collider pullCollider;
-
-    private void Start()
+    public HandAnimation hand;
+    public Collider topCollider;
+   
+    public void ClearPrompts()
     {
-        pullCollider= GetComponent<Collider>();
-    }
-
-    private void Update()
-    {
-        CheckColliderActive();
-    }
-
-
-    void CheckColliderActive()
-    {
-        if (!pullCollider.enabled)
-        {
+        
+            promptPool.AddRange(GameObject.FindGameObjectsWithTag("PullPrompt"));
             if (promptPool.Count>0)
             {
                 for (int i = 0; i < promptPool.Count; i++)
                 {
                     Destroy(promptPool[i]);
-                    
+                    promptPool.Clear();
                 }
-                Debug.Log("pull prompts cleaned");
+               
             }
             else return;
-        }
-        else return;
+       
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("LeftHand") || other.CompareTag("RightHand"))
+        if (CustomTopManager.isReadyToSpin)
         {
-           promptPool.Add(Instantiate(pullPrompt, other.transform));
+            if (other.CompareTag("LeftHand") || other.CompareTag("RightHand"))
+            {
+                hand = other.GetComponent<HandAnimation>();
+                promptPool.Add(Instantiate(pullPrompt, other.transform));
+            }
         }
+        
     }
     private void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("LeftHand")||other.CompareTag("RightHand"))
-        {
-            TopSonarManager.isReadyToSpin = false;
-            TopSonarManager.isSpinTop= true;
-            TopSonarManager.isInBox = false;
-            TopSonarManager.isInHand = false;
+      if (other.CompareTag("LeftHand") || other.CompareTag("RightHand"))
+      {
+            ClearPrompts();
 
-            for(int i = 0; i<promptPool.Count; i++)
+            if (CustomTopManager.isReadyToSpin&&!hand.handNotEmpty)
             {
-                Destroy(promptPool[i]);
-                promptPool.Clear();
+                CustomTopManager.isReadyToSpin = false;
+                CustomTopManager.isSpinning = true;
+                
             }
-
-            /*if(other.transform.Find("PullPrompt(Clone)")!=null)
-            {
-                Destroy(other.transform.Find("PullPrompt(Clone)").gameObject);
-            }*/
-            
-        }
+           
+      }
+        
     }
 }

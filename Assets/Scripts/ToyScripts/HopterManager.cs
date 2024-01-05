@@ -12,11 +12,19 @@ public class HopterManager : MonoBehaviour
     public static List<GameObject> untaggedEnemies = new List<GameObject>();
     public static List<GameObject> hoptersInScene = new List<GameObject>();
     public static Animator anim;
+    public Transform hopter;
+    public List<GameObject> boxList = new();
+    
+    public Collider selfCollider;
 
     // Start is called before the first frame update
     void Start()
     {
         hopterMaxNum = 2;
+        
+        
+        selfCollider = GetComponent<Collider>();
+
         //untaggedEnemies.Clear();
         //demo code
         //StartCoroutine(FindEnemies());
@@ -52,13 +60,41 @@ public class HopterManager : MonoBehaviour
         summonHopter = Instantiate(hopterPrefab, transform.position, Quaternion.identity);
         hoptersInScene.Add(summonHopter);
 
+       
     }
+
+    void ReturnToToolbox()
+    {
+        if(boxList.Count==0)
+        {
+            boxList.AddRange(GameObject.FindGameObjectsWithTag("ToyBox"));
+        }
+
+        for (int i = 0; i < boxList.Count; i++)
+        {
+            if (!boxList[i].GetComponent<ToolboxVacancyChecker>().isOccupied)
+            {
+                ToolboxManager.instance.ReturnSummonToolbox();
+                
+               
+                hopter.parent = boxList[i].transform;
+                hopter.GetComponent<Rigidbody>().isKinematic = true;
+                hopter.transform.localPosition = Vector3.zero;
+
+               
+            }
+            else return;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
 
-        if(other.CompareTag("Hopter"))
+        if (other.CompareTag("Hopter"))
         {
+
             
+            hopter = other.transform;
 
             if (anim == null)
             {

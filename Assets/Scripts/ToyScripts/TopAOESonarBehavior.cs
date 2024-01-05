@@ -12,7 +12,7 @@ public class TopAOESonarBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        top = FindFirstObjectByType<TopSonarManager>().transform;
+        top = FindFirstObjectByType<CustomTopManager>().transform;
     }
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class TopAOESonarBehavior : MonoBehaviour
     {
         this.transform.localPosition = top.localPosition;
 
-        if (TopSonarManager.isSpinTop)
+        if (CustomTopManager.isSpinning)
         {
             ExpandToEdge();
             ActivateTopSonar();

@@ -35,16 +35,17 @@ public class AudioManager : MonoBehaviour
     public void CheckBGMToPlay()
     {
         Debug.Log("audioclip confirmed");
-        if (SceneManager.GetActiveScene().name == "RogueRoomScene")
+        //if (SceneManager.GetActiveScene().name == "RogueRoomScene")
+        if (SceneManager.GetActiveScene().name == "LabyrinthGameScene")
         {
             audioSource.clip = BGMAudioClips[0];
             audioSource.Play();
         }
-        else if(SceneManager.GetActiveScene().name == "GameLevelMain")
+        /*else if(SceneManager.GetActiveScene().name == "GameLevelMain")
         {
             audioSource.clip = BGMAudioClips[1];
             audioSource.Play();
-        }
+        }*/
     }
 
     

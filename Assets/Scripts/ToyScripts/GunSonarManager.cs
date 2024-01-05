@@ -14,10 +14,17 @@ public class GunSonarManager : MonoBehaviour
     public InputActionReference shootSonarLeft;
     public bool isHeld;
     public int handID;
+    public HandAnimation handState;
+    
 
     private void Start()
     {
         BulletSpawnPoint = transform.Find("ShootingPoint");      
+    }
+
+    private void Update()
+    {
+        
     }
     void SpawnBullet(InputAction.CallbackContext summonInput)
     {
@@ -37,26 +44,40 @@ public class GunSonarManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("LeftHand")&&!isHeld)
+        if(other.CompareTag("LeftHand")||other.CompareTag("RightHand"))
         {
-            handID = 1;
-            shootSonarLeft.action.performed += SpawnBullet;
-            shootSonarRight.action.performed -= SpawnBullet;
-            isHeld= true;
+            handState = other.GetComponent<HandAnimation>();
+            handID = handState.handID;
+           
         }
-        else if(other.CompareTag("RightHand") && !isHeld)
+       
+       
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(handID == 1)
         {
-            handID = 2;
-            shootSonarLeft.action.performed -= SpawnBullet;
-            shootSonarRight.action.performed += SpawnBullet;
-            isHeld = true;
+            if(handState.grip)
+            {
+                shootSonarLeft.action.performed += SpawnBullet;
+                shootSonarRight.action.performed -= SpawnBullet;
+            }
         }
-        else if(other.CompareTag("ToySpawn")&& !isHeld)
+        else if (handID == 2)
+        {
+            if (handState.grip)
+            {
+                shootSonarLeft.action.performed -= SpawnBullet;
+                shootSonarRight.action.performed += SpawnBullet;
+            }
+        }
+        else if (other.CompareTag("ToyBox"))
         {
             handID = 0;
             shootSonarLeft.action.performed -= SpawnBullet;
             shootSonarRight.action.performed -= SpawnBullet;
-           
+
         }
     }
 

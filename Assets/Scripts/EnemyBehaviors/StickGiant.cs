@@ -53,8 +53,7 @@ public class StickGiant : MonoBehaviour
         
         if (!audioSource.isPlaying && !tracking)
         {
-            Debug.Log("GROWL");
-            audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
+            //audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
         }
         else return;
         idleTarget = this.transform.position + new Vector3(UnityEngine.Random.Range(-5, 5), 0, UnityEngine.Random.Range(-5, 5));
@@ -90,7 +89,6 @@ public class StickGiant : MonoBehaviour
             refreshTarget = false;
             if (!isNearPlayer)
             {
-                Debug.Log("idleTarget refreshed");
                 Wander();
             }
             else return;
@@ -106,8 +104,7 @@ public class StickGiant : MonoBehaviour
             agent.speed = 0;
             if (!audioSource.isPlaying && !tracking)
             {
-                Debug.Log("GROWL");
-                audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
+                //audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
             }
         }
         else isNearPlayer = false;
@@ -152,7 +149,6 @@ public class StickGiant : MonoBehaviour
 
         //catches all agents and gets all of them to track player
         NavMeshAgent[] allAgents = FindObjectsOfType<NavMeshAgent>();
-        Debug.Log("all enemies alerted");
         for (int i = 0; i < allAgents.Length; i++)
         {
             if (!allAgents[i].gameObject.CompareTag("Giant"))
@@ -174,8 +170,7 @@ public class StickGiant : MonoBehaviour
             
         if (!audioSource.isPlaying)
         {
-            Debug.Log("ROAR");
-            audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[1]);
+            //audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[1]);
         }
 
         CheckForRemoveTracker();
@@ -187,7 +182,6 @@ public class StickGiant : MonoBehaviour
         CheckPlayerDistance(40);
         if(!isNearPlayer)
         {
-            Debug.Log("target lost");
             RemoveTracker();
         }
     }
@@ -201,7 +195,6 @@ public class StickGiant : MonoBehaviour
         agent.speed = 1;
         NavMeshAgent[] allAgents = FindObjectsOfType<NavMeshAgent>();
 
-        Debug.Log("all enemies calm");
         for (int i = 0; i < allAgents.Length; i++)
         {
             if (allAgents[i].gameObject.CompareTag("Finger"))
@@ -228,8 +221,7 @@ public class StickGiant : MonoBehaviour
             agent.speed = 0;
             if (!audioSource.isPlaying&&!tracking)
             {
-                Debug.Log("GROWL");
-                audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
+                //audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
             }
         }
     }

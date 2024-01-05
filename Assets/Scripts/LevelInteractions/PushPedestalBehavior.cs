@@ -17,7 +17,7 @@ public class PushPedestalBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //CheckPlayerDistance(20);
+        CheckPlayerDistance(20);
         
 
         ascendCount += Time.deltaTime;
@@ -57,6 +57,13 @@ public class PushPedestalBehavior : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.CompareTag("RightHand")||collision.transform.CompareTag("LeftHand"))
+        {
+            itemLost= true;
+        }
+    }
 
     private void OnCollisionExit(Collision collision)
     {
@@ -66,11 +73,5 @@ public class PushPedestalBehavior : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay(Collision collision)
-    {
-        if(collision == null)
-        {
-            itemLost= true;
-        }
-    }
+  
 }

@@ -7,16 +7,17 @@ using UnityEngine;
 public class SonarManager : MonoBehaviour
 {
     public Transform sonar;
-    public static HitboxManager hitboxManager;
+    public static CicadaHitboxManager hitboxManager;
     public float maxSonarHeight, minSonarHeight, increaseRate, internalSonarCount;
-    public GameObject internalSonar;
+    public GameObject internalSonar, cicadaStick, cicadaTub, cicadaRope;
 
     // Start is called before the first frame update
     void Start()
     {
         maxSonarHeight = -20;
-        minSonarHeight = -52;
-       
+        minSonarHeight = -50;
+        sonar = GameObject.Find("PlayerSonar").transform;
+        CheckForHitBoxManager();
     }
 
     // Update is called once per frame
@@ -28,21 +29,22 @@ public class SonarManager : MonoBehaviour
         SonarHeightClamp();
         ActivateInternalSonar();
         DetectSonar();
+        CheckStickActive();
 
     }
 
     public static void CheckForHitBoxManager()
     {
-        if (GameObject.FindGameObjectWithTag("Cicada") != null&&hitboxManager==null)
+        if (GameObject.FindGameObjectWithTag("Cicada") != null && hitboxManager == null)
         {
-            hitboxManager = FindObjectOfType<HitboxManager>();
+            hitboxManager = FindObjectOfType<CicadaHitboxManager>();
         }
         else return;
     }
 
     void SonarHeightClamp()
     {
-        
+
         maxSonarHeight = Mathf.Clamp(maxSonarHeight, -20, 20);
         Vector3 sonarHeight = sonar.localPosition;
         sonarHeight.y = Mathf.Clamp(sonarHeight.y, minSonarHeight, maxSonarHeight);
@@ -51,15 +53,15 @@ public class SonarManager : MonoBehaviour
 
     void DecreaseSonarHeight()
     {
-        sonar.localPosition -= new Vector3(0, 10* Time.deltaTime, 0);
-       
+        sonar.localPosition -= new Vector3(0, 2, 0);
+
     }
 
     void IncreaseSonarHeight()
     {
-        
-        sonar.localPosition += new Vector3(0, increaseRate , 0);
-        
+
+        sonar.localPosition += new Vector3(0, increaseRate, 0);
+
     }
 
     void ActivateInternalSonar()
@@ -68,17 +70,17 @@ public class SonarManager : MonoBehaviour
         {
             internalSonarCount += Time.deltaTime;
 
-            if (internalSonarCount>2)
+            if (internalSonarCount > 2)
             {
                 Instantiate(internalSonar, sonar.parent);
-                internalSonarCount= 0;
+                internalSonarCount = 0;
             }
 
         }
         else return;
 
     }
-    
+
     void DetectSonar()
     {
         if (hitboxManager != null)
@@ -92,5 +94,19 @@ public class SonarManager : MonoBehaviour
 
         }
         else return;
+    }
+
+    void CheckStickActive()
+    {
+        if (cicadaStick.activeInHierarchy)
+        {
+            cicadaTub.SetActive(true);
+            cicadaRope.SetActive(true);
+        }
+        else
+        {
+            cicadaTub.SetActive(false);
+            cicadaRope.SetActive(false);
+        }
     }
 }
