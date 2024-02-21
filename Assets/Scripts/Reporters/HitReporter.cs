@@ -8,10 +8,6 @@ public class HitReporter : MonoBehaviour
     public CicadaHitboxManager hitboxManager;
     public int hitboxID;
 
-    private void Start()
-    {
-        hitboxManager = GameObject.FindObjectOfType<CicadaHitboxManager>();
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Buzz"))

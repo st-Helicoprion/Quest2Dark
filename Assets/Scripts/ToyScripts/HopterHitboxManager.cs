@@ -11,26 +11,17 @@ public class HopterHitboxManager : MonoBehaviour
     public Transform enemy, playerCam;
     public float hopterLifeCount, visualAidCount;
     public bool enemyTagged, targetFound;
+    public AudioSource planeAudioSource;
 
     private void Start()
     {
        playerCam = GameObject.Find("Main Camera").transform;
        SetFlightDirection();
-       //StartCoroutine(FindUntaggedEnemy());
+        planeAudioSource.PlayOneShot(AudioManager.instance.ToysSFX[0]);
     }
 
     private void Update()
     {
-        //command to auto-track enemies
-        /* if (targetFound)
-         {
-             HopterMoveToTarget();
-         }*/
-        /*if (enemyTagged&&this.gameObject.IsDestroyed())
-        {
-            HopterManager.untaggedEnemies.Add(enemy.gameObject);
-            Debug.Log("enemy returned to list forcefully");
-        }*/
 
         if (!enemyTagged)
             HopterMoveForward();
@@ -38,20 +29,6 @@ public class HopterHitboxManager : MonoBehaviour
             HopterTracking();
 
     }
-
-   /* IEnumerator FindUntaggedEnemy()
-    {
-        //code component to auto-track enemies [IGNORE]
-        if (HopterManager.untaggedEnemies.Count > 0)
-        {
-            enemy = HopterManager.untaggedEnemies[0].transform;
-            yield return null;
-            HopterManager.untaggedEnemies.RemoveAt(0);
-            targetFound = true;
-            Debug.Log("first enemy removed from list");
-        }
-        else yield break;
-    }*/
 
     void SetFlightDirection()
     {
@@ -103,50 +80,11 @@ public class HopterHitboxManager : MonoBehaviour
             visualAidCount = 0;
         }
     }
-
-   /* void HopterMoveToTarget()
-    {
-        //code component to auto-track enemies [IGNORE]
-        visualAidCount += Time.deltaTime;
-
-        if (visualAidCount > 2)
-        {
-            Vector3 targetDirection = (enemy.transform.position + new Vector3(0, 5, 0)) - transform.position;
-
-            if (!enemyTagged)
-            {
-                transform.LookAt(targetDirection);
-                transform.position += 5*Time.deltaTime * targetDirection.normalized;
-            }
-            else hopterLifeCount += Time.deltaTime;
-
-        }
-        else
-        {
-            transform.forward= playerCam.forward;
-            transform.position += 5 * Time.deltaTime * playerCam.forward;
-        }
-
-
-            if (hopterLifeCount > 60)
-        {
-            hopterLifeCount = 0;
-            if (enemyTagged)
-            {
-                HopterManager.untaggedEnemies.Add(enemy.gameObject);
-                Debug.Log("enemy returned to list");
-            }
-            Destroy(this.gameObject);
-        }
-
-    }*/
-
-    
+  
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Finger"))
         {
-            //transform.GetChild(1).GetComponent<MeshRenderer>().material = enemyFoundMaterial;
             enemy = other.transform;
             enemyTagged = true;
             Debug.Log("enemy tagged, tracking start");

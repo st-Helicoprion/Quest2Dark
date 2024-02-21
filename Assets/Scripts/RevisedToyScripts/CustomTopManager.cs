@@ -6,13 +6,14 @@ public class CustomTopManager : MonoBehaviour
 {
     public static bool isReadyToSpin, isSpinning, domainExpanded;
     public GameObject AOESonar, sonarDust, hand;
-    public List<Vector3> trackedPositions = new List<Vector3>();
+    public List<Vector3> trackedPositions = new();
     public float force;
     public Rigidbody rb;
     public Animator anim;
     public float topLifetime, topCounter;
     public ToyToolboxInteractionManager toolboxHelper;
     public HandAnimation handState;
+    public AudioSource topAudioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +33,11 @@ public class CustomTopManager : MonoBehaviour
     void ActivateTopSonar()
     {
         SpinAnim();
-        if(!domainExpanded)
+        if (!topAudioSource.isPlaying)
+        {
+            topAudioSource.PlayOneShot(AudioManager.instance.ToysSFX[2]);
+        }
+        if (!domainExpanded)
         {
             domainExpanded= true;
             Instantiate(AOESonar, transform.position, Quaternion.identity);
@@ -87,6 +92,11 @@ public class CustomTopManager : MonoBehaviour
         transform.parent= null;
         rb.isKinematic = false;
         rb.AddForce(direction * force);
+        topAudioSource.Stop();
+        if (!topAudioSource.isPlaying)
+        {
+            topAudioSource.PlayOneShot(AudioManager.instance.ToysSFX[0]);
+        }
         print("top released");
 
     }

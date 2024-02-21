@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +6,8 @@ using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using Unity.XR.CoreUtils;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -15,22 +16,21 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
    
-    public Transform spawnPoints, roomSpawn, player;
+    public Transform spawnPoints, player;
     public int spawnPointID, lastFoundItemID, curFoundItemID;
     public static int enemyID;
     public List<int> playerEquipID = new();
     public GameObject playerPrefab;
     //public List<KeyItemReporter> keyItem = new();
     public List<GameObject> keyItem = new();
-    public GameObject[] equipSpawnPoints;
     public GameObject[] enemyPrefab;
     public AudioSource audioSource;
 
     //labyrinth code
-    public GameObject labyrinthMap;
-    public Vector3[] mapRotations, mapPositions;
+    public GameObject[] roomSpawnPoints, equipSpawnPoints;
     public float enemySpawnInterval;
-    public NavMeshSurface mapAIPath;
+
+    public InputActionReference restart;
 
     private void Awake()
     {
@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
             instance = this;
             audioSource= GetComponent<AudioSource>();
             ToolboxManager.StoreKeyItemList();
+            restart.action.performed += RestartGame;
             DontDestroyOnLoad(gameObject);
         }
 
@@ -71,12 +72,12 @@ public class GameManager : MonoBehaviour
             PlayerDeath();
             
         }
-
+/*
         if(KeyItemReporter.itemFound)
         {
             KeyItemFound();
             KeyItemReporter.itemFound = false;
-        }
+        }*/
     }
 
     #region Characters
@@ -91,22 +92,22 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
-        roomSpawn = GameObject.Find("RoomSpawn").transform;
-        Instantiate(playerPrefab, roomSpawn.position + new Vector3(0, 2, 0), Quaternion.identity);
+        roomSpawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
+        for(int j=0; j<roomSpawnPoints.Length;j++)
+        {
+            equipSpawnPoints[j] = roomSpawnPoints[j].transform.GetChild(0).gameObject;
+        }
+        int i = Random.Range(0,3);
+        Instantiate(playerPrefab, roomSpawnPoints[i].transform.position + new Vector3(0, 2, 0), Quaternion.identity);
         player = FindObjectOfType<XROrigin>().transform;
         player.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
-
-        labyrinthMap = GameObject.Find("MAZE");
-        mapAIPath = GameObject.Find("LevelTerrain").GetComponent<NavMeshSurface>();
-        labyrinthMap.transform.parent.gameObject.SetActive(false);
-
+       
         AudioManager.instance.CheckBGMToPlay();
-        StartCoroutine(ToolboxManager.ResetKeyItemList());
-
-        StartCoroutine(SpawnPlayerEquip());
+       
+        StartCoroutine(SpawnPlayerEquip(i));
+        StartCoroutine(MapSpawnCoroutine());
 
         yield return null;
-        Debug.Log("main area loaded");
        
     }
 
@@ -116,10 +117,9 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator MapSpawnCoroutine()
     {
-        RandomizeMapEntryPoint();
+       
         yield return new WaitForSeconds(1);
-        mapAIPath.BuildNavMesh();
-        spawnPoints = GameObject.Find("SpawnPoints").transform;
+        spawnPoints = GameObject.Find("Monster spawn point").transform;
 
         //AudioManager.instance.CheckBGMToPlay();
         
@@ -130,28 +130,15 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3);
 
         
-        StartCoroutine(SpawnKeyItem());
         StartCoroutine(SpawnEnemies());
-        //ToolboxManager.instance.InitialHideToolbox();
 
     }
 
-    void RandomizeMapEntryPoint()
-    {
-        int entryPointID = UnityEngine.Random.Range(0,mapRotations.Length);
-
-        labyrinthMap.transform.parent.gameObject.SetActive(true);
-
-        labyrinthMap.transform.localPosition = mapPositions[entryPointID];
-        labyrinthMap.transform.eulerAngles = mapRotations[entryPointID];
-
-        
-    }
     IEnumerator SpawnEnemies()
     {
         //UnityEngine.Random.Range(1, 3)
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 1; i++)
         {
             enemyID = UnityEngine.Random.Range(0, enemyPrefab.Length);
             Debug.Log("enemyID is : " + enemyID);
@@ -174,34 +161,16 @@ public class GameManager : MonoBehaviour
         
     }
 
-    void CheckToSpawnEnemy()
-    {
-        float intervalReset = 120;
-        enemySpawnInterval -= Time.deltaTime;
-           
-        if(enemySpawnInterval<0)
-        {
-            enemySpawnInterval = intervalReset;
-            StartCoroutine(SpawnEnemies());
-        }
-    }
     #endregion
 
     #region Toys
-    IEnumerator SpawnPlayerEquip()
+    IEnumerator SpawnPlayerEquip(int i)
     {
         yield return new WaitForSeconds(1);
 
-        equipSpawnPoints = GameObject.FindGameObjectsWithTag("ToySpawn");
+        int equipIDToSummon = Random.Range(0, playerEquipID.Count);
 
-        for(int i = 0; i< playerEquipID.Count; i++)
-        {
-            Debug.Log("total player equip id :"+playerEquipID.Count);
-            Debug.Log("total equip spwn points :" + equipSpawnPoints.Length);
-            Instantiate(keyItem[playerEquipID[i]], equipSpawnPoints[i].transform.position, Quaternion.identity);
-            Debug.Log("equipments loaded");
-        }
-
+        Instantiate(keyItem[playerEquipID[equipIDToSummon]], equipSpawnPoints[i].transform.position, Quaternion.identity);
       
     }
 
@@ -233,7 +202,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Key item found");
 
-        //StartCoroutine(UpdateToyFoundMessage());
+        StartCoroutine(UpdateToyFoundMessage());
         
     }
 
@@ -281,6 +250,16 @@ public class GameManager : MonoBehaviour
 
         SpawnPlayerInRoom();
         
+    }
+    #endregion
+
+    #region Utils
+    void RestartGame(InputAction.CallbackContext obj)
+    {
+        if(obj.ReadValue<float>()==1)
+        {
+            SpawnPlayerInRoom();
+        }
     }
     #endregion
 }

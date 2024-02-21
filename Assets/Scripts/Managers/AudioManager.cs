@@ -9,11 +9,12 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
     public AudioSource audioSource;
-    public List<AudioClip> BGMAudioClips = new List<AudioClip>();
-    public List<AudioClip> UISFXAudioClips = new List<AudioClip>();
-    public List<AudioClip> FingerMonsterAudioClips = new List<AudioClip>();
-    public List<AudioClip> StickGiantAudioClips = new List<AudioClip>();
-
+    public List<AudioClip> BGMAudioClips = new();
+    public List<AudioClip> UISFXAudioClips = new();
+    public List<AudioClip> FingerMonsterAudioClips = new();
+    public List<AudioClip> StickGiantAudioClips = new();
+    public List<AudioClip> ToysSFX = new();
+ 
     private void Awake()
     {
         if (instance)
@@ -30,16 +31,17 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         audioSource= GetComponent<AudioSource>();
+        CheckBGMToPlay();
     }
 
     public void CheckBGMToPlay()
     {
         Debug.Log("audioclip confirmed");
         //if (SceneManager.GetActiveScene().name == "RogueRoomScene")
-        if (SceneManager.GetActiveScene().name == "LabyrinthGameScene")
+        if (SceneManager.GetActiveScene().name == "LabyrinthGameScene"||SceneManager.GetActiveScene().name=="MechanicsTest")
         {
-            audioSource.clip = BGMAudioClips[0];
-            audioSource.Play();
+            /*audioSource.clip = BGMAudioClips[0];
+            audioSource.Play();*/
         }
         /*else if(SceneManager.GetActiveScene().name == "GameLevelMain")
         {

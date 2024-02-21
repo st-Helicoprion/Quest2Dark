@@ -9,13 +9,16 @@ public class ToolboxVacancyChecker : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.TryGetComponent<KeyItemReporter>(out _))
+      
+        if (other.TryGetComponent<ToyToolboxInteractionManager>(out _))
         {
-            isOccupied = true;
-            occupantName= other.name;
-            ToolboxManager.boxToyList.Add(other.gameObject);
-
+           
+                isOccupied = true;
+                occupantName= other.name;
+                
+           
         }
+
 
    
        
@@ -23,15 +26,15 @@ public class ToolboxVacancyChecker : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent<KeyItemReporter>(out _))
-        {
-            isOccupied = false;
-            occupantName = null;
-            ToolboxManager.boxToyList.Remove(other.gameObject);
 
+        if (other.TryGetComponent<ToyToolboxInteractionManager>(out _))
+        {
+              isOccupied = false;
+              occupantName = null;
+              
         }
 
-     
+
     }
 }
 

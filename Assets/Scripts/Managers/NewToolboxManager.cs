@@ -7,12 +7,15 @@ public class NewToolboxManager : MonoBehaviour
 {
     public static bool isOpen;
     public static List<ToolboxVacancyChecker> checkerList = new();
+    public List<ToyToolboxInteractionManager> interactorsList = new();
     
     public Transform leftHand, rightHand;
     public Vector3[] offsetList;
     public int receivedHandID;
     public InputActionReference summonToolboxInputLeft;
     public InputActionReference summonToolboxInputRight;
+
+    public Renderer[] boxVisuals;
 
     void OnEnable()
     {
@@ -27,6 +30,14 @@ public class NewToolboxManager : MonoBehaviour
         
     }
 
+    void Start()
+    {
+        for (int j = 0; j < transform.childCount; j++)
+        {
+            boxVisuals[j].enabled = false;
+
+        }
+    }
     void OpenToolBox(InputAction.CallbackContext boxInput)
     {
         if (boxInput.ReadValue<float>() == 1 && this != null)
@@ -40,13 +51,22 @@ public class NewToolboxManager : MonoBehaviour
                     checkerList.AddRange(GetComponentsInChildren<ToolboxVacancyChecker>());
                 }
             }
-            
+
+
+            interactorsList.AddRange(FindObjectsOfType<ToyToolboxInteractionManager>());
 
             if (receivedHandID == 1)
             {
                 for (int j = 0; j < transform.childCount; j++)
                 {
-                    transform.GetChild(j).gameObject.SetActive(true);
+
+                    boxVisuals[j].enabled = true;
+                  
+                }
+
+                for(int k =0;k<interactorsList.Count;k++)
+                {
+                    interactorsList[k].ShowEquipVisuals();
                 }
                 this.transform.parent = leftHand;
                 this.transform.localPosition = offsetList[0];
@@ -56,7 +76,12 @@ public class NewToolboxManager : MonoBehaviour
             {
                 for (int j = 0; j < transform.childCount; j++)
                 {
-                    transform.GetChild(j).gameObject.SetActive(true);
+                    boxVisuals[j].enabled = true;
+
+                }
+                for (int k = 0; k < interactorsList.Count; k++)
+                {
+                    interactorsList[k].ShowEquipVisuals();
                 }
                 this.transform.parent = rightHand;
                 this.transform.localPosition = offsetList[1];
@@ -74,7 +99,17 @@ public class NewToolboxManager : MonoBehaviour
             isOpen = false;
             for (int j = 0; j < transform.childCount; j++)
             {
-                transform.GetChild(j).gameObject.SetActive(false);
+                boxVisuals[j].enabled = false;
+        
+            }
+            for (int k = 0; k < interactorsList.Count; k++)
+            {
+                if (interactorsList[k].isInBox)
+                {
+                    interactorsList[k].HideEquipVisuals();
+
+                }
+                interactorsList[k].timeInBox = interactorsList[k].timeInHand = 0;
             }
         }
         else return;

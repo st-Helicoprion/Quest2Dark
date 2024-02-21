@@ -10,10 +10,14 @@ using UnityEngine.Rendering;
 public class PullColliderBehavior : MonoBehaviour
 {
     public GameObject pullPrompt;
-    public List<GameObject> promptPool = new List<GameObject>();
+    public List<GameObject> promptPool = new();
     public HandAnimation hand;
-    public Collider topCollider;
-   
+    public Transform mainCamera;
+
+    private void Update()
+    {
+        transform.parent.localRotation = new Quaternion(0, mainCamera.localRotation.y, 0, mainCamera.localRotation.w);
+    }
     public void ClearPrompts()
     {
         

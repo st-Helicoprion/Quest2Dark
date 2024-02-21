@@ -53,7 +53,7 @@ public class StickGiant : MonoBehaviour
         
         if (!audioSource.isPlaying && !tracking)
         {
-            //audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
+            audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
         }
         else return;
         idleTarget = this.transform.position + new Vector3(UnityEngine.Random.Range(-5, 5), 0, UnityEngine.Random.Range(-5, 5));
@@ -104,7 +104,7 @@ public class StickGiant : MonoBehaviour
             agent.speed = 0;
             if (!audioSource.isPlaying && !tracking)
             {
-                //audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
+                audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
             }
         }
         else isNearPlayer = false;
@@ -170,7 +170,7 @@ public class StickGiant : MonoBehaviour
             
         if (!audioSource.isPlaying)
         {
-            //audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[1]);
+            audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[1]);
         }
 
         CheckForRemoveTracker();
@@ -221,7 +221,7 @@ public class StickGiant : MonoBehaviour
             agent.speed = 0;
             if (!audioSource.isPlaying&&!tracking)
             {
-                //audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
+                audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
             }
         }
     }

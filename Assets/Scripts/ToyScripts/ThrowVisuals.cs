@@ -16,22 +16,15 @@ public class ThrowVisuals : MonoBehaviour
         marker.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerStay(Collider other)
     {
         if(other.CompareTag("RightHand")||other.CompareTag("LeftHand"))
         {
-            RaycastHit hit;
-            if(Physics.Raycast(mainCamera.position,mainCamera.forward, out hit))
+            if (Physics.Raycast(mainCamera.position, mainCamera.forward, out RaycastHit hit))
             {
-                if(hit.transform.CompareTag("PullTrigger"))
+                if (hit.transform.CompareTag("PullTrigger"))
                 {
-                    marker.enabled =  true;
+                    marker.enabled = true;
                     marker.transform.position = hit.point;
 
                 }

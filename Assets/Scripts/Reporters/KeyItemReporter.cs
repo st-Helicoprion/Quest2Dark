@@ -21,13 +21,12 @@ public class KeyItemReporter : MonoBehaviour
             ToolboxManager.RemoveToyPrefabInGameManager();
         }
     }*/
-    private void OnTriggerStay(Collider other)
+    /*private void OnTriggerStay(Collider other)
     {
         //if(SceneManager.GetActiveScene().name == "GameLevelMain")
         {
             if (other.CompareTag("LeftHand") && !ToolboxManager.itemIDList.Contains(itemID)|| 
                 other.CompareTag("RightHand") && !ToolboxManager.itemIDList.Contains(itemID)||
-                other.CompareTag("ToySpawn") && !ToolboxManager.itemIDList.Contains(itemID)||
                 other.CompareTag("ToyBox") && !ToolboxManager.itemIDList.Contains(itemID) )
             {
                 ToolboxManager.itemIDList.Add(itemID);
@@ -36,7 +35,7 @@ public class KeyItemReporter : MonoBehaviour
             }
         }
 
-    }
+    }*/
 
     /*private void OnTriggerExit(Collider other)
     {

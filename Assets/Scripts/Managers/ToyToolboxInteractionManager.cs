@@ -2,6 +2,7 @@ using Obi;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,14 +11,15 @@ public class ToyToolboxInteractionManager : MonoBehaviour
 {
     //component added to toy object
     public Vector3[] boxOffset, handOffset;
-    public bool isInHand, swapHands;
+    public bool isInHand, swapHands, isInBox;
     public HandAnimation handState;
     public ToolboxVacancyChecker boxState;
     public ToyToolboxInteractionManager otherToyState;
     public List<ToolboxVacancyChecker> boxList = new();
     public Collider[] colliders;
-   
-   
+    public Renderer[] equipVisuals;
+
+    public float timeInBox, timeInHand;
 
     private void Start()
     {
@@ -32,16 +34,29 @@ public class ToyToolboxInteractionManager : MonoBehaviour
             DisableColliders();
 
         }
-       
+        
+        if(isInBox)
+        {
+            timeInBox+=Time.deltaTime;
+            DisableColliders();
+        }
+
+        if (isInHand)
+        {
+            timeInHand+=Time.deltaTime;
+            ActivateColliders();
+        }
         
     }
 
 
-    public void PlaceToyInBox(Collider other)
-    { 
-        transform.parent = other.transform;
+    public void PlaceToyInBox(ToolboxVacancyChecker boxParent)
+    {
+        
+        transform.SetParent(boxParent.transform);
         transform.localPosition = boxOffset[0];
         transform.localRotation = Quaternion.identity;
+        isInBox= true;isInHand= false;
         if (colliders.Length > 0)
         {
             DisableColliders();
@@ -49,12 +64,14 @@ public class ToyToolboxInteractionManager : MonoBehaviour
         else return;
 
     }
-    public void StickToyToHand(Collider other, int handID)
+    public void StickToyToHand(HandAnimation handParent, int handID)
     {
-        transform.parent = other.transform;
+        
+        transform.SetParent(handParent.transform);
         transform.localPosition = handOffset[handID];
         transform.localRotation = Quaternion.identity;
-
+        isInHand= true;isInBox= false;
+        handState = handParent;
         if (colliders.Length > 0)
         {
             ActivateColliders();
@@ -103,24 +120,29 @@ public class ToyToolboxInteractionManager : MonoBehaviour
         //only for plane and top
         if(transform.CompareTag("Hopter"))
         {
-            colliders.SetValue(GameObject.Find("ThrowHitbox").GetComponent<Collider>(), 0);
+            colliders[0] = GameObject.Find("ThrowHitbox").GetComponent<Collider>();
+            colliders[0].gameObject.GetComponent<PullColliderBehavior>().enabled = false;
+            colliders[0].gameObject.GetComponent<RespawnPlaneManager>().enabled = true;
         }
 
-        if(transform.CompareTag("SpinningTop"))
+        else if(transform.CompareTag("SpinningTop"))
         {
-            colliders.SetValue(GameObject.Find("ThrowHitbox").GetComponent<Collider>(), 0);
+            colliders[0] = GameObject.Find("ThrowHitbox").GetComponent<Collider>();
+            colliders[0].gameObject.GetComponent<PullColliderBehavior>().enabled = true;
+            colliders[0].gameObject.GetComponent<RespawnPlaneManager>().enabled = false;
         }
     }
 
     public void ActivateColliders()
     {
-        if(colliders.Length>0)
+        if (colliders.Length > 0)
         {
             for (int i = 0; i < colliders.Length; i++)
             {
                 colliders[i].enabled = true;
             }
         }
+        else return;
 
       
         
@@ -135,16 +157,32 @@ public class ToyToolboxInteractionManager : MonoBehaviour
                 colliders[i].enabled = false;
             }
         }
+        else return;
 
       
     }
 
+    public void ShowEquipVisuals()
+    {
+        for(int i =0; i<equipVisuals.Length; i++)
+        {
+            if (equipVisuals[i] != null)
+            equipVisuals[i].enabled = true;
+        }
+    }
+
+    public void HideEquipVisuals()
+    {
+        for (int i = 0; i < equipVisuals.Length; i++)
+        {
+            if (equipVisuals[i] != null)
+                equipVisuals[i].enabled = false;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-            if (other.CompareTag("ToyBox"))
-            {
-                boxState = other.GetComponent<ToolboxVacancyChecker>();
-            }
+           
             if (other.CompareTag("RightHand")||other.CompareTag("LeftHand"))
             {  
 
@@ -153,9 +191,10 @@ public class ToyToolboxInteractionManager : MonoBehaviour
                 if(isInHand) { swapHands = true; }
                 
             }
-            if (other.TryGetComponent<KeyItemReporter>(out _)&&isInHand)
+
+            if (other.TryGetComponent(out ToyToolboxInteractionManager otherItem)&&isInHand)
             {
-                otherToyState = other.GetComponent<ToyToolboxInteractionManager>();
+                otherToyState = otherItem;
 
             }
         
@@ -165,37 +204,56 @@ public class ToyToolboxInteractionManager : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("ToyBox"))
+        if (other.TryGetComponent(out ToolboxVacancyChecker otherBox))
         {
+            boxState = otherBox;
             if (isInHand)
             {
-                
-                if (handState.grip && boxState.isOccupied && boxState.occupantName == transform.name)
-                {
-                    PlaceToyInBox(other);
+                 if (handState.grip)
+                    {
+                        handState.grip = false;
+                        print("put in box");
+                        PlaceToyInBox(boxState);
 
-                    isInHand = false;
-                }
+                    }
                 
             }
+            
+            
         }
         if (other.CompareTag("RightHand")||other.CompareTag("LeftHand"))
         {
+            
             if(!isInHand) 
             {
+               
                 if(handState.grip)
                 {
-                    StickToyToHand(other, handState.handID - 1);
-                    isInHand = true;
+                    handState.grip = false;
+                    print("place in hand");
+                    StickToyToHand(handState, handState.handID);
+                   
                 }
-                
+
+                if (isInBox && timeInBox > timeInHand)
+                {
+                    if(handState.grip)
+                    {
+                        handState.grip = false;
+                        print("place in hand from box");
+                        StickToyToHand(handState, handState.handID);
+                    }
+                   
+                }
+
             }
 
             if (isInHand && swapHands)
             {
                 if(handState.grip)
                 {
-                    StickToyToHand(handState.GetComponent<Collider>(), handState.handID - 1);
+                    handState.grip = false;
+                    StickToyToHand(handState, handState.handID);
                     swapHands = false;
                 }
                 
@@ -203,14 +261,18 @@ public class ToyToolboxInteractionManager : MonoBehaviour
 
 
         }
-        if (other.TryGetComponent<KeyItemReporter>(out _) && isInHand)
+
+        if (other.TryGetComponent(out ToyToolboxInteractionManager otherItem) && isInHand && otherItem.isInBox)
         {
+            otherToyState = otherItem;
+
             if (handState.grip)
             {
+                handState.grip = false;
                 HopToEmptyBox();
-                isInHand = false;
-                otherToyState.StickToyToHand(handState.GetComponent<Collider>(), handState.handID-1);
-                otherToyState.isInHand= true;
+                
+                otherToyState.StickToyToHand(handState, handState.handID);
+                
 
             }
         }
@@ -229,8 +291,20 @@ public class ToyToolboxInteractionManager : MonoBehaviour
                 swapHands = false;
             }
 
+            
+        }
+
+        if (other.TryGetComponent<ToolboxVacancyChecker>(out _))
+        {
+            boxState = null;
+        }
+
+        if (other.TryGetComponent<ToyToolboxInteractionManager>(out _) && isInHand)
+        {
+            otherToyState = null;
 
         }
+
     }
 
 }

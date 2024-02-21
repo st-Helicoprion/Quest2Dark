@@ -118,4 +118,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbb55e46d513e194eae6ed0c355a04a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSonarSize: 30
+  maxSonarSize: 60

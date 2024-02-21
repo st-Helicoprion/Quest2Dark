@@ -71,7 +71,7 @@ public class FingerMonster : MonoBehaviour
         agent.transform.LookAt(other.transform.position);
         if (!audioSource.isPlaying)
         {
-            //audioSource.PlayOneShot(AudioManager.instance.FingerMonsterAudioClips[0]);
+            audioSource.PlayOneShot(AudioManager.instance.FingerMonsterAudioClips[0]);
         }
     }
 
@@ -83,7 +83,7 @@ public class FingerMonster : MonoBehaviour
         agent.transform.LookAt(target.position);
         if (!audioSource.isPlaying)
         {
-            //audioSource.PlayOneShot(AudioManager.instance.FingerMonsterAudioClips[0]);
+            audioSource.PlayOneShot(AudioManager.instance.FingerMonsterAudioClips[0]);
         }
     }
 

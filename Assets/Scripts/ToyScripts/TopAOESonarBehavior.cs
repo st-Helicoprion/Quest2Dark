@@ -37,7 +37,7 @@ public class TopAOESonarBehavior : MonoBehaviour
 
         topSonarCount += Time.deltaTime;
 
-        if (topSonarCount > 2)
+        if (topSonarCount > .75f)
         {
             Instantiate(topSonarPrefab, transform.position, Quaternion.identity);
             Debug.Log("sonar released");

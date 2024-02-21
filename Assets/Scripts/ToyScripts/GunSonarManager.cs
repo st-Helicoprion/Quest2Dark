@@ -15,21 +15,15 @@ public class GunSonarManager : MonoBehaviour
     public bool isHeld;
     public int handID;
     public HandAnimation handState;
+    public AudioSource gunAudioSource;
     
-
-    private void Start()
-    {
-        BulletSpawnPoint = transform.Find("ShootingPoint");      
-    }
-
-    private void Update()
-    {
-        
-    }
     void SpawnBullet(InputAction.CallbackContext summonInput)
     {
         if (summonInput.ReadValue<float>() == 1 && this != null && BulletSpawnPoint != null)
+        {
+            gunAudioSource.PlayOneShot(AudioManager.instance.ToysSFX[1]);
             StartCoroutine(SpawnBulletRepeat(BulletSpawnPoint.position, BulletSpawnPoint.rotation));
+        }
         else return;
     }
 
@@ -42,39 +36,37 @@ public class GunSonarManager : MonoBehaviour
             yield return null;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if(other.CompareTag("LeftHand")||other.CompareTag("RightHand"))
+        if (other.CompareTag("LeftHand") || other.CompareTag("RightHand"))
         {
             handState = other.GetComponent<HandAnimation>();
             handID = handState.handID;
-           
-        }
-       
-       
-    }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if(handID == 1)
+        }
+
+        if (handID == 0)
         {
-            if(handState.grip)
+            if (handState.grip)
             {
                 shootSonarLeft.action.performed += SpawnBullet;
                 shootSonarRight.action.performed -= SpawnBullet;
             }
+            else return;
         }
-        else if (handID == 2)
+        if (handID == 1)
         {
             if (handState.grip)
             {
                 shootSonarLeft.action.performed -= SpawnBullet;
                 shootSonarRight.action.performed += SpawnBullet;
             }
+            else return;
         }
-        else if (other.CompareTag("ToyBox"))
+        
+        if (other.CompareTag("ToyBox"))
         {
-            handID = 0;
+            handID = -1;
             shootSonarLeft.action.performed -= SpawnBullet;
             shootSonarRight.action.performed -= SpawnBullet;
 

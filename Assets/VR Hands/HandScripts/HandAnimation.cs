@@ -20,6 +20,7 @@ public class HandAnimation : MonoBehaviour
         //grip
         /*gripAction.action.performed += Gripping;
         gripAction.action.canceled += GripRelease;*/
+
         gripAction.action.performed += GripState;
         gripAction.action.canceled += GripState;
 
@@ -37,14 +38,13 @@ public class HandAnimation : MonoBehaviour
     {
         if (obj.ReadValue<float>() == 1)
         {
-
+            GetComponent<Collider>().enabled = true;
             if (animator != null)
             {
-                if (!grip)
-                {
+               
                     animator.SetFloat("Grip", 1f);
                     grip = true;
-                }
+             
 
             }
             else return;
@@ -53,8 +53,8 @@ public class HandAnimation : MonoBehaviour
         }
         else if (obj.ReadValue<float>() == 0 && this != null)
         {
-            StartCoroutine(CheckForEmptyHand());
             grip= false;
+            StartCoroutine(CheckForEmptyHand());
         }
             
         else return;
@@ -85,31 +85,27 @@ public class HandAnimation : MonoBehaviour
            
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.TryGetComponent<KeyItemReporter>(out KeyItemReporter keyItem))
-        {
-            handNotEmpty = true;
-            itemID = keyItem.itemID;
-            circleLightManager.ChangeLightColor(itemID);
-            StartCoroutine(CheckForEmptyHand());
-        }
 
-        
-    }
     private void OnTriggerStay(Collider other)
     {
-        if (other.TryGetComponent<KeyItemReporter>(out _))
+        if (other.TryGetComponent(out KeyItemReporter keyItem))
         {
-            handNotEmpty = true;
-            StartCoroutine(CheckForEmptyHand());
+            if (grip)
+            {
+                handNotEmpty = true;
+                itemID = keyItem.itemID;
+                circleLightManager.ChangeLightColor(itemID);
+                StartCoroutine(CheckForEmptyHand());
+
+            }
+            
         }
 
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent<KeyItemReporter>(out _))
+        if (other.TryGetComponent<ToyToolboxInteractionManager>(out _))
         {
             handNotEmpty = false;
             StartCoroutine(CheckForEmptyHand());
