@@ -95,6 +95,7 @@ public class CustomTopManager : MonoBehaviour
         topAudioSource.Stop();
         if (!topAudioSource.isPlaying)
         {
+            topAudioSource.pitch = Random.Range(1, 1.3f);
             topAudioSource.PlayOneShot(AudioManager.instance.ToysSFX[0]);
         }
         print("top released");
@@ -119,10 +120,8 @@ public class CustomTopManager : MonoBehaviour
         //on entry into pull collider, release top and add force
         if (other.CompareTag("PullTrigger"))
         {
-            
-                isReadyToSpin = true;
-                ReleaseTop();
-
+            isReadyToSpin = true;
+            ReleaseTop();
         }
 
         if (other.CompareTag("ToyBox"))
@@ -144,8 +143,6 @@ public class CustomTopManager : MonoBehaviour
             hand = other.gameObject;
             handState = hand.GetComponent<HandAnimation>();
 
-            ToyToolboxInteractionManager topToolboxHelper = GetComponent<ToyToolboxInteractionManager>();
-            topToolboxHelper.ActivateColliders();
             rb.isKinematic = true;
             TrackPositions();
        

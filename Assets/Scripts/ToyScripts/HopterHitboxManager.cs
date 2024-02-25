@@ -17,6 +17,7 @@ public class HopterHitboxManager : MonoBehaviour
     {
        playerCam = GameObject.Find("Main Camera").transform;
        SetFlightDirection();
+        planeAudioSource.pitch = Random.Range(1, 1.3f);
         planeAudioSource.PlayOneShot(AudioManager.instance.ToysSFX[0]);
     }
 

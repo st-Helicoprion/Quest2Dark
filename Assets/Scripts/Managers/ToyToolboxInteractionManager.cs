@@ -21,10 +21,6 @@ public class ToyToolboxInteractionManager : MonoBehaviour
 
     public float timeInBox, timeInHand;
 
-    private void Start()
-    {
-        FindColliders();
-    }
     private void Update()
     {
         if (NewToolboxManager.isOpen)
@@ -44,6 +40,7 @@ public class ToyToolboxInteractionManager : MonoBehaviour
         if (isInHand)
         {
             timeInHand+=Time.deltaTime;
+            FindColliders();
             ActivateColliders();
         }
         
@@ -52,17 +49,13 @@ public class ToyToolboxInteractionManager : MonoBehaviour
 
     public void PlaceToyInBox(ToolboxVacancyChecker boxParent)
     {
-        
         transform.SetParent(boxParent.transform);
         transform.localPosition = boxOffset[0];
         transform.localRotation = Quaternion.identity;
         isInBox= true;isInHand= false;
-        if (colliders.Length > 0)
-        {
-            DisableColliders();
-        }
-        else return;
-
+        FindColliders();
+        DisableColliders();
+      
     }
     public void StickToyToHand(HandAnimation handParent, int handID)
     {
@@ -72,11 +65,9 @@ public class ToyToolboxInteractionManager : MonoBehaviour
         transform.localRotation = Quaternion.identity;
         isInHand= true;isInBox= false;
         handState = handParent;
-        if (colliders.Length > 0)
-        {
-            ActivateColliders();
-        }
-        else return;
+        FindColliders();
+        ActivateColliders();
+        
         
         
     }
@@ -110,6 +101,11 @@ public class ToyToolboxInteractionManager : MonoBehaviour
                 transform.localRotation = Quaternion.identity;
                 break;
             }
+
+            if(!NewToolboxManager.isOpen)
+            {
+                HideEquipVisuals();
+            }
         }
 
         
@@ -120,16 +116,12 @@ public class ToyToolboxInteractionManager : MonoBehaviour
         //only for plane and top
         if(transform.CompareTag("Hopter"))
         {
-            colliders[0] = GameObject.Find("ThrowHitbox").GetComponent<Collider>();
-            colliders[0].gameObject.GetComponent<PullColliderBehavior>().enabled = false;
-            colliders[0].gameObject.GetComponent<RespawnPlaneManager>().enabled = true;
+            colliders[0] = GameObject.FindGameObjectWithTag("PullTrigger").GetComponent<Collider>();
         }
 
-        else if(transform.CompareTag("SpinningTop"))
+       if(transform.CompareTag("SpinningTop"))
         {
-            colliders[0] = GameObject.Find("ThrowHitbox").GetComponent<Collider>();
-            colliders[0].gameObject.GetComponent<PullColliderBehavior>().enabled = true;
-            colliders[0].gameObject.GetComponent<RespawnPlaneManager>().enabled = false;
+            colliders[0] = GameObject.FindGameObjectWithTag("PullTrigger").GetComponent<Collider>();
         }
     }
 
@@ -305,6 +297,7 @@ public class ToyToolboxInteractionManager : MonoBehaviour
 
         }
 
+      
     }
 
 }

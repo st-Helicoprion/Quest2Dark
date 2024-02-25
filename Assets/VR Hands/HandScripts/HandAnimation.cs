@@ -39,6 +39,7 @@ public class HandAnimation : MonoBehaviour
         if (obj.ReadValue<float>() == 1)
         {
             GetComponent<Collider>().enabled = true;
+
             if (animator != null)
             {
                

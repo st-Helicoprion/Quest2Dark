@@ -6,9 +6,9 @@ using UnityEngine;
 public class RespawnPlaneManager : MonoBehaviour
 {
     public int planeMaxNum;
-    public bool lockPlaneRespawn=true;
     public Transform mainCamera;
     public List<GameObject> planesInScene = new();
+    public List<GameObject> planesOnHand = new();
     public GameObject planePrefab, hand, planeInstance;
     public HopterHitboxManager sonarScript;
     public Collider trackHitbox;
@@ -23,15 +23,10 @@ public class RespawnPlaneManager : MonoBehaviour
         sonarScript = other.transform.GetChild(0).GetChild(0).GetComponent<HopterHitboxManager>();
         trackHitbox = other.transform.GetChild(0).GetChild(0).GetComponent<Collider>();
 
-        Collider self = GetComponent<Collider>();
-        self.enabled = false;
-
         sonarScript.enabled = true;
         trackHitbox.enabled = true;
 
         planesInScene.Add(other);
-
-        lockPlaneRespawn = true;
 
         StartCoroutine(DelayToRefresh());
     }
@@ -44,8 +39,15 @@ public class RespawnPlaneManager : MonoBehaviour
        
         if(!handState.handNotEmpty)
         {
-          planeInstance = Instantiate(planePrefab,handState.transform);
+            planeInstance = Instantiate(planePrefab,handState.transform);
             planeInstance.GetComponent<ToyToolboxInteractionManager>().StickToyToHand(handState, handState.handID);
+            planesOnHand.Add(planeInstance);
+
+            if(planesOnHand.Count>1)
+            {
+                Destroy(planesOnHand[0]);
+                planesOnHand.RemoveAt(0);
+            }
         }
         else if(boxArray.Length > 0)
         {
@@ -55,6 +57,13 @@ public class RespawnPlaneManager : MonoBehaviour
                 {
                     planeInstance = Instantiate(planePrefab, Vector3.zero, Quaternion.identity);
                     planeInstance.GetComponent<ToyToolboxInteractionManager>().PlaceToyInBox(boxArray[i]);
+                    planesOnHand.Add(planeInstance);
+
+                    if (planesOnHand.Count > 1)
+                    {
+                        Destroy(planesOnHand[0]);
+                        planesOnHand.RemoveAt(0);
+                    }
                     break;
                 }
             }
@@ -66,27 +75,18 @@ public class RespawnPlaneManager : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
 
+        
         RefreshPlane();
 
     }
 
-    IEnumerator CooldownAfterRefresh()
-    {
-        yield return new WaitForSeconds(2);
-        lockPlaneRespawn = false;
-    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Hopter") && other.GetComponent<ToyToolboxInteractionManager>().isInHand)
+
+        if (other.CompareTag("Hopter") && other.GetComponent<ToyToolboxInteractionManager>().isInHand )
         {
             hand = other.GetComponent<ToyToolboxInteractionManager>().handState.gameObject;
-
-        }
-        else return;
-
-        if (other.CompareTag("Hopter") && other.GetComponent<ToyToolboxInteractionManager>().isInHand && !lockPlaneRespawn)
-        {
 
             if (planesInScene.Count < planeMaxNum)
             {
@@ -103,15 +103,6 @@ public class RespawnPlaneManager : MonoBehaviour
         }
         else return;
 
-
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (hand!=null&&other.CompareTag(hand.tag))
-        {
-            StartCoroutine(CooldownAfterRefresh());
-        }
     }
 
    

@@ -22,10 +22,17 @@ public class ThrowVisuals : MonoBehaviour
         {
             if (Physics.Raycast(mainCamera.position, mainCamera.forward, out RaycastHit hit))
             {
-                if (hit.transform.CompareTag("PullTrigger"))
+                if (hit.transform.CompareTag("PullTrigger")&&transform.CompareTag("Hopter"))
                 {
                     marker.enabled = true;
                     marker.transform.position = hit.point;
+
+                }
+
+                if (hit.transform.CompareTag("PullTrigger") && transform.CompareTag("SpinningTop"))
+                {
+                    marker.enabled = true;
+                    marker.transform.position = hit.point-new Vector3(0,.2f,0);
 
                 }
 

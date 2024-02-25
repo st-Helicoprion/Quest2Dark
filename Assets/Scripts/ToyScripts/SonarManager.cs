@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -12,12 +11,14 @@ public class SonarManager : MonoBehaviour
     public GameObject internalSonar, cicadaStick, cicadaTub, cicadaRope;
     public ToyToolboxInteractionManager interactionManager;
     public AudioSource cicadaAudioSource;
+    public float buffer;
 
     // Start is called before the first frame update
     void Start()
     {
-        maxSonarHeight = -10;
-        minSonarHeight = -50;
+        buffer = 0;
+        maxSonarHeight = -5;
+        minSonarHeight = -52;
         sonar = GameObject.Find("PlayerSonar").transform;
         CheckForHitBoxManager();
     }
@@ -52,7 +53,7 @@ public class SonarManager : MonoBehaviour
     void SonarHeightClamp()
     {
 
-        maxSonarHeight = Mathf.Clamp(maxSonarHeight, -10, 40);
+        maxSonarHeight = Mathf.Clamp(maxSonarHeight, -5, 20);
         Vector3 sonarHeight = sonar.localPosition;
         sonarHeight.y = Mathf.Clamp(sonarHeight.y, minSonarHeight, maxSonarHeight);
         sonar.localPosition = sonarHeight;
@@ -60,7 +61,11 @@ public class SonarManager : MonoBehaviour
 
     void DecreaseSonarHeight()
     {
-        sonar.localPosition -= new Vector3(0, 2, 0);
+        if (sonar.localPosition.y > minSonarHeight)
+        {
+            sonar.localPosition -= new Vector3(0, 2, 0);
+        }
+        else return;
 
     }
 
@@ -68,6 +73,7 @@ public class SonarManager : MonoBehaviour
     {
         if(!cicadaAudioSource.isPlaying)
         {
+            cicadaAudioSource.pitch = Random.Range(1, 1.3f);
             cicadaAudioSource.PlayOneShot(AudioManager.instance.ToysSFX[3]);
         }
         sonar.localPosition += new Vector3(0, increaseRate, 0);
@@ -98,11 +104,24 @@ public class SonarManager : MonoBehaviour
             if (hitboxManager.isSonarUp == true)
             {
                 IncreaseSonarHeight();
+                buffer = 2.5f;
 
             }
-            else DecreaseSonarHeight();
+            else
+            {
+                if(buffer>0)
+                {
+                    buffer -= Time.deltaTime;
+                }
+                if (buffer <0)
+                {
+                    DecreaseSonarHeight();
 
-        }
+                }
+
+            }
+
+            }
         else return;
     }
 

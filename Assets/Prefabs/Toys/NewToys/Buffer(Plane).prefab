@@ -246,8 +246,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.05, y: 0.1, z: 0.3}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.05, y: 0.1, z: 0.15}
+  m_Center: {x: 0, y: 0, z: 0.05}
 --- !u!114 &7739572031252285065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,8 +263,8 @@ MonoBehaviour:
   boxOffset:
   - {x: 0, y: 0, z: 0}
   handOffset:
-  - {x: 0.006, y: 0.028, z: 0.029}
-  - {x: -0.006, y: 0.028, z: 0.029}
+  - {x: 0.006, y: 0.028, z: 0.035}
+  - {x: -0.006, y: 0.028, z: 0.035}
   isInHand: 0
   swapHands: 0
   isInBox: 0

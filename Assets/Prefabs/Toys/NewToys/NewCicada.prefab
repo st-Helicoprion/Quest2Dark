@@ -254,6 +254,7 @@ MonoBehaviour:
   cicadaRope: {fileID: 6332251072423496195}
   interactionManager: {fileID: 8807833821562658545}
   cicadaAudioSource: {fileID: 1420237816538743085}
+  buffer: 0
 --- !u!1 &3332607152225805837
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,7 +502,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -546,7 +547,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.2
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1305,7 +1306,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Center: {x: 0, y: 0, z: 0.3}
 --- !u!54 &7870576434216771213
 Rigidbody:
@@ -1332,7 +1333,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &8076008606094351062
 GameObject:
@@ -1385,8 +1386,8 @@ MonoBehaviour:
   boxOffset:
   - {x: 0, y: 0.1564, z: 0}
   handOffset:
-  - {x: 0.02, y: 0.25, z: 0}
-  - {x: -0.02, y: 0.25, z: 0}
+  - {x: 0.025, y: 0.25, z: 0}
+  - {x: -0.025, y: 0.25, z: 0}
   isInHand: 0
   swapHands: 0
   isInBox: 0

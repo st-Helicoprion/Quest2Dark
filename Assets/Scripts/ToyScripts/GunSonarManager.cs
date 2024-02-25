@@ -14,13 +14,14 @@ public class GunSonarManager : MonoBehaviour
     public InputActionReference shootSonarLeft;
     public bool isHeld;
     public int handID;
-    public HandAnimation handState;
+    public HandAnimation handState, heldHand;
     public AudioSource gunAudioSource;
-    
+
     void SpawnBullet(InputAction.CallbackContext summonInput)
     {
         if (summonInput.ReadValue<float>() == 1 && this != null && BulletSpawnPoint != null)
         {
+            gunAudioSource.pitch = Random.Range(1.7f, 2.1f);
             gunAudioSource.PlayOneShot(AudioManager.instance.ToysSFX[1]);
             StartCoroutine(SpawnBulletRepeat(BulletSpawnPoint.position, BulletSpawnPoint.rotation));
         }
@@ -36,56 +37,65 @@ public class GunSonarManager : MonoBehaviour
             yield return null;
     }
 
-    private void OnTriggerStay(Collider other)
+    void KeepHand()
+    {
+        handState = heldHand;
+        handID = handState.handID;
+       
+    }
+
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("LeftHand") || other.CompareTag("RightHand"))
         {
             handState = other.GetComponent<HandAnimation>();
             handID = handState.handID;
-
         }
-
-        if (handID == 0)
+        if (other.CompareTag("ToyBox") && NewToolboxManager.isOpen)
         {
-            if (handState.grip)
-            {
-                shootSonarLeft.action.performed += SpawnBullet;
-                shootSonarRight.action.performed -= SpawnBullet;
-            }
-            else return;
-        }
-        if (handID == 1)
-        {
-            if (handState.grip)
-            {
-                shootSonarLeft.action.performed -= SpawnBullet;
-                shootSonarRight.action.performed += SpawnBullet;
-            }
-            else return;
-        }
-        
-        if (other.CompareTag("ToyBox"))
-        {
-            handID = -1;
             shootSonarLeft.action.performed -= SpawnBullet;
             shootSonarRight.action.performed -= SpawnBullet;
 
         }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+
+        if (handState != null)
+        {
+            if (handID == 0 && handState.grip)
+            {
+                shootSonarLeft.action.performed += SpawnBullet;
+                shootSonarRight.action.performed -= SpawnBullet;
+                heldHand = handState;   
+            }
+
+            if (handID == 1 && handState.grip)
+            {
+                shootSonarLeft.action.performed -= SpawnBullet;
+                shootSonarRight.action.performed += SpawnBullet;
+                heldHand = handState;
+            }
+        }
+
+
+       
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("LeftHand")&&handID==1)
+        if(other.CompareTag("LeftHand")&&heldHand.transform.CompareTag("RightHand"))
         {
-            shootSonarLeft.action.performed -= SpawnBullet;
-            shootSonarRight.action.performed -= SpawnBullet;
-            isHeld = false;
+            KeepHand();
         }
-        else if (other.CompareTag("RightHand")&&handID==2)
+
+        if (other.CompareTag("RightHand") && heldHand.transform.CompareTag("LeftHand"))
         {
-            shootSonarLeft.action.performed -= SpawnBullet;
-            shootSonarRight.action.performed -= SpawnBullet;
-            isHeld = false;
+            KeepHand();
         }
+
     }
+
+
+
 }

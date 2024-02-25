@@ -119,7 +119,7 @@ MonoBehaviour:
   force: 1500
   rb: {fileID: 5602283664365708239}
   anim: {fileID: 3882504377908414122}
-  topLifetime: 5
+  topLifetime: 10
   topCounter: 0
   toolboxHelper: {fileID: 559435096564261456}
   handState: {fileID: 0}

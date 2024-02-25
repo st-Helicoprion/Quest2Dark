@@ -13,9 +13,7 @@ public class ToolboxManager : MonoBehaviour
     public Transform mainCamera, toolboxParent, leftHand, rightHand;
     public static int receivedHandID; //inform left or right hand
 
-    public static List<int> itemIDList = new List<int>();
-    public static List<GameObject> keyItemsSave = new List<GameObject>(); //stored list of equipments, refreshed every load
-
+  
     public List<Vector3> offsetList = new List<Vector3>(); 
     public static List<GameObject> boxToyList= new List<GameObject>(); //list of toys in box
 
@@ -40,8 +38,7 @@ public class ToolboxManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ClearItemIDList();
-        toolboxParent = GameObject.Find("ToolboxParent").transform;
+       
         leftHand = GameObject.FindWithTag("LeftHand").transform;
         rightHand = GameObject.FindWithTag("RightHand").transform;
     }
@@ -53,11 +50,7 @@ public class ToolboxManager : MonoBehaviour
         
     }
 
-    public void ClearItemIDList()
-    {
-        itemIDList.Clear();
-        //boxToyList.Clear();
-    }
+    
 
     public void SummonToolbox(InputAction.CallbackContext summonInput)
     {
@@ -143,45 +136,11 @@ public class ToolboxManager : MonoBehaviour
     }
 
 
-   public static void RemoveToyPrefabInGameManager()
-    {
+  
 
-        //if (SceneManager.GetActiveScene().name == "GameLevelMain")
-        
-        {
-            for (int i = 0; i < GameManager.instance.keyItem.Count; i++)
-            {
-                Debug.Log("item ID is : "+GameManager.instance.keyItem[i].GetComponent<KeyItemReporter>().itemID);
-                if (itemIDList.Contains(GameManager.instance.keyItem[i].GetComponent<KeyItemReporter>().itemID))
-                {
-                    GameManager.instance.keyItem.RemoveAt(i);
-                    Debug.Log("removable key item found");
-                }
-       
-            }
-        }
-    }
+    
 
-    public static IEnumerator ResetKeyItemList()
-    {
-        GameManager.instance.keyItem.Clear();
-        yield return null;
-        for(int i = 0; i<keyItemsSave.Count; i++)
-        {
-            GameManager.instance.keyItem.Add(keyItemsSave[i]);
-
-        }
-
-    }
-
-    public static void StoreKeyItemList()
-    {
-        for(int i = 0;i<GameManager.instance.keyItem.Count;i++)
-        {
-            keyItemsSave.Add(GameManager.instance.keyItem[i]);
-
-        }
-    }
+   
 
     public void GetHandIDLeft(InputAction.CallbackContext context) { receivedHandID = 1; }
     public void GetHandIDRight(InputAction.CallbackContext context) { receivedHandID = 2; }
