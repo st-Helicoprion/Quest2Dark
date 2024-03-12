@@ -16,6 +16,8 @@ public class NewToolboxManager : MonoBehaviour
     public InputActionReference summonToolboxInputRight;
 
     public Renderer[] boxVisuals;
+    public Collider[] colliderList;
+    public AudioSource boxAudioSource;
 
     void OnEnable()
     {
@@ -35,6 +37,7 @@ public class NewToolboxManager : MonoBehaviour
         for (int j = 0; j < transform.childCount; j++)
         {
             boxVisuals[j].enabled = false;
+            colliderList[j].enabled = false;
 
         }
     }
@@ -43,6 +46,8 @@ public class NewToolboxManager : MonoBehaviour
         if (boxInput.ReadValue<float>() == 1 && this != null)
         {
             isOpen = true;
+            boxAudioSource.pitch = 1.2f;
+            boxAudioSource.PlayOneShot(AudioManager.instance.UISFXAudioClips[1]);
 
             if(checkerList.Count<1)
             {
@@ -61,6 +66,7 @@ public class NewToolboxManager : MonoBehaviour
                 {
 
                     boxVisuals[j].enabled = true;
+                    colliderList[j].enabled = true;
                   
                 }
 
@@ -77,7 +83,7 @@ public class NewToolboxManager : MonoBehaviour
                 for (int j = 0; j < transform.childCount; j++)
                 {
                     boxVisuals[j].enabled = true;
-
+                    colliderList[j].enabled = true;
                 }
                 for (int k = 0; k < interactorsList.Count; k++)
                 {
@@ -97,10 +103,14 @@ public class NewToolboxManager : MonoBehaviour
         if (boxInput.ReadValue<float>() == 0 && this != null)
         {
             isOpen = false;
+            boxAudioSource.pitch = 0.8f;
+            boxAudioSource.PlayOneShot(AudioManager.instance.UISFXAudioClips[1]);
+
             for (int j = 0; j < transform.childCount; j++)
             {
                 boxVisuals[j].enabled = false;
-        
+                colliderList[j].enabled = false;
+
             }
             for (int k = 0; k < interactorsList.Count; k++)
             {

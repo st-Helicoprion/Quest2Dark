@@ -246,7 +246,7 @@ MonoBehaviour:
   sonar: {fileID: 5770331657756249146, guid: 0cfc0b131d1b16946bb495e66a9512f9, type: 3}
   maxSonarHeight: 0
   minSonarHeight: 0
-  increaseRate: 0.2
+  increaseRate: 0.15
   internalSonarCount: 0
   internalSonar: {fileID: 6897076775816023034, guid: 4ed62a0e01810674981edac0a03b95f6, type: 3}
   cicadaStick: {fileID: 343738242620390258}
@@ -254,6 +254,7 @@ MonoBehaviour:
   cicadaRope: {fileID: 6332251072423496195}
   interactionManager: {fileID: 8807833821562658545}
   cicadaAudioSource: {fileID: 1420237816538743085}
+  buffer: 0
 --- !u!1 &3332607152225805837
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +287,7 @@ Transform:
   m_GameObject: {fileID: 3332607152225805837}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.25}
+  m_LocalPosition: {x: 0, y: 0, z: 0.2389}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -501,7 +502,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -546,7 +547,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.2
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -922,61 +923,61 @@ MonoBehaviour:
   m_CollisionMaterial: {fileID: 0}
   m_SurfaceCollisions: 0
   m_SelfCollisions: 0
-  restLength_: 1.078115
+  restLength_: 1.0777534
   elements:
   - particle1: 0
     particle2: 1
-    restLength: 0.097965665
+    restLength: 0.09754584
     constraintForce: 0
     tearResistance: 1
   - particle1: 1
     particle2: 2
-    restLength: 0.09799707
+    restLength: 0.09769671
     constraintForce: 0
     tearResistance: 1
   - particle1: 2
     particle2: 3
-    restLength: 0.09804038
+    restLength: 0.09832941
     constraintForce: 0
     tearResistance: 1
   - particle1: 3
     particle2: 4
-    restLength: 0.09792208
+    restLength: 0.097999796
     constraintForce: 0
     tearResistance: 1
   - particle1: 4
     particle2: 5
-    restLength: 0.09797053
+    restLength: 0.0982465
     constraintForce: 0
     tearResistance: 1
   - particle1: 5
     particle2: 6
-    restLength: 0.0980402
+    restLength: 0.098123744
     constraintForce: 0
     tearResistance: 1
   - particle1: 6
     particle2: 7
-    restLength: 0.09806869
+    restLength: 0.09824058
     constraintForce: 0
     tearResistance: 1
   - particle1: 7
     particle2: 8
-    restLength: 0.09778231
+    restLength: 0.09797495
     constraintForce: 0
     tearResistance: 1
   - particle1: 8
     particle2: 9
-    restLength: 0.09812818
+    restLength: 0.09837626
     constraintForce: 0
     tearResistance: 1
   - particle1: 9
     particle2: 10
-    restLength: 0.097844504
+    restLength: 0.097745076
     constraintForce: 0
     tearResistance: 1
   - particle1: 10
     particle2: 11
-    restLength: 0.09835529
+    restLength: 0.09747453
     constraintForce: 0
     tearResistance: 1
   m_RopeBlueprint: {fileID: 11400000, guid: 8769ae2cb124a9140846ce1b974146c4, type: 2}
@@ -1013,7 +1014,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: b74081a5a5bbf418ea9f95bfec18f393, type: 2}
-  - {fileID: 2100000, guid: 944662842360b684091d17d4e3e80aaf, type: 2}
+  - {fileID: 2100000, guid: b0686c0a4baeb2d49be7190b9864506b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1194,7 +1195,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.1
+  m_Radius: 0.02
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6876002333295943018
 Rigidbody:
@@ -1305,7 +1306,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Center: {x: 0, y: 0, z: 0.3}
 --- !u!54 &7870576434216771213
 Rigidbody:
@@ -1332,7 +1333,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &8076008606094351062
 GameObject:
@@ -1385,8 +1386,8 @@ MonoBehaviour:
   boxOffset:
   - {x: 0, y: 0.1564, z: 0}
   handOffset:
-  - {x: 0.02, y: 0.25, z: 0}
-  - {x: -0.02, y: 0.25, z: 0}
+  - {x: 0.025, y: 0.25, z: 0}
+  - {x: -0.025, y: 0.25, z: 0}
   isInHand: 0
   swapHands: 0
   isInBox: 0
@@ -1596,7 +1597,7 @@ PrefabInstance:
     - target: {fileID: -4502901282409785108, guid: 2636f7e6e20564f41b4088021f7b5ee8, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 944662842360b684091d17d4e3e80aaf, type: 2}
+      objectReference: {fileID: 2100000, guid: b0686c0a4baeb2d49be7190b9864506b, type: 2}
     - target: {fileID: 919132149155446097, guid: 2636f7e6e20564f41b4088021f7b5ee8, type: 3}
       propertyPath: m_Name
       value: CicadaStick
@@ -1786,7 +1787,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 5d1ec640d18e8634587f9f7835857496, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 944662842360b684091d17d4e3e80aaf, type: 2}
+      objectReference: {fileID: 2100000, guid: b0686c0a4baeb2d49be7190b9864506b, type: 2}
     - target: {fileID: 919132149155446097, guid: 5d1ec640d18e8634587f9f7835857496, type: 3}
       propertyPath: m_Name
       value: CicadaTub

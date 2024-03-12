@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 1812915117}
   - component: {fileID: 1812915118}
   - component: {fileID: 1812915119}
+  - component: {fileID: 1812915120}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -176,6 +177,7 @@ MonoBehaviour:
   curFoundItemID: 0
   playerEquipID: 01000000030000000000000002000000
   playerPrefab: {fileID: 4845216885473641645, guid: 0cfc0b131d1b16946bb495e66a9512f9, type: 3}
+  cycleManager: {fileID: 0}
   keyItem:
   - {fileID: 2639221473899419195, guid: d14f8f74ac5406f40a28b9b0590d88d7, type: 3}
   - {fileID: 6847865421160022036, guid: a5e48b6be67b2904a809b703ba2baa28, type: 3}
@@ -185,15 +187,9 @@ MonoBehaviour:
   - {fileID: 7967271812147102683, guid: 5eb49acaf45cfa646be70a8d1c091c4b, type: 3}
   - {fileID: 5154442430296897734, guid: 1195be25e4903dd4c94c4285fc340e18, type: 3}
   audioSource: {fileID: 0}
-  roomSpawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  equipSpawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  enemySpawnInterval: 240
+  roomSpawnPoints: []
+  equipSpawnPoints: []
+  enemySpawnInterval: 120
   restart: {fileID: -136808736777013265, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!82 &1812915118
 AudioSource:
@@ -303,6 +299,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82a312bf9d622df43a33673a8fbf47a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1812915120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812915115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e23de2ec6d98504d9d3b56fc402fadb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2002030182
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,6 +347,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: adf2ac02cc1019041b8e8629f8200782, type: 3}
   UISFXAudioClips:
   - {fileID: 8300000, guid: ad5f057f7f86a7142bc9e118c002421b, type: 3}
+  - {fileID: 8300000, guid: 7b79990770d11154cbd98bc3795f9978, type: 3}
   FingerMonsterAudioClips:
   - {fileID: 8300000, guid: 7ec3d3acae77dce4b9936600974b2e1a, type: 3}
   StickGiantAudioClips:

@@ -1,3 +1,4 @@
+using Obi;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,10 +16,18 @@ public class CustomTopManager : MonoBehaviour
     public HandAnimation handState;
     public AudioSource topAudioSource;
 
+    public LineRenderer ropeAttach;
+    public Renderer ropeVisual;
+
     // Start is called before the first frame update
     void Start()
     {
         topCounter = topLifetime;
+        ropeVisual.enabled = false;
+
+        isReadyToSpin = false;
+        isSpinning = false;
+        domainExpanded= false;
     }
 
     // Update is called once per frame
@@ -27,7 +36,30 @@ public class CustomTopManager : MonoBehaviour
         if (isSpinning)
         {
             ActivateTopSonar();
+            HideRope();
+
+            if(handState!= null)
+            {
+                if (handState.grip)
+                {
+                    ExitTopSonar();
+                }
+            }
+         
         }
+
+        if(hand!=null)
+        {
+            ropeAttach.SetPosition(0, hand.transform.position);
+        }
+        
+
+        if(isReadyToSpin)
+        {
+            ropeAttach.SetPosition(1, transform.position);
+        }
+
+        
     }
 
     void ActivateTopSonar()
@@ -95,6 +127,7 @@ public class CustomTopManager : MonoBehaviour
         topAudioSource.Stop();
         if (!topAudioSource.isPlaying)
         {
+            topAudioSource.pitch = Random.Range(1, 1.3f);
             topAudioSource.PlayOneShot(AudioManager.instance.ToysSFX[0]);
         }
         print("top released");
@@ -114,15 +147,25 @@ public class CustomTopManager : MonoBehaviour
         sonarDust.SetActive(false);
     }
 
+    void SummonRope()
+    {
+       
+        ropeVisual.enabled = true;
+    }
+
+    void HideRope()
+    {
+        ropeVisual.enabled = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         //on entry into pull collider, release top and add force
         if (other.CompareTag("PullTrigger"))
         {
-            
-                isReadyToSpin = true;
-                ReleaseTop();
-
+            isReadyToSpin = true;
+            ReleaseTop();
+            SummonRope();
         }
 
         if (other.CompareTag("ToyBox"))
@@ -144,8 +187,6 @@ public class CustomTopManager : MonoBehaviour
             hand = other.gameObject;
             handState = hand.GetComponent<HandAnimation>();
 
-            ToyToolboxInteractionManager topToolboxHelper = GetComponent<ToyToolboxInteractionManager>();
-            topToolboxHelper.ActivateColliders();
             rb.isKinematic = true;
             TrackPositions();
        

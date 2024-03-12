@@ -9,45 +9,32 @@ public class KeyItemReporter : MonoBehaviour
     public int itemID;
     public static bool itemFound;
 
-   /* private void OnTriggerEnter(Collider other)
+  /*  private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("LeftHand") && !ToolboxManager.itemIDList.Contains(itemID) ||
-                other.CompareTag("RightHand") && !ToolboxManager.itemIDList.Contains(itemID) ||
-                other.CompareTag("ToySpawn") && !ToolboxManager.itemIDList.Contains(itemID)||
-                other.CompareTag("ToyBox") && !ToolboxManager.itemIDList.Contains(itemID) )
+        if (other.CompareTag("LeftHand") && !ItemCycleManager.itemIDList.Contains(itemID) ||
+                other.CompareTag("RightHand") && !ItemCycleManager.itemIDList.Contains(itemID))
         {
-            ToolboxManager.itemIDList.Add(itemID);
+            ItemCycleManager.itemIDList.Add(itemID);
             itemFound = true;
-            ToolboxManager.RemoveToyPrefabInGameManager();
+            ItemCycleManager.RemoveToyPrefabInGameManager();
         }
-    }*/
-    /*private void OnTriggerStay(Collider other)
+    }
+ *//*   private void OnTriggerStay(Collider other)
     {
-        //if(SceneManager.GetActiveScene().name == "GameLevelMain")
         {
-            if (other.CompareTag("LeftHand") && !ToolboxManager.itemIDList.Contains(itemID)|| 
-                other.CompareTag("RightHand") && !ToolboxManager.itemIDList.Contains(itemID)||
-                other.CompareTag("ToyBox") && !ToolboxManager.itemIDList.Contains(itemID) )
+            if (other.CompareTag("LeftHand") && !ItemCycleManager.itemIDList.Contains(itemID) ||
+                other.CompareTag("RightHand") && !ItemCycleManager.itemIDList.Contains(itemID) ||
+                other.name == "ToySpawn" && !ItemCycleManager.itemIDList.Contains(itemID) ||
+                other.name == "PrizeSpawn" && !ItemCycleManager.itemIDList.Contains(itemID))
             {
-                ToolboxManager.itemIDList.Add(itemID);
+                ItemCycleManager.itemIDList.Add(itemID);
                 itemFound = true;
-                //ToolboxManager.RemoveToyPrefabInGameManager();
+                ItemCycleManager.RemoveToyPrefabInGameManager();
             }
         }
 
     }*/
 
-    /*private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("LeftHand") || other.CompareTag("RightHand"))
-        {
-            if(this.GetComponent<Rigidbody>()!=null)
-            {
-                this.GetComponent<Rigidbody>().isKinematic = false;
 
-            }
-            
-        }
-    }*/
 
 }

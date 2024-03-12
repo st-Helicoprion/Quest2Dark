@@ -17,6 +17,7 @@ public class HopterHitboxManager : MonoBehaviour
     {
        playerCam = GameObject.Find("Main Camera").transform;
        SetFlightDirection();
+        planeAudioSource.pitch = Random.Range(1, 1.3f);
         planeAudioSource.PlayOneShot(AudioManager.instance.ToysSFX[0]);
     }
 
@@ -24,9 +25,15 @@ public class HopterHitboxManager : MonoBehaviour
     {
 
         if (!enemyTagged)
+        {
             HopterMoveForward();
-        else
+        }
+       
+        if(enemyTagged)
+
+        {
             HopterTracking();
+        }
 
     }
 
@@ -73,11 +80,19 @@ public class HopterHitboxManager : MonoBehaviour
     {
         visualAidCount += Time.deltaTime;
 
-        if (visualAidCount > .5f)
+        if (visualAidCount >0.5f)
         {
-            Instantiate(hopterSonarPrefab, transform.position, Quaternion.identity);
-            Debug.Log("plane sonar released");
             visualAidCount = 0;
+            if(Physics.Raycast(transform.position,Vector3.down,out RaycastHit hit, Mathf.Infinity))
+            {
+                if(hit.transform.CompareTag("Ground"))
+                {
+                    Instantiate(hopterSonarPrefab, new Vector3(transform.position.x,hit.point.y,transform.position.z), Quaternion.identity);
+                    Debug.Log("plane sonar released");
+                    
+                }
+            }
+            
         }
     }
   

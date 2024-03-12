@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class PlaneSonarBehavior : MonoBehaviour
 {
-    public Material groundedMat;
-    public Rigidbody rb;
     public Animator anim;
     public float existTime;
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+       
         anim = GetComponent<Animator>();
+        anim.Play("PlaneSonar");
     }
 
     private void Update()
@@ -30,16 +29,5 @@ public class PlaneSonarBehavior : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Ground")||other.CompareTag("Finger"))
-        {
-            rb.isKinematic = true;
-            GetComponent<Renderer>().material= groundedMat;
-            anim.Play("PlaneSonar");
-
-        }
-
-    }
-
+  
 }

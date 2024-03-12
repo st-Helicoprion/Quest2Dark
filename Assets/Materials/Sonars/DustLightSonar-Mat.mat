@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: DustLightSonar-Mat
-  m_Shader: {fileID: -6465566751694194690, guid: 326afcfc02058424981e544f8a418446, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 6cf511af8cbe76343a1749387c69daae, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -140,7 +140,7 @@ Material:
     - Color_C91FAD53: {r: 1, g: 1, b: 1, a: 0}
     - Vector2_1D3C182A: {r: -0.55, g: -0.21, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.49019608, g: 0.49019608, b: 0.49019608, a: 1}
+    - _Color: {r: 0.23921569, g: 0.23921569, b: 0.23921569, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3116546994662143725}
   m_Layer: 0
   m_Name: Capsule4
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 9162487903740013508}
   m_Layer: 0
   m_Name: Capsule7
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5126,7 +5126,7 @@ GameObject:
   - component: {fileID: 3949023861068382495}
   m_Layer: 0
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5233,7 +5233,7 @@ GameObject:
   - component: {fileID: 9032145212997549725}
   m_Layer: 0
   m_Name: Capsule6
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5340,7 +5340,7 @@ GameObject:
   - component: {fileID: 5059262326701068090}
   m_Layer: 0
   m_Name: Capsule8
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5445,7 +5445,7 @@ GameObject:
   - component: {fileID: 5802843631429001399}
   m_Layer: 0
   m_Name: Wave(Clone)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5511,7 +5511,7 @@ GameObject:
   - component: {fileID: 2465867441812965664}
   m_Layer: 0
   m_Name: Capsule3
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5618,7 +5618,7 @@ GameObject:
   - component: {fileID: 1949063118924377442}
   m_Layer: 0
   m_Name: Capsule1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5725,7 +5725,7 @@ GameObject:
   - component: {fileID: 1028196127869483023}
   m_Layer: 0
   m_Name: Capsule10
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5832,7 +5832,7 @@ GameObject:
   - component: {fileID: 4303731272147344218}
   m_Layer: 0
   m_Name: Capsule9
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5939,7 +5939,7 @@ GameObject:
   - component: {fileID: 248560038216914240}
   m_Layer: 0
   m_Name: Capsule2
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6044,7 +6044,7 @@ GameObject:
   - component: {fileID: 5902799548592170239}
   m_Layer: 0
   m_Name: Wave
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

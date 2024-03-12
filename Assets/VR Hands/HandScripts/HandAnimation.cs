@@ -36,28 +36,33 @@ public class HandAnimation : MonoBehaviour
 
     public void GripState(InputAction.CallbackContext obj)
     {
-        if (obj.ReadValue<float>() == 1)
+        if(this!=null)
         {
-            GetComponent<Collider>().enabled = true;
-            if (animator != null)
+            if (obj.ReadValue<float>() == 1)
             {
-               
+                GetComponent<Collider>().enabled = true;
+
+                if (animator != null)
+                {
+
                     animator.SetFloat("Grip", 1f);
                     grip = true;
-             
+
+
+                }
+                else return;
+
 
             }
+            else if (obj.ReadValue<float>() == 0 && this != null)
+            {
+                grip = false;
+                StartCoroutine(CheckForEmptyHand());
+            }
+
             else return;
-
-
         }
-        else if (obj.ReadValue<float>() == 0 && this != null)
-        {
-            grip= false;
-            StartCoroutine(CheckForEmptyHand());
-        }
-            
-        else return;
+        
     }
 
     private void GripRelease(InputAction.CallbackContext obj) => animator.SetFloat("Grip", 0f);
@@ -94,7 +99,7 @@ public class HandAnimation : MonoBehaviour
             {
                 handNotEmpty = true;
                 itemID = keyItem.itemID;
-                circleLightManager.ChangeLightColor(itemID);
+                //circleLightManager.ChangeLightColor(itemID);
                 StartCoroutine(CheckForEmptyHand());
 
             }
