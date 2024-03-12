@@ -23,6 +23,9 @@ TagManager:
   - ToyBox
   - PullPrompt
   - Girl
+  - PlaneSonar
+  - GunSonar
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -31,7 +34,7 @@ TagManager:
   - Water
   - UI
   - Outline
-  - 
+  - Outline2
   - 
   - 
   - 

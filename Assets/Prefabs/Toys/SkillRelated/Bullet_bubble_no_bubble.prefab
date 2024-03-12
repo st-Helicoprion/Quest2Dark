@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2902563084134703879}
   m_Layer: 0
   m_Name: Bullet_bubble_no_bubble
-  m_TagString: Untagged
+  m_TagString: GunSonar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 57c2c084b340d3f4385f173f347cacbd, type: 2}
+  - {fileID: 2100000, guid: 095a8dd7345a2ab45b5d06eafb7b845e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

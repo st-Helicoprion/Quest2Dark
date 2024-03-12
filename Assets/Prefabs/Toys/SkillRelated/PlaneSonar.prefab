@@ -11,14 +11,12 @@ GameObject:
   - component: {fileID: 1510889094455058729}
   - component: {fileID: 9072529062052751355}
   - component: {fileID: 4350440251463231696}
-  - component: {fileID: 5808276397826908491}
   - component: {fileID: 8875905672038296307}
   - component: {fileID: 2918831311619715519}
-  - component: {fileID: 1671618726548346951}
   - component: {fileID: 4395246023952484047}
   m_Layer: 0
   m_Name: PlaneSonar
-  m_TagString: Untagged
+  m_TagString: PlaneSonar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2c7d220153f3b284a921674fd1c35716, type: 2}
+  - {fileID: 2100000, guid: 52a50138d24dab74c863c7e74b861657, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -88,27 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &5808276397826908491
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 352535631024446902}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &8875905672038296307
 Animator:
   serializedVersion: 5
@@ -142,37 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c00c4d13503594e80c92b66191104b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundedMat: {fileID: 2100000, guid: 415f3d3fed09dc441b8a4ff7ed7f17be, type: 2}
-  rb: {fileID: 0}
   anim: {fileID: 0}
   existTime: 5
---- !u!54 &1671618726548346951
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 352535631024446902}
-  serializedVersion: 4
-  m_Mass: 1000
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!82 &4395246023952484047
 AudioSource:
   m_ObjectHideFlags: 0

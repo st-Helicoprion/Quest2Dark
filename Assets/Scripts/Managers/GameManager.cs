@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
             equipSpawnPoints.Add(roomSpawnPoints[j].transform.GetChild(0).gameObject);
         }
         int i = Random.Range(0,3);
-        Instantiate(playerPrefab, roomSpawnPoints[i].transform.position + new Vector3(0, 2, 0), Quaternion.identity);
+        Instantiate(playerPrefab, roomSpawnPoints[i].transform.position + new Vector3(0, 2, 0), roomSpawnPoints[i].transform.localRotation);
         player = FindObjectOfType<XROrigin>().transform;
         player.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
 
@@ -259,6 +259,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("death coroutine test");
         player.GetComponentInChildren<ContinuousMoveProviderBase>().moveSpeed = 0;
+        player.GetComponentInChildren<PlayerMoveFeedback>().enabled = false;
         player.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
         player.GetComponentInChildren<TextMeshProUGUI>().text = "You are Dead";
 

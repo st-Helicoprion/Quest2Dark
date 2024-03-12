@@ -6,12 +6,13 @@ public class ThrowVisuals : MonoBehaviour
 {
     public Transform mainCamera;
     public SpriteRenderer marker;
+    public string markerName;
     
     // Start is called before the first frame update
     void Start()
     {
         mainCamera = GameObject.Find("Main Camera").transform;
-        marker = GameObject.Find("HitboxMarker").GetComponent<SpriteRenderer>();
+        marker = GameObject.Find(markerName).GetComponent<SpriteRenderer>();
 
         marker.enabled = false;
     }
@@ -25,7 +26,7 @@ public class ThrowVisuals : MonoBehaviour
                 if (hit.transform.CompareTag("PullTrigger")&&transform.CompareTag("Hopter"))
                 {
                     marker.enabled = true;
-                    marker.transform.position = hit.point;
+                    marker.transform.position = hit.point+ new Vector3(0, .1f, 0);
 
                 }
 

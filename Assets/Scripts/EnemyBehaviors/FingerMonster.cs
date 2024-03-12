@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,10 +16,11 @@ public class FingerMonster : MonoBehaviour
     public Material chaseMaterial, idleMaterial;
     //public bool creeping, isNearPlayer, refreshTarget;
     //public float count, creepCount;
-    public bool isControlled, isChasing;
+    public bool isControlled, isChasing, charged;
     public GameObject attackHitbox;
     public Animator anim;
     public AudioSource audioSource;
+    public float triggeredCount, triggeredLifetime;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +50,16 @@ public class FingerMonster : MonoBehaviour
             ForcedSonarDetected();
         }
 
+        if(charged)
+        {
+            triggeredCount -= Time.deltaTime;
+
+            if(triggeredCount < 0&&!isControlled)
+            {
+                charged= false;
+                FreezeMonster();
+            }
+        }
     }
 
     public void DetectedFeedback()
@@ -66,7 +79,7 @@ public class FingerMonster : MonoBehaviour
     public void SonarDetected(Collider other)//monster starts to chase source of noise
     {
         DetectedFeedback();
-        agent.speed = 2.5f;
+        agent.speed = 4f;
         agent.SetDestination(other.transform.position);
         agent.transform.LookAt(other.transform.position);
         if (!audioSource.isPlaying)
@@ -78,7 +91,7 @@ public class FingerMonster : MonoBehaviour
     public void ForcedSonarDetected()//monster starts to chase player
     {
         DetectedFeedback();
-        agent.speed = 2.5f;
+        agent.speed = 4f;
         agent.SetDestination(target.position);
         agent.transform.LookAt(target.position);
         if (!audioSource.isPlaying)
@@ -205,6 +218,24 @@ public class FingerMonster : MonoBehaviour
         audioSource.Stop();
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Bullet"))
+        {
+
+            transform.position -= collision.transform.forward;
+
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("GunSonar") || other.CompareTag("PlaneSonar"))
+        {
+            charged = true;
+          
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Sonar"))
@@ -212,10 +243,18 @@ public class FingerMonster : MonoBehaviour
             ForcedSonarDetected();
         }
 
+      
         if (other.CompareTag("TopSonar"))
         {
             SonarDetected(other);
+
+            if(other == null)
+            {
+                FreezeMonster();
+            }
         }
+
+        
 
     }
 
@@ -226,7 +265,9 @@ public class FingerMonster : MonoBehaviour
         {
             FreezeMonster();
         }
-        if(other.CompareTag("TopSonar")&&!isControlled)
+        if(other.CompareTag("TopSonar")&&!isControlled||
+           other.CompareTag("GunSonar") && !isControlled||
+           other.CompareTag("PlaneSonar") && !isControlled)
         {
             FreezeMonster();
         }

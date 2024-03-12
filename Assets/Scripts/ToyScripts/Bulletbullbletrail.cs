@@ -9,13 +9,17 @@ public class Bulletbullbletrail : MonoBehaviour
     public float sonarDelay;
     public GameObject echo;
     public float ExistTime;
-    public float MaxDistance;
     [SerializeField] float speed;
     public GameObject bulletSpawnPoint;
     Vector3 bulletTrajectory;
+    public Rigidbody rb;
+    public bool hasHit;
+    public Renderer bulletSkin;
 
     void Start()
     {
+        rb= GetComponent<Rigidbody>();
+        bulletSkin= GetComponent<Renderer>();
        SaveBulletTrajectory();
     }
     void Update()
@@ -32,26 +36,45 @@ public class Bulletbullbletrail : MonoBehaviour
 
     void DeployBulletAndSonar()
     {
-        transform.position += bulletTrajectory * Time.deltaTime * speed;
-        MaxDistance -= Time.deltaTime * speed;
-        if (MaxDistance < 0)
-        {
-            Destroy(this.gameObject);
+        rb.AddForce(400*speed*bulletTrajectory);
 
-        }
-           
-        if (sonarSpawnTime <= 0)
+        //transform.position += bulletTrajectory * Time.deltaTime * speed;
+
+        if (sonarSpawnTime < 0&&!hasHit)
         {
-            GameObject instance = (GameObject)Instantiate(echo, transform.position, Quaternion.identity);
-            Destroy(instance, ExistTime);
-            sonarSpawnTime = sonarDelay;
+            bulletSkin.enabled = false;
+            rb.velocity = Vector3.zero;
+            StartCoroutine(SonarExpandSequence());
+            Destroy(this.gameObject, ExistTime);
         }
-            
         else
         {
             sonarSpawnTime -= Time.deltaTime;
         }
 
-        
+
+    }
+
+    IEnumerator SonarExpandSequence()
+    {
+        sonarSpawnTime = sonarDelay;
+        int i = 0;
+       while(i<6)
+        {
+            i++;
+            GameObject instance = Instantiate(echo, transform.position, Quaternion.identity);
+            Destroy(instance, ExistTime);
+            yield return new WaitForSeconds(0.2f);
+        }
+       
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        hasHit = true;
+        bulletSkin.enabled = false;
+        rb.velocity = Vector3.zero;
+        StartCoroutine(SonarExpandSequence());
+        Destroy(this.gameObject, ExistTime);
     }
 }
