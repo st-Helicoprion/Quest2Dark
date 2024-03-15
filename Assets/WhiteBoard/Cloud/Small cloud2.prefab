@@ -41,7 +41,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3350725514046136631}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -90,17 +90,17 @@ LODGroup:
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.4957015
+  - screenRelativeHeight: 0.20708592
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1205593538153065406}
-  - screenRelativeHeight: 0.4957015
+  - screenRelativeHeight: 0.14402531
     fadeTransitionWidth: 0
     renderers: []
-  - screenRelativeHeight: 0.4957015
+  - screenRelativeHeight: 0.09798062
     fadeTransitionWidth: 0
     renderers: []
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!1 &7010042922648290144
 GameObject:
   m_ObjectHideFlags: 0
