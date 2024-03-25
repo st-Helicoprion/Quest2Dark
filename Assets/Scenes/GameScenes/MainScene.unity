@@ -184,9 +184,10 @@ MonoBehaviour:
   - {fileID: 8301825593925316189, guid: b39ec38135b62e74eb636fc63ccad016, type: 3}
   - {fileID: 3207326128619926945, guid: a9f18d85feb277049884ce46b354ac28, type: 3}
   enemyPrefab:
-  - {fileID: 7967271812147102683, guid: 5eb49acaf45cfa646be70a8d1c091c4b, type: 3}
-  - {fileID: 5154442430296897734, guid: 1195be25e4903dd4c94c4285fc340e18, type: 3}
+  - {fileID: 5250758653461402767, guid: 9d6d2985bae35f84fa800b81ebe13699, type: 3}
+  - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
   audioSource: {fileID: 0}
+  readyToReboot: 0
   roomSpawnPoints: []
   equipSpawnPoints: []
   enemySpawnInterval: 120
@@ -358,6 +359,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d15c8bba891e1fb47bdb1eb8846fee4c, type: 3}
   - {fileID: 8300000, guid: 20607f6ccd39d5849a4ceae44a32bab6, type: 3}
   - {fileID: 8300000, guid: 1bd76f7713d720f47b548809d494e8c4, type: 3}
+  - {fileID: 8300000, guid: 2f33b61072250bb4f92d097dee5a7d01, type: 3}
 --- !u!4 &2002030184
 Transform:
   m_ObjectHideFlags: 0

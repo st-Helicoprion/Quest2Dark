@@ -15,11 +15,13 @@ public class Bulletbullbletrail : MonoBehaviour
     public Rigidbody rb;
     public bool hasHit;
     public Renderer bulletSkin;
+    public AudioSource audioSource;
 
     void Start()
     {
         rb= GetComponent<Rigidbody>();
         bulletSkin= GetComponent<Renderer>();
+        audioSource = GetComponent<AudioSource>();
        SaveBulletTrajectory();
     }
     void Update()
@@ -44,7 +46,7 @@ public class Bulletbullbletrail : MonoBehaviour
         {
             bulletSkin.enabled = false;
             rb.velocity = Vector3.zero;
-            StartCoroutine(SonarExpandSequence());
+            SonarExpandSequence();
             Destroy(this.gameObject, ExistTime);
         }
         else
@@ -55,17 +57,13 @@ public class Bulletbullbletrail : MonoBehaviour
 
     }
 
-    IEnumerator SonarExpandSequence()
+    void SonarExpandSequence()
     {
         sonarSpawnTime = sonarDelay;
-        int i = 0;
-       while(i<6)
-        {
-            i++;
-            GameObject instance = Instantiate(echo, transform.position, Quaternion.identity);
-            Destroy(instance, ExistTime);
-            yield return new WaitForSeconds(0.2f);
-        }
+        GameObject instance = Instantiate(echo, transform.position, Quaternion.identity);
+        audioSource.pitch = Random.Range(0.6f, 0.8f);
+        audioSource.PlayOneShot(AudioManager.instance.ToysSFX[4]);
+        Destroy(instance, ExistTime);
        
     }
 
@@ -74,7 +72,7 @@ public class Bulletbullbletrail : MonoBehaviour
         hasHit = true;
         bulletSkin.enabled = false;
         rb.velocity = Vector3.zero;
-        StartCoroutine(SonarExpandSequence());
+        SonarExpandSequence();
         Destroy(this.gameObject, ExistTime);
     }
 }

@@ -17,7 +17,7 @@ public class SonarManager : MonoBehaviour
     void Start()
     {
         buffer = 0;
-        maxSonarHeight = -5;
+        maxSonarHeight = 5;
         minSonarHeight = -52;
         sonar = GameObject.Find("PlayerSonar").transform;
         CheckForHitBoxManager();
@@ -77,23 +77,25 @@ public class SonarManager : MonoBehaviour
             cicadaAudioSource.PlayOneShot(AudioManager.instance.ToysSFX[3]);
         }
         sonar.localPosition += new Vector3(0, increaseRate, 0);
-
+        
     }
 
     void ActivateInternalSonar()
     {
         if (sonar.localPosition.y > minSonarHeight)
         {
+            sonar.tag = "Sonar";
             internalSonarCount += Time.deltaTime;
 
-            if (internalSonarCount > .75f)
+            if (internalSonarCount > 1)
             {
                 Instantiate(internalSonar, sonar.parent);
                 internalSonarCount = 0;
             }
 
         }
-        else return;
+        else 
+            sonar.tag= "Untagged";
 
     }
 

@@ -14,19 +14,16 @@ public class FingerMonster : MonoBehaviour
     public Transform target;
     public Vector3 idleTarget;
     public Material chaseMaterial, idleMaterial;
-    //public bool creeping, isNearPlayer, refreshTarget;
-    //public float count, creepCount;
     public bool isControlled, isChasing, charged;
     public GameObject attackHitbox;
     public Animator anim;
     public AudioSource audioSource;
-    public float triggeredCount, triggeredLifetime;
+    public float triggeredCount, triggeredLifetime, wakeDelay;
 
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        anim = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         attackHitbox = this.transform.Find("AttackHitbox").gameObject;
@@ -38,13 +35,6 @@ public class FingerMonster : MonoBehaviour
     {
         DetectTargetReached();
 
-        /*if (!chasing && !creeping)
-        {
-            DetectTargetReached();
-            RefreshIdleTarget();
-            CreepToPlayer();
-        }*/ //behavior : creeping to player and then stopping
-
         if(isControlled)
         {
             ForcedSonarDetected();
@@ -53,6 +43,7 @@ public class FingerMonster : MonoBehaviour
         if(charged)
         {
             triggeredCount -= Time.deltaTime;
+            ForcedSonarDetected();
 
             if(triggeredCount < 0&&!isControlled)
             {
@@ -70,18 +61,26 @@ public class FingerMonster : MonoBehaviour
         enemyMat[1] = chaseMaterial;
         renderer.materials = enemyMat;
         
-        RunAnim();
-        Debug.Log("sonar detected");
-        attackHitbox.SetActive(true);
-        isChasing = true;
+        if(!isChasing)
+        {
+            WakeAndRunAnim();
+            Debug.Log("sonar detected");
+            attackHitbox.SetActive(true);
+            isChasing = true;
+        }
+        
     }
 
     public void SonarDetected(Collider other)//monster starts to chase source of noise
     {
         DetectedFeedback();
-        agent.speed = 4f;
+        wakeDelay -= Time.deltaTime;
+        if(wakeDelay < 0)
+        {
+            agent.speed = 4;
+        }
         agent.SetDestination(other.transform.position);
-        agent.transform.LookAt(other.transform.position);
+        //agent.transform.LookAt(other.transform.position);
         if (!audioSource.isPlaying)
         {
             audioSource.PlayOneShot(AudioManager.instance.FingerMonsterAudioClips[0]);
@@ -91,9 +90,13 @@ public class FingerMonster : MonoBehaviour
     public void ForcedSonarDetected()//monster starts to chase player
     {
         DetectedFeedback();
-        agent.speed = 4f;
+        wakeDelay -= Time.deltaTime;
+        if (wakeDelay < 0)
+        {
+            agent.speed = 4;
+        }
         agent.SetDestination(target.position);
-        agent.transform.LookAt(target.position);
+        //agent.transform.LookAt(target.position);
         if (!audioSource.isPlaying)
         {
             audioSource.PlayOneShot(AudioManager.instance.FingerMonsterAudioClips[0]);
@@ -110,7 +113,7 @@ public class FingerMonster : MonoBehaviour
         renderer.materials = enemyMat;
         agent.speed = 0;
         IdleAnim();
-
+        wakeDelay = 3.5f;
         attackHitbox.SetActive(false);
         isChasing = false;
     }
@@ -125,7 +128,7 @@ public class FingerMonster : MonoBehaviour
         idleTarget = this.transform.position + new Vector3(rand1, 0, rand2);
         agent.speed = 1;
         agent.SetDestination(idleTarget);
-        WalkAnim();
+        WakeAndRunAnim();
         Debug.Log("Stone summoned and roaming");
     }
 
@@ -210,6 +213,15 @@ public class FingerMonster : MonoBehaviour
     }*/
     #endregion
 
+    IEnumerator KnockbackCoroutine(Collision collision)
+    {
+        for(int i = 0;i < 10; i++)
+        {
+            transform.localPosition -= transform.forward;
+            yield return null;
+        }
+      
+    }
     IEnumerator AudioVolumeFade()
     {
         while (audioSource.volume > 0)
@@ -223,7 +235,7 @@ public class FingerMonster : MonoBehaviour
         if (collision.transform.CompareTag("Bullet"))
         {
 
-            transform.position -= collision.transform.forward;
+            StartCoroutine(KnockbackCoroutine(collision));
 
         }
     }
@@ -232,7 +244,7 @@ public class FingerMonster : MonoBehaviour
         if (other.CompareTag("GunSonar") || other.CompareTag("PlaneSonar"))
         {
             charged = true;
-          
+            triggeredCount = triggeredLifetime;
         }
     }
 
@@ -274,25 +286,15 @@ public class FingerMonster : MonoBehaviour
     }
 
     #region Animator
-    void RunAnim()
-    {
-        anim.SetBool("Walk", false);
-        anim.SetBool("Idle", false);
-        anim.SetBool("Run", true);
-    }
-
     void IdleAnim()
     {
-        anim.SetBool("Run", false);
-        anim.SetBool("Walk", false);
         anim.SetBool("Idle", true);
     }
 
-    void WalkAnim()
+    void WakeAndRunAnim()
     {
-        anim.SetBool("Run", false);
         anim.SetBool("Idle", false);
-        anim.SetBool("Walk", true);
+        anim.SetTrigger("Wake");
     }
     #endregion
 

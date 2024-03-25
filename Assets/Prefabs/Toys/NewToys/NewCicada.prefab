@@ -246,7 +246,7 @@ MonoBehaviour:
   sonar: {fileID: 5770331657756249146, guid: 0cfc0b131d1b16946bb495e66a9512f9, type: 3}
   maxSonarHeight: 0
   minSonarHeight: 0
-  increaseRate: 0.15
+  increaseRate: 0.17
   internalSonarCount: 0
   internalSonar: {fileID: 6897076775816023034, guid: 4ed62a0e01810674981edac0a03b95f6, type: 3}
   cicadaStick: {fileID: 343738242620390258}
@@ -797,7 +797,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.2
+  m_Time: 0.1
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -1425,8 +1425,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.05, y: 0.3, z: 0.05}
-  m_Center: {x: 0, y: -0.21, z: 0}
+  m_Size: {x: 0.026482772, y: 0.3, z: 0.018399525}
+  m_Center: {x: 0.00094597973, y: -0.20999998, z: 0.00019401126}
 --- !u!54 &1335945172956708544
 Rigidbody:
   m_ObjectHideFlags: 0

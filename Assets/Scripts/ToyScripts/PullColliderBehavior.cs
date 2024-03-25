@@ -18,7 +18,7 @@ public class PullColliderBehavior : MonoBehaviour
     {
         transform.parent.localRotation = new Quaternion(0, mainCamera.localRotation.y, 0, mainCamera.localRotation.w);
 
-        if(promptPool.Count>5)
+        if(promptPool.Count>1)
         {
             ClearPrompts();
         }

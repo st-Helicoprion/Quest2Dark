@@ -14,7 +14,7 @@ public class AppUtilsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Application.targetFrameRate = 60;
+        
 
     }
 }

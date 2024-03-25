@@ -40,7 +40,7 @@ public class GunSonarManager : MonoBehaviour
     {
         //SpawnBullet觸發後，每經過TimeInterval的時間，生成一個聲波，總共生SpawnSonar個
             bulletTemp = GameObject.Instantiate(BulletPrefab, vector3,quaternion);
-            gunDelay = 0.5f;
+            gunDelay = 1;
             Destroy(bulletTemp, ExistTime);
             yield return null;
     }

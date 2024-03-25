@@ -33,31 +33,42 @@ public class CustomTopManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isSpinning)
+        if(!NewToolboxManager.isOpen)
         {
-            ActivateTopSonar();
-            HideRope();
-
-            if(handState!= null)
+            if (isSpinning)
             {
-                if (handState.grip)
+                ActivateTopSonar();
+                HideRope();
+
+                if (handState != null)
                 {
-                    ExitTopSonar();
+                    if (handState.grip)
+                    {
+                        ExitTopSonar();
+                    }
+                }
+
+            }
+
+            if (hand != null)
+            {
+                ropeAttach.SetPosition(0, hand.transform.position);
+            }
+
+
+            if (isReadyToSpin)
+            {
+                ropeAttach.SetPosition(1, transform.position);
+                if (handState != null)
+                {
+                    if (handState.grip)
+                    {
+                        ExitTopSonar();
+                    }
                 }
             }
-         
-        }
-
-        if(hand!=null)
-        {
-            ropeAttach.SetPosition(0, hand.transform.position);
         }
         
-
-        if(isReadyToSpin)
-        {
-            ropeAttach.SetPosition(1, transform.position);
-        }
 
         
     }
@@ -92,13 +103,28 @@ public class CustomTopManager : MonoBehaviour
 
         if (handState.handNotEmpty)
         {
+            HideRope();
             toolboxHelper.HopToEmptyBox();
+
+            if(!NewToolboxManager.isOpen)
+            toolboxHelper.HideEquipVisuals();
         }
         else
         {
             ReturnToHand();
+            HideRope();
         }
         topCounter = topLifetime;
+    }
+
+    void ExitNoReturn()
+    {
+        StopAnim();
+        isSpinning = false;
+        isReadyToSpin = false;
+        domainExpanded = false;
+        topCounter = topLifetime;
+        HideRope();
     }
 
     void ReturnToHand()
@@ -161,7 +187,7 @@ public class CustomTopManager : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //on entry into pull collider, release top and add force
-        if (other.CompareTag("PullTrigger"))
+        if (other.CompareTag("PullTrigger")&&!isSpinning)
         {
             isReadyToSpin = true;
             ReleaseTop();
@@ -171,7 +197,7 @@ public class CustomTopManager : MonoBehaviour
         if (other.CompareTag("ToyBox"))
         {
             rb.isKinematic=true;
-            ExitTopSonar();
+            ExitNoReturn();
         }
 
        

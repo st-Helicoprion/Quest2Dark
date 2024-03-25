@@ -538,7 +538,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 83f253ff0e6d8324c92ce61d2581d9a4, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 087ac17ac33fe8248bf00864596590d6, type: 2}
+      objectReference: {fileID: 2100000, guid: 944662842360b684091d17d4e3e80aaf, type: 2}
     - target: {fileID: 919132149155446097, guid: 83f253ff0e6d8324c92ce61d2581d9a4, type: 3}
       propertyPath: m_Name
       value: woodairplane

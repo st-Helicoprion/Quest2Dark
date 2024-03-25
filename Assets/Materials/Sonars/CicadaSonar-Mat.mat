@@ -28,7 +28,7 @@ Material:
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
-  m_DoubleSidedGI: 1
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -100,7 +100,7 @@ Material:
     - Vector1_8BFE93: 0.5
     - Vector1_9C2A9182: 0.5
     - Vector1_A8806370: 0.25
-    - Vector1_B30C7C99: 3
+    - Vector1_B30C7C99: 0.7
     - Vector1_CA9CCF7C: 1
     - Vector1_D2BDC462: -1
     - Vector1_D4FE4FD2: 0.01
@@ -139,7 +139,7 @@ Material:
     - Vector2_8C1E2143: {r: -3, g: 3, b: 0, a: 0}
     - Vector2_9A6A5DFE: {r: -0.1, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.5098038, g: 0.5098038, b: 0.5098038, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []

@@ -13,7 +13,6 @@ public class StickGiant : MonoBehaviour
     public NavMeshAgent agent;
     public Transform target;
     public Vector3 idleTarget;
-    public GameObject attackHitbox;
     public Animator anim;
     public bool refreshTarget, creeping, isNearPlayer, tracking;
     public float count, creepCount;
@@ -25,10 +24,9 @@ public class StickGiant : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
-        attackHitbox = this.transform.Find("AttackHitbox").gameObject;
         lineToPlayer = GetComponent<LineRenderer>();
         audioSource = GetComponent<AudioSource>();
-        
+     
     }
 
     // Update is called once per frame
@@ -59,6 +57,7 @@ public class StickGiant : MonoBehaviour
         idleTarget = this.transform.position + new Vector3(UnityEngine.Random.Range(-5, 5), 0, UnityEngine.Random.Range(-5, 5));
         agent.speed = 1;
         agent.SetDestination(idleTarget);
+        WalkAnim();
 
     }
     void DetectTargetReached()//used for continuous wandering behavior
@@ -101,7 +100,6 @@ public class StickGiant : MonoBehaviour
         if (distToPlayer < minDistance)
         {
             isNearPlayer = true;
-            agent.speed = 0;
             if (!audioSource.isPlaying && !tracking)
             {
                 audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
@@ -132,6 +130,7 @@ public class StickGiant : MonoBehaviour
         Debug.Log("player not moving");
         agent.SetDestination(target.position);
         creeping = true;
+        WalkAnim();
 
         yield return new WaitForSeconds(5);
 
@@ -142,6 +141,7 @@ public class StickGiant : MonoBehaviour
     void AlertAllMonsters()
     {   
         agent.speed = 0;
+        IdleAnim();
 
         lineToPlayer.enabled = true;
         lineToPlayer.SetPosition(0, this.transform.position + new Vector3(0, 15, 0));
@@ -225,4 +225,18 @@ public class StickGiant : MonoBehaviour
             }
         }
     }
+
+    #region Animator
+    void IdleAnim()
+    {
+        anim.SetBool("Walk", false);
+        anim.SetBool("Idle", true);
+    }
+
+    void WalkAnim()
+    {
+        anim.SetBool("Idle", false);
+        anim.SetBool("Walk", true);
+    }
+    #endregion
 }

@@ -80,17 +80,16 @@ public class HopterHitboxManager : MonoBehaviour
     {
         visualAidCount += Time.deltaTime;
 
-        if (visualAidCount >0.5f)
+        if (visualAidCount > 0.65f)
         {
-            visualAidCount = 0;
-            if(Physics.Raycast(transform.position,Vector3.down,out RaycastHit hit, Mathf.Infinity))
+            int layer = 8;
+            int layerMask = 1 << layer;
+
+            if(Physics.Raycast(transform.position,Vector3.down,out RaycastHit hit, Mathf.Infinity, layerMask))
             {
-                if(hit.transform.CompareTag("Ground"))
-                {
-                    Instantiate(hopterSonarPrefab, new Vector3(transform.position.x,hit.point.y,transform.position.z), Quaternion.identity);
+                   Instantiate(hopterSonarPrefab, new Vector3(transform.position.x,hit.point.y,transform.position.z), Quaternion.identity);
                     Debug.Log("plane sonar released");
-                    
-                }
+                    visualAidCount = 0;
             }
             
         }

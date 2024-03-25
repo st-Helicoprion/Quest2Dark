@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> keyItem = new();
     public GameObject[] enemyPrefab;
     public AudioSource audioSource;
+    public bool readyToReboot;
 
     //labyrinth code
     public List<GameObject> roomSpawnPoints, equipSpawnPoints;
@@ -128,11 +129,11 @@ public class GameManager : MonoBehaviour
         
         Debug.Log("Game area loaded");
         
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
 
        
         StartCoroutine(SummonPrizeEquip());
-        StartCoroutine(SpawnEnemies());
+        //StartCoroutine(SpawnEnemies());
 
 
     }
@@ -212,6 +213,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         Instantiate(keyItem[0], prizeSpawn.position, Quaternion.identity);
         ItemCycleManager.RemoveToyPrefabInGameManager(0);
+        readyToReboot= true;
     }
 
 
@@ -258,8 +260,8 @@ public class GameManager : MonoBehaviour
     IEnumerator DeathCoroutine()
     {
         Debug.Log("death coroutine test");
-        player.GetComponentInChildren<ContinuousMoveProviderBase>().moveSpeed = 0;
         player.GetComponentInChildren<PlayerMoveFeedback>().enabled = false;
+        player.GetComponentInChildren<ContinuousMoveProviderBase>().moveSpeed = 0;
         player.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
         player.GetComponentInChildren<TextMeshProUGUI>().text = "You are Dead";
 
@@ -274,10 +276,13 @@ public class GameManager : MonoBehaviour
     #region Utils
     void RestartGame(InputAction.CallbackContext obj)
     {
-        if(obj.ReadValue<float>()==1)
+        if(obj.ReadValue<float>()==1&&readyToReboot)
         {
             SpawnPlayerInRoom();
+            readyToReboot = false;
         }
     }
+
+   
     #endregion
 }

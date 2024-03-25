@@ -16,7 +16,7 @@ public class TopInternalSonarBehavior : MonoBehaviour
     {
         if (transform.localScale.x < maxSonarSize)
         {
-            transform.localScale += new Vector3(Time.deltaTime, Time.deltaTime, Time.deltaTime) * 5;
+            transform.localScale += new Vector3(Time.deltaTime, Time.deltaTime, Time.deltaTime) * 7;
 
         }
         else

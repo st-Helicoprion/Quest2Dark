@@ -8,7 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class PlayerMoveFeedback : MonoBehaviour
 {
     public AudioSource audioSource;
-    public AudioClip moveSound;
+    public AudioClip moveSound, runSound;
     public ContinuousMoveProviderBase playerMovement;
     public CharacterController playerCC;
     public bool isDead;
@@ -26,22 +26,29 @@ public class PlayerMoveFeedback : MonoBehaviour
 
             if (Mathf.Abs(playerCC.velocity.z) > 0.5f || Mathf.Abs(playerCC.velocity.x) > 0.5f)
             {
-                if (playerMovement.moveSpeed < 4)
+                if (playerMovement.moveSpeed < 4.5f)
                 {
                     playerMovement.moveSpeed += Time.deltaTime;
                 }
-                else playerMovement.moveSpeed = 4;
+                else playerMovement.moveSpeed = 4.5f;
 
-                if (!audioSource.isPlaying)
+                if (!audioSource.isPlaying&&playerMovement.moveSpeed<3)
                 {
                     audioSource.volume = 0.5f;
                     audioSource.pitch = Random.Range(1, 1.3f);
                     audioSource.PlayOneShot(moveSound);
                 }
+                if (!audioSource.isPlaying && playerMovement.moveSpeed > 3)
+                {
+                    audioSource.volume = 0.5f;
+                    audioSource.pitch = Random.Range(1, 1.3f);
+                    audioSource.PlayOneShot(runSound);
+                }
+
             }
             else
             {
-                playerMovement.moveSpeed = 2;
+                playerMovement.moveSpeed = 1.5f;
                 audioSource.Stop();
             }
 

@@ -37,7 +37,7 @@ public class TopAOESonarBehavior : MonoBehaviour
 
         topSonarCount += Time.deltaTime;
 
-        if (topSonarCount > .75f)
+        if (topSonarCount > 1)
         {
             Instantiate(topSonarPrefab, transform.position, Quaternion.identity);
             Debug.Log("sonar released");
@@ -49,7 +49,7 @@ public class TopAOESonarBehavior : MonoBehaviour
     {
         if (transform.localScale.x < maxSonarSize)
         {
-            transform.localScale += new Vector3(Time.deltaTime, Time.deltaTime, Time.deltaTime) * 5;
+            transform.localScale += new Vector3(Time.deltaTime, Time.deltaTime, Time.deltaTime) * 7;
 
         }
         

@@ -111,17 +111,22 @@ public class ToyToolboxInteractionManager : MonoBehaviour
         
     }
 
+    public void HopToOtherHand()
+    {
+
+    }
+
     public void FindColliders()
     {
         //only for plane and top
         if(transform.CompareTag("Hopter"))
         {
-            colliders[0] = GameObject.FindGameObjectWithTag("PullTrigger").GetComponent<Collider>();
+            colliders[0] = GameObject.Find("ThrowHitboxPlane").GetComponent<Collider>();
         }
 
        if(transform.CompareTag("SpinningTop"))
         {
-            colliders[0] = GameObject.FindGameObjectWithTag("PullTrigger").GetComponent<Collider>();
+            colliders[0] = GameObject.Find("ThrowHitboxTop").GetComponent<Collider>();
         }
     }
 
@@ -132,6 +137,7 @@ public class ToyToolboxInteractionManager : MonoBehaviour
             for (int i = 0; i < colliders.Length; i++)
             {
                 colliders[i].enabled = true;
+                
             }
         }
         else return;
