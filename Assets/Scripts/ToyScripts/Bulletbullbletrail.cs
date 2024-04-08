@@ -47,7 +47,7 @@ public class Bulletbullbletrail : MonoBehaviour
             bulletSkin.enabled = false;
             rb.velocity = Vector3.zero;
             SonarExpandSequence();
-            Destroy(this.gameObject, ExistTime);
+            Destroy(this.gameObject, 2*ExistTime);
         }
         else
         {
@@ -61,7 +61,6 @@ public class Bulletbullbletrail : MonoBehaviour
     {
         sonarSpawnTime = sonarDelay;
         GameObject instance = Instantiate(echo, transform.position, Quaternion.identity);
-        audioSource.pitch = Random.Range(0.6f, 0.8f);
         audioSource.PlayOneShot(AudioManager.instance.ToysSFX[4]);
         Destroy(instance, ExistTime);
        

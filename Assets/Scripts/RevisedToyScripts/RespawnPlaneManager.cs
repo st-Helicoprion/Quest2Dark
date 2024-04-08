@@ -11,24 +11,40 @@ public class RespawnPlaneManager : MonoBehaviour
     public List<GameObject> planesOnHand = new();
     public GameObject planePrefab, hand, planeInstance;
     public HopterHitboxManager sonarScript;
-    public Collider trackHitbox;
+    public Collider trackHitbox, selfCollider;
 
+    private void Start()
+    {
+        selfCollider = GetComponent<Collider>();
+    }
     private void Update()
     {
         transform.parent.localRotation = new Quaternion(0, mainCamera.localRotation.y, 0, mainCamera.localRotation.w);
+       
     }
     void StartTracking(GameObject other)
     {
-        other.transform.parent = null;
-        sonarScript = other.transform.GetChild(0).GetChild(0).GetComponent<HopterHitboxManager>();
-        trackHitbox = other.transform.GetChild(0).GetChild(0).GetComponent<Collider>();
+        if (other.transform.childCount>0)
+        {
+            other.transform.parent = null;
+            sonarScript = other.transform.GetChild(0).GetComponent<HopterHitboxManager>();
+            trackHitbox = other.transform.GetChild(0).GetComponent<Collider>();
+        }
+        else return;
 
         sonarScript.enabled = true;
         trackHitbox.enabled = true;
 
+        if(planesOnHand.Count>0)
+        {
+            planesOnHand.RemoveAt(0);
+        }
         planesInScene.Add(other);
-
+        
+        
         StartCoroutine(DelayToRefresh());
+
+
     }
 
     void RefreshPlane()
@@ -73,9 +89,8 @@ public class RespawnPlaneManager : MonoBehaviour
 
     IEnumerator DelayToRefresh()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(4);
 
-        
         RefreshPlane();
 
     }
@@ -84,13 +99,14 @@ public class RespawnPlaneManager : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.CompareTag("Hopter") && other.GetComponent<ToyToolboxInteractionManager>().isInHand )
+        if (other.CompareTag("Hopter") && other.GetComponent<ToyToolboxInteractionManager>().isInHand)
         {
             hand = other.GetComponent<ToyToolboxInteractionManager>().handState.gameObject;
 
-            if (planesInScene.Count < planeMaxNum)
+            if (planesInScene.Count<=planeMaxNum)
             {
                 StartTracking(other.gameObject);
+                Debug.Log("plane released");
             }
             else
             {

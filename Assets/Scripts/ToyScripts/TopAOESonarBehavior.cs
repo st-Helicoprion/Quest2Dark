@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TopAOESonarBehavior : MonoBehaviour
 {
-    public int maxSonarSize;
+    public int maxSonarHeight;
     public float topSonarCount;
     public GameObject topSonarPrefab;
     public Transform top;
@@ -18,17 +18,15 @@ public class TopAOESonarBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.localPosition = top.localPosition;
-
         if (CustomTopManager.isSpinning)
         {
-            ExpandToEdge();
+            ClimbToTop();
             ActivateTopSonar();
 
         }
         else
         {
-            ShrinkSonar();
+            LowerSonar();
         }
     }
 
@@ -39,30 +37,31 @@ public class TopAOESonarBehavior : MonoBehaviour
 
         if (topSonarCount > 1)
         {
-            Instantiate(topSonarPrefab, transform.position, Quaternion.identity);
+            Instantiate(topSonarPrefab, this.transform.parent);
             Debug.Log("sonar released");
             topSonarCount = 0;
         }
     }
 
-    void ExpandToEdge()
+    void ClimbToTop()
     {
-        if (transform.localScale.x < maxSonarSize)
+        if (transform.localPosition.y < maxSonarHeight)
         {
-            transform.localScale += new Vector3(Time.deltaTime, Time.deltaTime, Time.deltaTime) * 7;
+            transform.localPosition += new Vector3(0, 18 * Time.deltaTime, 0);
 
         }
         
     }
 
-    void ShrinkSonar()
+    void LowerSonar()
     {
-        if (transform.localScale.x > 0.1f)
+        if (transform.localPosition.y > -60)
         {
-            transform.localScale -= new Vector3(1,1,1) * 5;
+            transform.localPosition -= new Vector3(0, 120 * Time.deltaTime, 0);
 
         }
-        else
+        
+        if(transform.localPosition.y<-60)
         {
             Destroy(this.gameObject);
         }

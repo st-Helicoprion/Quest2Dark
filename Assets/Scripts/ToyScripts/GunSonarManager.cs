@@ -16,10 +16,23 @@ public class GunSonarManager : MonoBehaviour
     public HandAnimation handState, heldHand;
     public AudioSource gunAudioSource;
     public float gunDelay;
+    public ToyToolboxInteractionManager toolboxInteractionManager;
 
     private void Update()
     {
         gunDelay -= Time.deltaTime;
+
+        if(!NewToolboxManager.isOpen&&toolboxInteractionManager.isInHand)
+        {
+            CheckHeldHand();
+        }
+
+        if(!NewToolboxManager.isOpen&&!toolboxInteractionManager.isInHand)
+        {
+            shootSonarLeft.action.performed -= SpawnBullet;
+            shootSonarRight.action.performed -= SpawnBullet;
+        }
+        
     }
     void SpawnBullet(InputAction.CallbackContext summonInput)
     {
@@ -49,9 +62,21 @@ public class GunSonarManager : MonoBehaviour
     {
         handState = heldHand;
         handID = handState.handID;
-       
     }
 
+    void CheckHeldHand()
+    {
+        if (handID == 0)
+        {
+            shootSonarLeft.action.performed += SpawnBullet;
+            shootSonarRight.action.performed -= SpawnBullet;
+        }
+        else if (handID == 1)
+        {
+            shootSonarLeft.action.performed -= SpawnBullet;
+            shootSonarRight.action.performed += SpawnBullet;
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("LeftHand") || other.CompareTag("RightHand"))
@@ -68,6 +93,12 @@ public class GunSonarManager : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
+        if (other.CompareTag("ToyBox"))
+        {
+            shootSonarLeft.action.performed -= SpawnBullet;
+            shootSonarRight.action.performed -= SpawnBullet;
+
+        }
 
         if (handState != null)
         {
@@ -86,27 +117,24 @@ public class GunSonarManager : MonoBehaviour
             }
         }
 
-        if (other.CompareTag("ToyBox"))
-        {
-            shootSonarLeft.action.performed -= SpawnBullet;
-            shootSonarRight.action.performed -= SpawnBullet;
-
-        }
 
 
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("LeftHand")&&heldHand.transform.CompareTag("RightHand"))
+        if (other.CompareTag("LeftHand") && heldHand.transform.CompareTag("RightHand"))
         {
             KeepHand();
+            CheckHeldHand();
         }
 
-        if (other.CompareTag("RightHand") && heldHand.transform.CompareTag("LeftHand"))
+        else if (other.CompareTag("RightHand") && heldHand.transform.CompareTag("LeftHand"))
         {
             KeepHand();
+            CheckHeldHand();
         }
+
 
     }
 

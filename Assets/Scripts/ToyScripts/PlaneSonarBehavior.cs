@@ -4,29 +4,14 @@ using UnityEngine;
 
 public class PlaneSonarBehavior : MonoBehaviour
 {
-    public Animator anim;
-    public float existTime;
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-        anim = GetComponent<Animator>();
-        anim.Play("PlaneSonar");
-    }
-
     private void Update()
     {
-        if(anim.GetCurrentAnimatorStateInfo(0).IsName("END"))
+        if (transform.localPosition.y < -5)
         {
-            Destroy(this.gameObject);
+            transform.localPosition += new Vector3(0, 15 * Time.deltaTime, 0);
         }
-
-        existTime -= Time.deltaTime;
-
-        if(existTime<0)
-        {
-            Destroy(this.gameObject);
-        }
+        else Destroy(this.gameObject);
+      
     }
 
   

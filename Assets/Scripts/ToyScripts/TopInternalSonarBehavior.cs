@@ -4,34 +4,27 @@ using UnityEngine;
 
 public class TopInternalSonarBehavior : MonoBehaviour
 {
-    public int maxSonarSize;
-
+    public Transform topSonar;
+    private void Start()
+    {
+        topSonar = GameObject.FindWithTag("TopSonar").transform.parent;
+    }
     // Update is called once per frame
     void Update()
     {
-        ExpandToEdge();
+        ClimbToTop();
     }
 
-    void ExpandToEdge()
+    void ClimbToTop()
     {
-        if (transform.localScale.x < maxSonarSize)
+        if (transform.localPosition.y <topSonar.localPosition.y)
         {
-            transform.localScale += new Vector3(Time.deltaTime, Time.deltaTime, Time.deltaTime) * 7;
-
+            transform.localPosition += new Vector3(0, 15 * Time.deltaTime, 0);
         }
-        else
-        {
-            Destroy(this.gameObject);
-        }
+        else Destroy(this.gameObject);
+       
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.CompareTag("TopSonar"))
-        {
-            Destroy(this.gameObject);
-        }
-    }
 
 }
 

@@ -173,15 +173,14 @@ MonoBehaviour:
   idleTarget: {x: 0, y: 0, z: 0}
   chaseMaterial: {fileID: 2100000, guid: e70979707a03d3147b7cfd0ef65d5c30, type: 2}
   idleMaterial: {fileID: 670224309865224971, guid: be3083a5f26d4e859d594ecbe632f87e, type: 3}
-  glitchMaterial: {fileID: 2100000, guid: d070000e2cfb4a74c81186569b7ce18c, type: 2}
   isControlled: 0
   isChasing: 0
   charged: 0
   attackHitbox: {fileID: 0}
   anim: {fileID: 4859121352558000662}
   audioSource: {fileID: 0}
-  triggeredCount: 10
-  triggeredLifetime: 10
+  triggeredCount: 2
+  triggeredLifetime: 2
   wakeDelay: 3.5
 --- !u!54 &4676854037798909967
 Rigidbody:

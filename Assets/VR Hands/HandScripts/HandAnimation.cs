@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 
 [RequireComponent(typeof(Animator))]
@@ -9,11 +10,9 @@ public class HandAnimation : MonoBehaviour
     [SerializeField] private InputActionReference gripAction;
     [SerializeField] private InputActionReference pinchAction;
     private Animator animator;
-    public bool grip, handNotEmpty;
+    public bool grip, handNotEmpty, reloadCheck;
     public int handID;
-    public static int itemID;
-    public CircleLightManager circleLightManager;
-    
+    public GameObject handObj;
 
     private void OnEnable()
     {
@@ -23,12 +22,29 @@ public class HandAnimation : MonoBehaviour
 
         gripAction.action.performed += GripState;
         gripAction.action.canceled += GripState;
+       
 
         /*//pinch
         pinchAction.action.performed += Pinching;
         pinchAction.action.canceled += PinchRelease;*/
     }
+    private void Start()
+    {
+        handObj.layer = 0;
+    }
+    private void Update()
+    {
+        if(ToyToolboxInteractionManager.itemTaken)
+        {
+            handObj.layer = 6;
+        }else handObj.layer = 0;
 
+        if(reloadCheck)
+        {
+            reloadCheck= false;
+            StartCoroutine(CheckForEmptyHand());
+        }
+    }
 
     private void Awake() => animator = GetComponent<Animator>();
 
@@ -73,8 +89,6 @@ public class HandAnimation : MonoBehaviour
 
     public IEnumerator CheckForEmptyHand()
     {
-        yield return null;
-
             if(handNotEmpty)
             {
                 
@@ -87,22 +101,23 @@ public class HandAnimation : MonoBehaviour
                 animator.SetFloat("Grip", 0f);
                
             }
-           
+        yield return null;
+
     }
 
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.TryGetComponent(out KeyItemReporter keyItem))
+        if (other.TryGetComponent<ToyToolboxInteractionManager>(out _))
         {
             if (grip)
             {
                 handNotEmpty = true;
-                itemID = keyItem.itemID;
-                //circleLightManager.ChangeLightColor(itemID);
                 StartCoroutine(CheckForEmptyHand());
 
             }
+
+
             
         }
 

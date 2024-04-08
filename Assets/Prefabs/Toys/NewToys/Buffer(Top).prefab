@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 559435096564261456}
   - component: {fileID: 2250616387243599385}
   - component: {fileID: 6248497428479745579}
+  - component: {fileID: 2061628684637722985}
   m_Layer: 6
   m_Name: Buffer(Top)
   m_TagString: SpinningTop
@@ -147,6 +148,7 @@ MonoBehaviour:
   swapHands: 0
   isInBox: 0
   handState: {fileID: 0}
+  heldHand: {fileID: 0}
   boxState: {fileID: 0}
   otherToyState: {fileID: 0}
   boxList: []
@@ -171,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
   marker: {fileID: 0}
-  markerName: HitboxMarkerTop
+  markerName: MarkerContainerTop
 --- !u!82 &6248497428479745579
 AudioSource:
   m_ObjectHideFlags: 0
@@ -268,6 +270,31 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!205 &2061628684637722985
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3207326128619926945}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 1
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.19984072
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 2072980055378032002}
+  - screenRelativeHeight: 0.099516965
+    fadeTransitionWidth: 0
+    renderers: []
+  - screenRelativeHeight: 0.099516965
+    fadeTransitionWidth: 0
+    renderers: []
+  m_Enabled: 1
 --- !u!1 &4442253656652583038
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +381,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 42c7d50d202a9274181196ef5d8c4db4, type: 2}
+  - {fileID: 2100000, guid: 6c7d7f55be488d54185b3ccb84024d96, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -447,7 +474,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1549407708029064933}
   - component: {fileID: 2302126083990593310}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -463,7 +490,7 @@ Transform:
   m_GameObject: {fileID: 7521742923520772465}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: 2, z: 1.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -490,7 +517,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: aebe93966bf343747a0609ed48dcd4df, type: 2}
+  - {fileID: 2100000, guid: 6c7d7f55be488d54185b3ccb84024d96, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -571,7 +598,7 @@ TrailRenderer:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
-    numCapVertices: 0
+    numCapVertices: 90
     alignment: 0
     textureMode: 0
     textureScale: {x: 1, y: 1}

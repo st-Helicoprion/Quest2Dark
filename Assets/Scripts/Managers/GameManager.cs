@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> keyItem = new();
     public GameObject[] enemyPrefab;
     public AudioSource audioSource;
-    public bool readyToReboot;
+    public static bool readyToReboot, win;
 
     //labyrinth code
     public List<GameObject> roomSpawnPoints, equipSpawnPoints;
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
             instance = this;
             audioSource= GetComponent<AudioSource>();
             ItemCycleManager.StoreKeyItemList();
-            restart.action.performed += RestartGame;
+            restart.action.performed += ManualRestartGame;
             DontDestroyOnLoad(gameObject);
         }
 
@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         SpawnPlayerInRoom();
         //demo code
         //player = FindObjectOfType<XROrigin>().transform;
@@ -72,6 +73,11 @@ public class GameManager : MonoBehaviour
         {
             PlayerDeath();
             
+        }
+
+        if(win)
+        {
+            WinConditionReached();
         }
 /*
         if (KeyItemReporter.itemFound)
@@ -104,7 +110,7 @@ public class GameManager : MonoBehaviour
         int i = Random.Range(0,3);
         Instantiate(playerPrefab, roomSpawnPoints[i].transform.position + new Vector3(0, 2, 0), roomSpawnPoints[i].transform.localRotation);
         player = FindObjectOfType<XROrigin>().transform;
-        player.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        player.GetComponentInChildren<TextMeshPro>().enabled = false;
 
         StartCoroutine(SpawnPlayerEquip(i));
         StartCoroutine(MapSpawnCoroutine());
@@ -228,10 +234,10 @@ public class GameManager : MonoBehaviour
     IEnumerator UpdateToyFoundMessage()
     {
         audioSource.PlayOneShot(AudioManager.instance.UISFXAudioClips[0]);
-        player.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
-        player.GetComponentInChildren<TextMeshProUGUI>().text = "Toys Found\n" + ItemCycleManager.itemIDList.Count + "/4";
+        player.GetComponentInChildren<TextMeshPro>().enabled = true;
+        player.GetComponentInChildren<TextMeshPro>().text = "Toys Found\n" + ItemCycleManager.itemIDList.Count + "/4";
         yield return new WaitForSeconds(3);
-        player.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        player.GetComponentInChildren<TextMeshPro>().enabled = false;
     }
     #endregion
 
@@ -242,13 +248,23 @@ public class GameManager : MonoBehaviour
     }
     void WinConditionReached()
     {
-
+        StartCoroutine(WinCoroutine());
     }
 
     IEnumerator WinCoroutine()
     {
-        yield return null;
+        win = false;
+        player.GetComponentInChildren<PlayerMoveFeedback>().enabled = false;
+        player.GetComponentInChildren<ContinuousMoveProviderBase>().moveSpeed = 0;
+        player.gameObject.GetNamedChild("Canvas").transform.GetChild(0).GetComponent<TextMeshPro>().enabled = true;
+        player.gameObject.GetNamedChild("Canvas").transform.GetChild(0).GetComponent<TextMeshPro>().text = "good run";
+        yield return new WaitForSeconds(5);
+        SpawnPlayerInRoom();
+        readyToReboot = false;
+
     }
+
+
     #endregion
 
     #region Death
@@ -262,9 +278,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("death coroutine test");
         player.GetComponentInChildren<PlayerMoveFeedback>().enabled = false;
         player.GetComponentInChildren<ContinuousMoveProviderBase>().moveSpeed = 0;
-        player.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
-        player.GetComponentInChildren<TextMeshProUGUI>().text = "You are Dead";
-
+        player.gameObject.GetNamedChild("Canvas").transform.GetChild(0).GetComponent<TextMeshPro>().enabled = true;
+        player.gameObject.GetNamedChild("Canvas").transform.GetChild(0).GetComponent<TextMeshPro>().text = "mission failed";
         EnemyInteractionManager.killPlayer = false;
         yield return new WaitForSeconds(5);
 
@@ -274,7 +289,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Utils
-    void RestartGame(InputAction.CallbackContext obj)
+     void ManualRestartGame(InputAction.CallbackContext obj)
     {
         if(obj.ReadValue<float>()==1&&readyToReboot)
         {

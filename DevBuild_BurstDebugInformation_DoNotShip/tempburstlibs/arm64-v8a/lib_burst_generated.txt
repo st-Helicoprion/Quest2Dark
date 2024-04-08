@@ -40,6 +40,7 @@ Library: D:\Quest2Dark\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_genera
 --assembly-defines=UnityEngine;
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=D:\Quest2Dark\Temp\Burst
+--debug=LineOnly
 --key-folder=D:/UnityEditors/2022.3.10f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=D:\Quest2Dark\Library\Burst
 --output=D:\Quest2Dark\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
@@ -146,6 +147,7 @@ Library: D:\Quest2Dark\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_genera
 --assembly-defines=UnityEngine;
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=D:\Quest2Dark\Temp\Burst
+--debug=LineOnly
 --key-folder=D:/UnityEditors/2022.3.10f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=D:\Quest2Dark\Library\Burst
 --output=D:\Quest2Dark\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated

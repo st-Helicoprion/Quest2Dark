@@ -77,7 +77,11 @@ public class FingerMonster : MonoBehaviour
         wakeDelay -= Time.deltaTime;
         if(wakeDelay < 0)
         {
-            agent.speed = 4;
+            if(agent.speed<4)
+            {
+                agent.speed += 0.5f*Time.deltaTime;
+            }
+            
         }
         agent.SetDestination(other.transform.position);
         //agent.transform.LookAt(other.transform.position);
@@ -93,7 +97,10 @@ public class FingerMonster : MonoBehaviour
         wakeDelay -= Time.deltaTime;
         if (wakeDelay < 0)
         {
-            agent.speed = 4;
+            if (agent.speed < 4)
+            {
+                agent.speed += 0.5f*Time.deltaTime;
+            }
         }
         agent.SetDestination(target.position);
         //agent.transform.LookAt(target.position);
@@ -215,9 +222,9 @@ public class FingerMonster : MonoBehaviour
 
     IEnumerator KnockbackCoroutine(Collision collision)
     {
-        for(int i = 0;i < 10; i++)
+        for(int i = 0;i < 2; i++)
         {
-            transform.localPosition -= transform.forward;
+            transform.localPosition -= (collision.transform.position-transform.position);
             yield return null;
         }
       
@@ -241,7 +248,13 @@ public class FingerMonster : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("GunSonar") || other.CompareTag("PlaneSonar"))
+        if (other.CompareTag("GunSonar"))
+        {
+            charged = true;
+            triggeredCount = triggeredLifetime;
+        }
+
+        if(other.CompareTag("PlaneSonar"))
         {
             charged = true;
             triggeredCount = triggeredLifetime;

@@ -17,7 +17,7 @@ public class StickGiant : MonoBehaviour
     public bool refreshTarget, creeping, isNearPlayer, tracking;
     public float count, creepCount;
     public LineRenderer lineToPlayer;
-    public AudioSource audioSource;
+    public AudioSource audioSource, warningAudioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +25,8 @@ public class StickGiant : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         lineToPlayer = GetComponent<LineRenderer>();
-        audioSource = GetComponent<AudioSource>();
+
+        WalkAnim();
      
     }
 
@@ -102,7 +103,7 @@ public class StickGiant : MonoBehaviour
             isNearPlayer = true;
             if (!audioSource.isPlaying && !tracking)
             {
-                audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
+                warningAudioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
             }
         }
         else isNearPlayer = false;
@@ -141,7 +142,6 @@ public class StickGiant : MonoBehaviour
     void AlertAllMonsters()
     {   
         agent.speed = 0;
-        IdleAnim();
 
         lineToPlayer.enabled = true;
         lineToPlayer.SetPosition(0, this.transform.position + new Vector3(0, 15, 0));

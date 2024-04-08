@@ -95,10 +95,10 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 8097884278140617940}
-  - screenRelativeHeight: 0.14402531
+  - screenRelativeHeight: 0.20708592
     fadeTransitionWidth: 0
     renderers: []
-  - screenRelativeHeight: 0.09798062
+  - screenRelativeHeight: 0.20708592
     fadeTransitionWidth: 0
     renderers: []
   m_Enabled: 1
@@ -277,13 +277,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 205ada92ecaf89d4caf6a15db79a096c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3308780594007774394}
   m_SourcePrefab: {fileID: 100100000, guid: 205ada92ecaf89d4caf6a15db79a096c, type: 3}
 --- !u!4 &6929449950339481531 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 205ada92ecaf89d4caf6a15db79a096c, type: 3}
   m_PrefabInstance: {fileID: 7467218292695390288}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7737618091112490241 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 205ada92ecaf89d4caf6a15db79a096c, type: 3}
+  m_PrefabInstance: {fileID: 7467218292695390288}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &3308780594007774394
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7737618091112490241}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8106688895637452707, guid: 205ada92ecaf89d4caf6a15db79a096c, type: 3}
 --- !u!23 &8097884278140617940 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 205ada92ecaf89d4caf6a15db79a096c, type: 3}

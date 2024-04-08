@@ -13,11 +13,6 @@ public class FishPlayerSonarReporter : MonoBehaviour
                 RunnerMonster.ShowAttackLane();
 
             }
-            else
-            {
-                RunnerMonster.HideAttackLane();
-                return;
-            }
         }
     }
 }

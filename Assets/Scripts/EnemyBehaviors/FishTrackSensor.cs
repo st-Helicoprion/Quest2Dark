@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FishTrackSensor : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (RunnerMonster.deployed)
         {
@@ -19,17 +19,4 @@ public class FishTrackSensor : MonoBehaviour
         else return;
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (RunnerMonster.deployed)
-        {
-            if (other.CompareTag("Player"))
-            {
-                RunnerMonster.canShowLanes = false;
-            }
-            else return;
-
-        }
-        else return;
-    }
 }

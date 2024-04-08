@@ -26,6 +26,7 @@ TagManager:
   - PlaneSonar
   - GunSonar
   - Bullet
+  - Runner
   layers:
   - Default
   - TransparentFX

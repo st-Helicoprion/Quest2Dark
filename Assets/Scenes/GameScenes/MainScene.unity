@@ -8,8 +8,8 @@ OcclusionCullingSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 6fb39878510a0c44fa5696e774ccbfce
+  m_OcclusionCullingData: {fileID: 36300000, guid: c91dfc53bf0c49e4abcd2bb703aa1f8a, type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -187,7 +187,6 @@ MonoBehaviour:
   - {fileID: 5250758653461402767, guid: 9d6d2985bae35f84fa800b81ebe13699, type: 3}
   - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
   audioSource: {fileID: 0}
-  readyToReboot: 0
   roomSpawnPoints: []
   equipSpawnPoints: []
   enemySpawnInterval: 120
@@ -349,6 +348,7 @@ MonoBehaviour:
   UISFXAudioClips:
   - {fileID: 8300000, guid: ad5f057f7f86a7142bc9e118c002421b, type: 3}
   - {fileID: 8300000, guid: 7b79990770d11154cbd98bc3795f9978, type: 3}
+  - {fileID: 8300000, guid: 596fa071c02aa2742ae16f649d9e7262, type: 3}
   FingerMonsterAudioClips:
   - {fileID: 8300000, guid: 7ec3d3acae77dce4b9936600974b2e1a, type: 3}
   StickGiantAudioClips:
@@ -358,8 +358,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 764d9fec90b3b2645801a29bdee5ba76, type: 3}
   - {fileID: 8300000, guid: d15c8bba891e1fb47bdb1eb8846fee4c, type: 3}
   - {fileID: 8300000, guid: 20607f6ccd39d5849a4ceae44a32bab6, type: 3}
-  - {fileID: 8300000, guid: 1bd76f7713d720f47b548809d494e8c4, type: 3}
-  - {fileID: 8300000, guid: 2f33b61072250bb4f92d097dee5a7d01, type: 3}
+  - {fileID: 8300000, guid: c4a151529aa0dcf4da4162e57e768c67, type: 3}
+  - {fileID: 8300000, guid: 33ae6bb651a6800458fb69209aad27c6, type: 3}
+  - {fileID: 8300000, guid: a1b62453d58352a4d9d21f01bd05391f, type: 3}
 --- !u!4 &2002030184
 Transform:
   m_ObjectHideFlags: 0

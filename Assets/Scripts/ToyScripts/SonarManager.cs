@@ -8,10 +8,11 @@ public class SonarManager : MonoBehaviour
     public Transform sonar;
     public static CicadaHitboxManager hitboxManager;
     public float maxSonarHeight, minSonarHeight, increaseRate, internalSonarCount;
-    public GameObject internalSonar, cicadaStick, cicadaTub, cicadaRope;
+    public GameObject internalSonar, cicadaStick, cicadaTub, cicadaRope, sonarDust;
     public ToyToolboxInteractionManager interactionManager;
     public AudioSource cicadaAudioSource;
     public float buffer;
+    public Renderer sonarSkin;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,8 @@ public class SonarManager : MonoBehaviour
         minSonarHeight = -52;
         sonar = GameObject.Find("PlayerSonar").transform;
         CheckForHitBoxManager();
+        sonarSkin = sonar.GetComponent<Renderer>();
+        sonarDust = sonar.parent.GetChild(2).gameObject;
     }
 
     // Update is called once per frame
@@ -37,6 +40,15 @@ public class SonarManager : MonoBehaviour
         if(interactionManager.isInBox)
         {
             DecreaseSonarHeight();
+        }
+
+        if(!sonarSkin.enabled)
+        {
+            if(ToyToolboxInteractionManager.itemTaken)
+            {
+                sonarSkin.enabled = true;
+                sonarDust.SetActive(true);
+            }
         }
 
     }
@@ -73,7 +85,7 @@ public class SonarManager : MonoBehaviour
     {
         if(!cicadaAudioSource.isPlaying)
         {
-            cicadaAudioSource.pitch = Random.Range(1, 1.3f);
+            cicadaAudioSource.pitch = Random.Range(0.5f,0.8f);
             cicadaAudioSource.PlayOneShot(AudioManager.instance.ToysSFX[3]);
         }
         sonar.localPosition += new Vector3(0, increaseRate, 0);

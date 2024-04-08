@@ -83,7 +83,7 @@ public class CustomTopManager : MonoBehaviour
         if (!domainExpanded)
         {
             domainExpanded= true;
-            Instantiate(AOESonar, transform.position, Quaternion.identity);
+            Instantiate(AOESonar, this.transform);
         }
 
         topCounter -= Time.deltaTime;
@@ -129,10 +129,8 @@ public class CustomTopManager : MonoBehaviour
 
     void ReturnToHand()
     {
-        transform.parent = hand.transform;
         rb.isKinematic = true;
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
+        toolboxHelper.StickToyToHand(handState, handState.handID);
     }
 
     void TrackPositions()
@@ -187,7 +185,7 @@ public class CustomTopManager : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //on entry into pull collider, release top and add force
-        if (other.CompareTag("PullTrigger")&&!isSpinning)
+        if (other.CompareTag("PullTrigger")&&!isSpinning&&toolboxHelper.isInHand)
         {
             isReadyToSpin = true;
             ReleaseTop();

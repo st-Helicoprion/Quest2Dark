@@ -12,6 +12,7 @@ public class PlayerMoveFeedback : MonoBehaviour
     public ContinuousMoveProviderBase playerMovement;
     public CharacterController playerCC;
     public bool isDead;
+    public float runSoundCount;
 
     // Start is called before the first frame update
     void Start()
@@ -38,11 +39,12 @@ public class PlayerMoveFeedback : MonoBehaviour
                     audioSource.pitch = Random.Range(1, 1.3f);
                     audioSource.PlayOneShot(moveSound);
                 }
-                if (!audioSource.isPlaying && playerMovement.moveSpeed > 3)
+                if (!audioSource.isPlaying&&playerMovement.moveSpeed > 3)
                 {
                     audioSource.volume = 0.5f;
-                    audioSource.pitch = Random.Range(1, 1.3f);
+                    //audioSource.pitch = Random.Range(1, 1.3f);
                     audioSource.PlayOneShot(runSound);
+                    
                 }
 
             }

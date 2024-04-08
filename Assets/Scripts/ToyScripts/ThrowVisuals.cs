@@ -5,16 +5,25 @@ using UnityEngine;
 public class ThrowVisuals : MonoBehaviour
 {
     public Transform mainCamera;
-    public SpriteRenderer marker;
+    public GameObject marker;
     public string markerName;
     
     // Start is called before the first frame update
     void Start()
     {
         mainCamera = GameObject.Find("Main Camera").transform;
-        marker = GameObject.Find(markerName).GetComponent<SpriteRenderer>();
+        marker = GameObject.Find(markerName);
 
-        marker.enabled = false;
+        if(transform.CompareTag("SpinningTop"))
+        {
+            marker.SetActive(false);
+        }
+        else if(transform.CompareTag("Hopter"))
+        {
+            marker.transform.GetChild(0).gameObject.SetActive(false);
+        }
+
+
     }
 
     private void Update()
@@ -28,7 +37,7 @@ public class ThrowVisuals : MonoBehaviour
 
                     if (hit.transform.CompareTag("PullTrigger"))
                     {
-                        marker.enabled = true;
+                        marker.SetActive(true);
                         marker.transform.position = hit.point - new Vector3(0, .2f, 0);
 
                     }
@@ -37,7 +46,7 @@ public class ThrowVisuals : MonoBehaviour
             }
             else if(CustomTopManager.isSpinning)
             {
-                marker.enabled = false;
+                marker.SetActive(false);
             }
         }
     }
@@ -50,24 +59,42 @@ public class ThrowVisuals : MonoBehaviour
             {
                 if (hit.transform.CompareTag("PullTrigger")&&transform.CompareTag("Hopter"))
                 {
-                    marker.enabled = true;
+                    marker.transform.GetChild(0).gameObject.SetActive(true);
                     marker.transform.position = hit.point+ new Vector3(0, .1f, 0);
 
                 }
 
                 if (hit.transform.CompareTag("PullTrigger") && transform.CompareTag("SpinningTop")&&!CustomTopManager.isSpinning)
                 {
-                    marker.enabled = true;
-                    marker.transform.position = hit.point-new Vector3(0,.2f,0);
+                    marker.SetActive(true);
+                    marker.transform.position = hit.point-new Vector3(0,.1f,0);
 
                 }
 
+            }
+        }
+
+        if(other.CompareTag("ToyBox"))
+        {
+            if(transform.CompareTag("SpinningTop"))
+            {
+                marker.SetActive(false);
+            }
+
+            if (transform.CompareTag("Hopter"))
+            {
+                marker.transform.GetChild(0).gameObject.SetActive(false);
             }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        marker.enabled = false;
+        if(transform.CompareTag("Hopter"))
+        {
+            marker.transform.GetChild(0).gameObject.SetActive(false);
+        }
+
+
     }
 }

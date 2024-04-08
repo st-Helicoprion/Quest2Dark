@@ -6,34 +6,37 @@ using System.Transactions;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR;
 
 public class ToyToolboxInteractionManager : MonoBehaviour
 {
     //component added to toy object
     public Vector3[] boxOffset, handOffset;
     public bool isInHand, swapHands, isInBox;
-    public HandAnimation handState;
+    public HandAnimation handState, heldHand;
     public ToolboxVacancyChecker boxState;
     public ToyToolboxInteractionManager otherToyState;
     public List<ToolboxVacancyChecker> boxList = new();
     public Collider[] colliders;
     public Renderer[] equipVisuals;
 
+
+    public static bool itemTaken;
+
     public float timeInBox, timeInHand;
 
+    private void Awake()
+    {
+        itemTaken = false;
+        
+    }
     private void Update()
     {
-        if (NewToolboxManager.isOpen)
-        {
-            FindToyBoxes();
-            FindColliders();
-            DisableColliders();
-
-        }
         
         if(isInBox)
         {
             timeInBox+=Time.deltaTime;
+            FindColliders();
             DisableColliders();
         }
 
@@ -44,6 +47,13 @@ public class ToyToolboxInteractionManager : MonoBehaviour
             ActivateColliders();
         }
         
+        if (NewToolboxManager.isOpen)
+        {
+            FindToyBoxes();
+            FindColliders();
+            DisableColliders();
+
+        }
     }
 
 
@@ -65,10 +75,17 @@ public class ToyToolboxInteractionManager : MonoBehaviour
         transform.localRotation = Quaternion.identity;
         isInHand= true;isInBox= false;
         handState = handParent;
+        heldHand = handState;
+        handState.handNotEmpty = true;
+        handState.reloadCheck = true;
         FindColliders();
         ActivateColliders();
-        
-        
+
+        if (!itemTaken)
+        {
+            itemTaken = true;
+        }
+        else return;
         
     }
 
@@ -124,7 +141,7 @@ public class ToyToolboxInteractionManager : MonoBehaviour
             colliders[0] = GameObject.Find("ThrowHitboxPlane").GetComponent<Collider>();
         }
 
-       if(transform.CompareTag("SpinningTop"))
+       else if(transform.CompareTag("SpinningTop"))
         {
             colliders[0] = GameObject.Find("ThrowHitboxTop").GetComponent<Collider>();
         }
@@ -178,6 +195,11 @@ public class ToyToolboxInteractionManager : MonoBehaviour
         }
     }
 
+    void KeepHand()
+    {
+        handState = heldHand;
+       
+    }
     private void OnTriggerEnter(Collider other)
     {
            
@@ -282,7 +304,8 @@ public class ToyToolboxInteractionManager : MonoBehaviour
     {
         if (other.CompareTag("RightHand") || other.CompareTag("LeftHand"))
         {
-           
+
+            KeepHand();
             if (isInHand && swapHands)
             {
                

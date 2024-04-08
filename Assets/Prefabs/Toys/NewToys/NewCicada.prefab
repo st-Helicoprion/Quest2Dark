@@ -252,9 +252,11 @@ MonoBehaviour:
   cicadaStick: {fileID: 343738242620390258}
   cicadaTub: {fileID: 3332607152225805837}
   cicadaRope: {fileID: 6332251072423496195}
+  sonarDust: {fileID: 0}
   interactionManager: {fileID: 8807833821562658545}
   cicadaAudioSource: {fileID: 1420237816538743085}
   buffer: 0
+  sonarSkin: {fileID: 0}
 --- !u!1 &3332607152225805837
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,7 +289,7 @@ Transform:
   m_GameObject: {fileID: 3332607152225805837}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.2389}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0.2389}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -733,7 +735,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7177996051660247032}
   - component: {fileID: 7915076215965256516}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: CicadaTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -776,7 +778,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: aebe93966bf343747a0609ed48dcd4df, type: 2}
+  - {fileID: 2100000, guid: 6c7d7f55be488d54185b3ccb84024d96, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -857,7 +859,7 @@ TrailRenderer:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
-    numCapVertices: 0
+    numCapVertices: 10
     alignment: 0
     textureMode: 0
     textureScale: {x: 1, y: 1}
@@ -901,7 +903,7 @@ Transform:
   m_GameObject: {fileID: 6332251072423496195}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1348,6 +1350,7 @@ GameObject:
   - component: {fileID: 5227587764158977399}
   - component: {fileID: 1335945172956708544}
   - component: {fileID: 6070560509941920103}
+  - component: {fileID: 6125274144702747010}
   m_Layer: 6
   m_Name: Buffer
   m_TagString: Untagged
@@ -1364,7 +1367,7 @@ Transform:
   m_GameObject: {fileID: 8076008606094351062}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1384,14 +1387,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxOffset:
-  - {x: 0, y: 0.1564, z: 0}
+  - {x: 0, y: 0.15, z: 0}
   handOffset:
-  - {x: 0.025, y: 0.25, z: 0}
-  - {x: -0.025, y: 0.25, z: 0}
+  - {x: 0.01, y: 0.25, z: 0.01}
+  - {x: -0.01, y: 0.25, z: 0.01}
   isInHand: 0
   swapHands: 0
   isInBox: 0
   handState: {fileID: 0}
+  heldHand: {fileID: 0}
   boxState: {fileID: 0}
   otherToyState: {fileID: 0}
   boxList: []
@@ -1467,6 +1471,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemID: 0
+--- !u!205 &6125274144702747010
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8076008606094351062}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 1
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.19717886
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 5297964796908904143}
+    - renderer: {fileID: 7800371451627320038}
+    - renderer: {fileID: 8003016460447694222}
+  - screenRelativeHeight: 0.09763643
+    fadeTransitionWidth: 0
+    renderers: []
+  - screenRelativeHeight: 0.09763643
+    fadeTransitionWidth: 0
+    renderers: []
+  m_Enabled: 1
 --- !u!1 &8710533190318670192
 GameObject:
   m_ObjectHideFlags: 0

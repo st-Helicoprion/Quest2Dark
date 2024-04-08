@@ -13,7 +13,10 @@ public class PullColliderBehavior : MonoBehaviour
     public List<GameObject> promptPool = new();
     public HandAnimation hand;
     public Transform mainCamera;
-
+    private void Start()
+    {
+        
+    }
     private void Update()
     {
         transform.parent.localRotation = new Quaternion(0, mainCamera.localRotation.y, 0, mainCamera.localRotation.w);
@@ -61,7 +64,6 @@ public class PullColliderBehavior : MonoBehaviour
             {
                 CustomTopManager.isReadyToSpin = false;
                 CustomTopManager.isSpinning = true;
-                
             }
            
       }
