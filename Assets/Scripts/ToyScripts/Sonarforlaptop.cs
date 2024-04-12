@@ -16,7 +16,7 @@ public class Sonarforlaptop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxSonarHeight = -10;
+        maxSonarHeight = 5;
         minSonarHeight = -50;
         sonar = GameObject.Find("PlayerSonar").transform;
         CheckForHitBoxManager();
