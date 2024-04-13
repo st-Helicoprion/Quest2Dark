@@ -83,7 +83,7 @@ public class CustomTopManager : MonoBehaviour
         if (!domainExpanded)
         {
             domainExpanded= true;
-            Instantiate(AOESonar, this.transform);
+            Instantiate(AOESonar, new Vector3(transform.position.x, -60, transform.position.z), Quaternion.identity);
         }
 
         topCounter -= Time.deltaTime;
@@ -106,8 +106,9 @@ public class CustomTopManager : MonoBehaviour
             HideRope();
             toolboxHelper.HopToEmptyBox();
 
-            if(!NewToolboxManager.isOpen)
-            toolboxHelper.HideEquipVisuals();
+            if (!NewToolboxManager.isOpen && toolboxHelper.isInBox)
+                toolboxHelper.HideEquipVisuals();
+            else return;
         }
         else
         {

@@ -7,8 +7,8 @@ public class GameEndReporter : MonoBehaviour
 {
     public Renderer[] towerSkin;
     public Transform towerObj;
-    public float lightCountdown, lightDelay;
-    public bool lit, dark, blink;
+    /*public float lightCountdown, lightDelay;
+    public bool lit, dark, blink;*/
 
     private void Start()
     {
@@ -68,7 +68,7 @@ public class GameEndReporter : MonoBehaviour
     IEnumerator SummonBrain()
     {
         Vector3 towerTargetPos = towerObj.localPosition;
-        while(towerObj.localPosition.y<20)
+        while(towerObj.localPosition.y<24)
         {
             towerTargetPos.y += 0.5f;
             towerTargetPos.x= towerObj.localPosition.x;

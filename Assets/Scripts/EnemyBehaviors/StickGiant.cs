@@ -101,7 +101,7 @@ public class StickGiant : MonoBehaviour
         if (distToPlayer < minDistance)
         {
             isNearPlayer = true;
-            if (!audioSource.isPlaying && !tracking)
+            if (!warningAudioSource.isPlaying && !tracking)
             {
                 warningAudioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[0]);
             }

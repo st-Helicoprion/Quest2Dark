@@ -5,15 +5,14 @@ using UnityEngine;
 public class Bulletbullbletrail : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float sonarSpawnTime;
     public float sonarDelay;
     public GameObject echo;
-    public float ExistTime;
+    public float existTime;
     [SerializeField] float speed;
-    public GameObject bulletSpawnPoint;
+    public GameObject bulletSpawnPoint, bulletSparks;
     Vector3 bulletTrajectory;
     public Rigidbody rb;
-    public bool hasHit;
+    public bool hasHit, spawnSonar;
     public Renderer bulletSkin;
     public AudioSource audioSource;
 
@@ -22,7 +21,8 @@ public class Bulletbullbletrail : MonoBehaviour
         rb= GetComponent<Rigidbody>();
         bulletSkin= GetComponent<Renderer>();
         audioSource = GetComponent<AudioSource>();
-       SaveBulletTrajectory();
+
+        SaveBulletTrajectory();
     }
     void Update()
     {
@@ -33,25 +33,24 @@ public class Bulletbullbletrail : MonoBehaviour
     {
         bulletSpawnPoint = GameObject.Find("ShootingPoint");
         bulletTrajectory = bulletSpawnPoint.transform.forward;
-        sonarSpawnTime = sonarDelay;
+
     }
 
     void DeployBulletAndSonar()
     {
         rb.AddForce(400*speed*bulletTrajectory);
 
-        //transform.position += bulletTrajectory * Time.deltaTime * speed;
-
-        if (sonarSpawnTime < 0&&!hasHit)
+        if (sonarDelay < 0&&!hasHit&&!spawnSonar)
         {
             bulletSkin.enabled = false;
+            rb.isKinematic = true;
             rb.velocity = Vector3.zero;
             SonarExpandSequence();
-            Destroy(this.gameObject, 2*ExistTime);
+            
         }
         else
         {
-            sonarSpawnTime -= Time.deltaTime;
+            sonarDelay -= Time.deltaTime;
         }
 
 
@@ -59,19 +58,47 @@ public class Bulletbullbletrail : MonoBehaviour
 
     void SonarExpandSequence()
     {
-        sonarSpawnTime = sonarDelay;
-        GameObject instance = Instantiate(echo, transform.position, Quaternion.identity);
-        audioSource.PlayOneShot(AudioManager.instance.ToysSFX[4]);
-        Destroy(instance, ExistTime);
+        spawnSonar = true;
+        int layer = 8;
+        int layerMask = 1 << layer;
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, Mathf.Infinity, layerMask))
+        {
+            bulletSparks.SetActive(true);
+            GameObject instance = Instantiate(echo, hit.point-new Vector3(0,60,0), Quaternion.Euler(-90, 0, 0));
+            StartCoroutine(RaiseSonarCoroutine(instance));
        
+        }
+        if(!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(AudioManager.instance.ToysSFX[4]);
+        }
+        
+        
+       
+    }
+
+    IEnumerator RaiseSonarCoroutine(GameObject instance)
+    {
+        while(instance.transform.position.y<5)
+        {
+            instance.transform.position += new Vector3(0, 1, 0);
+            yield return null;
+        }
+        Destroy(instance);
+        Destroy(this.gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        hasHit = true;
-        bulletSkin.enabled = false;
-        rb.velocity = Vector3.zero;
-        SonarExpandSequence();
-        Destroy(this.gameObject, ExistTime);
+        if(!spawnSonar)
+        {
+            hasHit = true;
+            bulletSkin.enabled = false;
+            rb.isKinematic = true;
+            rb.velocity = Vector3.zero;
+            SonarExpandSequence();
+
+        }
+       
     }
 }

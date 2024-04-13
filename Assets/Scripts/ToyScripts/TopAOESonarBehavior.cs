@@ -32,12 +32,13 @@ public class TopAOESonarBehavior : MonoBehaviour
 
     void ActivateTopSonar()
     {
+        transform.localPosition = new Vector3(top.position.x, transform.localPosition.y, top.position.z);
 
         topSonarCount += Time.deltaTime;
 
         if (topSonarCount > 1)
         {
-            Instantiate(topSonarPrefab, this.transform.parent);
+            Instantiate(topSonarPrefab, new Vector3(transform.position.x, -60, transform.position.z), Quaternion.identity);
             Debug.Log("sonar released");
             topSonarCount = 0;
         }

@@ -28,14 +28,22 @@ public class DebugHelper : MonoBehaviour
 
     void EnableTestObjects(InputAction.CallbackContext obj)
     {
-        if(obj.ReadValue<float>()==1&&!debugObjsActive)
+        if(this!=null)
         {
-            for(int i =0; i < testObjects.Length; i++)
+            if (obj.ReadValue<float>() == 1 && !debugObjsActive)
             {
-                testObjects[i].SetActive(true);
-                debugObjsActive = true;
-            }
+                if (testObjects.Length > 0)
+                {
+                    for (int i = 0; i < testObjects.Length; i++)
+                    {
+                        testObjects[i].SetActive(true);
+                        debugObjsActive = true;
+                    }
+                }
+                else return;
 
+            }
         }
+       
     }
 }

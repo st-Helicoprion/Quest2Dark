@@ -7,7 +7,6 @@ public class GunSonarManager : MonoBehaviour
 {
     [SerializeField] GameObject BulletPrefab;
     [SerializeField] Transform BulletSpawnPoint;
-    [SerializeField] float ExistTime = 1;
     GameObject bulletTemp;
     public InputActionReference shootSonarRight;
     public InputActionReference shootSonarLeft;
@@ -54,7 +53,6 @@ public class GunSonarManager : MonoBehaviour
         //SpawnBullet觸發後，每經過TimeInterval的時間，生成一個聲波，總共生SpawnSonar個
             bulletTemp = GameObject.Instantiate(BulletPrefab, vector3,quaternion);
             gunDelay = 1;
-            Destroy(bulletTemp, ExistTime);
             yield return null;
     }
 
@@ -123,19 +121,21 @@ public class GunSonarManager : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("LeftHand") && heldHand.transform.CompareTag("RightHand"))
+        if(heldHand!= null)
         {
-            KeepHand();
-            CheckHeldHand();
+            if (other.CompareTag("LeftHand") && heldHand.transform.CompareTag("RightHand"))
+            {
+                KeepHand();
+                CheckHeldHand();
+            }
+
+            else if (other.CompareTag("RightHand") && heldHand.transform.CompareTag("LeftHand"))
+            {
+                KeepHand();
+                CheckHeldHand();
+            }
         }
-
-        else if (other.CompareTag("RightHand") && heldHand.transform.CompareTag("LeftHand"))
-        {
-            KeepHand();
-            CheckHeldHand();
-        }
-
-
+    
     }
 
 

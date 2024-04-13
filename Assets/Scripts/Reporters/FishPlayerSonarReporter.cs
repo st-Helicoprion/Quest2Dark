@@ -10,7 +10,19 @@ public class FishPlayerSonarReporter : MonoBehaviour
         {
             if(RunnerMonster.canShowLanes)
             {
-                RunnerMonster.ShowAttackLane();
+                if (RunnerMonster.laneID== FishTrackSensor.playerLaneID.x)
+                {
+                    RunnerMonster.ShowAttackLane();
+                }
+                else if(RunnerMonster.laneID == FishTrackSensor.playerLaneID.y)
+                {
+                    RunnerMonster.ShowAttackLane();
+                }
+                else if (RunnerMonster.laneID == FishTrackSensor.playerLaneID.z)
+                {
+                    RunnerMonster.ShowAttackLane();
+                }
+               
 
             }
         }

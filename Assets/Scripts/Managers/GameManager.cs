@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     public static bool readyToReboot, win;
 
     //labyrinth code
-    public List<GameObject> roomSpawnPoints, equipSpawnPoints;
+    public List<GameObject> roomSpawnPoints, equipSpawnPoints, equipHiders;
     public float enemySpawnInterval;
 
     public InputActionReference restart;
@@ -184,6 +184,10 @@ public class GameManager : MonoBehaviour
         ItemCycleManager.RemoveToyPrefabInGameManager(playerEquipID[equipIDToSummon]);
         equipSpawnPoints.Remove(equipSpawnPoints[i]);
 
+
+
+        //HideKeyItemSpawns();
+
         yield return new WaitForSeconds(1);
 
         StartCoroutine(SpawnKeyItem());
@@ -223,7 +227,15 @@ public class GameManager : MonoBehaviour
     }
 
 
-    void KeyItemFound() //player gets key item, spawns in more enemies
+    void HideKeyItemSpawns()
+    {
+        for(int i =0; i<equipSpawnPoints.Count; i++)
+        {
+            equipSpawnPoints[i].transform.position = equipHiders[i].transform.position;
+        }
+    }
+
+  /*  void KeyItemFound() //player gets key item, spawns in more enemies
     {
         Debug.Log("Key item found");
 
@@ -238,7 +250,7 @@ public class GameManager : MonoBehaviour
         player.GetComponentInChildren<TextMeshPro>().text = "Toys Found\n" + ItemCycleManager.itemIDList.Count + "/4";
         yield return new WaitForSeconds(3);
         player.GetComponentInChildren<TextMeshPro>().enabled = false;
-    }
+    }*/
     #endregion
 
     #region Win
@@ -279,7 +291,7 @@ public class GameManager : MonoBehaviour
         player.GetComponentInChildren<PlayerMoveFeedback>().enabled = false;
         player.GetComponentInChildren<ContinuousMoveProviderBase>().moveSpeed = 0;
         player.gameObject.GetNamedChild("Canvas").transform.GetChild(0).GetComponent<TextMeshPro>().enabled = true;
-        player.gameObject.GetNamedChild("Canvas").transform.GetChild(0).GetComponent<TextMeshPro>().text = "mission failed";
+        player.gameObject.GetNamedChild("Canvas").transform.GetChild(0).GetComponent<TextMeshPro>().text = "you are pacified";
         EnemyInteractionManager.killPlayer = false;
         yield return new WaitForSeconds(5);
 

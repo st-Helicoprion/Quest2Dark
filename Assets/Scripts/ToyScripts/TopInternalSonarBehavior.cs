@@ -17,6 +17,7 @@ public class TopInternalSonarBehavior : MonoBehaviour
 
     void ClimbToTop()
     {
+        transform.localPosition = new Vector3(topSonar.localPosition.x, transform.localPosition.y, topSonar.localPosition.z);
         if (transform.localPosition.y <topSonar.localPosition.y)
         {
             transform.localPosition += new Vector3(0, 15 * Time.deltaTime, 0);

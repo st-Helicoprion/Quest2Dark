@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -15,9 +16,10 @@ public class RunnerMonster : MonoBehaviour
     public float huntRadius;
 
     public List<Transform> runningPoints1, runningPoints2, runningPoints3;
-    public int targetPointID, laneID;
+    public static int targetPointID, laneID;
     public static LineRenderer attackLine1, attackLine2, attackLine3;
     public Material lineMatBlank, lineMatActive;
+    public Renderer sonarSkin;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,7 @@ public class RunnerMonster : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         audioSource = GetComponent<AudioSource>();
+        sonarSkin = sonar.GetComponent<Renderer>();
 
         attackLine1 = GameObject.Find("AttackLine1").GetComponent<LineRenderer>();
         attackLine2 = GameObject.Find("AttackLine2").GetComponent<LineRenderer>();
@@ -36,6 +39,8 @@ public class RunnerMonster : MonoBehaviour
         HideAttackLane();
 
         deployed = true;
+
+        
     }
 
     // Update is called once per frame
@@ -49,11 +54,20 @@ public class RunnerMonster : MonoBehaviour
             {
                 if(canShowLanes)
                 {
-                    if (!warn)
+                    if (laneID == FishTrackSensor.playerLaneID.x ||
+                       laneID == FishTrackSensor.playerLaneID.y ||
+                       laneID == FishTrackSensor.playerLaneID.z)
                     {
-                        warn = true;
-                        StartCoroutine(ReleaseWarningSonar());
+                        if (!warn)
+                        {
+                            warn = true;
+                            sonarSkin.enabled = true;
+                            StartCoroutine(ReleaseWarningSonar());
+
+                        }
                     }
+                    else return;
+                    
                 }
               
             }
@@ -61,6 +75,7 @@ public class RunnerMonster : MonoBehaviour
             {
                 warn = false;
                 StopCoroutine(ReleaseWarningSonar());
+                sonarSkin.enabled = false;
                 sonar.localScale = new Vector3(0.01f, 0.01f, 0.01f);
                 canShowLanes = false;
                 HideAttackLane();
@@ -72,6 +87,7 @@ public class RunnerMonster : MonoBehaviour
         {
             warn = false;
             StopCoroutine(ReleaseWarningSonar());
+            sonarSkin.enabled = false;
             sonar.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             canShowLanes = false;
             HideAttackLane();
@@ -84,7 +100,7 @@ public class RunnerMonster : MonoBehaviour
     
     void SetRunSequence()
     {
-        if (laneID == 0)
+        if (laneID == 1)
         {
             if (Mathf.Abs(transform.position.x - runningPoints1[targetPointID].position.x) < 0.5f &&
             Mathf.Abs(transform.position.z - runningPoints1[targetPointID].position.z) < 0.5f)
@@ -102,7 +118,7 @@ public class RunnerMonster : MonoBehaviour
             }
         }
 
-        if (laneID == 1)
+        if (laneID == 2)
         {
             if (Mathf.Abs(transform.position.x - runningPoints2[targetPointID].position.x) < 0.5f &&
            Mathf.Abs(transform.position.z - runningPoints2[targetPointID].position.z) < 0.5f)
@@ -120,7 +136,7 @@ public class RunnerMonster : MonoBehaviour
             }
         }
 
-        if (laneID == 2)
+        if (laneID == 3)
         {
             if (Mathf.Abs(transform.position.x - runningPoints3[targetPointID].position.x) < 0.5f &&
            Mathf.Abs(transform.position.z - runningPoints3[targetPointID].position.z) < 0.5f)
@@ -165,18 +181,18 @@ public class RunnerMonster : MonoBehaviour
     }
     void ShuffleLane()
     {
-        laneID = Random.Range(0, 3);
-        if (laneID == 0)
+        laneID = Random.Range(1, 4);
+        if (laneID == 1)
         {
             targetPointID = 0;
             agent.SetDestination(runningPoints1[0].position);
         }
-        if (laneID == 1)
+        if (laneID == 2)
         {
             targetPointID = 0;
             agent.SetDestination(runningPoints2[0].position);
         }
-        if (laneID == 2)
+        if (laneID == 3)
         {
             targetPointID = 0;
             agent.SetDestination(runningPoints3[0].position);
@@ -208,19 +224,19 @@ public class RunnerMonster : MonoBehaviour
 
     void SetLaneMaterial()
     {
-        if (laneID == 0)
+        if (laneID == 1)
         {
             attackLine1.material = lineMatActive;
             attackLine2.material = lineMatBlank;
             attackLine3.material = lineMatBlank;
         }
-        if (laneID == 1)
+        if (laneID == 2)
         {
             attackLine2.material = lineMatActive;
             attackLine1.material = lineMatBlank;
             attackLine3.material = lineMatBlank;
         }
-        if (laneID == 2)
+        if (laneID == 3)
         {
             attackLine3.material = lineMatActive;
             attackLine2.material = lineMatBlank;
@@ -247,12 +263,13 @@ public class RunnerMonster : MonoBehaviour
 
     IEnumerator ReleaseWarningSonar()
     {
-        while (sonar.transform.localScale.x < 4*huntRadius)
+        while (sonar.transform.localScale.x < 4*huntRadius&&warn)
         {
             sonar.transform.localScale += new Vector3(2, 2, 2);
             yield return null;
 
         }
+        sonarSkin.enabled = false;
     }
 
     private void OnDrawGizmos()
