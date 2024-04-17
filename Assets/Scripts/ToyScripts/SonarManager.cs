@@ -19,7 +19,7 @@ public class SonarManager : MonoBehaviour
     {
         buffer = 0;
         maxSonarHeight = 5;
-        minSonarHeight = -52;
+        minSonarHeight = -50;
         sonar = GameObject.Find("PlayerSonar").transform;
         CheckForHitBoxManager();
         sonarSkin = sonar.GetComponent<Renderer>();

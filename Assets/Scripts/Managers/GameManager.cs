@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
    
     public Transform spawnPoints, player;
-    public int spawnPointID, lastFoundItemID, curFoundItemID;
-    public static int enemyID;
+    public int spawnPointID, lastFoundItemID, curFoundItemID, enemyWaveID, enemySummonID;
+    public int[] enemyPattern;
     public List<int> playerEquipID = new();
     public GameObject playerPrefab;
     public ItemCycleManager cycleManager; 
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
             instance = this;
             audioSource= GetComponent<AudioSource>();
             ItemCycleManager.StoreKeyItemList();
-            restart.action.performed += ManualRestartGame;
+            //restart.action.performed += ManualRestartGame;
             DontDestroyOnLoad(gameObject);
         }
 
@@ -79,12 +79,7 @@ public class GameManager : MonoBehaviour
         {
             WinConditionReached();
         }
-/*
-        if (KeyItemReporter.itemFound)
-        {
-            KeyItemFound();
-            KeyItemReporter.itemFound = false;
-        }*/
+
     }
 
     #region Characters
@@ -92,6 +87,8 @@ public class GameManager : MonoBehaviour
     {
         roomSpawnPoints.Clear();
         equipSpawnPoints.Clear();
+        enemyWaveID = 0;
+        enemySummonID= 0;
         StartCoroutine(ItemCycleManager.ResetKeyItemList());
         StartCoroutine(RoomSpawnCoroutine());
     }
@@ -110,8 +107,10 @@ public class GameManager : MonoBehaviour
         int i = Random.Range(0,3);
         Instantiate(playerPrefab, roomSpawnPoints[i].transform.position + new Vector3(0, 2, 0), roomSpawnPoints[i].transform.localRotation);
         player = FindObjectOfType<XROrigin>().transform;
-        player.GetComponentInChildren<TextMeshPro>().enabled = false;
-
+        player.gameObject.GetNamedChild("Canvas").transform.GetChild(1).GetComponent<TextMeshPro>().enabled = false;
+        UIViewAligner.player = player.gameObject.GetNamedChild("Main Camera").transform;
+        IntroSpawnReporter.player = UIViewAligner.player;
+        
         StartCoroutine(SpawnPlayerEquip(i));
         StartCoroutine(MapSpawnCoroutine());
 
@@ -127,7 +126,7 @@ public class GameManager : MonoBehaviour
     {
        
         yield return new WaitForSeconds(1);
-        spawnPoints = GameObject.Find("Monster spawn point").transform;
+        spawnPoints = GameObject.Find("Monster spawn points").transform;
 
         //AudioManager.instance.CheckBGMToPlay();
         
@@ -137,38 +136,31 @@ public class GameManager : MonoBehaviour
         
         yield return new WaitForSeconds(1);
 
-       
         StartCoroutine(SummonPrizeEquip());
-        //StartCoroutine(SpawnEnemies());
+        StartCoroutine(SpawnEnemies());
 
 
     }
 
     IEnumerator SpawnEnemies()
     {
-        //UnityEngine.Random.Range(1, 3)
-
-        for (int i = 0; i < 1; i++)
-        {
-            enemyID = UnityEngine.Random.Range(0, enemyPrefab.Length);
-            Debug.Log("enemyID is : " + enemyID);
-            Instantiate(enemyPrefab[enemyID], spawnPoints.GetChild(UnityEngine.Random.Range(0,spawnPoints.childCount)).transform.position + new Vector3(0, 5, 0), Quaternion.identity);
-            Debug.Log("Enemy spawned");
-      
-        }
-
-        //temporary code for demo
-        /*for (int i = 0; i < 1; i++)
-        {
-            Debug.Log("enemyID is : " + enemyID);
-            Instantiate(enemyPrefab[enemyID + 1], spawnPoints.GetChild(UnityEngine.Random.Range(0, spawnPoints.childCount - 1)).transform.position + new Vector3(0, 5, 0), Quaternion.identity);
-            Debug.Log("Demo enemy spawned");
-
-        }*/
-
         yield return new WaitForSeconds(enemySpawnInterval);
-        StartCoroutine(SpawnEnemies());
-        
+
+        if (enemyWaveID < 4)
+        {
+            for (int i = 0; i < enemyPattern[enemyWaveID]; i++)
+            {
+                Instantiate(enemyPrefab[enemySummonID], spawnPoints.GetChild(Random.Range(0, spawnPoints.childCount)).transform.position + new Vector3(0, 5, 0), Quaternion.identity);
+                Debug.Log("Enemy spawned");
+                enemySummonID++;
+            }
+            enemyWaveID++;
+
+            yield return null;
+
+            StartCoroutine(SpawnEnemies());
+        }
+       
     }
 
     #endregion
@@ -176,17 +168,26 @@ public class GameManager : MonoBehaviour
     #region Toys
     IEnumerator SpawnPlayerEquip(int i)
     {
+
         yield return new WaitForSeconds(1);
 
         int equipIDToSummon = Random.Range(0, playerEquipID.Count);
 
-        Instantiate(keyItem[playerEquipID[equipIDToSummon]], equipSpawnPoints[i].transform.position, Quaternion.identity);
+        GameObject playerToy = Instantiate(keyItem[playerEquipID[equipIDToSummon]], equipSpawnPoints[i].transform.position, Quaternion.identity);
+        TutorialsManager.givenToy = playerToy;
         ItemCycleManager.RemoveToyPrefabInGameManager(playerEquipID[equipIDToSummon]);
         equipSpawnPoints.Remove(equipSpawnPoints[i]);
-
-
-
-        //HideKeyItemSpawns();
+        if(!PlayerPrefs.HasKey("IntroDone"))
+        {
+            if(playerToy.name=="NewCicada(Clone)")
+            {
+                playerToy.transform.GetChild(0).GetComponent<ToyToolboxInteractionManager>().HideEquipVisuals();
+            }
+            else
+            playerToy.GetComponent<ToyToolboxInteractionManager>().HideEquipVisuals();
+        }
+        
+        HideKeyItemSpawns();
 
         yield return new WaitForSeconds(1);
 
@@ -220,6 +221,8 @@ public class GameManager : MonoBehaviour
     IEnumerator SummonPrizeEquip()
     {
         Transform prizeSpawn = GameObject.Find("PrizeSpawn").transform;
+        prizeSpawn.position = equipHiders[0].transform.position;
+        equipHiders.Remove(equipHiders[0]);
         yield return new WaitForSeconds(1);
         Instantiate(keyItem[0], prizeSpawn.position, Quaternion.identity);
         ItemCycleManager.RemoveToyPrefabInGameManager(0);
@@ -229,28 +232,19 @@ public class GameManager : MonoBehaviour
 
     void HideKeyItemSpawns()
     {
-        for(int i =0; i<equipSpawnPoints.Count; i++)
+        Transform HiderContainer = GameObject.Find("ToyHiders").transform;
+        for(int i =0; i<HiderContainer.childCount;i++)
+        {
+            equipHiders.Add(HiderContainer.GetChild(i).gameObject);
+        }
+        for (int i =0; i<equipSpawnPoints.Count; i++)
         {
             equipSpawnPoints[i].transform.position = equipHiders[i].transform.position;
+            equipHiders.Remove(equipHiders[i]);
         }
+       
     }
 
-  /*  void KeyItemFound() //player gets key item, spawns in more enemies
-    {
-        Debug.Log("Key item found");
-
-        StartCoroutine(UpdateToyFoundMessage());
-        
-    }
-
-    IEnumerator UpdateToyFoundMessage()
-    {
-        audioSource.PlayOneShot(AudioManager.instance.UISFXAudioClips[0]);
-        player.GetComponentInChildren<TextMeshPro>().enabled = true;
-        player.GetComponentInChildren<TextMeshPro>().text = "Toys Found\n" + ItemCycleManager.itemIDList.Count + "/4";
-        yield return new WaitForSeconds(3);
-        player.GetComponentInChildren<TextMeshPro>().enabled = false;
-    }*/
     #endregion
 
     #region Win
@@ -268,8 +262,8 @@ public class GameManager : MonoBehaviour
         win = false;
         player.GetComponentInChildren<PlayerMoveFeedback>().enabled = false;
         player.GetComponentInChildren<ContinuousMoveProviderBase>().moveSpeed = 0;
-        player.gameObject.GetNamedChild("Canvas").transform.GetChild(0).GetComponent<TextMeshPro>().enabled = true;
-        player.gameObject.GetNamedChild("Canvas").transform.GetChild(0).GetComponent<TextMeshPro>().text = "good run";
+        player.gameObject.GetNamedChild("Canvas").transform.GetChild(1).GetComponent<TextMeshPro>().enabled = true;
+        player.gameObject.GetNamedChild("Canvas").transform.GetChild(1).GetComponent<TextMeshPro>().text = "good run";
         yield return new WaitForSeconds(5);
         SpawnPlayerInRoom();
         readyToReboot = false;
@@ -290,8 +284,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("death coroutine test");
         player.GetComponentInChildren<PlayerMoveFeedback>().enabled = false;
         player.GetComponentInChildren<ContinuousMoveProviderBase>().moveSpeed = 0;
-        player.gameObject.GetNamedChild("Canvas").transform.GetChild(0).GetComponent<TextMeshPro>().enabled = true;
-        player.gameObject.GetNamedChild("Canvas").transform.GetChild(0).GetComponent<TextMeshPro>().text = "you are pacified";
+        player.gameObject.GetNamedChild("Canvas").transform.GetChild(1).GetComponent<TextMeshPro>().enabled = true;
+        player.gameObject.GetNamedChild("Canvas").transform.GetChild(1).GetComponent<TextMeshPro>().text = "you are pacified";
         EnemyInteractionManager.killPlayer = false;
         yield return new WaitForSeconds(5);
 
@@ -301,14 +295,14 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Utils
-     void ManualRestartGame(InputAction.CallbackContext obj)
+/*     void ManualRestartGame(InputAction.CallbackContext obj)
     {
         if(obj.ReadValue<float>()==1&&readyToReboot)
         {
             SpawnPlayerInRoom();
             readyToReboot = false;
         }
-    }
+    }*/
 
    
     #endregion

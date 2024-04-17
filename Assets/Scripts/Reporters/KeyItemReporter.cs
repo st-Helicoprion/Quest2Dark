@@ -8,38 +8,95 @@ public class KeyItemReporter : MonoBehaviour
     public int itemID;
     public ToyToolboxInteractionManager toolboxhelper;
 
-    
+    private void Start()
+    {
+        toolboxhelper = GetComponent<ToyToolboxInteractionManager>();
+    }
+    private void Update()
+    {
+        if (toolboxhelper.isInHand)
+        {
+            if(itemID==0&&!TutorialsManager.instance.cicadaTut)
+            {
+                CheckTutorial();
+            }
+            if (itemID ==1 && !TutorialsManager.instance.gunTut)
+            {
+                CheckTutorial();
+            }
+            if (itemID ==2 && !TutorialsManager.instance.planeTut)
+            {
+                CheckTutorial();
+            }
+            if (itemID == 3 && !TutorialsManager.instance.topTut)
+            {
+                CheckTutorial();
+            }
+
+        }
+        else return;
+    }
     void SendTutorialSignal()
-    { 
-    
+    {
+        if (itemID == 0)
+        {
+            PlayerPrefs.SetInt("Cicada", 1);
+            PlayerPrefs.SetInt("TutID", itemID);
+            TutorialsManager.givenToy = this.gameObject;
+            TutorialsManager.instance.CallOutTutorialType();
+        }
+        else if (itemID == 1)
+        {
+            PlayerPrefs.SetInt("Gun", 1);
+            PlayerPrefs.SetInt("TutID", itemID);
+            TutorialsManager.givenToy = this.gameObject;
+            TutorialsManager.instance.CallOutTutorialType();
+        }
+        else if (itemID == 2)
+        {
+            PlayerPrefs.SetInt("Plane", 1);
+            PlayerPrefs.SetInt("TutID", itemID);
+            TutorialsManager.givenToy = this.gameObject;
+            TutorialsManager.instance.CallOutTutorialType();
+        }
+        else if (itemID == 3)
+        {
+            PlayerPrefs.SetInt("Top", 1);
+            PlayerPrefs.SetInt("TutID", itemID);
+            TutorialsManager.givenToy = this.gameObject;
+            TutorialsManager.instance.CallOutTutorialType();
+        }
+
     }
 
-    /*  private void OnTriggerEnter(Collider other)
-      {
-          if (other.CompareTag("LeftHand") && !ItemCycleManager.itemIDList.Contains(itemID) ||
-                  other.CompareTag("RightHand") && !ItemCycleManager.itemIDList.Contains(itemID))
-          {
-              ItemCycleManager.itemIDList.Add(itemID);
-              itemFound = true;
-              ItemCycleManager.RemoveToyPrefabInGameManager();
-          }
-      }
-   *//*   private void OnTriggerStay(Collider other)
-      {
-          {
-              if (other.CompareTag("LeftHand") && !ItemCycleManager.itemIDList.Contains(itemID) ||
-                  other.CompareTag("RightHand") && !ItemCycleManager.itemIDList.Contains(itemID) ||
-                  other.name == "ToySpawn" && !ItemCycleManager.itemIDList.Contains(itemID) ||
-                  other.name == "PrizeSpawn" && !ItemCycleManager.itemIDList.Contains(itemID))
-              {
-                  ItemCycleManager.itemIDList.Add(itemID);
-                  itemFound = true;
-                  ItemCycleManager.RemoveToyPrefabInGameManager();
-              }
-          }
+    void CheckTutorial()
+    {
 
-      }*/
+        if (itemID == 0 && PlayerPrefs.HasKey("Cicada"))
+        {
+            return;
+        }
+        else SendTutorialSignal();
 
+        if (itemID == 1 && PlayerPrefs.HasKey("Gun"))
+        {
+            return;
+        }
+        else SendTutorialSignal();
 
+        if (itemID == 2 && PlayerPrefs.HasKey("Plane"))
+        {
+            return;
+        }
+        else SendTutorialSignal();
 
+        if (itemID == 3 && PlayerPrefs.HasKey("Top"))
+        {
+            return;
+        }
+        else SendTutorialSignal();
+
+    }
+
+  
 }

@@ -38,6 +38,11 @@ public class Bulletbullbletrail : MonoBehaviour
 
     void DeployBulletAndSonar()
     {
+        if (PlayerMoveFeedback.moving)
+        {
+            rb.AddForce(600 * speed * bulletTrajectory);
+        }
+        else
         rb.AddForce(400*speed*bulletTrajectory);
 
         if (sonarDelay < 0&&!hasHit&&!spawnSonar)
@@ -84,8 +89,8 @@ public class Bulletbullbletrail : MonoBehaviour
             instance.transform.position += new Vector3(0, 1, 0);
             yield return null;
         }
-        Destroy(instance);
-        Destroy(this.gameObject);
+        Destroy(instance, 1);
+        Destroy(this.gameObject, 1);
     }
 
     private void OnCollisionEnter(Collision collision)

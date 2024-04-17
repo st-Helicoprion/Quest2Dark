@@ -206,6 +206,9 @@ MonoBehaviour:
   spawnPointID: 0
   lastFoundItemID: 0
   curFoundItemID: 0
+  enemyWaveID: 0
+  enemySummonID: 0
+  enemyPattern: 03000000020000000300000002000000
   playerEquipID: 01000000030000000000000002000000
   playerPrefab: {fileID: 4845216885473641645, guid: 0cfc0b131d1b16946bb495e66a9512f9, type: 3}
   cycleManager: {fileID: 0}
@@ -215,8 +218,16 @@ MonoBehaviour:
   - {fileID: 8301825593925316189, guid: b39ec38135b62e74eb636fc63ccad016, type: 3}
   - {fileID: 3207326128619926945, guid: a9f18d85feb277049884ce46b354ac28, type: 3}
   enemyPrefab:
+  - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
+  - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
+  - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
   - {fileID: 5250758653461402767, guid: 9d6d2985bae35f84fa800b81ebe13699, type: 3}
   - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
+  - {fileID: 5250758653461402767, guid: 9d6d2985bae35f84fa800b81ebe13699, type: 3}
+  - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
+  - {fileID: 5925241361927654960, guid: 9fc793f253d9ad645b2178a637c4fcc7, type: 3}
+  - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
+  - {fileID: 5250758653461402767, guid: 9d6d2985bae35f84fa800b81ebe13699, type: 3}
   audioSource: {fileID: 0}
   roomSpawnPoints: []
   equipSpawnPoints: []
@@ -343,6 +354,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c87d775278b135408c8831879ae67c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kek: {fileID: 8555350637664577939, guid: e05a70c3feb0f234b815a7079f37404e, type: 3}
+  toyBox: {fileID: 1815431155946330096, guid: d917bd614babd3945ac2fd4805a9ea00, type: 3}
+  player: {fileID: 0}
 --- !u!1 &2002030182
 GameObject:
   m_ObjectHideFlags: 0

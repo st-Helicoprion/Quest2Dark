@@ -29,7 +29,7 @@ public class InteractionUImanager : MonoBehaviour
             {
                 elements[0].enabled = true;
 
-                if (interactionManager.isInBox)
+                if (interactionManager.isInBox||!released)
                 {
                     elements[1].enabled = false;
                 }
@@ -51,12 +51,12 @@ public class InteractionUImanager : MonoBehaviour
             released = false;
             elements[0].enabled = false;
             elements[1].enabled = false;
-            elements[2].enabled = false;
-            elements[3].enabled = false;
+        
         }
 
         if (released)
         {
+           
             if(interactionManager.isInBox)
             {
                 if(NewToolboxManager.isOpen)
@@ -81,17 +81,15 @@ public class InteractionUImanager : MonoBehaviour
             {
                 elements[0].enabled = true;
                 elements[1].enabled = true;
-                elements[2].enabled = false;
-                elements[3].enabled = false;
+              
             }
         }
 
-        if(PrizeBoxManager.taken)
+        if(!PlayerPrefs.HasKey("IntroDone"))
         {
-            elements[2].enabled = false;
-            elements[3].enabled = false;
+            elements[0].enabled = false;
+            elements[1].enabled = false;
         }
-
       
     }
 
@@ -101,8 +99,7 @@ public class InteractionUImanager : MonoBehaviour
         {
             elements[0].enabled = false;
             elements[1].enabled = false;
-            elements[2].enabled = true;
-            elements[3].enabled = true;
+           
 
             released = false;
         }

@@ -99,7 +99,7 @@ public class FingerMonster : MonoBehaviour
         {
             if (agent.speed < 4)
             {
-                agent.speed += 0.5f*Time.deltaTime;
+                agent.speed += Time.deltaTime;
             }
         }
         agent.SetDestination(target.position);

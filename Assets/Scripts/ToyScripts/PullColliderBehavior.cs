@@ -20,6 +20,7 @@ public class PullColliderBehavior : MonoBehaviour
     private void Update()
     {
         transform.parent.localRotation = new Quaternion(0, mainCamera.localRotation.y, 0, mainCamera.localRotation.w);
+        transform.parent.localPosition = new Vector3(0, 1, mainCamera.localPosition.z-0.1f);
 
         if(promptPool.Count>1)
         {

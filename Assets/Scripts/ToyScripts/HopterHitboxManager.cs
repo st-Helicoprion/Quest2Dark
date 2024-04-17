@@ -50,7 +50,12 @@ public class HopterHitboxManager : MonoBehaviour
         HopterSonarSummon();
         hopterLifeCount += Time.deltaTime;
 
+        if(PlayerMoveFeedback.moving)
+        {
+            transform.parent.position += 8 * Time.deltaTime * transform.parent.forward;
+        }else
         transform.parent.position += 4 * Time.deltaTime * transform.parent.forward;
+
 
         hopterLifetime = 10;
         

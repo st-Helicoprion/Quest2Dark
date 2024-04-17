@@ -5,67 +5,30 @@ using UnityEngine;
 
 public class GameEndReporter : MonoBehaviour
 {
-    public Renderer[] towerSkin;
     public Transform towerObj;
-    /*public float lightCountdown, lightDelay;
-    public bool lit, dark, blink;*/
+    public static bool tutorialDone, callTower;
 
     private void Start()
     {
         PrizeBoxManager.taken = false;
+
+        if(PlayerPrefs.HasKey("IntroDone"))
+        {
+            tutorialDone = true;
+        }
     }
     public void Update()
     {
-        /*lightCountdown -= Time.deltaTime;
-
-        if (lightCountdown<0)
+        
+        if(callTower)
         {
-            lightCountdown = lightDelay;
-            blink = true;
-
-            if(blink)
-            {
-                blink= false;
-                if(lit)
-                {
-                    TurnOffLamp();
-                }
-                else if(dark)
-                {
-                    TurnOnLamp();
-                }
-            }
-           
-        }*/
-
-        if(PrizeBoxManager.taken)
-        {
+            callTower = false;
             StartCoroutine(SummonBrain());
         }
         
     }
 
-    /*public  void TurnOnLamp()
-    {
-        lit = true;
-        dark = false;
-        for (int i = 0; i < towerSkin.Length; i++)
-        {
-            towerSkin[i].enabled = true;
-        }
-    }
-
-    public void TurnOffLamp()
-    {
-        dark = true;
-        lit = false;
-        for (int i = 0; i < towerSkin.Length; i++)
-        {
-            towerSkin[i].enabled = false;
-        }
-    }*/
-
-    IEnumerator SummonBrain()
+    public IEnumerator SummonBrain()
     {
         Vector3 towerTargetPos = towerObj.localPosition;
         while(towerObj.localPosition.y<24)

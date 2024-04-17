@@ -13,11 +13,12 @@ public class PlayerMoveFeedback : MonoBehaviour
     public AudioClip moveSound, runSound;
     public ContinuousMoveProviderBase playerMovement;
     public CharacterController playerCC;
-    public bool isDead, moving;
+    public static bool isDead, moving;
     public float runSoundCount, footstepsInterval;
     public Transform[] footsteps;
     public Transform cam;
     public int stepsNum;
+    public GameObject leftTutText, rightTutText;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,9 @@ public class PlayerMoveFeedback : MonoBehaviour
             if (Mathf.Abs(playerCC.velocity.z) > 0.5f || Mathf.Abs(playerCC.velocity.x) > 0.5f)
             {
                 moving = true;
+
+                leftTutText.SetActive(false);
+                rightTutText.SetActive(false);
                 footstepsInterval -= Time.deltaTime;
                 if (playerMovement.moveSpeed < 5)
                 {
@@ -59,7 +63,7 @@ public class PlayerMoveFeedback : MonoBehaviour
 
                 if(footstepsInterval<0)
                 {
-                    footstepsInterval = 0.5f;
+                    footstepsInterval = 0.2f;
                     if(stepsNum<footsteps.Length)
                     {
                          MoveFootstepsToPlayer();
@@ -75,6 +79,17 @@ public class PlayerMoveFeedback : MonoBehaviour
             else
             {
                 moving= false;
+                if(TutorialsManager.intro)
+                {
+                    leftTutText.SetActive(false);
+                    rightTutText.SetActive(false);
+                }
+                else
+                {
+
+                    leftTutText.SetActive(true);
+                    rightTutText.SetActive(true);
+                }
                 playerMovement.moveSpeed = 1.5f;
                 audioSource.Stop();
             }

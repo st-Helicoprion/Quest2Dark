@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5dd134e26e13524c9f6c3b02f0e62be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSonarHeight: 5
+  maxSonarHeight: 10
   topSonarCount: 0
   topSonarPrefab: {fileID: 5034980323273796318, guid: d5d0807ea008a2e4e9021736bd84e7b3, type: 3}
   top: {fileID: 0}

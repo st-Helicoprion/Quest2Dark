@@ -128,11 +128,6 @@ public class ToyToolboxInteractionManager : MonoBehaviour
         
     }
 
-    public void HopToOtherHand()
-    {
-
-    }
-
     public void FindColliders()
     {
         //only for plane and top
@@ -227,7 +222,7 @@ public class ToyToolboxInteractionManager : MonoBehaviour
         if (other.TryGetComponent(out ToolboxVacancyChecker otherBox))
         {
             boxState = otherBox;
-            if (isInHand)
+            if (isInHand && handState != null)
             {
                  if (handState.grip)
                     {
@@ -244,7 +239,7 @@ public class ToyToolboxInteractionManager : MonoBehaviour
         if (other.CompareTag("RightHand")||other.CompareTag("LeftHand"))
         {
             
-            if(!isInHand) 
+            if(!isInHand&&handState!=null) 
             {
                
                 if(handState.grip)
@@ -268,7 +263,7 @@ public class ToyToolboxInteractionManager : MonoBehaviour
 
             }
 
-            if (isInHand && swapHands)
+            if (isInHand && swapHands && handState != null)
             {
                 if(handState.grip)
                 {
@@ -282,7 +277,7 @@ public class ToyToolboxInteractionManager : MonoBehaviour
 
         }
 
-        if (other.TryGetComponent(out ToyToolboxInteractionManager otherItem) && isInHand && otherItem.isInBox)
+        if (other.TryGetComponent(out ToyToolboxInteractionManager otherItem) && isInHand && otherItem.isInBox && handState != null)
         {
             otherToyState = otherItem;
 

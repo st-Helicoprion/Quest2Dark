@@ -30,6 +30,26 @@ public class PrizeBoxManager : MonoBehaviour
             audioSource.PlayOneShot(AudioManager.instance.UISFXAudioClips[2]);
             taken= true;
 
+            if(TutorialsManager.waitForTutEnd)
+            {
+                PlayerPrefs.SetInt("IntroDone", 1);
+                GameEndReporter.tutorialDone = true;
+            }
+
+            if(GameEndReporter.tutorialDone)
+            {
+                TutorialsManager.intro = true;
+                GameEndReporter.callTower = true;
+                TutorialsManager.player = GameObject.Find("Main Camera").transform;
+            }
+            else
+            {
+                if(!TutorialsManager.intro)
+                {
+                    TutorialsManager.instance.CheckStoryStartTutorial();
+                }
+            }
+
             if (logos.Length > 0)
             {
                 for (int i = 0; i < logos.Length; i++)
