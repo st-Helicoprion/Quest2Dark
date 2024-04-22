@@ -148,6 +148,7 @@ public class CustomTopManager : MonoBehaviour
        Vector3 direction = trackedPositions[^1] - trackedPositions[0];
         transform.parent= null;
         rb.isKinematic = false;
+        rb.AddForce(10 * Vector3.down);
         if(PlayerMoveFeedback.moving)
         {
             rb.AddForce(2 * force * direction);

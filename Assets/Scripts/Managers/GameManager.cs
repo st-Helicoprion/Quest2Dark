@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit;
+using Unity.Netcode;
 
 [RequireComponent(typeof(AudioSource))]
 public class GameManager : MonoBehaviour
@@ -110,8 +111,14 @@ public class GameManager : MonoBehaviour
         player.gameObject.GetNamedChild("Canvas").transform.GetChild(1).GetComponent<TextMeshPro>().enabled = false;
         UIViewAligner.player = player.gameObject.GetNamedChild("Main Camera").transform;
         IntroSpawnReporter.player = UIViewAligner.player;
-        
-        StartCoroutine(SpawnPlayerEquip(i));
+        PrizeBoxManager.taken = false;
+
+      /*  if (Application.platform == RuntimePlatform.Android)
+        {*/
+            NetworkManager.Singleton.StartHost();
+      /*  }*/
+
+            StartCoroutine(SpawnPlayerEquip(i));
         StartCoroutine(MapSpawnCoroutine());
 
         yield return null;
@@ -150,7 +157,8 @@ public class GameManager : MonoBehaviour
         {
             for (int i = 0; i < enemyPattern[enemyWaveID]; i++)
             {
-                Instantiate(enemyPrefab[enemySummonID], spawnPoints.GetChild(Random.Range(0, spawnPoints.childCount)).transform.position + new Vector3(0, 5, 0), Quaternion.identity);
+                int rand = Random.Range(0, spawnPoints.childCount);
+                Instantiate(enemyPrefab[enemySummonID], spawnPoints.GetChild(rand).position + new Vector3(0, 5, 0), Quaternion.identity);
                 Debug.Log("Enemy spawned");
                 enemySummonID++;
             }
