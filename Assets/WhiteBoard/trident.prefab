@@ -213,6 +213,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 5327aee7fd7a7b040942807a253fb3e3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 80e5c012aa918f749a397fecffb724e9, type: 2}
     - target: {fileID: 919132149155446097, guid: 5327aee7fd7a7b040942807a253fb3e3, type: 3}
       propertyPath: m_Name
       value: seaweed1
@@ -220,13 +224,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5327aee7fd7a7b040942807a253fb3e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5440346261798869377}
   m_SourcePrefab: {fileID: 100100000, guid: 5327aee7fd7a7b040942807a253fb3e3, type: 3}
 --- !u!23 &5591564031589021682 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5327aee7fd7a7b040942807a253fb3e3, type: 3}
   m_PrefabInstance: {fileID: 6510142915628788598}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6240236104295470631 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5327aee7fd7a7b040942807a253fb3e3, type: 3}
+  m_PrefabInstance: {fileID: 6510142915628788598}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &5440346261798869377
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6240236104295470631}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2283464414341726940, guid: 5327aee7fd7a7b040942807a253fb3e3, type: 3}
 --- !u!4 &6760489081146772637 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5327aee7fd7a7b040942807a253fb3e3, type: 3}

@@ -125,7 +125,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7749106276535529597}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -184,7 +184,7 @@ LODGroup:
   - screenRelativeHeight: 0.19838127
     fadeTransitionWidth: 0
     renderers: []
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!1001 &5245385569806524915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -245,6 +245,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 76e22b628c35d8243b290f68b0a2eb9e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 80e5c012aa918f749a397fecffb724e9, type: 2}
     - target: {fileID: 919132149155446097, guid: 76e22b628c35d8243b290f68b0a2eb9e, type: 3}
       propertyPath: m_Name
       value: Small cloud_Lod
