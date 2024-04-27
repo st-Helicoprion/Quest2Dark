@@ -13,13 +13,6 @@ public class ItemCycleManager : MonoBehaviour
         ClearItemIDList();
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ClearItemIDList()
     {
         itemIDList.Clear();

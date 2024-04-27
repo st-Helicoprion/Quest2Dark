@@ -33,7 +33,7 @@ public class HopterHitboxManager : MonoBehaviour
             if (hopterLifeCount > hopterLifetime)
             {
                 hopterLifeCount = 0;
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }
 
         }
@@ -64,16 +64,21 @@ public class HopterHitboxManager : MonoBehaviour
     void HopterTracking()
     {
         HopterPlaceTracker();
-        Vector3 targetDirection = (enemy.transform.position + new Vector3(0, 5, 0)) - transform.position;
-        if(Mathf.Abs(enemy.transform.position.x-transform.position.x)>0.25f|| Mathf.Abs(enemy.transform.position.z - transform.position.z) > 0.25f)
+        if (enemy != null)
         {
-            transform.position += 2*Time.deltaTime * targetDirection;
+            Vector3 targetDirection = (enemy.transform.position + new Vector3(0, 5, 0)) - transform.position;
+            if (Mathf.Abs(enemy.transform.position.x - transform.position.x) > 0.25f || Mathf.Abs(enemy.transform.position.z - transform.position.z) > 0.25f)
+            {
+                transform.position += 2 * Time.deltaTime * targetDirection;
+            }
+
+
+            hopterLifeCount += Time.deltaTime;
+
+            hopterLifetime = 120;
+
         }
-       
-
-        hopterLifeCount += Time.deltaTime;
-
-        hopterLifetime = 120;
+        else Destroy(gameObject);
     }
 
     void HopterSonarSummon()
@@ -87,9 +92,9 @@ public class HopterHitboxManager : MonoBehaviour
 
             if(Physics.Raycast(transform.position,Vector3.down,out RaycastHit hit, Mathf.Infinity, layerMask))
             {
-                   Instantiate(hopterSonarPrefab, new Vector3(transform.position.x,hit.point.y-60,transform.position.z), Quaternion.identity);
-                    Debug.Log("plane sonar released");
-                    visualAidCount = 0;
+                Instantiate(hopterSonarPrefab, new Vector3(transform.position.x, hit.point.y - 60, transform.position.z), Quaternion.identity);
+                Debug.Log("plane sonar released");
+                visualAidCount = 0;
             }
             
         }

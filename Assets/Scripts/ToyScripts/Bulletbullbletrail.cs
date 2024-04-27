@@ -50,7 +50,7 @@ public class Bulletbullbletrail : MonoBehaviour
             bulletSkin.enabled = false;
             rb.isKinematic = true;
             rb.velocity = Vector3.zero;
-            SonarExpandSequence();
+            SonarRaiseSequence();
             
         }
         else
@@ -61,7 +61,7 @@ public class Bulletbullbletrail : MonoBehaviour
 
     }
 
-    void SonarExpandSequence()
+    void SonarRaiseSequence()
     {
         spawnSonar = true;
         int layer = 8;
@@ -101,7 +101,7 @@ public class Bulletbullbletrail : MonoBehaviour
             bulletSkin.enabled = false;
             rb.isKinematic = true;
             rb.velocity = Vector3.zero;
-            SonarExpandSequence();
+            SonarRaiseSequence();
 
         }
        

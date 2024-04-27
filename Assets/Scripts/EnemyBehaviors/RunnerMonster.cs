@@ -12,7 +12,7 @@ public class RunnerMonster : MonoBehaviour
     public NavMeshAgent agent;
     public Transform target, sonar;
     public AudioSource audioSource;
-    public static bool warn, canShowLanes, deployed;
+    public static bool warn, canShowLanes, deployed, switching;
     public float huntRadius;
 
     public List<Transform> runningPoints1, runningPoints2, runningPoints3;
@@ -181,21 +181,25 @@ public class RunnerMonster : MonoBehaviour
     }
     void ShuffleLane()
     {
+        switching = true;
         laneID = Random.Range(1, 4);
         if (laneID == 1)
         {
             targetPointID = 0;
             agent.SetDestination(runningPoints1[0].position);
+            switching = false;
         }
         if (laneID == 2)
         {
             targetPointID = 0;
             agent.SetDestination(runningPoints2[0].position);
+            switching = false;
         }
         if (laneID == 3)
         {
             targetPointID = 0;
             agent.SetDestination(runningPoints3[0].position);
+            switching = false;
         }
 
         SetLaneMaterial();
@@ -263,7 +267,7 @@ public class RunnerMonster : MonoBehaviour
 
     IEnumerator ReleaseWarningSonar()
     {
-        while (sonar.transform.localScale.x < 4*huntRadius&&warn)
+        while (sonar.transform.localScale.x < 10*huntRadius&&warn)
         {
             sonar.transform.localScale += new Vector3(2, 2, 2);
             yield return null;

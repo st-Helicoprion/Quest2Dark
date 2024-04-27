@@ -20,7 +20,7 @@ public class RespawnPlaneManager : MonoBehaviour
     private void Update()
     {
         transform.parent.localRotation = new Quaternion(0, mainCamera.localRotation.y, 0, mainCamera.localRotation.w);
-        transform.parent.localPosition = new Vector3(0, 1, mainCamera.localPosition.z - 0.2f);
+       
     }
     void StartTracking(GameObject other)
     {
@@ -29,11 +29,11 @@ public class RespawnPlaneManager : MonoBehaviour
             other.transform.parent = null;
             sonarScript = other.transform.GetChild(0).GetComponent<HopterHitboxManager>();
             trackHitbox = other.transform.GetChild(0).GetComponent<Collider>();
+            sonarScript.enabled = true;
+            trackHitbox.enabled = true;
         }
         else return;
 
-        sonarScript.enabled = true;
-        trackHitbox.enabled = true;
 
         if(planesOnHand.Count>0)
         {
@@ -59,7 +59,7 @@ public class RespawnPlaneManager : MonoBehaviour
             planeInstance.GetComponent<ToyToolboxInteractionManager>().StickToyToHand(handState, handState.handID);
             planesOnHand.Add(planeInstance);
 
-            if(planesOnHand.Count>1)
+            while(planesOnHand.Count>1)
             {
                 Destroy(planesOnHand[0]);
                 planesOnHand.RemoveAt(0);
@@ -73,9 +73,13 @@ public class RespawnPlaneManager : MonoBehaviour
                 {
                     planeInstance = Instantiate(planePrefab, Vector3.zero, Quaternion.identity);
                     planeInstance.GetComponent<ToyToolboxInteractionManager>().PlaceToyInBox(boxArray[i]);
+                    if (!NewToolboxManager.isOpen && planeInstance.GetComponent<ToyToolboxInteractionManager>().isInBox)
+                    {
+                        planeInstance.GetComponent<ToyToolboxInteractionManager>().HideEquipVisuals();
+                    }
                     planesOnHand.Add(planeInstance);
 
-                    if (planesOnHand.Count > 1)
+                    while (planesOnHand.Count > 1)
                     {
                         Destroy(planesOnHand[0]);
                         planesOnHand.RemoveAt(0);

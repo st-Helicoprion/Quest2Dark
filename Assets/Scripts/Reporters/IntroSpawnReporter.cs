@@ -6,6 +6,9 @@ public class IntroSpawnReporter : MonoBehaviour
 {
     public static Transform player;
     public float distToPlayer;
+  
+    public TargetPracticeReporter[] tutSpots;
+
    
     // Update is called once per frame
     void Update()
