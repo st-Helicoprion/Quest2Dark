@@ -8,7 +8,6 @@ public class KekBehavior : MonoBehaviour
     public Vector3 rootPos;
     public bool offRoot, attracted;
     public TextMeshPro dialogueText;
-    public UIViewAligner alignment;
 
     // Start is called before the first frame update
     void Start()
@@ -35,14 +34,15 @@ public class KekBehavior : MonoBehaviour
         }
     }
 
- /*   private void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        
-        if(other.CompareTag("TopSonar"))
+
+        if (other.CompareTag("TopSonar"))
         {
             attracted = true;
             dialogueText.text = "Ooh~ spinny~!";
-            Vector3 direction = GameObject.FindWithTag("SpinningTop").transform.position - transform.position;
+            GameObject top = GameObject.FindWithTag("SpinningTop");
+            Vector3 direction = new Vector3(top.transform.position.x - transform.position.x, transform.position.y, top.transform.position.z - transform.position.z);
             transform.position += 0.1f * direction;
             transform.LookAt(direction);
         }
@@ -53,10 +53,9 @@ public class KekBehavior : MonoBehaviour
         {
             attracted = false;
             dialogueText.text = "";
-            rootPos = transform.position;
-            
+
         }
-    }*/
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -65,6 +64,14 @@ public class KekBehavior : MonoBehaviour
             dialogueText.text = "*#@<Y*9!";
             StartCoroutine(KnockbackCoroutine(collision));
 
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.name=="woodairplane")
+        {
+            transform.tag = "Untagged";
         }
     }
     void ReturnToRootPos()
@@ -77,13 +84,12 @@ public class KekBehavior : MonoBehaviour
 
     IEnumerator KnockbackCoroutine(Collision collision)
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 5; i++)
         {
-            alignment.enabled = false;
-            transform.localPosition -= (collision.transform.position - transform.position);
-            yield return new WaitForSeconds(0.5f);
+            transform.position -= Vector3.forward;
+            yield return null;
         }
-        alignment.enabled = true;
+        yield return new WaitForSeconds(1);
         dialogueText.text = "";
     }
 

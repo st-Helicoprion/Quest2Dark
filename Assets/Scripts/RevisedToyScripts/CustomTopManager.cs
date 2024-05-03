@@ -167,6 +167,7 @@ public class CustomTopManager : MonoBehaviour
     void SpinAnim()
     {
         transform.up = Vector3.up;
+        rb.isKinematic = false;
         rb.AddForce(10 * Vector3.down);
         anim.SetBool("Spin", true);
         sonarDust.SetActive(true);

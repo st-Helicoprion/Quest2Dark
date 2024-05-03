@@ -54,6 +54,7 @@ public class GameEndReporter : MonoBehaviour
         { 
             renderer.enabled = true;
         }
+        yield return null;
         Vector3 enemySpawnFeedbackSize = enemySpawnSonar.localScale;
         while (enemySpawnSonar.localScale.y < 1000)
         {
@@ -61,6 +62,7 @@ public class GameEndReporter : MonoBehaviour
             enemySpawnSonar.localScale= enemySpawnFeedbackSize;
             yield return null;
         }
+        yield return null;
         foreach (Renderer renderer in sonarSkin)
         {
             renderer.enabled = false;

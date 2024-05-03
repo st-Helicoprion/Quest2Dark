@@ -33,7 +33,7 @@ public class HopterHitboxManager : MonoBehaviour
             if (hopterLifeCount > hopterLifetime)
             {
                 hopterLifeCount = 0;
-                Destroy(gameObject);
+                Destroy(transform.parent.gameObject);
             }
 
         }
@@ -78,7 +78,7 @@ public class HopterHitboxManager : MonoBehaviour
             hopterLifetime = 120;
 
         }
-        else Destroy(gameObject);
+        else Destroy(transform.parent.gameObject);
     }
 
     void HopterSonarSummon()

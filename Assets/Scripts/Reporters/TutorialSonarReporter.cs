@@ -20,7 +20,7 @@ public class TutorialSonarReporter : MonoBehaviour
             if(playerSonar.position.y>transform.position.y)
             {
                 TutorialsManager.instance.cicadaGoal = true;
-                Destroy(gameObject);
+                Destroy(transform.parent.gameObject);
             }
         }
 
@@ -29,7 +29,7 @@ public class TutorialSonarReporter : MonoBehaviour
             if(CustomTopManager.isSpinning)
             {
                 TutorialsManager.instance.topGoal = true;
-                Destroy(gameObject);
+                Destroy(transform.parent.gameObject);
             }
         }
     }
@@ -38,7 +38,6 @@ public class TutorialSonarReporter : MonoBehaviour
     {
         if(other.CompareTag("SpinningTop"))
         {
-            TutorialsManager.instance.topGoal = true;
             primed = true;
         }
     }

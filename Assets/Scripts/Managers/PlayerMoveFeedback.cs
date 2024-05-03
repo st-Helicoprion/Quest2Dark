@@ -79,7 +79,7 @@ public class PlayerMoveFeedback : MonoBehaviour
             else
             {
                 moving= false;
-                if(TutorialsManager.intro)
+                if(PrizeBoxManager.taken)
                 {
                     leftTutText.SetActive(false);
                     rightTutText.SetActive(false);

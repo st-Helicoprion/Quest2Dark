@@ -32,7 +32,6 @@ public class PrizeBoxManager : MonoBehaviour
 
             if(TutorialsManager.waitForTutEnd)
             {
-                PlayerPrefs.SetInt("IntroDone", 1);
                 GameEndReporter.tutorialDone = true;
             }
 

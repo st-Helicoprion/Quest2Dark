@@ -26,8 +26,7 @@ public class GameManager : MonoBehaviour
     public int enemySummonID;
     public int[] enemyPattern;
     public List<int> playerEquipID = new();
-    public GameObject playerPrefab, endPlayerPrefab;
-    public ItemCycleManager cycleManager; 
+    public GameObject playerPrefab, endPlayerPrefab; 
     public List<GameObject> keyItem = new();
     public GameObject[] enemyPrefab;
 
@@ -55,6 +54,8 @@ public class GameManager : MonoBehaviour
             ItemCycleManager.StoreKeyItemList();
             restart.action.performed += ManualRestartGame;
             DontDestroyOnLoad(gameObject);
+
+            
         }
 
           
@@ -154,13 +155,13 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator SpawnEnemies()
     {
-        yield return new WaitForSeconds(enemySpawnInterval);
-
-        if (!TutorialsManager.isTut&&PrizeBoxManager.taken)
+        yield return new WaitUntil(() => !TutorialsManager.isTut && PrizeBoxManager.taken);
         {
-            enemySpawned = true;
+            yield return new WaitForSeconds(enemySpawnInterval);
+
             if (enemyWaveID < 4)
             {
+                enemySpawned = true;
                 for (int i = 0; i < enemyPattern[enemyWaveID]; i++)
                 {
                     int rand = Random.Range(0, spawnPoints.childCount);
@@ -175,10 +176,8 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(SpawnEnemies());
             }
 
-
         }
-        else yield return new WaitUntil(() => { return TutorialsManager.isTut == false; }) ;
-       
+
     }
 
     #endregion
@@ -228,6 +227,7 @@ public class GameManager : MonoBehaviour
             int j= Random.Range(0,keyItem.Count);
             Instantiate(keyItem[j], equipSpawnPoints[n].transform.position, Quaternion.identity);
             equipSpawnPoints.Remove(equipSpawnPoints[n]);
+            ItemCycleManager.RemoveToyPrefabInGameManager(j);
             usedSpawnIDs.Add(n);
 
         }
