@@ -163,5 +163,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
-  selfCam: {fileID: 0}
+  selfCam: {fileID: 3391005958589982138}
   host: 0

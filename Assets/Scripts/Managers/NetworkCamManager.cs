@@ -5,21 +5,21 @@ using UnityEngine;
 
 public class NetworkCamManager : MonoBehaviour
 {
+    public static NetworkCamManager instance;
     public GameObject UICamera, selectScreen;
-    public GameManager gameManager;
     public NetworkManager networkManager;
 
     private void Awake()
     {
+        
+        instance = this;
 
         if (Application.platform == RuntimePlatform.WindowsPlayer)
         {
-            gameManager.enabled = false;
             selectScreen.SetActive(true);
         }
         else if(Application.platform == RuntimePlatform.Android)
         {
-            gameManager.enabled = true;
             UICamera.SetActive(false);
             selectScreen.SetActive(false);
             networkManager.StartHost();
@@ -30,7 +30,7 @@ public class NetworkCamManager : MonoBehaviour
     {
         UICamera.SetActive(false);
         selectScreen.SetActive(false);
-        gameManager.enabled = true;
+        
     }
 
     public void SelectSpectate()

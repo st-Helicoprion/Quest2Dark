@@ -113,12 +113,7 @@ public class GameManager : MonoBehaviour
         IntroSpawnReporter.player = UIViewAligner.player;
         PrizeBoxManager.taken = false;
 
-      /*  if (Application.platform == RuntimePlatform.Android)
-        {*/
-            NetworkManager.Singleton.StartHost();
-      /*  }*/
-
-            StartCoroutine(SpawnPlayerEquip(i));
+        StartCoroutine(SpawnPlayerEquip(i));
         StartCoroutine(MapSpawnCoroutine());
 
         yield return null;
