@@ -20,7 +20,7 @@ public class PullColliderBehavior : MonoBehaviour
     private void Update()
     {
         transform.parent.localRotation = new Quaternion(0, mainCamera.localRotation.y, 0, mainCamera.localRotation.w);
-        transform.parent.localPosition = new Vector3(0, 1, mainCamera.localPosition.z-0.2f);
+       
 
         if(promptPool.Count>1)
         {
@@ -50,7 +50,8 @@ public class PullColliderBehavior : MonoBehaviour
             if (other.CompareTag("LeftHand") || other.CompareTag("RightHand"))
             {
                 hand = other.GetComponent<HandAnimation>();
-                promptPool.Add(Instantiate(pullPrompt, other.transform));
+                GameObject prompt = Instantiate(pullPrompt, other.transform);
+                promptPool.Add(prompt);
             }
         }
         

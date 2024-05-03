@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -80,6 +81,8 @@ public class NewToolboxManager : MonoBehaviour
                 this.transform.localRotation = Quaternion.identity;
                 leftGuide.SetActive(true);
                 rightGuide.SetActive(false);
+
+
             }
             else if (receivedHandID == 2)
             {

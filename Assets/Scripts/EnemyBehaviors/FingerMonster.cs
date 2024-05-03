@@ -241,7 +241,6 @@ public class FingerMonster : MonoBehaviour
     {
         if (collision.transform.CompareTag("Bullet"))
         {
-
             StartCoroutine(KnockbackCoroutine(collision));
 
         }

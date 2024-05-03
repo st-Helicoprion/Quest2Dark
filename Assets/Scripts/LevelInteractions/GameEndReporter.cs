@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class GameEndReporter : MonoBehaviour
 {
-    public Transform towerObj;
+    public Transform towerObj, enemySpawnSonar;
     public static bool tutorialDone, callTower;
+    public Renderer[] sonarSkin;
 
     private void Start()
     {
@@ -25,7 +26,12 @@ public class GameEndReporter : MonoBehaviour
             callTower = false;
             StartCoroutine(SummonBrain());
         }
-        
+
+        if (GameManager.enemySpawned)
+        {
+            GameManager.enemySpawned = false;
+            StartCoroutine(EnemySpawnFeedback());
+        }
     }
 
     public IEnumerator SummonBrain()
@@ -38,6 +44,28 @@ public class GameEndReporter : MonoBehaviour
             towerTargetPos.z= towerObj.localPosition.z;
             towerObj.localPosition = towerTargetPos;
             yield return null;
+        }
+    }
+
+    public IEnumerator EnemySpawnFeedback()
+    {
+        enemySpawnSonar.localScale = new Vector3(.1f,.1f,.1f);
+        foreach(Renderer renderer in sonarSkin) 
+        { 
+            renderer.enabled = true;
+        }
+        yield return null;
+        Vector3 enemySpawnFeedbackSize = enemySpawnSonar.localScale;
+        while (enemySpawnSonar.localScale.y < 1000)
+        {
+            enemySpawnFeedbackSize += new Vector3(.5f, .5f, .5f);
+            enemySpawnSonar.localScale= enemySpawnFeedbackSize;
+            yield return null;
+        }
+        yield return null;
+        foreach (Renderer renderer in sonarSkin)
+        {
+            renderer.enabled = false;
         }
     }
     private void OnTriggerEnter(Collider other)

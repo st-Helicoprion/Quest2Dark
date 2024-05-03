@@ -7,6 +7,11 @@ public class UIViewAligner : MonoBehaviour
     public static Transform player;
     public bool tutUI;
 
+    private void Start()
+    {
+        gameObject.SetActive(true);
+    }
+
     // Update is called once per frame
     void Update()
     {

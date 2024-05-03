@@ -27,6 +27,7 @@ TagManager:
   - GunSonar
   - Bullet
   - Runner
+  - Spectator
   layers:
   - Default
   - TransparentFX
@@ -35,7 +36,7 @@ TagManager:
   - Water
   - UI
   - Outline
-  - Outline2
+  - 
   - PlaneSonarLayer
   - Minimap
   - 

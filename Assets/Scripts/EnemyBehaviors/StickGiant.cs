@@ -142,6 +142,7 @@ public class StickGiant : MonoBehaviour
     void AlertAllMonsters()
     {   
         agent.speed = 0;
+        IdleAnim();
 
         lineToPlayer.enabled = true;
         lineToPlayer.SetPosition(0, this.transform.position + new Vector3(0, 15, 0));

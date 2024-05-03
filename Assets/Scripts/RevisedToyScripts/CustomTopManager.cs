@@ -148,7 +148,7 @@ public class CustomTopManager : MonoBehaviour
        Vector3 direction = trackedPositions[^1] - trackedPositions[0];
         transform.parent= null;
         rb.isKinematic = false;
-        rb.AddForce(10 * Vector3.down);
+       
         if(PlayerMoveFeedback.moving)
         {
             rb.AddForce(2 * force * direction);
@@ -167,6 +167,8 @@ public class CustomTopManager : MonoBehaviour
     void SpinAnim()
     {
         transform.up = Vector3.up;
+        rb.isKinematic = false;
+        rb.AddForce(10 * Vector3.down);
         anim.SetBool("Spin", true);
         sonarDust.SetActive(true);
     }

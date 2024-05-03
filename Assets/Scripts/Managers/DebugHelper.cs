@@ -17,13 +17,20 @@ public class DebugHelper : MonoBehaviour
     void Awake()
     {
         debugObjsActive = false;
-        debug.action.performed += EnableTestObjects;
+        //debug.action.performed += EnableTestObjects;
+        debug.action.performed += EnableTestBool;
+
     }
 
-    // Update is called once per frame
-    void Update()
+    void EnableTestBool(InputAction.CallbackContext obj)
     {
-        
+        if (this != null)
+        {
+            if (obj.ReadValue<float>() == 1)
+            {
+                PrizeBoxManager.taken = true;
+            }
+        }
     }
 
     void EnableTestObjects(InputAction.CallbackContext obj)

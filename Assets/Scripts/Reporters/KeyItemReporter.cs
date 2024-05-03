@@ -16,19 +16,19 @@ public class KeyItemReporter : MonoBehaviour
     {
         if (toolboxhelper.isInHand)
         {
-            if(itemID==0&&!TutorialsManager.instance.cicadaTut)
+            if(itemID==0&&!TutorialsManager.cicadaTut)
             {
                 CheckTutorial();
             }
-            if (itemID ==1 && !TutorialsManager.instance.gunTut)
+            if (itemID ==1 && !TutorialsManager.gunTut)
             {
                 CheckTutorial();
             }
-            if (itemID ==2 && !TutorialsManager.instance.planeTut)
+            if (itemID ==2 && !TutorialsManager.planeTut)
             {
                 CheckTutorial();
             }
-            if (itemID == 3 && !TutorialsManager.instance.topTut)
+            if (itemID == 3 && !TutorialsManager.topTut)
             {
                 CheckTutorial();
             }

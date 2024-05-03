@@ -4988,7 +4988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8074bbdba72d67d4a903fd06fe80dcc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sonarDelay: 0.7
+  sonarDelay: 1
   echo: {fileID: 1077506538334241575, guid: 6ce038256af114f4ca0c7e40158f5c73, type: 3}
   existTime: 5
   speed: 20

@@ -123,6 +123,156 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &277976109
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 277976111}
+  - component: {fileID: 277976110}
+  m_Layer: 0
+  m_Name: TutorialsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &277976110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277976109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c87d775278b135408c8831879ae67c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kek: {fileID: 8555350637664577939, guid: e05a70c3feb0f234b815a7079f37404e, type: 3}
+  toyBox: {fileID: 1815431155946330096, guid: d917bd614babd3945ac2fd4805a9ea00, type: 3}
+  tutSonarPrefab: {fileID: 3970337055671145537, guid: f3c2ff90d4df5e2418660fa323ce939f, type: 3}
+  tutSonarPoint: {x: 0, y: 0, z: 0}
+  anim: {fileID: 0}
+  cicadaGoal: 0
+  gunGoal: 0
+  planeGoal: 0
+  topGoal: 0
+  introLines:
+  - {fileID: 11400000, guid: 4469af5070ddc394aaf161d790c7b428, type: 2}
+  cicadaTutLines: []
+  gunTutLines: []
+  planeTutLines: []
+  topTutLines: []
+--- !u!4 &277976111
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277976109}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -32.141186, y: 66.39249, z: 20.588886}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1534114289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1534114291}
+  - component: {fileID: 1534114290}
+  m_Layer: 0
+  m_Name: OniCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1534114290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534114289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d02d25c24c8574316883c920912e4fdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1534114291
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534114289}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1546507168
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1546507170}
+  - component: {fileID: 1546507169}
+  m_Layer: 0
+  m_Name: DialogueManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1546507169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546507168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b30123164e422498396a6fd3c71314, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  language: 0
+  engFontAsset: {fileID: 11400000, guid: b43ad26968bb88d44a7e171c4a97f57b, type: 2}
+  mandFontAsset: {fileID: 11400000, guid: 5d4065493a33df8458378c403a05cbab, type: 2}
+--- !u!4 &1546507170
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546507168}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -61.50364, y: 66.533936, z: 38.73509}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1812915115
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,7 +285,6 @@ GameObject:
   - component: {fileID: 1812915117}
   - component: {fileID: 1812915118}
   - component: {fileID: 1812915120}
-  - component: {fileID: 1812915121}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -170,17 +319,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c4a51d217fc7f4428db9dba26dfca43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints: {fileID: 0}
   player: {fileID: 0}
+  spawnPoints: {fileID: 0}
   spawnPointID: 0
-  lastFoundItemID: 0
-  curFoundItemID: 0
   enemyWaveID: 0
   enemySummonID: 0
   enemyPattern: 03000000020000000300000002000000
   playerEquipID: 01000000030000000000000002000000
   playerPrefab: {fileID: 4845216885473641645, guid: 0cfc0b131d1b16946bb495e66a9512f9, type: 3}
-  cycleManager: {fileID: 0}
+  endPlayerPrefab: {fileID: 4845216885473641645, guid: bc6848aad4778d545a1e969b56f3774d, type: 3}
   keyItem:
   - {fileID: 2639221473899419195, guid: d14f8f74ac5406f40a28b9b0590d88d7, type: 3}
   - {fileID: 6847865421160022036, guid: a5e48b6be67b2904a809b703ba2baa28, type: 3}
@@ -197,7 +344,6 @@ MonoBehaviour:
   - {fileID: 5925241361927654960, guid: 9fc793f253d9ad645b2178a637c4fcc7, type: 3}
   - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
   - {fileID: 5250758653461402767, guid: 9d6d2985bae35f84fa800b81ebe13699, type: 3}
-  audioSource: {fileID: 0}
   roomSpawnPoints: []
   equipSpawnPoints: []
   equipHiders: []
@@ -311,24 +457,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e23de2ec6d98504d9d3b56fc402fadb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1812915121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1812915115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c87d775278b135408c8831879ae67c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cicadaTut: 0
-  gunTut: 0
-  planeTut: 0
-  topTut: 0
-  kek: {fileID: 8555350637664577939, guid: e05a70c3feb0f234b815a7079f37404e, type: 3}
-  toyBox: {fileID: 1815431155946330096, guid: d917bd614babd3945ac2fd4805a9ea00, type: 3}
 --- !u!1 &2002030182
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,3 +624,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 1812915116}
   - {fileID: 2002030184}
+  - {fileID: 1546507170}
+  - {fileID: 277976111}
+  - {fileID: 1534114291}

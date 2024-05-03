@@ -8,7 +8,7 @@ public class FishPlayerSonarReporter : MonoBehaviour
     {
         if(other.CompareTag("Sonar")||other.CompareTag("PlaneSonar")||other.CompareTag("TopSonar")||other.CompareTag("GunSonar"))
         {
-            if(RunnerMonster.canShowLanes)
+            if(RunnerMonster.canShowLanes&&!RunnerMonster.switching)
             {
                 if (RunnerMonster.laneID== FishTrackSensor.playerLaneID.x)
                 {
