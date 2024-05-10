@@ -34,6 +34,7 @@ public class HandAnimation : MonoBehaviour
     }
     private void Update()
     {
+
         if(ToyToolboxInteractionManager.itemTaken)
         {
             handObj.layer = 6;

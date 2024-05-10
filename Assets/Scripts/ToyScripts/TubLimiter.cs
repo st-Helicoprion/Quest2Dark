@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TubLimiter : MonoBehaviour
 {
-    public Transform stickPivotPoint, tubPivotPoint, ropeRenderer, cicadaStick;
+    public Transform stickPivotPoint, tubPivotPoint;
     
   
     // Update is called once per frame

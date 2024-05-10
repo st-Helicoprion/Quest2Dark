@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2747795732190619347}
   - component: {fileID: 8317196034475072104}
   - component: {fileID: 6365800242663184453}
+  - component: {fileID: 2364103214184637795}
   m_Layer: 0
   m_Name: Cone
   m_TagString: Untagged
@@ -83,6 +84,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2364103214184637795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288804617582921743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89011049bf4d6034ab96236fb9da1cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weakStateMat: {fileID: 2100000, guid: fe6074a30f964b74296cd7ce105708dd, type: 2}
+  normalStateMat: {fileID: 2100000, guid: 52a50138d24dab74c863c7e74b861657, type: 2}
+  rend: {fileID: 6365800242663184453}
 --- !u!1 &5034980323273796318
 GameObject:
   m_ObjectHideFlags: 0

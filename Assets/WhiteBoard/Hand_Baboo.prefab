@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e88110e5693b27e4bbd461482cefa0bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ColliderName: AnimatedOBJ_TestingCollider
+  ColliderName: NewPlayerPrefab(Clone)
 --- !u!95 &8465032007769021786
 Animator:
   serializedVersion: 5

@@ -42,9 +42,7 @@ public class KekBehavior : MonoBehaviour
             attracted = true;
             dialogueText.text = "Ooh~ spinny~!";
             GameObject top = GameObject.FindWithTag("SpinningTop");
-            Vector3 direction = new Vector3(top.transform.position.x - transform.position.x, transform.position.y, top.transform.position.z - transform.position.z);
-            transform.position += 0.1f * direction;
-            transform.LookAt(direction);
+            
         }
     }
     private void OnTriggerExit(Collider other)
@@ -62,18 +60,10 @@ public class KekBehavior : MonoBehaviour
         if (collision.transform.CompareTag("Bullet"))
         {
             dialogueText.text = "*#@<Y*9!";
-            StartCoroutine(KnockbackCoroutine(collision));
 
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.name=="woodairplane")
-        {
-            transform.tag = "Untagged";
-        }
-    }
     void ReturnToRootPos()
     {
         
@@ -84,12 +74,12 @@ public class KekBehavior : MonoBehaviour
 
     IEnumerator KnockbackCoroutine(Collision collision)
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 3; i++)
         {
             transform.position -= Vector3.forward;
             yield return null;
         }
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         dialogueText.text = "";
     }
 

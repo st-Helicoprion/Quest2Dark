@@ -37,16 +37,20 @@ public class PrizeBoxManager : MonoBehaviour
 
             if(GameEndReporter.tutorialDone)
             {
-                TutorialsManager.intro = true;
                 GameEndReporter.callTower = true;
                 TutorialsManager.player = GameObject.Find("Main Camera").transform;
+                DialogueManager.player = TutorialsManager.player;
             }
             else
             {
-                if(!TutorialsManager.intro)
-                {
-                    TutorialsManager.instance.CheckStoryStartTutorial();
-                }
+                
+                 TutorialsManager.instance.CheckStoryStartTutorial();
+                
+            }
+
+            if(StoryPortalReporter.storyStandby)
+            {
+                DialogueManager.instance.CheckStoryProgress();
             }
 
             if (logos.Length > 0)

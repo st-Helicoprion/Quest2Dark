@@ -852,6 +852,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3349662019430739467}
   - component: {fileID: 1411022640061243618}
+  - component: {fileID: 4469029707406314136}
   m_Layer: 0
   m_Name: UIText
   m_TagString: Untagged
@@ -888,6 +889,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutUI: 1
+--- !u!114 &4469029707406314136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4990003412325511681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30fd633c72bccdd4689c311d8b501eb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customCont: 1
+  customImgs: 0
+  engLine: touch box to start
+  mandLine: "\u89F8\u78B0\u76D2\u5B50\u958B\u59CB\u904A\u6232"
+  textToAdapt: {fileID: 8747397234344369187}
+  engImg: {fileID: 0}
+  mandImg: {fileID: 0}
+  imgToAdapt: {fileID: 0}
 --- !u!1 &5462544670658023613
 GameObject:
   m_ObjectHideFlags: 0

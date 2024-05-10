@@ -32,12 +32,13 @@ public class GameEndReporter : MonoBehaviour
             GameManager.enemySpawned = false;
             StartCoroutine(EnemySpawnFeedback());
         }
+
     }
 
     public IEnumerator SummonBrain()
     {
         Vector3 towerTargetPos = towerObj.localPosition;
-        while(towerObj.localPosition.y<24)
+        while(towerObj.localPosition.y<35)
         {
             towerTargetPos.y += 0.5f;
             towerTargetPos.x= towerObj.localPosition.x;

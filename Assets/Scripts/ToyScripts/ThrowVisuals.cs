@@ -32,7 +32,9 @@ public class ThrowVisuals : MonoBehaviour
         {
             if(CustomTopManager.isReadyToSpin)
             {
-                if (Physics.Raycast(mainCamera.position, mainCamera.forward, out RaycastHit hit))
+                int layer = 10;
+                int layerMask = 1 << layer;
+                if (Physics.Raycast(mainCamera.position, mainCamera.forward, out RaycastHit hit, Mathf.Infinity, layerMask))
                 {
 
                     if (hit.transform.CompareTag("PullTrigger"))
@@ -55,7 +57,9 @@ public class ThrowVisuals : MonoBehaviour
     {
         if(other.CompareTag("RightHand")||other.CompareTag("LeftHand"))
         {
-            if (Physics.Raycast(mainCamera.position, mainCamera.forward, out RaycastHit hit))
+            int layer = 10;
+            int layerMask = 1 << layer;
+            if (Physics.Raycast(mainCamera.position, mainCamera.forward, out RaycastHit hit, Mathf.Infinity, layerMask))
             {
                 if (hit.transform.CompareTag("PullTrigger")&&transform.CompareTag("Hopter"))
                 {

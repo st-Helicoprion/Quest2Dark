@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4829445991474037796}
   - component: {fileID: 125016014408069474}
   - component: {fileID: 8390443991945243989}
+  - component: {fileID: 2127347314474491840}
   m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
@@ -4887,6 +4888,25 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &2127347314474491840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4750726052483994646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89011049bf4d6034ab96236fb9da1cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weakStateMat: {fileID: 2100000, guid: e70979707a03d3147b7cfd0ef65d5c30, type: 2}
+  normalStateMat: {fileID: 2100000, guid: 6c7d7f55be488d54185b3ccb84024d96, type: 2}
+  rend: {fileID: 8390443991945243989}
+  outlinedRend: []
+  pSystem: {fileID: 125016014408069474}
+  outlined: 0
+  pTrailed: 1
 --- !u!1 &6910172781422816659
 GameObject:
   m_ObjectHideFlags: 0
@@ -4902,6 +4922,7 @@ GameObject:
   - component: {fileID: -2556032335752229953}
   - component: {fileID: 8483710092603134700}
   - component: {fileID: 451756754709033818}
+  - component: {fileID: 2561896476854036069}
   m_Layer: 0
   m_Name: Bullet_bubble
   m_TagString: Bullet
@@ -5143,3 +5164,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2561896476854036069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6910172781422816659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89011049bf4d6034ab96236fb9da1cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weakStateMat: {fileID: 2100000, guid: e70979707a03d3147b7cfd0ef65d5c30, type: 2}
+  normalStateMat: {fileID: 2100000, guid: 6c7d7f55be488d54185b3ccb84024d96, type: 2}
+  rend: {fileID: 0}
+  outlinedRend:
+  - {fileID: 6910172781422816657}
+  pSystem: {fileID: 0}
+  outlined: 1
+  pTrailed: 0

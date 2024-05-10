@@ -6,19 +6,19 @@ public class TutorialTargetReporter : MonoBehaviour
 {
     IEnumerator KnockbackCoroutine(Collision collision)
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 3; i++)
         {
-            transform.localPosition -= new Vector3(0,0,collision.transform.position.z - transform.position.z);
-            yield return new WaitForSeconds(0.5f);
+            transform.localPosition -= new Vector3(0,0,1);
+            yield return null;
         }
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
     }
 
     IEnumerator VanishCoroutine()
     {
-        yield return new WaitForSeconds(5);
-
+        yield return new WaitForSeconds(3);
+        TutorialsManager.instance.planeGoal = true;
         Destroy(gameObject);
     }
 
@@ -36,7 +36,7 @@ public class TutorialTargetReporter : MonoBehaviour
       
         if(other.name=="woodairplane")
         {
-            TutorialsManager.instance.planeGoal = true;
+            
             StartCoroutine(VanishCoroutine());
         }
     }
