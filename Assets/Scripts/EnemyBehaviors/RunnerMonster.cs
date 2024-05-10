@@ -24,7 +24,7 @@ public class RunnerMonster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        target = GameObject.Find("NewPlayerPrefab(Clone)").transform;
         agent = GetComponent<NavMeshAgent>();
         audioSource = GetComponent<AudioSource>();
         sonarSkin = sonar.GetComponent<Renderer>();

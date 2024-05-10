@@ -25,7 +25,7 @@ public class FingerMonster : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         audioSource = GetComponent<AudioSource>();
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        target = GameObject.Find("NewPlayerPrefab(Clone)").transform;
         attackHitbox = this.transform.Find("AttackHitbox").gameObject;
 
         Wander();

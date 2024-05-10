@@ -155,15 +155,22 @@ MonoBehaviour:
   kek: {fileID: 8555350637664577939, guid: e05a70c3feb0f234b815a7079f37404e, type: 3}
   toyBox: {fileID: 1815431155946330096, guid: d917bd614babd3945ac2fd4805a9ea00, type: 3}
   tutSonarPrefab: {fileID: 3970337055671145537, guid: f3c2ff90d4df5e2418660fa323ce939f, type: 3}
+  video: {fileID: 0}
   tutSonarPoint: {x: 0, y: 0, z: 0}
   anim: {fileID: 0}
   cicadaGoal: 0
   gunGoal: 0
   planeGoal: 0
   topGoal: 0
+  cicadaVid: {fileID: 9110443156937159213, guid: 39d4e2238021a384d94ae5b07e08a03e, type: 3}
+  planeVid: {fileID: 5217121663812607334, guid: f9d9b991478673144be67b76e1595a05, type: 3}
+  topVid: {fileID: 6838022405109842228, guid: 26d12d1793911a64c9cd5d95abc59495, type: 3}
+  gunVid: {fileID: 1843291449014676752, guid: eebf53008f6c64942b9027c4baa5495b, type: 3}
   introLines:
   - {fileID: 11400000, guid: 4469af5070ddc394aaf161d790c7b428, type: 2}
-  cicadaTutLines: []
+  - {fileID: 11400000, guid: 34eedd2d30df6e544bc26b4e3d685268, type: 2}
+  cicadaTutLines:
+  - {fileID: 11400000, guid: 0764c77aec266064c810d4b503f3cb03, type: 2}
   gunTutLines: []
   planeTutLines: []
   topTutLines: []
@@ -177,50 +184,6 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -32.141186, y: 66.39249, z: 20.588886}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1534114289
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1534114291}
-  - component: {fileID: 1534114290}
-  m_Layer: 0
-  m_Name: OniCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1534114290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1534114289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d02d25c24c8574316883c920912e4fdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1534114291
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1534114289}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -258,6 +221,12 @@ MonoBehaviour:
   language: 0
   engFontAsset: {fileID: 11400000, guid: b43ad26968bb88d44a7e171c4a97f57b, type: 2}
   mandFontAsset: {fileID: 11400000, guid: 5d4065493a33df8458378c403a05cbab, type: 2}
+  story1: 0
+  story2: 0
+  story3: 0
+  storyLines:
+  - {fileID: 11400000, guid: 8db6e24bac1dd1740b6bbd177122ff51, type: 2}
+  - {fileID: 11400000, guid: 8d74bd0ddd177de4785b468c21476c6c, type: 2}
 --- !u!4 &1546507170
 Transform:
   m_ObjectHideFlags: 0
@@ -285,6 +254,7 @@ GameObject:
   - component: {fileID: 1812915117}
   - component: {fileID: 1812915118}
   - component: {fileID: 1812915120}
+  - component: {fileID: 1812915121}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -328,6 +298,7 @@ MonoBehaviour:
   playerEquipID: 01000000030000000000000002000000
   playerPrefab: {fileID: 4845216885473641645, guid: 0cfc0b131d1b16946bb495e66a9512f9, type: 3}
   endPlayerPrefab: {fileID: 4845216885473641645, guid: bc6848aad4778d545a1e969b56f3774d, type: 3}
+  enemyDoor: {fileID: 620255097597905297, guid: 9f695ed7be18780438f784c7d1cdad74, type: 3}
   keyItem:
   - {fileID: 2639221473899419195, guid: d14f8f74ac5406f40a28b9b0590d88d7, type: 3}
   - {fileID: 6847865421160022036, guid: a5e48b6be67b2904a809b703ba2baa28, type: 3}
@@ -348,6 +319,8 @@ MonoBehaviour:
   equipSpawnPoints: []
   equipHiders: []
   enemySpawnInterval: 120
+  enemySpawnCountdown: 120
+  enemySpawnPointsSave: 
   restart: {fileID: -136808736777013265, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!82 &1812915118
 AudioSource:
@@ -457,6 +430,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e23de2ec6d98504d9d3b56fc402fadb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1812915121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812915115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236a2cf99d76c2343bdd1a87a27f9efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  weakened: 0
+  weakCountdown: 45
+  weakInterval: 45
 --- !u!1 &2002030182
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,4 +615,3 @@ SceneRoots:
   - {fileID: 2002030184}
   - {fileID: 1546507170}
   - {fileID: 277976111}
-  - {fileID: 1534114291}

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 408195752903002989}
   - component: {fileID: 7020376978044803311}
   - component: {fileID: 2524626793633727313}
+  - component: {fileID: 7076682376710029068}
   m_Layer: 0
   m_Name: Bullet_bubble_no_bubble
   m_TagString: GunSonar
@@ -129,6 +130,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7076682376710029068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077506538334241575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89011049bf4d6034ab96236fb9da1cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weakStateMat: {fileID: 2100000, guid: fe6074a30f964b74296cd7ce105708dd, type: 2}
+  normalStateMat: {fileID: 2100000, guid: 095a8dd7345a2ab45b5d06eafb7b845e, type: 2}
+  rend: {fileID: 408195752903002989}
 --- !u!1 &3137374530966048573
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,6 +157,7 @@ GameObject:
   - component: {fileID: 765331055751977411}
   - component: {fileID: 6165260307704600137}
   - component: {fileID: 3468554297811712103}
+  - component: {fileID: 7289412530887862980}
   m_Layer: 0
   m_Name: Bullet_bubble_no_bubble
   m_TagString: GunSonar
@@ -236,6 +253,21 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3613567641014311022, guid: ebfb002c05c44e6429b7eabafbd6359b, type: 3}
+--- !u!114 &7289412530887862980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3137374530966048573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89011049bf4d6034ab96236fb9da1cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weakStateMat: {fileID: 2100000, guid: fe6074a30f964b74296cd7ce105708dd, type: 2}
+  normalStateMat: {fileID: 2100000, guid: 095a8dd7345a2ab45b5d06eafb7b845e, type: 2}
+  rend: {fileID: 6165260307704600137}
 --- !u!1 &7618657979975162019
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,6 +280,7 @@ GameObject:
   - component: {fileID: 8663768448478274660}
   - component: {fileID: 3934299127979104467}
   - component: {fileID: 4558466740514598398}
+  - component: {fileID: 2724420566585566392}
   m_Layer: 0
   m_Name: Bullet_bubble_no_bubble (1)
   m_TagString: GunSonar
@@ -342,3 +375,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3613567641014311022, guid: ebfb002c05c44e6429b7eabafbd6359b, type: 3}
+--- !u!114 &2724420566585566392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7618657979975162019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89011049bf4d6034ab96236fb9da1cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weakStateMat: {fileID: 2100000, guid: fe6074a30f964b74296cd7ce105708dd, type: 2}
+  normalStateMat: {fileID: 2100000, guid: 095a8dd7345a2ab45b5d06eafb7b845e, type: 2}
+  rend: {fileID: 3934299127979104467}

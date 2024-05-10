@@ -85,7 +85,7 @@ public class InteractionUImanager : MonoBehaviour
             }
         }
 
-        if(!PlayerPrefs.HasKey("IntroDone"))
+        if(TutorialsManager.intro)
         {
             elements[0].enabled = false;
             elements[1].enabled = false;
@@ -93,9 +93,17 @@ public class InteractionUImanager : MonoBehaviour
       
     }
 
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.name == "LogoToyBox" || other.name == "LogoToyBox(Clone)")
+        {
+            released = true;
+        }
+    }
     private void OnTriggerStay(Collider other)
     {
-        if(other.name=="LogoToyBox")
+        if(other.name=="LogoToyBox"||other.name=="LogoToyBox(Clone)")
         {
             elements[0].enabled = false;
             elements[1].enabled = false;
@@ -104,13 +112,5 @@ public class InteractionUImanager : MonoBehaviour
             released = false;
         }
         
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.name == "LogoToyBox")
-        {
-            released = true;
-        }
     }
 }

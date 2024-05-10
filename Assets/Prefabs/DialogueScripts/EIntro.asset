@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1f6edaa18b6dbd43bf2d357bba16718, type: 3}
-  m_Name: EnglishIntro
+  m_Name: EIntro
   m_EditorClassIdentifier: 
   language: EN
   lines:
@@ -40,4 +40,6 @@ MonoBehaviour:
     RUN as far away from
 
     it as possible'
-  - Best of luck HERO, KEK out
+  - 'Best of luck HERO,
+
+    KEK out~'

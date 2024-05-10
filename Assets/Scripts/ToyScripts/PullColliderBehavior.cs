@@ -62,11 +62,12 @@ public class PullColliderBehavior : MonoBehaviour
       {
             ClearPrompts();
 
-            if (CustomTopManager.isReadyToSpin&&!hand.handNotEmpty)
+            if (CustomTopManager.isReadyToSpin && !hand.handNotEmpty)
             {
                 CustomTopManager.isReadyToSpin = false;
                 CustomTopManager.isSpinning = true;
             }
+            else return;
            
       }
         

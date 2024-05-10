@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7948245545881890611}
   - component: {fileID: 5522483179859189353}
   - component: {fileID: 6153895709397146978}
+  - component: {fileID: 1448149026019617928}
   m_Layer: 0
   m_Name: Steps
   m_TagString: Untagged
@@ -83,6 +84,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1448149026019617928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2938358496882629423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89011049bf4d6034ab96236fb9da1cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weakStateMat: {fileID: 2100000, guid: 73688ef18a2d637438cd2e17c08e01dd, type: 2}
+  normalStateMat: {fileID: 2100000, guid: 43e10937175638749b7678799736f9cd, type: 2}
+  rend: {fileID: 6153895709397146978}
 --- !u!1 &7477611716072552930
 GameObject:
   m_ObjectHideFlags: 0

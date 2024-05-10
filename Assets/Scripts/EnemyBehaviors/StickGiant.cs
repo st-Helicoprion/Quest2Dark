@@ -23,7 +23,7 @@ public class StickGiant : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        target = GameObject.Find("NewPlayerPrefab(Clone)").transform;
         lineToPlayer = GetComponent<LineRenderer>();
 
         WalkAnim();

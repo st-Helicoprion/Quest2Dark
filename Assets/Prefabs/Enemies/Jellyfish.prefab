@@ -353,7 +353,7 @@ MonoBehaviour:
   agent: {fileID: 0}
   target: {fileID: 0}
   idleTarget: {x: 0, y: 0, z: 0}
-  anim: {fileID: 0}
+  anim: {fileID: 2074451540851456408}
   refreshTarget: 0
   creeping: 0
   isNearPlayer: 0

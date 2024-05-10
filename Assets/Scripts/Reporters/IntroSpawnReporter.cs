@@ -8,6 +8,7 @@ public class IntroSpawnReporter : MonoBehaviour
     public float distToPlayer;
   
     public TargetPracticeReporter[] tutSpots;
+    public Transform videoPos;
 
    
     // Update is called once per frame

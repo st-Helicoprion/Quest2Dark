@@ -18,7 +18,6 @@ public class PlayerMoveFeedback : MonoBehaviour
     public Transform[] footsteps;
     public Transform cam;
     public int stepsNum;
-    public GameObject leftTutText, rightTutText;
 
     // Start is called before the first frame update
     void Start()
@@ -37,9 +36,6 @@ public class PlayerMoveFeedback : MonoBehaviour
             if (Mathf.Abs(playerCC.velocity.z) > 0.5f || Mathf.Abs(playerCC.velocity.x) > 0.5f)
             {
                 moving = true;
-
-                leftTutText.SetActive(false);
-                rightTutText.SetActive(false);
                 footstepsInterval -= Time.deltaTime;
                 if (playerMovement.moveSpeed < 5)
                 {
@@ -79,17 +75,6 @@ public class PlayerMoveFeedback : MonoBehaviour
             else
             {
                 moving= false;
-                if(PrizeBoxManager.taken)
-                {
-                    leftTutText.SetActive(false);
-                    rightTutText.SetActive(false);
-                }
-                else
-                {
-
-                    leftTutText.SetActive(true);
-                    rightTutText.SetActive(true);
-                }
                 playerMovement.moveSpeed = 1.5f;
                 audioSource.Stop();
             }
