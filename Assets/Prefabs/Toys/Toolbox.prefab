@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1923454022451117045}
   - component: {fileID: 340619990389266691}
   - component: {fileID: 861711346368268927}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: boxVis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,9 +269,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customCont: 1
+  customImgs: 0
   engLine: Grip to take or keep
   mandLine: "\u6309\u4E2D\u6307\u6309\u9215\u62FF\u8D77/\u653E\u4E0B"
   textToAdapt: {fileID: 7843299555729471121}
+  engImg: {fileID: 0}
+  mandImg: {fileID: 0}
+  imgToAdapt: {fileID: 0}
 --- !u!1 &3367301561494065325
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,7 +288,7 @@ GameObject:
   - component: {fileID: 6129777111572579501}
   - component: {fileID: 4493261685127223291}
   - component: {fileID: 6952278343867018643}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Box2
   m_TagString: ToyBox
   m_Icon: {fileID: 0}
@@ -380,9 +384,10 @@ GameObject:
   - component: {fileID: 2679244308619965228}
   - component: {fileID: 5104369109255562562}
   - component: {fileID: 8151011821087727246}
-  m_Layer: 6
+  - component: {fileID: 8761885406681038738}
+  m_Layer: 0
   m_Name: Toolbox
-  m_TagString: Untagged
+  m_TagString: ToyBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -535,6 +540,36 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8761885406681038738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3431769153163163511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89011049bf4d6034ab96236fb9da1cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weakStateMat: {fileID: 0}
+  normalStateMat: {fileID: 0}
+  rend: {fileID: 0}
+  outlinedRend:
+  - {fileID: 340619990389266691}
+  - {fileID: 5469297124728670588}
+  - {fileID: 7292442985753864677}
+  weakOutlines:
+  - {fileID: 670224309865224971, guid: 666416831f75e454dade03da8e78eb47, type: 3}
+  - {fileID: 2100000, guid: b0686c0a4baeb2d49be7190b9864506b, type: 2}
+  normalOutlines:
+  - {fileID: 670224309865224971, guid: 666416831f75e454dade03da8e78eb47, type: 3}
+  - {fileID: 2100000, guid: 9d0d29e8ab0034441b0890b55819cc49, type: 2}
+  pSystem: {fileID: 0}
+  outlined: 1
+  pTrailed: 0
+  standard: 0
+  whited: 0
 --- !u!1 &3651886004855544528
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,7 +582,7 @@ GameObject:
   - component: {fileID: 5894107834517081839}
   - component: {fileID: 6383247538994502255}
   - component: {fileID: 5745978658264998798}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Box3
   m_TagString: ToyBox
   m_Icon: {fileID: 0}
@@ -817,9 +852,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customCont: 1
+  customImgs: 0
   engLine: Grip to take or keep
   mandLine: "\u6309\u4E2D\u6307\u6309\u9215\u62FF\u8D77/\u653E\u4E0B"
   textToAdapt: {fileID: 118542458754534435}
+  engImg: {fileID: 0}
+  mandImg: {fileID: 0}
+  imgToAdapt: {fileID: 0}
 --- !u!1 &5604478835041309634
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,7 +870,7 @@ GameObject:
   - component: {fileID: 4230892522492833189}
   - component: {fileID: 5469297124728670588}
   - component: {fileID: 7026353152522612967}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: boxVis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -916,7 +955,7 @@ GameObject:
   - component: {fileID: 5979255605111903896}
   - component: {fileID: 8598358668667926872}
   - component: {fileID: 4925368586549732742}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Box1
   m_TagString: ToyBox
   m_Icon: {fileID: 0}
@@ -1012,7 +1051,7 @@ GameObject:
   - component: {fileID: 2434181632663348455}
   - component: {fileID: 7292442985753864677}
   - component: {fileID: 3523542164368683721}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: boxVis
   m_TagString: Untagged
   m_Icon: {fileID: 0}

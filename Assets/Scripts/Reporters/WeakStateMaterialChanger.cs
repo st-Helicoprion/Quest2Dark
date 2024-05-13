@@ -8,9 +8,10 @@ public class WeakStateMaterialChanger : MonoBehaviour
     public Material normalStateMat;
     public Renderer rend;
     public Renderer[] outlinedRend;
+    public Material[] weakOutlines, normalOutlines;
     public ParticleSystem pSystem;
 
-    public bool outlined, pTrailed;
+    public bool outlined, pTrailed, standard;
 
     // Update is called once per frame
     void Update()
@@ -23,16 +24,37 @@ public class WeakStateMaterialChanger : MonoBehaviour
         {
             SwitchToNormal();
         }
+
+        if (transform.CompareTag("RightHand") || transform.CompareTag("LeftHand")
+           || transform.CompareTag("Steps") || transform.CompareTag("ToyBox"))
+        {
+            if (!ToyToolboxInteractionManager.itemTaken)
+            {
+                SwitchToWeak();
+            }
+            else if(WeakStateManager.instance.weakened)
+            {
+                SwitchToWeak();
+            }
+            else
+            { 
+                SwitchToNormal();
+            }
+        }
     }
 
     public void SwitchToWeak()
     {
         if(outlined)
         {
-            for(int i = 0; i<outlinedRend.Length;i++)
+            
+            foreach(Renderer r in outlinedRend)
             {
-                outlinedRend[i].materials[1] = weakStateMat;
+                r.materials = weakOutlines;
             }
+               
+          
+            
         }
         else
             rend.material = weakStateMat;
@@ -49,10 +71,13 @@ public class WeakStateMaterialChanger : MonoBehaviour
     {
         if (outlined)
         {
-            for (int i = 0; i < outlinedRend.Length; i++)
+            
+            foreach (Renderer r in outlinedRend)
             {
-                outlinedRend[i].materials[1] = normalStateMat;
+                r.materials = normalOutlines;
             }
+            
+            
         }
         else
             rend.material = normalStateMat;

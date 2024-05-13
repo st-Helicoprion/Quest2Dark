@@ -158,6 +158,7 @@ MonoBehaviour:
   video: {fileID: 0}
   tutSonarPoint: {x: 0, y: 0, z: 0}
   anim: {fileID: 0}
+  controlsMap: {fileID: 0}
   cicadaGoal: 0
   gunGoal: 0
   planeGoal: 0
@@ -220,13 +221,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   language: 0
   engFontAsset: {fileID: 11400000, guid: b43ad26968bb88d44a7e171c4a97f57b, type: 2}
-  mandFontAsset: {fileID: 11400000, guid: 5d4065493a33df8458378c403a05cbab, type: 2}
+  mandFontAsset: {fileID: 11400000, guid: d41f9dfb7d333c140a76ed7b0881e408, type: 2}
+  kekActive: {fileID: 0}
+  anim: {fileID: 0}
   story1: 0
   story2: 0
   story3: 0
   storyLines:
   - {fileID: 11400000, guid: 8db6e24bac1dd1740b6bbd177122ff51, type: 2}
   - {fileID: 11400000, guid: 8d74bd0ddd177de4785b468c21476c6c, type: 2}
+  giftBox: {fileID: 1815431155946330096, guid: d917bd614babd3945ac2fd4805a9ea00, type: 3}
 --- !u!4 &1546507170
 Transform:
   m_ObjectHideFlags: 0

@@ -69,7 +69,7 @@ public class HopterHitboxManager : MonoBehaviour
             Vector3 targetDirection = (enemy.transform.position + new Vector3(0, 5, 0)) - transform.position;
             if (Mathf.Abs(enemy.transform.position.x - transform.position.x) > 0.25f || Mathf.Abs(enemy.transform.position.z - transform.position.z) > 0.25f)
             {
-                transform.position += 2 * Time.deltaTime * targetDirection;
+                transform.parent.position += 2 * Time.deltaTime * targetDirection;
             }
 
 

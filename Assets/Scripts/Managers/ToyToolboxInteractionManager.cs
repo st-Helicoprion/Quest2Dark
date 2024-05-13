@@ -54,6 +54,9 @@ public class ToyToolboxInteractionManager : MonoBehaviour
             DisableColliders();
 
         }
+
+        TutorialUIToggle();
+        
     }
 
 
@@ -195,6 +198,35 @@ public class ToyToolboxInteractionManager : MonoBehaviour
         handState = heldHand;
        
     }
+
+    void TutorialUIToggle()
+    {
+        if (handState != null)
+        {
+            if (TutorialsManager.isTut && !isInBox)
+            {
+                if (transform.CompareTag("Gun"))
+                {
+                    handState.shootTut.SetActive(true);
+                }
+
+                if (transform.CompareTag("SpinningTop") && CustomTopManager.isSpinning)
+                {
+                    handState.retractTut.SetActive(true);
+                }
+                else
+                {
+                    handState.retractTut.SetActive(false);
+                }
+            }
+            else
+            {
+                handState.retractTut.SetActive(false);
+                handState.shootTut.SetActive(false);
+            }
+        }
+        else return;
+    }
     private void OnTriggerEnter(Collider other)
     {
            
@@ -274,6 +306,7 @@ public class ToyToolboxInteractionManager : MonoBehaviour
                 
             }
 
+           
 
         }
 
@@ -292,7 +325,18 @@ public class ToyToolboxInteractionManager : MonoBehaviour
             }
         }
 
-
+        if(other.TryGetComponent<StoryItemHider>(out _))
+        {
+            if(StoryItemHider.summonToy)
+            {
+                ShowEquipVisuals();
+            }
+            else
+            {
+                HideEquipVisuals();
+            }
+            
+        }
     }
 
     private void OnTriggerExit(Collider other)

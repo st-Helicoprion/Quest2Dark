@@ -12,7 +12,7 @@ public class HandAnimation : MonoBehaviour
     private Animator animator;
     public bool grip, handNotEmpty, reloadCheck;
     public int handID;
-    public GameObject handObj;
+    public GameObject handObj, retractTut, shootTut;
 
     private void OnEnable()
     {
@@ -28,17 +28,9 @@ public class HandAnimation : MonoBehaviour
         pinchAction.action.performed += Pinching;
         pinchAction.action.canceled += PinchRelease;*/
     }
-    private void Start()
-    {
-        handObj.layer = 0;
-    }
+
     private void Update()
     {
-
-        if(ToyToolboxInteractionManager.itemTaken)
-        {
-            handObj.layer = 6;
-        }else handObj.layer = 0;
 
         if(reloadCheck)
         {

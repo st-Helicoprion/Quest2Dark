@@ -12,6 +12,7 @@ public class RespawnPlaneManager : MonoBehaviour
     public GameObject planePrefab, hand, planeInstance;
     public HopterHitboxManager sonarScript;
     public Collider trackHitbox, selfCollider;
+    HandAnimation handState;
 
     private void Start()
     {
@@ -31,6 +32,8 @@ public class RespawnPlaneManager : MonoBehaviour
             trackHitbox = other.transform.GetChild(0).GetComponent<Collider>();
             sonarScript.enabled = true;
             trackHitbox.enabled = true;
+
+            handState.handNotEmpty = false;
         }
         else return;
 
@@ -49,7 +52,6 @@ public class RespawnPlaneManager : MonoBehaviour
 
     void RefreshPlane()
     {
-        HandAnimation handState = hand.GetComponent<HandAnimation>();
         ToolboxVacancyChecker[] boxArray = NewToolboxManager.checkerList.ToArray();
 
        
@@ -106,6 +108,7 @@ public class RespawnPlaneManager : MonoBehaviour
         if (other.CompareTag("Hopter") && other.GetComponent<ToyToolboxInteractionManager>().isInHand)
         {
             hand = other.GetComponent<ToyToolboxInteractionManager>().handState.gameObject;
+            handState = hand.GetComponent<HandAnimation>();
 
             if (planesInScene.Count<=planeMaxNum)
             {

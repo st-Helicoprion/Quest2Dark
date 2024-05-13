@@ -100,11 +100,12 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        if(enemySpawnCountdown<0)
+        if (enemySpawnCountdown < 0 && SceneManager.GetActiveScene().name == "LabyrinthGameScene")
         {
             enemySpawnCountdown = enemySpawnInterval;
             StartCoroutine(EnemySpawnCoroutine());
         }
+        else return;
 
     }
 
@@ -142,14 +143,23 @@ public class GameManager : MonoBehaviour
     {
         int i = Random.Range(0, 3);
         player = Instantiate(playerPrefab, roomSpawnPoints[i].transform.position + new Vector3(0, 2, 0), roomSpawnPoints[i].transform.rotation).transform;
+        InitPlayerLinks();
+
+
+        StartCoroutine(SpawnPlayerEquip(i));
+        
+
+    }
+
+    void InitPlayerLinks()
+    {
         UIViewAligner.player = player.gameObject.GetNamedChild("Main Camera").transform;
         IntroSpawnReporter.player = UIViewAligner.player;
         WeakStateManager.instance.player = player;
         PrizeBoxManager.taken = false;
 
-        StartCoroutine(SpawnPlayerEquip(i));
-        
-
+        TutorialsManager.instance.controlsMap = FindObjectOfType<DebugHelper>();
+        TutorialsManager.instance.controlsMap.enabled = false;
     }
 
     IEnumerator MapSpawnCoroutine()
@@ -230,7 +240,7 @@ public class GameManager : MonoBehaviour
         equipSpawnPoints.Remove(equipSpawnPoints[i]);
         if(!PlayerPrefs.HasKey("IntroDone"))
         {
-            if(playerToy.name=="NewCicada(Clone)")
+            if(playerToy.name=="NewCicada(Clone)"||playerToy.name=="NewGun(Clone)")
             {
                 playerToy.transform.GetChild(0).GetComponent<ToyToolboxInteractionManager>().HideEquipVisuals();
             }
@@ -328,7 +338,7 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         roomSpawnPoints.AddRange(GameObject.FindGameObjectsWithTag("Respawn"));
-        player = Instantiate(endPlayerPrefab, roomSpawnPoints[3].transform.position + new Vector3(0, 2, 0), roomSpawnPoints[0].transform.localRotation).transform;
+        player = Instantiate(endPlayerPrefab, roomSpawnPoints[3].transform.position + new Vector3(0, 2, 0), roomSpawnPoints[3].transform.localRotation).transform;
     }
 
 

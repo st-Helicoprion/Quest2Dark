@@ -52,7 +52,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 2, y: 2, z: 1}
+  m_Size: {x: 3, y: 3, z: 1}
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &4301131037271495183
 MonoBehaviour:
@@ -249,6 +249,7 @@ GameObject:
   - component: {fileID: 7279805156353395994}
   - component: {fileID: 2547725500336152731}
   - component: {fileID: 5000954248196163663}
+  - component: {fileID: 6233231679220979220}
   m_Layer: 0
   m_Name: Quad (1)
   m_TagString: Finger
@@ -321,6 +322,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6233231679220979220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031332665896277767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89011049bf4d6034ab96236fb9da1cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weakStateMat: {fileID: 2100000, guid: d070000e2cfb4a74c81186569b7ce18c, type: 2}
+  normalStateMat: {fileID: 2100000, guid: 96337eec2bdc8144c9e3f8a5c4ed64c2, type: 2}
+  rend: {fileID: 5000954248196163663}
+  outlinedRend: []
+  weakOutlines: []
+  normalOutlines: []
+  pSystem: {fileID: 0}
+  outlined: 0
+  pTrailed: 0
+  standard: 0
+  whited: 0
 --- !u!1 &2639221473899419195
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,10 +521,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sonar: {fileID: 5770331657756249146, guid: 0cfc0b131d1b16946bb495e66a9512f9, type: 3}
-  maxSonarHeight: 0
-  minSonarHeight: 0
+  maxSonarHeight: 10
+  minSonarHeight: -52
   increaseRate: 0.17
   internalSonarCount: 0
+  internalSonarRate: 1
   internalSonar: {fileID: 6897076775816023034, guid: 4ed62a0e01810674981edac0a03b95f6, type: 3}
   cicadaStick: {fileID: 8407423705030019861}
   cicadaTub: {fileID: 3332607152225805837}
@@ -893,7 +918,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 2, y: 2, z: 1}
+  m_Size: {x: 3, y: 3, z: 1}
   m_Center: {x: 1, y: 0, z: 0}
 --- !u!114 &3564902646088233922
 MonoBehaviour:
@@ -919,7 +944,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1931436062458314665}
   - component: {fileID: 3151657986107311844}
-  - component: {fileID: 4077780372711599761}
   m_Layer: 0
   m_Name: InteractionUI
   m_TagString: Untagged
@@ -963,27 +987,6 @@ MonoBehaviour:
   player: {fileID: 0}
   interactionManager: {fileID: 8807833821562658545}
   released: 0
---- !u!135 &4077780372711599761
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5048120205150616770}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5177492025367614607
 GameObject:
   m_ObjectHideFlags: 0
@@ -1146,9 +1149,13 @@ MonoBehaviour:
   normalStateMat: {fileID: 2100000, guid: 6c7d7f55be488d54185b3ccb84024d96, type: 2}
   rend: {fileID: 8025871269420629546}
   outlinedRend: []
+  weakOutlines: []
+  normalOutlines: []
   pSystem: {fileID: 0}
   outlined: 0
   pTrailed: 0
+  standard: 0
+  whited: 0
 --- !u!1 &5303855424962582772
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,7 +1208,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 2, y: 2, z: 1}
+  m_Size: {x: 3, y: 3, z: 1}
   m_Center: {x: -1, y: 0, z: 0}
 --- !u!114 &3053405752732484886
 MonoBehaviour:
@@ -1373,6 +1380,7 @@ GameObject:
   - component: {fileID: 9081980878019596371}
   - component: {fileID: 1367391647966753197}
   - component: {fileID: 3906246134180312500}
+  - component: {fileID: 2236201892738128009}
   m_Layer: 0
   m_Name: Quad (1)
   m_TagString: Finger
@@ -1445,6 +1453,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2236201892738128009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6032381497709621917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89011049bf4d6034ab96236fb9da1cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weakStateMat: {fileID: 2100000, guid: d070000e2cfb4a74c81186569b7ce18c, type: 2}
+  normalStateMat: {fileID: 2100000, guid: 96337eec2bdc8144c9e3f8a5c4ed64c2, type: 2}
+  rend: {fileID: 3906246134180312500}
+  outlinedRend: []
+  weakOutlines: []
+  normalOutlines: []
+  pSystem: {fileID: 0}
+  outlined: 0
+  pTrailed: 0
+  standard: 0
+  whited: 0
 --- !u!1 &6332251072423496195
 GameObject:
   m_ObjectHideFlags: 0
@@ -1496,50 +1527,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61104f33a3f344db9b7e0d0cda41a9fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  solverIndices: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000160000001700000018000000190000001a0000001b0000001c0000001d0000001e0000001f000000200000002100000022000000230000002400000025000000260000002700000028000000290000002a0000002b0000002c0000002d0000002e0000002f000000300000003100000032000000330000003400000035000000360000003700000038000000390000003a0000003b0000003c0000003d0000003e0000003f000000400000004100000042000000430000004400000045000000460000004700000048000000490000004a0000004b0000004c0000004d0000004e0000004f000000500000005100000052000000530000005400000055000000560000005700000058000000590000005a0000005b0000005c0000005d0000005e0000005f000000600000006100000062000000630000006400000065000000660000006700000068000000690000006a0000006b0000006c000000
+  solverIndices: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000160000001700000018000000190000001a0000001b0000001c0000001d0000001e0000001f000000200000002100000022000000230000002400000025000000260000002700000028000000290000002a0000002b0000002c0000002d0000002e0000002f000000300000003100000032000000330000003400000035000000360000003700000038000000390000003a0000003b0000003c0000003d0000003e0000003f000000400000004100000042000000430000004400000045000000460000004700000048000000490000004a0000004b0000004c0000004d0000004e0000004f000000500000005100000052000000530000005400000055000000560000005700000058000000590000005a0000005b0000005c0000005d0000005e0000005f000000600000006100000062000000630000006400000065000000660000006700000068000000690000006a000000
   m_CollisionMaterial: {fileID: 0}
   m_SurfaceCollisions: 0
   m_SelfCollisions: 0
-  restLength_: 0.73972297
+  restLength_: 0.59155047
   elements:
   - particle1: 0
     particle2: 1
-    restLength: 0.09179081
+    restLength: 0.098123424
     constraintForce: 0
     tearResistance: 1
   - particle1: 1
     particle2: 2
-    restLength: 0.09289058
+    restLength: 0.09898213
     constraintForce: 0
     tearResistance: 1
   - particle1: 2
     particle2: 3
-    restLength: 0.092531115
+    restLength: 0.09867506
     constraintForce: 0
     tearResistance: 1
   - particle1: 3
     particle2: 4
-    restLength: 0.092653155
+    restLength: 0.098693125
     constraintForce: 0
     tearResistance: 1
   - particle1: 4
     particle2: 5
-    restLength: 0.09264175
+    restLength: 0.098972045
     constraintForce: 0
     tearResistance: 1
   - particle1: 5
     particle2: 6
-    restLength: 0.09250671
-    constraintForce: 0
-    tearResistance: 1
-  - particle1: 6
-    particle2: 7
-    restLength: 0.09290664
-    constraintForce: 0
-    tearResistance: 1
-  - particle1: 7
-    particle2: 8
-    restLength: 0.09180219
+    restLength: 0.09810466
     constraintForce: 0
     tearResistance: 1
   m_RopeBlueprint: {fileID: 11400000, guid: 8769ae2cb124a9140846ce1b974146c4, type: 2}
@@ -1782,6 +1803,7 @@ GameObject:
   - component: {fileID: 5227062086155247603}
   - component: {fileID: 2696234532163282537}
   - component: {fileID: 765925651433412210}
+  - component: {fileID: 1808914925932719848}
   m_Layer: 0
   m_Name: Quad
   m_TagString: Finger
@@ -1854,6 +1876,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1808914925932719848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6751185631391110580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89011049bf4d6034ab96236fb9da1cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weakStateMat: {fileID: 2100000, guid: d070000e2cfb4a74c81186569b7ce18c, type: 2}
+  normalStateMat: {fileID: 2100000, guid: 96337eec2bdc8144c9e3f8a5c4ed64c2, type: 2}
+  rend: {fileID: 765925651433412210}
+  outlinedRend: []
+  weakOutlines: []
+  normalOutlines: []
+  pSystem: {fileID: 0}
+  outlined: 0
+  pTrailed: 0
+  standard: 0
+  whited: 0
 --- !u!1 &6879168560140472871
 GameObject:
   m_ObjectHideFlags: 0
@@ -2061,13 +2106,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7190405101647519203}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.06666667, y: 0.06666667, z: 0.06666667}
+  m_LocalScale: {x: 0.06666668, y: 0.06666668, z: 0.06666668}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3552128618282325908}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!135 &3729901520967106202
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2088,7 +2133,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.1
-  m_Center: {x: 0, y: 0, z: 0.3}
+  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!54 &7870576434216771213
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2240,6 +2285,7 @@ GameObject:
   - component: {fileID: 5226190850472857493}
   - component: {fileID: 5129455821924454327}
   - component: {fileID: 7920755319866715824}
+  - component: {fileID: 7836589292180419754}
   m_Layer: 0
   m_Name: Quad
   m_TagString: Finger
@@ -2312,6 +2358,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7836589292180419754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842789110954369716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89011049bf4d6034ab96236fb9da1cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weakStateMat: {fileID: 2100000, guid: d070000e2cfb4a74c81186569b7ce18c, type: 2}
+  normalStateMat: {fileID: 2100000, guid: 96337eec2bdc8144c9e3f8a5c4ed64c2, type: 2}
+  rend: {fileID: 7920755319866715824}
+  outlinedRend: []
+  weakOutlines: []
+  normalOutlines: []
+  pSystem: {fileID: 0}
+  outlined: 0
+  pTrailed: 0
+  standard: 0
+  whited: 0
 --- !u!1 &7907265233869233081
 GameObject:
   m_ObjectHideFlags: 0
@@ -2396,7 +2465,7 @@ GameObject:
   - component: {fileID: 6125274144702747010}
   m_Layer: 0
   m_Name: Buffer
-  m_TagString: Untagged
+  m_TagString: Cicada
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3045,6 +3114,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 4ac52f33c9ac51f4dab9e738c23290a5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -6202392741857895490, guid: 023245923034a814b85904f95f8f6362, type: 3}
+    - target: {fileID: -7511558181221131132, guid: 4ac52f33c9ac51f4dab9e738c23290a5, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 9d0d29e8ab0034441b0890b55819cc49, type: 2}
@@ -3097,11 +3170,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e3b6a03e9dd2b574da045836428dae7b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e3b6a03e9dd2b574da045836428dae7b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.01
+      value: 0.0005
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e3b6a03e9dd2b574da045836428dae7b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3381,6 +3454,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2137975134731451803, guid: 0801393f4e92dfb468aaa330fb9f569c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -6202392741857895490, guid: 023245923034a814b85904f95f8f6362, type: 3}
+    - target: {fileID: 2137975134731451803, guid: 0801393f4e92dfb468aaa330fb9f569c, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 9d0d29e8ab0034441b0890b55819cc49, type: 2}
@@ -3461,9 +3538,17 @@ MonoBehaviour:
   - {fileID: 666649919833901686}
   - {fileID: 8003016460447694222}
   - {fileID: 5378950726025205993}
+  weakOutlines:
+  - {fileID: 670224309865224971, guid: 666416831f75e454dade03da8e78eb47, type: 3}
+  - {fileID: 2100000, guid: b0686c0a4baeb2d49be7190b9864506b, type: 2}
+  normalOutlines:
+  - {fileID: 0}
+  - {fileID: 0}
   pSystem: {fileID: 0}
   outlined: 1
   pTrailed: 0
+  standard: 0
+  whited: 0
 --- !u!4 &9216330747952173487 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0801393f4e92dfb468aaa330fb9f569c, type: 3}

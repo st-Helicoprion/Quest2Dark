@@ -5,6 +5,7 @@ using UnityEngine;
 public class InternalSonarBehavior : MonoBehaviour
 {
     public Transform playerSonar;
+    public float speed;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +21,7 @@ public class InternalSonarBehavior : MonoBehaviour
     {
         if (transform.localPosition.y < playerSonar.localPosition.y)
         {
-            transform.localPosition += new Vector3(0, 10f * Time.deltaTime, 0);
+            transform.localPosition += new Vector3(0, speed * Time.deltaTime, 0);
 
         }
         else Destroy(this.gameObject);

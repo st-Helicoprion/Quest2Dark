@@ -48,7 +48,7 @@ public class PrizeBoxManager : MonoBehaviour
                 
             }
 
-            if(StoryPortalReporter.storyStandby)
+            if (StoryPortalReporter.storyStandby)
             {
                 DialogueManager.instance.CheckStoryProgress();
             }

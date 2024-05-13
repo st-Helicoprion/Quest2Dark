@@ -27,7 +27,7 @@ TagManager:
   - GunSonar
   - Bullet
   - Runner
-  - Spectator
+  - Steps
   layers:
   - Default
   - TransparentFX

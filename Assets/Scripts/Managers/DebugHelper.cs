@@ -100,7 +100,7 @@ public class DebugHelper : MonoBehaviour
 
     void DisableExtraObjects(InputAction.CallbackContext obj)
     {
-        if (this != null)
+        if (this != null&&!PlayerPrefs.HasKey("IntroDone"))
         {
             if (obj.ReadValue<float>() == 1)
             {
@@ -120,7 +120,7 @@ public class DebugHelper : MonoBehaviour
 
     void EnableExtraObjects(InputAction.CallbackContext obj)
     {
-        if (this != null)
+        if (this != null && !PlayerPrefs.HasKey("IntroDone"))
         {
             if (obj.ReadValue<float>() == 0)
             {

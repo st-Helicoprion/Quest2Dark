@@ -31,7 +31,7 @@ public class WeakStateManager : MonoBehaviour
     public void SwitchToWeakState()
     {
         weakened=true;
-        ToyToolboxInteractionManager.itemTaken = false;
+     
     }
 
 }

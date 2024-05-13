@@ -10,6 +10,8 @@ public class IntroSpawnReporter : MonoBehaviour
     public TargetPracticeReporter[] tutSpots;
     public Transform videoPos;
 
+    public Transform giftSpot;
+
    
     // Update is called once per frame
     void Update()

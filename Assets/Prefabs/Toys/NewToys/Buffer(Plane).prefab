@@ -640,7 +640,13 @@ MonoBehaviour:
   normalStateMat: {fileID: 2100000, guid: 6c7d7f55be488d54185b3ccb84024d96, type: 2}
   rend: {fileID: 7572755122856609629}
   outlinedRend: []
+  weakOutlines: []
+  normalOutlines: []
+  pSystem: {fileID: 0}
   outlined: 0
+  pTrailed: 0
+  standard: 0
+  whited: 0
 --- !u!1 &6310221057107475253
 GameObject:
   m_ObjectHideFlags: 0
@@ -1262,7 +1268,13 @@ MonoBehaviour:
   normalStateMat: {fileID: 2100000, guid: 6c7d7f55be488d54185b3ccb84024d96, type: 2}
   rend: {fileID: 8173684459965880790}
   outlinedRend: []
+  weakOutlines: []
+  normalOutlines: []
+  pSystem: {fileID: 0}
   outlined: 0
+  pTrailed: 0
+  standard: 0
+  whited: 0
 --- !u!1 &9162754447464884662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1622,4 +1634,14 @@ MonoBehaviour:
   rend: {fileID: 0}
   outlinedRend:
   - {fileID: 7209666340053221325}
+  weakOutlines:
+  - {fileID: 670224309865224971, guid: e6e6125fc86f0d74f9e2a0f43d528861, type: 3}
+  - {fileID: 2100000, guid: b0686c0a4baeb2d49be7190b9864506b, type: 2}
+  normalOutlines:
+  - {fileID: 670224309865224971, guid: e6e6125fc86f0d74f9e2a0f43d528861, type: 3}
+  - {fileID: 2100000, guid: 9d0d29e8ab0034441b0890b55819cc49, type: 2}
+  pSystem: {fileID: 0}
   outlined: 1
+  pTrailed: 0
+  standard: 0
+  whited: 0

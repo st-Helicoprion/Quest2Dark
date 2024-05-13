@@ -20,7 +20,7 @@ public class TutorialsManager : MonoBehaviour
     public Vector3 tutSonarPoint;
     public static IntroSpawnReporter spawnPointToUse;
     public Animator anim;
-    
+    public DebugHelper controlsMap;
 
     [Header("Usage Tutorials")]
     public bool cicadaGoal;
@@ -134,7 +134,7 @@ public class TutorialsManager : MonoBehaviour
             //anim.SetTrigger("Poop");
             dialogueText.text = introLines[1].lines[3];
         }
-
+        
         intro = false;
         GameObject givenToyBox = Instantiate(toyBox, givenToy.transform.position, Quaternion.identity);
         if (givenToy.name == "NewCicada(Clone)")
@@ -196,7 +196,14 @@ public class TutorialsManager : MonoBehaviour
         yield return new WaitForSeconds(3);
 
         waitForTutEnd = true;
-        StartCoroutine(EndTutorial(dialogueText));
+        if (!PlayerPrefs.HasKey("IntroDone"))
+        {
+            StartCoroutine(EndTutorial(dialogueText));
+        }
+        else
+        {
+            StartCoroutine(SendOffText(dialogueText));
+        }
     }
     IEnumerator GunTutorial(TextMeshPro dialogueText)
     {
@@ -244,7 +251,14 @@ public class TutorialsManager : MonoBehaviour
         yield return new WaitForSeconds(3);
 
         waitForTutEnd = true;
-        StartCoroutine(EndTutorial(dialogueText));
+        if (!PlayerPrefs.HasKey("IntroDone"))
+        {
+            StartCoroutine(EndTutorial(dialogueText));
+        }
+        else
+        {
+            StartCoroutine(SendOffText(dialogueText));
+        }
     }
     IEnumerator PlaneTutorial(TextMeshPro dialogueText)
     {
@@ -295,7 +309,14 @@ public class TutorialsManager : MonoBehaviour
         yield return new WaitForSeconds(3);
 
         waitForTutEnd = true;
-        StartCoroutine(EndTutorial(dialogueText));
+        if (!PlayerPrefs.HasKey("IntroDone"))
+        {
+            StartCoroutine(EndTutorial(dialogueText));
+        }
+        else
+        {
+            StartCoroutine(SendOffText(dialogueText));
+        }
     }
 
     IEnumerator TopTutorial(TextMeshPro dialogueText)
@@ -345,7 +366,14 @@ public class TutorialsManager : MonoBehaviour
         dialogueText.text = "The TOP is loud and annoying,\nthe guards will try to stop\nit if they see it";
         yield return new WaitForSeconds(3);
         waitForTutEnd = true;
-        StartCoroutine(EndTutorial(dialogueText));
+        if(!PlayerPrefs.HasKey("IntroDone"))
+        {
+            StartCoroutine(EndTutorial(dialogueText));
+        }
+        else
+        {
+            StartCoroutine(SendOffText(dialogueText));
+        }
     }
 
     IEnumerator EndTutorial(TextMeshPro dialogueText)
@@ -369,6 +397,11 @@ public class TutorialsManager : MonoBehaviour
             anim.SetTrigger("Greet");
             yield return new WaitForSeconds(3);
             dialogueText.text = introLines[0].lines[8];
+            ActivateControlsUI();
+            anim.SetTrigger("Greet");
+            yield return new WaitForSeconds(3);
+            dialogueText.text = introLines[0].lines[9];
+
         }
         else if (DialogueManager.instance.language == DialogueManager.LangSelect.ZH)
         {
@@ -389,6 +422,7 @@ public class TutorialsManager : MonoBehaviour
         yield return new WaitForSeconds(3);
 
         PlayerPrefs.SetInt("IntroDone", 1);
+        DeactivateControlsUI();
         Destroy(kekActive.gameObject);
 
         player.parent.parent.GetComponentInChildren<PlayerMoveFeedback>().enabled = true;
@@ -399,6 +433,24 @@ public class TutorialsManager : MonoBehaviour
             isTut = false;
             Debug.Log("tutorial ended, spawn countdown begins");
         }
+    }
+
+    IEnumerator SendOffText(TextMeshPro dialogueText)
+    {
+        yield return new WaitForSeconds(3);
+        dialogueText.text = "Thanks for playing~\nit was fun";
+        yield return new WaitForSeconds(3);
+        dialogueText.text = "Good luck HERO,\nI'll go hide now\nBye-bye~";
+        Destroy(kekActive.gameObject);
+
+        player.parent.parent.GetComponentInChildren<PlayerMoveFeedback>().enabled = true;
+        player.parent.parent.GetComponentInChildren<ContinuousMoveProviderBase>().moveSpeed = 1.5f;
+
+        if (isTut)
+        {
+            isTut = false;
+        }
+
     }
     public void CallOutTutorialType()
     {
@@ -434,6 +486,17 @@ public class TutorialsManager : MonoBehaviour
         }
        
        
+    }
+
+    public void ActivateControlsUI()
+    {
+        controlsMap.enabled = true;
+        controlsMap.extraObjects[0].SetActive(true);
+    }
+
+    public void DeactivateControlsUI()
+    {
+        controlsMap.extraObjects[0].SetActive(false);
     }
     
 

@@ -33,15 +33,19 @@ public class StickGiant : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isNearPlayer&&!creeping)
+        if(!TutorialsManager.isTut||!DialogueManager.isStory)
         {
-            DetectTargetReached();
-            CreepToPlayer();
+            if (!isNearPlayer && !creeping)
+            {
+                DetectTargetReached();
+                CreepToPlayer();
+            }
+
+            if (tracking) AlertAllMonsters();
+
+            if (!tracking) CheckPlayerDistance(10);
         }
-
-        if(tracking) AlertAllMonsters();
-
-        if(!tracking)CheckPlayerDistance(10);
+      
        
     }
 
