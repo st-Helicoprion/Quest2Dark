@@ -51,6 +51,7 @@ public class FingerMonster : MonoBehaviour
                 FreezeMonster();
             }
         }
+
     }
 
     public void DetectedFeedback()
@@ -247,37 +248,47 @@ public class FingerMonster : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("GunSonar"))
+        if (!WeakStateManager.instance.weakened)
         {
-            charged = true;
-            triggeredCount = triggeredLifetime;
-        }
+            if (other.CompareTag("GunSonar"))
+            {
+                charged = true;
+                triggeredCount = triggeredLifetime;
+            }
 
-        if(other.CompareTag("PlaneSonar"))
-        {
-            charged = true;
-            triggeredCount = triggeredLifetime;
+            if (other.CompareTag("PlaneSonar"))
+            {
+                charged = true;
+                triggeredCount = triggeredLifetime;
+            }
         }
+        else return;
+
+       
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Sonar"))
+        if(!WeakStateManager.instance.weakened)
         {
-            ForcedSonarDetected();
-        }
-
-      
-        if (other.CompareTag("TopSonar"))
-        {
-            SonarDetected(other);
-
-            if(other == null)
+            if (other.CompareTag("Sonar"))
             {
-                FreezeMonster();
+                ForcedSonarDetected();
+            }
+
+
+            if (other.CompareTag("TopSonar"))
+            {
+                SonarDetected(other);
+
+                if (other == null)
+                {
+                    FreezeMonster();
+                }
             }
         }
-
+        
+        else return;
         
 
     }

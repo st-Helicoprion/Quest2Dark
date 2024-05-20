@@ -11,6 +11,7 @@ public class HopterHitboxManager : MonoBehaviour
     public float hopterLifeCount, visualAidCount, hopterLifetime;
     public bool enemyTagged, targetFound;
     public AudioSource planeAudioSource;
+    public Animator anim;
 
     private void Start()
     {
@@ -18,6 +19,7 @@ public class HopterHitboxManager : MonoBehaviour
        SetFlightDirection();
         planeAudioSource.pitch = Random.Range(1, 1.3f);
         planeAudioSource.PlayOneShot(AudioManager.instance.ToysSFX[0]);
+        anim.SetBool("Flying", true);
     }
 
     private void Update()

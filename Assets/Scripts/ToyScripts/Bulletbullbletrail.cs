@@ -19,7 +19,6 @@ public class Bulletbullbletrail : MonoBehaviour
     void Start()
     {
         rb= GetComponent<Rigidbody>();
-        bulletSkin= GetComponent<Renderer>();
         audioSource = GetComponent<AudioSource>();
 
         SaveBulletTrajectory();
@@ -40,7 +39,7 @@ public class Bulletbullbletrail : MonoBehaviour
     {
         if (PlayerMoveFeedback.moving)
         {
-            rb.AddForce(600 * speed * bulletTrajectory);
+            rb.AddForce(800 * speed * bulletTrajectory);
         }
         else
         rb.AddForce(400*speed*bulletTrajectory);

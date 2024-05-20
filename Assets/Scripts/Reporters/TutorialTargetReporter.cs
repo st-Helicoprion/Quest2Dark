@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class TutorialTargetReporter : MonoBehaviour
 {
+
+    public AudioSource audioSource;
+
     IEnumerator KnockbackCoroutine(Collision collision)
     {
+        audioSource.PlayOneShot(AudioManager.instance.UISFXAudioClips[3]);
         for (int i = 0; i < 3; i++)
         {
             transform.localPosition -= new Vector3(0,0,1);
@@ -17,6 +21,7 @@ public class TutorialTargetReporter : MonoBehaviour
 
     IEnumerator VanishCoroutine()
     {
+        audioSource.PlayOneShot(AudioManager.instance.UISFXAudioClips[3]);
         yield return new WaitForSeconds(3);
         TutorialsManager.instance.planeGoal = true;
         Destroy(gameObject);

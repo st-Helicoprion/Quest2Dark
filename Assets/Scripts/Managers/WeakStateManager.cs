@@ -26,12 +26,13 @@ public class WeakStateManager : MonoBehaviour
             weakCountdown = weakInterval;
             player.tag = "Player";
             ToyToolboxInteractionManager.itemTaken = true;
+            AudioManager.instance.CheckBGMToPlay();
         }
     }
     public void SwitchToWeakState()
     {
         weakened=true;
-     
+        AudioManager.instance.WeakStateMusic();
     }
 
 }

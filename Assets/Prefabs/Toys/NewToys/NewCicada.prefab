@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.1, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.5}
+  m_LocalScale: {x: 0.2, y: 0.1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5167626692899833150}
@@ -344,7 +344,6 @@ MonoBehaviour:
   outlined: 0
   pTrailed: 0
   standard: 0
-  whited: 0
 --- !u!1 &2639221473899419195
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,7 +566,7 @@ Transform:
   m_GameObject: {fileID: 3332607152225805837}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.013, z: -0.1542}
+  m_LocalPosition: {x: 0, y: 0.0142, z: -0.1542}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -584,7 +583,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3332607152225805837}
   serializedVersion: 4
-  m_Mass: 3
+  m_Mass: 0.7
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -615,7 +614,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: -0.05}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: -0.023333265, z: -1.0140003}
+  m_ConnectedAnchor: {x: 0, y: 0.005000067, z: -1.0140003}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 2
@@ -893,7 +892,7 @@ Transform:
   m_GameObject: {fileID: 3545818384645767187}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1, y: -0.1, z: 0}
+  m_LocalPosition: {x: 0.05, y: -0.1, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -944,6 +943,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1931436062458314665}
   - component: {fileID: 3151657986107311844}
+  - component: {fileID: 5369985637390315408}
   m_Layer: 0
   m_Name: InteractionUI
   m_TagString: Untagged
@@ -983,10 +983,30 @@ MonoBehaviour:
   elements:
   - {fileID: 8336151189755305929}
   - {fileID: 5568931632683708219}
-  - {fileID: 0}
   player: {fileID: 0}
   interactionManager: {fileID: 8807833821562658545}
   released: 0
+--- !u!135 &5369985637390315408
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5048120205150616770}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5177492025367614607
 GameObject:
   m_ObjectHideFlags: 0
@@ -1155,7 +1175,6 @@ MonoBehaviour:
   outlined: 0
   pTrailed: 0
   standard: 0
-  whited: 0
 --- !u!1 &5303855424962582772
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,7 +1202,7 @@ Transform:
   m_GameObject: {fileID: 5303855424962582772}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1, y: -0.1, z: 0}
+  m_LocalPosition: {x: -0.05, y: -0.1, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1383,7 +1402,7 @@ GameObject:
   - component: {fileID: 2236201892738128009}
   m_Layer: 0
   m_Name: Quad (1)
-  m_TagString: Finger
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1475,7 +1494,6 @@ MonoBehaviour:
   outlined: 0
   pTrailed: 0
   standard: 0
-  whited: 0
 --- !u!1 &6332251072423496195
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,7 +1527,7 @@ Transform:
   m_GameObject: {fileID: 6332251072423496195}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.013, z: 0}
+  m_LocalPosition: {x: 0, y: 0.0142, z: -0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1806,7 +1824,7 @@ GameObject:
   - component: {fileID: 1808914925932719848}
   m_Layer: 0
   m_Name: Quad
-  m_TagString: Finger
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1898,7 +1916,6 @@ MonoBehaviour:
   outlined: 0
   pTrailed: 0
   standard: 0
-  whited: 0
 --- !u!1 &6879168560140472871
 GameObject:
   m_ObjectHideFlags: 0
@@ -1928,7 +1945,7 @@ Transform:
   m_GameObject: {fileID: 6879168560140472871}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 1.8783332, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1953,7 +1970,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.02
+  m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6876002333295943018
 Rigidbody:
@@ -2132,7 +2149,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.1
+  m_Radius: 0.2
   m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!54 &7870576434216771213
 Rigidbody:
@@ -2380,7 +2397,6 @@ MonoBehaviour:
   outlined: 0
   pTrailed: 0
   standard: 0
-  whited: 0
 --- !u!1 &7907265233869233081
 GameObject:
   m_ObjectHideFlags: 0
@@ -2502,6 +2518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxOffset:
   - {x: 0, y: 0.1, z: 0}
+  - {x: 0, y: 90, z: 0}
   handOffset:
   - {x: 0.01, y: 0.15, z: 0}
   - {x: -0.01, y: 0.15, z: 0}
@@ -2590,7 +2607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemID: 0
-  toolboxhelper: {fileID: 0}
+  toolboxhelper: {fileID: 8807833821562658545}
 --- !u!205 &6125274144702747010
 LODGroup:
   m_ObjectHideFlags: 0
@@ -3542,13 +3559,12 @@ MonoBehaviour:
   - {fileID: 670224309865224971, guid: 666416831f75e454dade03da8e78eb47, type: 3}
   - {fileID: 2100000, guid: b0686c0a4baeb2d49be7190b9864506b, type: 2}
   normalOutlines:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 670224309865224971, guid: e6e6125fc86f0d74f9e2a0f43d528861, type: 3}
+  - {fileID: 2100000, guid: 9d0d29e8ab0034441b0890b55819cc49, type: 2}
   pSystem: {fileID: 0}
   outlined: 1
   pTrailed: 0
   standard: 0
-  whited: 0
 --- !u!4 &9216330747952173487 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0801393f4e92dfb468aaa330fb9f569c, type: 3}

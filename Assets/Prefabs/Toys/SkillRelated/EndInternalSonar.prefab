@@ -102,7 +102,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: ebfb002c05c44e6429b7eabafbd6359b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 4a25d425756d1e349869734115eec2a4, type: 2}
+      objectReference: {fileID: 2100000, guid: 3799353faacc66b4fb50541a3a3db221, type: 2}
     - target: {fileID: 919132149155446097, guid: ebfb002c05c44e6429b7eabafbd6359b, type: 3}
       propertyPath: m_Name
       value: cone

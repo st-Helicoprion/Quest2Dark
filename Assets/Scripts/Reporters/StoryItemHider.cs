@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StoryItemHider : MonoBehaviour
 {
-    public static bool summonToy;
+    public static bool summonToy = false;
 
     private void OnTriggerEnter(Collider other)
     {

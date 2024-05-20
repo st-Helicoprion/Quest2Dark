@@ -64,7 +64,7 @@ public class ToyToolboxInteractionManager : MonoBehaviour
     {
         transform.SetParent(boxParent.transform);
         transform.localPosition = boxOffset[0];
-        transform.localRotation = Quaternion.identity;
+        transform.localRotation = Quaternion.Euler(boxOffset[1]);
         isInBox= true;isInHand= false;
         FindColliders();
         DisableColliders();
@@ -119,6 +119,7 @@ public class ToyToolboxInteractionManager : MonoBehaviour
                 transform.parent = boxList[i].transform;
                 transform.localPosition = boxOffset[0];
                 transform.localRotation = Quaternion.identity;
+                isInBox = true; isInHand = false;
                 break;
             }
 
@@ -201,31 +202,43 @@ public class ToyToolboxInteractionManager : MonoBehaviour
 
     void TutorialUIToggle()
     {
-        if (handState != null)
-        {
-            if (TutorialsManager.isTut && !isInBox)
+            if (TutorialsManager.isTut && !isInBox )
             {
-                if (transform.CompareTag("Gun"))
+                if (handState != null)
                 {
-                    handState.shootTut.SetActive(true);
-                }
+                    if (transform.CompareTag("Gun")&&handState==GunSonarManager.handState)
+                    {
+                        handState.shootTut.SetActive(true);
+                    
+                    }
+                    else
+                    {
+                        handState.shootTut.SetActive(false);
+                    }
 
-                if (transform.CompareTag("SpinningTop") && CustomTopManager.isSpinning)
-                {
-                    handState.retractTut.SetActive(true);
+                    if (transform.CompareTag("SpinningTop") && CustomTopManager.isSpinning)
+                    {
+                        handState.retractTut.SetActive(true);
+                    }
+                    else
+                    {
+                        handState.retractTut.SetActive(false);
+                    }
                 }
-                else
-                {
-                    handState.retractTut.SetActive(false);
-                }
+                else return;
+                
             }
             else
             {
+            if (handState != null)
+            {
                 handState.retractTut.SetActive(false);
                 handState.shootTut.SetActive(false);
+
             }
-        }
-        else return;
+            else return;
+            }
+      
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -325,18 +338,23 @@ public class ToyToolboxInteractionManager : MonoBehaviour
             }
         }
 
-        if(other.TryGetComponent<StoryItemHider>(out _))
+        if (other.TryGetComponent<StoryItemHider>(out _)&&DialogueManager.isStory)
         {
-            if(StoryItemHider.summonToy)
+            if (!isInHand && !isInBox)
             {
-                ShowEquipVisuals();
+                if (StoryItemHider.summonToy)
+                {
+                    ShowEquipVisuals();
+                }
+                else
+                {
+                    HideEquipVisuals();
+                }
             }
-            else
-            {
-                HideEquipVisuals();
-            }
-            
+            else return;
+
         }
+        else return;
     }
 
     private void OnTriggerExit(Collider other)

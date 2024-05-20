@@ -5,15 +5,7 @@ using TMPro;
 
 public class KekBehavior : MonoBehaviour
 {
-    public Vector3 rootPos;
     public TextMeshPro dialogueText;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        rootPos = transform.position;
-
-    }
 
     private void OnTriggerEnter(Collider other)
     {

@@ -4,9 +4,13 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using Unity.XR.CoreUtils;
+using UnityEditor;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using static DialogueManager;
+using static Unity.VisualScripting.Icons;
+using static UnityEditor.Progress;
 
 public class TutorialsManager : MonoBehaviour
 {
@@ -30,15 +34,15 @@ public class TutorialsManager : MonoBehaviour
     public GameObject cicadaVid;
     public GameObject planeVid;
     public GameObject topVid;
-    public GameObject gunVid;
+    //public GameObject gunVid;
 
     [Header("Dialogues")]
+    public LanguageScripts linesToUse;
     public LanguageScripts[] introLines;
     public LanguageScripts[] cicadaTutLines;
     public LanguageScripts[] gunTutLines;
     public LanguageScripts[] planeTutLines;
     public LanguageScripts[] topTutLines;
-
 
     private void Awake()
     {
@@ -52,44 +56,50 @@ public class TutorialsManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
             isTut = false;
-            if(PlayerPrefs.HasKey("IntroDone"))
+            //Hide data saving code for demo
+            /*if(PlayerPrefs.GetInt("IntroDone")==1)
             {
                 waitForTutEnd= true;
                 
             }
-            if (PlayerPrefs.HasKey("Cicada"))
+            if (PlayerPrefs.GetInt("Cicada") == 1)
             {
                 cicadaTut = true;
             }
-            if (PlayerPrefs.HasKey("Gun"))
+            if (PlayerPrefs.GetInt("Gun") == 1)
             {
                 gunTut = true;
             }
-            if (PlayerPrefs.HasKey("Plane"))
+            if (PlayerPrefs.GetInt("Plane") == 1)
             {
                 planeTut = true;
             }
-            if (PlayerPrefs.HasKey("Top"))
+            if (PlayerPrefs.GetInt("Top") == 1)
             {
                 topTut = true;
-            }
+            }*/
         }
 
 
     }
-  
+
     public void CheckStoryStartTutorial()
     {
         player = GameObject.Find("Main Camera").transform;
-       
-        if (PlayerPrefs.HasKey("IntroDone")||isTut)
+
+        /*if (PlayerPrefs.GetInt("IntroDone") == 1 ||isTut)
         {
             return;
         }
-        else
+        else*/
+        /* {*/
+        if (!isTut)
         {
             IntroTutorial();
+
         }
+        else return;
+        /*}*/
     }
     
     public void IntroTutorial()
@@ -99,6 +109,18 @@ public class TutorialsManager : MonoBehaviour
         kekActive = Instantiate(kek, spawnPointToUse.transform.position, Quaternion.identity).transform;
         anim = kekActive.GetComponentInChildren<Animator>();
         kekActive.LookAt(player.position);
+
+        AudioManager.instance.KekThemeMusic();
+
+        if(DialogueManager.instance.language==LangSelect.EN)
+        {
+            linesToUse = introLines[0];
+        }
+        else if(DialogueManager.instance.language == LangSelect.ZH)
+        {
+            linesToUse = introLines[1];
+        }
+
         StartCoroutine(IntroDialogue(kekActive.GetChild(3).Find("KekDialog").GetComponent<TextMeshPro>()));
     }
 
@@ -106,38 +128,20 @@ public class TutorialsManager : MonoBehaviour
     {
         player.parent.parent.GetComponentInChildren<PlayerMoveFeedback>().enabled = false;
         player.parent.parent.GetComponentInChildren<ContinuousMoveProviderBase>().moveSpeed = 0;
-        if (DialogueManager.instance.language==DialogueManager.LangSelect.EN)
-        {
-            yield return new WaitForSeconds(1.5f);
-            dialogueText.text = introLines[0].lines[0];
-            anim.SetTrigger("Greet");
-            yield return new WaitForSeconds(3);
-            dialogueText.text = introLines[0].lines[1];
-            anim.SetTrigger("Greet");
-            yield return new WaitForSeconds(3);
-            dialogueText.text = introLines[0].lines[2];
-            yield return new WaitForSeconds(3);
-            //anim.SetTrigger("Poop");
-            dialogueText.text = introLines[0].lines[3];
-        }
-        else if (DialogueManager.instance.language == DialogueManager.LangSelect.ZH)
-        {
-            yield return new WaitForSeconds(1.5f);
-            dialogueText.text = introLines[1].lines[0];
-            anim.SetTrigger("Greet");
-            yield return new WaitForSeconds(3);
-            dialogueText.text = introLines[1].lines[1];
-            anim.SetTrigger("Greet");
-            yield return new WaitForSeconds(3);
-            dialogueText.text = introLines[1].lines[2];
-            yield return new WaitForSeconds(3);
-            //anim.SetTrigger("Poop");
-            dialogueText.text = introLines[1].lines[3];
-        }
-        
+        yield return new WaitForSeconds(1.5f);
+        dialogueText.text = linesToUse.lines[0];
+        anim.SetTrigger("Greet");
+        yield return new WaitForSeconds(3);
+        dialogueText.text = linesToUse.lines[1];
+        anim.SetTrigger("Greet");
+        yield return new WaitForSeconds(3);
+        dialogueText.text = linesToUse.lines[2];
+        yield return new WaitForSeconds(3);
+        //anim.SetTrigger("Poop");
+        dialogueText.text = linesToUse.lines[3];
         intro = false;
         GameObject givenToyBox = Instantiate(toyBox, givenToy.transform.position, Quaternion.identity);
-        if (givenToy.name == "NewCicada(Clone)")
+        if (givenToy.name == "NewCicada(Clone)"||givenToy.name=="NewGun(Clone)")
         {
             givenToy.transform.GetChild(0).GetComponent<ToyToolboxInteractionManager>().ShowEquipVisuals();
         }
@@ -147,12 +151,13 @@ public class TutorialsManager : MonoBehaviour
 
     IEnumerator CicadaTutorial(TextMeshPro dialogueText)
     {
+        
         cicadaTut = true;
         isTut = true;
-        dialogueText.text = "Ah HERO\nI see you have found\nthe CICADA";
+        dialogueText.text = linesToUse.lines[0];
         anim.SetTrigger("Greet");
         yield return new WaitForSeconds(3);
-        dialogueText.text = "Swing the tub around\nthe stick to expand a\n sonar domain\nGive it a try !";
+        dialogueText.text = linesToUse.lines[1] ;
         video = Instantiate(cicadaVid, spawnPointToUse.videoPos.position, Quaternion.identity);
         anim.SetTrigger("Greet");
         yield return new WaitForSeconds(3);
@@ -170,7 +175,7 @@ public class TutorialsManager : MonoBehaviour
         activeTutSonar.transform.GetChild(0).GetComponent<TutorialSonarReporter>().enabled = true;
         while(!cicadaGoal)
         {
-            dialogueText.text = "The more you swing\nthe bigger it gets !\nTry expanding up to\nthis white line !";
+            dialogueText.text = linesToUse.lines[2];
             yield return null;
         }
         cicadaGoal = false;
@@ -178,25 +183,17 @@ public class TutorialsManager : MonoBehaviour
         activeTutSonar.transform.GetChild(0).GetComponent<TutorialSonarReporter>().enabled = true;
         while (!cicadaGoal)
         {
-            dialogueText.text = "Sweet !\nNow up to this white line !";
-            yield return null;
-        }
-        cicadaGoal = false;
-        activeTutSonar = Instantiate(tutSonarPrefab, tutSonarPoint - new Vector3(0, -9, 0), Quaternion.identity);
-        activeTutSonar.transform.GetChild(0).GetComponent<TutorialSonarReporter>().enabled = true;
-        while (!cicadaGoal)
-        {
-            dialogueText.text = "Last one !\nThis is as far\nas it can go !";
+            dialogueText.text = linesToUse.lines[3];
             yield return null;
         }
         yield return new WaitForSeconds(1);
-        dialogueText.text = "A true talent !";
+        dialogueText.text = linesToUse.lines[4];
         Destroy(video);
         anim.SetTrigger("Greet");
         yield return new WaitForSeconds(3);
-
+        //PlayerPrefs.SetInt("Cicada", 1);
         waitForTutEnd = true;
-        if (!PlayerPrefs.HasKey("IntroDone"))
+        if(!GameEndReporter.tutorialDone)
         {
             StartCoroutine(EndTutorial(dialogueText));
         }
@@ -204,16 +201,24 @@ public class TutorialsManager : MonoBehaviour
         {
             StartCoroutine(SendOffText(dialogueText));
         }
+       /* if (PlayerPrefs.GetInt("IntroDone")!=1)
+        {
+            StartCoroutine(EndTutorial(dialogueText));
+        }
+        else
+        {
+            StartCoroutine(SendOffText(dialogueText));
+        }*/
     }
     IEnumerator GunTutorial(TextMeshPro dialogueText)
     {
         gunTut = true;
         isTut  = true;
-        dialogueText.text = "Ah HERO\nI see you have found\nthe GUN";
+        dialogueText.text = linesToUse.lines[0];
         anim.SetTrigger("Greet");
         yield return new WaitForSeconds(3);
-        dialogueText.text = "It shoots sonar bullets\nwhen you press the\ntrigger";
-        video = Instantiate(gunVid, spawnPointToUse.videoPos.position, Quaternion.identity);
+        dialogueText.text = linesToUse.lines[1];
+        //video = Instantiate(gunVid, spawnPointToUse.videoPos.position, Quaternion.identity);
         anim.SetTrigger("Greet");
         yield return new WaitForSeconds(3);
         StartCoroutine(GunUsageTutorial(dialogueText));
@@ -229,29 +234,29 @@ public class TutorialsManager : MonoBehaviour
         }
         while(!gunGoal)
         {
-            dialogueText.text = "Shoot away!\nYou have infinite bullets !";
+            dialogueText.text = linesToUse.lines[2];
             yield return null;
         }
         gunGoal = false;
         while(!gunGoal)
         {
-            dialogueText.text = "Shots can knock things back!\nTry it again !";
+            dialogueText.text = linesToUse.lines[3];
             yield return null;
         }
         gunGoal= false;
         while(!gunGoal)
         {
-            dialogueText.text = "Last one !\nThis is so fun !";
+            dialogueText.text = linesToUse.lines[4];
             yield return null;
         }
         yield return new WaitForSeconds(1);
-        dialogueText.text = "A born marksman !";
+        dialogueText.text = linesToUse.lines[5];
         Destroy(video);
         anim.SetTrigger("Greet");
         yield return new WaitForSeconds(3);
-
+       // PlayerPrefs.SetInt("Gun", 1);
         waitForTutEnd = true;
-        if (!PlayerPrefs.HasKey("IntroDone"))
+        if (!GameEndReporter.tutorialDone)
         {
             StartCoroutine(EndTutorial(dialogueText));
         }
@@ -259,19 +264,28 @@ public class TutorialsManager : MonoBehaviour
         {
             StartCoroutine(SendOffText(dialogueText));
         }
+        /*if (PlayerPrefs.GetInt("IntroDone")!=1)
+        {
+            StartCoroutine(EndTutorial(dialogueText));
+        }
+        else
+        {
+            StartCoroutine(SendOffText(dialogueText));
+        }*/
     }
     IEnumerator PlaneTutorial(TextMeshPro dialogueText)
     {
+       
         planeTut = true;
         isTut=true;
-        dialogueText.text = "Ah HERO\nI see you have found\nthe PLANE";
+        dialogueText.text = linesToUse.lines[0];
         anim.SetTrigger("Greet");
         yield return new WaitForSeconds(3);
-        dialogueText.text = "It makes sonar pulses\nas it flies, just put\nyour hand through the\nring to launch it";
+        dialogueText.text = linesToUse.lines[1];
         video = Instantiate(planeVid, spawnPointToUse.videoPos.position, Quaternion.identity);
         anim.SetTrigger("Greet");
         yield return new WaitForSeconds(6);
-        dialogueText.text = "It regenerates after \nyou throw it so\ndon't worry about\nrunning out";
+        dialogueText.text = linesToUse.lines[2];
         anim.SetTrigger("Greet");
         yield return new WaitForSeconds(3);
         StartCoroutine(PlaneUsageTutorial(dialogueText));
@@ -285,31 +299,31 @@ public class TutorialsManager : MonoBehaviour
         spawnPointToUse.tutSpots[0].ShowBox();
         while (!planeGoal)
         {
-            dialogueText.text = "The PLANE can mark things\nmaking them easier\nto see !";
+            dialogueText.text = linesToUse.lines[3];
             yield return null;
         }
         planeGoal = false;
         spawnPointToUse.tutSpots[1].ShowBox();
         while (!planeGoal)
         {
-            dialogueText.text = "Aim it right and you'll\nlight up the\nwhole town !";
+            dialogueText.text = linesToUse.lines[4];
             yield return null;
         }
         planeGoal = false;
         spawnPointToUse.tutSpots[2].ShowBox();
         while (!planeGoal)
         {
-            dialogueText.text = "If the PLANE won't fly,\ntry pressing the Oculus\nbutton to recenter";
+            dialogueText.text = linesToUse.lines[5];
             yield return null;
         }
         yield return new WaitForSeconds(1);
-        dialogueText.text = "Such smooth flicks !";
+        dialogueText.text = linesToUse.lines[6];
         Destroy(video);
         anim.SetTrigger("Greet");
         yield return new WaitForSeconds(3);
-
+        //PlayerPrefs.SetInt("Plane", 1);
         waitForTutEnd = true;
-        if (!PlayerPrefs.HasKey("IntroDone"))
+        if (!GameEndReporter.tutorialDone)
         {
             StartCoroutine(EndTutorial(dialogueText));
         }
@@ -317,16 +331,24 @@ public class TutorialsManager : MonoBehaviour
         {
             StartCoroutine(SendOffText(dialogueText));
         }
+        /* if (PlayerPrefs.GetInt("IntroDone") != 1)
+         {
+             StartCoroutine(EndTutorial(dialogueText));
+         }
+         else
+         {
+             StartCoroutine(SendOffText(dialogueText));
+         }*/
     }
 
     IEnumerator TopTutorial(TextMeshPro dialogueText)
     {
+        
         topTut = true;
         isTut=true;
-        dialogueText.text = "Ah HERO\nI see you have found\nthe TOP";
-        anim.SetTrigger("Greet");
+        dialogueText.text = linesToUse.lines[0];
         yield return new WaitForSeconds(3);
-        dialogueText.text = "It expands a sonar domain\naway from you when\nit spins, put your hand\nthrough the ring, and pull\nto jump start it";
+        dialogueText.text = linesToUse.lines[1];
         video = Instantiate(topVid, spawnPointToUse.videoPos.position, Quaternion.identity);
         anim.SetTrigger("Greet");
         yield return new WaitForSeconds(6);
@@ -341,32 +363,33 @@ public class TutorialsManager : MonoBehaviour
         spawnPointToUse.tutSpots[0].ShowSonar();
         while (!topGoal)
         {
-            dialogueText.text = "Throw it to that white circle !\nWhen you see PULL,\npull your hand back !";
+            dialogueText.text = linesToUse.lines[2];
             yield return null;
         }
         topGoal = false;
         spawnPointToUse.tutSpots[1].ShowSonar();
         while (!topGoal)
         {
-            dialogueText.text = "It returns after you\n throw it, and you can\n also grip to recall it !";
+            dialogueText.text = linesToUse.lines[3];
             yield return null;
         }
         topGoal = false;
         spawnPointToUse.tutSpots[2].ShowSonar();
         while (!topGoal)
         {
-            dialogueText.text = "If the TOP won't launch,\ntry pressing the Oculus\nbutton to recenter";
+            dialogueText.text = linesToUse.lines[4];
             yield return null;
         }
         yield return new WaitForSeconds(1);
-        dialogueText.text = "My eyes won't stop\nspinning !";
+        dialogueText.text = linesToUse.lines[5];
         Destroy(video);
         anim.SetTrigger("Greet");
         yield return new WaitForSeconds(3);
-        dialogueText.text = "The TOP is loud and annoying,\nthe guards will try to stop\nit if they see it";
+        dialogueText.text = linesToUse.lines[6];
         yield return new WaitForSeconds(3);
         waitForTutEnd = true;
-        if(!PlayerPrefs.HasKey("IntroDone"))
+        //PlayerPrefs.SetInt("Top", 1);
+        if (!GameEndReporter.tutorialDone)
         {
             StartCoroutine(EndTutorial(dialogueText));
         }
@@ -374,54 +397,53 @@ public class TutorialsManager : MonoBehaviour
         {
             StartCoroutine(SendOffText(dialogueText));
         }
+/*        if (PlayerPrefs.GetInt("IntroDone") != 1)
+        {
+            StartCoroutine(EndTutorial(dialogueText));
+        }
+        else
+        {
+            StartCoroutine(SendOffText(dialogueText));
+        }*/
     }
 
     IEnumerator EndTutorial(TextMeshPro dialogueText)
     {
+
+        if (DialogueManager.instance.language == LangSelect.EN)
+        {
+            linesToUse = introLines[0];
+        }
+        else if (DialogueManager.instance.language == LangSelect.ZH)
+        {
+            linesToUse = introLines[1];
+        }
+
         GameEndReporter.tutorialDone = true;
         if(!GameEndReporter.callTower)
         {
             GameEndReporter.callTower = true;
         }
-        if (DialogueManager.instance.language == DialogueManager.LangSelect.EN)
-        {
-            yield return new WaitForSeconds(3);
-            dialogueText.text = introLines[0].lines[4];
-            anim.SetTrigger("Greet");
-            yield return new WaitForSeconds(3);
-            dialogueText.text = introLines[0].lines[5];
-            yield return new WaitForSeconds(3);
-            dialogueText.text = introLines[0].lines[6];
-            yield return new WaitForSeconds(3);
-            dialogueText.text = introLines[0].lines[7];
-            anim.SetTrigger("Greet");
-            yield return new WaitForSeconds(3);
-            dialogueText.text = introLines[0].lines[8];
-            ActivateControlsUI();
-            anim.SetTrigger("Greet");
-            yield return new WaitForSeconds(3);
-            dialogueText.text = introLines[0].lines[9];
-
-        }
-        else if (DialogueManager.instance.language == DialogueManager.LangSelect.ZH)
-        {
-            yield return new WaitForSeconds(3);
-            dialogueText.text = introLines[1].lines[4];
-            anim.SetTrigger("Greet");
-            yield return new WaitForSeconds(3);
-            dialogueText.text = introLines[1].lines[5];
-            yield return new WaitForSeconds(3);
-            dialogueText.text = introLines[1].lines[6];
-            yield return new WaitForSeconds(3);
-            dialogueText.text = introLines[1].lines[7];
-            anim.SetTrigger("Greet");
-            yield return new WaitForSeconds(3);
-            dialogueText.text = introLines[1].lines[8];
-        }
-
+        yield return new WaitForSeconds(3);
+        dialogueText.text = linesToUse.lines[4];
+        anim.SetTrigger("Greet");
+        yield return new WaitForSeconds(3);
+        dialogueText.text = linesToUse.lines[5];
+        yield return new WaitForSeconds(3);
+        dialogueText.text = linesToUse.lines[6];
+        yield return new WaitForSeconds(3);
+        dialogueText.text = linesToUse.lines[7];
+        anim.SetTrigger("Greet");
+        yield return new WaitForSeconds(3);
+        dialogueText.text = linesToUse.lines[8];
+        ActivateControlsUI();
+        anim.SetTrigger("Greet");
+        yield return new WaitForSeconds(3);
+        dialogueText.text = linesToUse.lines[9];
         yield return new WaitForSeconds(3);
 
-        PlayerPrefs.SetInt("IntroDone", 1);
+        //PlayerPrefs.SetInt("IntroDone", 1);
+        GameManager.readyToReboot = true;
         DeactivateControlsUI();
         Destroy(kekActive.gameObject);
 
@@ -437,10 +459,19 @@ public class TutorialsManager : MonoBehaviour
 
     IEnumerator SendOffText(TextMeshPro dialogueText)
     {
+        if (DialogueManager.instance.language == LangSelect.EN)
+        {
+            linesToUse = introLines[0];
+        }
+        else if (DialogueManager.instance.language == LangSelect.ZH)
+        {
+            linesToUse = introLines[1];
+        }
         yield return new WaitForSeconds(3);
-        dialogueText.text = "Thanks for playing~\nit was fun";
+        dialogueText.text = linesToUse.lines[10];
         yield return new WaitForSeconds(3);
-        dialogueText.text = "Good luck HERO,\nI'll go hide now\nBye-bye~";
+        dialogueText.text = linesToUse.lines[11];
+        yield return new WaitForSeconds(3);
         Destroy(kekActive.gameObject);
 
         player.parent.parent.GetComponentInChildren<PlayerMoveFeedback>().enabled = true;
@@ -459,10 +490,67 @@ public class TutorialsManager : MonoBehaviour
             kekActive = Instantiate(kek, spawnPointToUse.transform.position, Quaternion.identity).transform;
             anim = kekActive.GetComponentInChildren<Animator>();
             kekActive.LookAt(player.position);
+
+            AudioManager.instance.KekThemeMusic();
         }
         else
         {
-            if (PlayerPrefs.GetInt("TutID") == 0 && cicadaTut == false)
+            if (KeyItemReporter.tutID == 0&&!cicadaTut)
+            {
+                kekActive.position = spawnPointToUse.transform.position;
+                if(DialogueManager.instance.language==LangSelect.EN)
+                {
+                    linesToUse = cicadaTutLines[0];
+                }
+                else if(DialogueManager.instance.language==LangSelect.ZH)
+                {
+                    linesToUse = cicadaTutLines[1];
+                }
+                StartCoroutine(CicadaTutorial(kekActive.GetComponentInChildren<TextMeshPro>()));
+
+            }
+            else if (KeyItemReporter.tutID == 1&&!gunTut)
+            {
+                kekActive.position = spawnPointToUse.transform.position;
+                if (DialogueManager.instance.language == LangSelect.EN)
+                {
+                    linesToUse = gunTutLines[0];
+                }
+                else if (DialogueManager.instance.language == LangSelect.ZH)
+                {
+                    linesToUse = gunTutLines[1];
+                }
+                StartCoroutine(GunTutorial(kekActive.GetComponentInChildren<TextMeshPro>()));
+            }
+            else if (KeyItemReporter.tutID == 2&&!planeTut)
+            {
+                kekActive.position = spawnPointToUse.transform.position;
+                if (DialogueManager.instance.language == LangSelect.EN)
+                {
+                    linesToUse = planeTutLines[0];
+                }
+                else if (DialogueManager.instance.language == LangSelect.ZH)
+                {
+                    linesToUse = planeTutLines[1];
+                }
+                StartCoroutine(PlaneTutorial(kekActive.GetComponentInChildren<TextMeshPro>()));
+            }
+            else if (KeyItemReporter.tutID == 3&&!topTut)
+            {
+                kekActive.position = spawnPointToUse.transform.position;
+                if (DialogueManager.instance.language == LangSelect.EN)
+                {
+                    linesToUse = topTutLines[0];
+                }
+                else if (DialogueManager.instance.language == LangSelect.ZH)
+                {
+                    linesToUse = topTutLines[1];
+                }
+                StartCoroutine(TopTutorial(kekActive.GetComponentInChildren<TextMeshPro>()));
+            }
+            else return;
+
+            /*if (PlayerPrefs.GetInt("TutID") == 0 && cicadaTut == false)
             {
                 kekActive.position = spawnPointToUse.transform.position;
                 StartCoroutine(CicadaTutorial(kekActive.GetComponentInChildren<TextMeshPro>()));
@@ -482,7 +570,7 @@ public class TutorialsManager : MonoBehaviour
                 kekActive.position = spawnPointToUse.transform.position;
                 StartCoroutine(TopTutorial(kekActive.GetComponentInChildren<TextMeshPro>()));
             }
-            else return;
+            else return;*/
         }
        
        
@@ -498,6 +586,6 @@ public class TutorialsManager : MonoBehaviour
     {
         controlsMap.extraObjects[0].SetActive(false);
     }
-    
+
 
 }

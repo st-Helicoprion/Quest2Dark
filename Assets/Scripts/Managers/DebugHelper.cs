@@ -18,13 +18,18 @@ public class DebugHelper : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        debug.action.performed += EnableTestObjects;
-        debug.action.performed += DisableExtraObjects;
-        debug.action.canceled+= DisableTestObjects;
-        debug.action.canceled+= EnableExtraObjects;
+        
 
        //debug.action.performed += EnableTestBool;
 
+    }
+
+    private void Start()
+    {
+        debug.action.performed += EnableTestObjects;
+        debug.action.performed += DisableExtraObjects;
+        debug.action.canceled += DisableTestObjects;
+        debug.action.canceled += EnableExtraObjects;
     }
 
     private void Update()
@@ -99,8 +104,25 @@ public class DebugHelper : MonoBehaviour
     }
 
     void DisableExtraObjects(InputAction.CallbackContext obj)
-    {
-        if (this != null&&!PlayerPrefs.HasKey("IntroDone"))
+    {/*
+        if (this != null&&PlayerPrefs.GetInt("IntroDone")!=1)
+        {
+            if (obj.ReadValue<float>() == 1)
+            {
+                if (extraObjects.Length > 0)
+                {
+                    for (int i = 0; i < extraObjects.Length; i++)
+                    {
+                        extraObjects[i].SetActive(false);
+
+                    }
+                }
+                else return;
+
+            }
+        }*/
+
+        if(this!=null&&!GameEndReporter.tutorialDone)
         {
             if (obj.ReadValue<float>() == 1)
             {
@@ -120,7 +142,24 @@ public class DebugHelper : MonoBehaviour
 
     void EnableExtraObjects(InputAction.CallbackContext obj)
     {
-        if (this != null && !PlayerPrefs.HasKey("IntroDone"))
+ /*       if (this != null && PlayerPrefs.GetInt("IntroDone") != 1)
+        {
+            if (obj.ReadValue<float>() == 0)
+            {
+                if (extraObjects.Length > 0)
+                {
+                    for (int i = 0; i < extraObjects.Length; i++)
+                    {
+                        extraObjects[i].SetActive(true);
+
+                    }
+                }
+                else return;
+
+            }
+        }
+*/
+        if (this != null && !GameEndReporter.tutorialDone)
         {
             if (obj.ReadValue<float>() == 0)
             {

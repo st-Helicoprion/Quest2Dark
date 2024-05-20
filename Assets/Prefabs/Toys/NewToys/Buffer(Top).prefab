@@ -278,9 +278,10 @@ GameObject:
   - component: {fileID: 5081426918643141135}
   - component: {fileID: 4447112683045218179}
   - component: {fileID: 376336186495595550}
+  - component: {fileID: 4533863874123532963}
   m_Layer: 0
   m_Name: Quad (1)
-  m_TagString: Finger
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -350,6 +351,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4533863874123532963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355941364869408028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89011049bf4d6034ab96236fb9da1cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weakStateMat: {fileID: 2100000, guid: d070000e2cfb4a74c81186569b7ce18c, type: 2}
+  normalStateMat: {fileID: 2100000, guid: 96337eec2bdc8144c9e3f8a5c4ed64c2, type: 2}
+  rend: {fileID: 376336186495595550}
+  outlinedRend: []
+  weakOutlines: []
+  normalOutlines: []
+  pSystem: {fileID: 0}
+  outlined: 0
+  pTrailed: 0
+  standard: 1
 --- !u!1 &1833097687373347811
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,7 +518,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4504963876641364414
 Transform:
   m_ObjectHideFlags: 0
@@ -646,7 +669,6 @@ MonoBehaviour:
   outlined: 0
   pTrailed: 0
   standard: 0
-  whited: 0
 --- !u!1 &3174437664851211636
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,7 +733,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3207326128619926945}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -760,7 +782,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemID: 3
-  toolboxhelper: {fileID: 0}
+  toolboxhelper: {fileID: 559435096564261456}
 --- !u!65 &2658648683609950844
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -822,6 +844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxOffset:
   - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 90, z: 0}
   handOffset:
   - {x: 0.02, y: 0, z: 0}
   - {x: -0.02, y: 0, z: 0}
@@ -1171,7 +1194,6 @@ MonoBehaviour:
   outlined: 1
   pTrailed: 0
   standard: 0
-  whited: 0
 --- !u!1 &4805407246127144403
 GameObject:
   m_ObjectHideFlags: 0
@@ -1597,7 +1619,6 @@ MonoBehaviour:
   outlined: 0
   pTrailed: 0
   standard: 1
-  whited: 0
 --- !u!1 &6082408537481141732
 GameObject:
   m_ObjectHideFlags: 0
@@ -2558,9 +2579,10 @@ GameObject:
   - component: {fileID: 2459416216388362406}
   - component: {fileID: 1970604211766132970}
   - component: {fileID: 3272651496157979369}
+  - component: {fileID: 1123375301888773749}
   m_Layer: 0
   m_Name: Quad
-  m_TagString: Finger
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2630,6 +2652,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1123375301888773749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8928814972947261454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89011049bf4d6034ab96236fb9da1cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weakStateMat: {fileID: 2100000, guid: d070000e2cfb4a74c81186569b7ce18c, type: 2}
+  normalStateMat: {fileID: 2100000, guid: 96337eec2bdc8144c9e3f8a5c4ed64c2, type: 2}
+  rend: {fileID: 3272651496157979369}
+  outlinedRend: []
+  weakOutlines: []
+  normalOutlines: []
+  pSystem: {fileID: 0}
+  outlined: 0
+  pTrailed: 0
+  standard: 1
 --- !u!1001 &794078023218653446
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7862,7 +7906,6 @@ MonoBehaviour:
   outlined: 0
   pTrailed: 0
   standard: 0
-  whited: 0
 --- !u!1001 &7776737018916805729
 PrefabInstance:
   m_ObjectHideFlags: 0

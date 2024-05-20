@@ -1303,6 +1303,17 @@
                 },
                 {
                     "name": "",
+                    "id": "ff7851bb-844d-45d5-af9b-495ddb0a8355",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toolbox",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "af8364a2-4bc3-47b2-9ca5-1dc0d1bb1013",
                     "path": "<XRController>{RightHand}/secondaryButton",
                     "interactions": "",

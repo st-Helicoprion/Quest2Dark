@@ -84,6 +84,24 @@ public class InteractionUImanager : MonoBehaviour
               
             }
         }
+        
+        if(DialogueManager.isStory)
+        {
+            if(!interactionManager.isInBox&&!interactionManager.isInHand)
+            {
+                if (StoryItemHider.summonToy&&released)
+                {
+                    elements[0].enabled = true;
+                    elements[1].enabled = true;
+                }
+                else
+                {
+                    elements[0].enabled = false;
+                    elements[1].enabled = false;
+                }
+            }
+         
+        }
 
         if(TutorialsManager.intro)
         {
@@ -111,6 +129,7 @@ public class InteractionUImanager : MonoBehaviour
 
             released = false;
         }
-        
+
+      
     }
 }

@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f6edaa18b6dbd43bf2d357bba16718, type: 3}
+  m_Name: EPlaneTutorial
+  m_EditorClassIdentifier: 
+  language: EN
+  lines:
+  - 'Ah HERO
+
+    I see you got
+
+    the PLANE'
+  - 'It makes sonar pulses
+
+    as it flies, just put
+
+    your hand through the
+
+    ring
+    to launch it'
+  - "It regenerates after \r\nyou throw it so\r\ndon't worry about\r\nrunning out"
+  - 'The PLANE can mark things
+
+    making them easier
+
+    to see !'
+  - 'Aim it right and you''ll
+
+    light up the
+
+    whole town !'
+  - 'If the PLANE won''t fly,
+
+    try pressing the Oculus
+
+    button to recenter'
+  - 'Such smooth flicks !
+
+'

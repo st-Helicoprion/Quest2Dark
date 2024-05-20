@@ -33,7 +33,6 @@ public class RespawnPlaneManager : MonoBehaviour
             sonarScript.enabled = true;
             trackHitbox.enabled = true;
 
-            handState.handNotEmpty = false;
         }
         else return;
 
@@ -79,6 +78,7 @@ public class RespawnPlaneManager : MonoBehaviour
                     {
                         planeInstance.GetComponent<ToyToolboxInteractionManager>().HideEquipVisuals();
                     }
+
                     planesOnHand.Add(planeInstance);
 
                     while (planesOnHand.Count > 1)

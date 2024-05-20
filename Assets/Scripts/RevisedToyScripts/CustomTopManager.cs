@@ -104,11 +104,8 @@ public class CustomTopManager : MonoBehaviour
         if (handState.handNotEmpty)
         {
             HideRope();
+            rb.isKinematic = true;
             toolboxHelper.HopToEmptyBox();
-
-            if (!NewToolboxManager.isOpen && toolboxHelper.isInBox)
-                toolboxHelper.HideEquipVisuals();
-            else return;
         }
         else
         {
@@ -151,7 +148,7 @@ public class CustomTopManager : MonoBehaviour
        
         if(PlayerMoveFeedback.moving)
         {
-            rb.AddForce(2 * force * direction);
+            rb.AddForce(4 * force * direction);
         }else
         rb.AddForce(direction * force);
         topAudioSource.Stop();

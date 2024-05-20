@@ -82,7 +82,7 @@ Material:
     m_Ints: []
     m_Floats:
     - Vector1_A8806370: 0.25
-    - Vector1_B30C7C99: 0.33
+    - Vector1_B30C7C99: 0.1
     - Vector1_D2BDC462: -1
     - _AlphaClip: 0
     - _AlphaToMask: 0

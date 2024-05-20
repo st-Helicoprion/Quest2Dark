@@ -79,7 +79,7 @@ public class NewToolboxManager : MonoBehaviour
                         interactorsList[k].ShowEquipVisuals();
 
                     }
-                    else return;
+                    else continue;
                 }
                 this.transform.parent = leftHand;
                 this.transform.localPosition = offsetList[0];
@@ -103,7 +103,7 @@ public class NewToolboxManager : MonoBehaviour
                         interactorsList[k].ShowEquipVisuals();
 
                     }
-                    else return;
+                    else continue;
                 }
                 this.transform.parent = rightHand;
                 this.transform.localPosition = offsetList[1];

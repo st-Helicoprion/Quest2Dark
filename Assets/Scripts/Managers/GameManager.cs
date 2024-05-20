@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public float gameTimeLimit;
+    public bool gameForceEnd, sendForceSignal;
+
     public Transform player;
 
     [Header("Spawning")]
@@ -51,12 +54,13 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
             
+
         }
         else
         {
             instance = this;
             ItemCycleManager.StoreKeyItemList();
-            restart.action.performed += ManualRestartGame;
+           
             DontDestroyOnLoad(gameObject);
 
             
@@ -79,6 +83,19 @@ public class GameManager : MonoBehaviour
         {
             SpawnPlayerOnMap();
         }*/
+
+        if(!TutorialsManager.isTut&&!DialogueManager.isStory&&PrizeBoxManager.taken&&!gameForceEnd)
+        {
+            gameTimeLimit -= Time.deltaTime;
+        }
+
+        if(gameTimeLimit<0)
+        {
+            gameTimeLimit = 600;
+            gameForceEnd = true;
+            sendForceSignal = true;
+            win= true;
+        }
 
         if(EnemyInteractionManager.killPlayer)
         {
@@ -110,7 +127,7 @@ public class GameManager : MonoBehaviour
     }
 
     #region Characters
-    void SpawnPlayerInRoom()
+    public void SpawnPlayerInRoom()
     { 
         roomSpawnPoints.Clear();
         equipSpawnPoints.Clear();
@@ -160,6 +177,12 @@ public class GameManager : MonoBehaviour
 
         TutorialsManager.instance.controlsMap = FindObjectOfType<DebugHelper>();
         TutorialsManager.instance.controlsMap.enabled = false;
+
+        /*if (PlayerPrefs.GetInt("IntroEnd") == 1)
+        {
+            TutorialsManager.instance.controlsMap.enabled = true;
+        }
+        else return;*/
     }
 
     IEnumerator MapSpawnCoroutine()
@@ -238,7 +261,13 @@ public class GameManager : MonoBehaviour
         TutorialsManager.givenToy = playerToy;
         ItemCycleManager.RemoveToyPrefabInGameManager(playerEquipID[equipIDToSummon]);
         equipSpawnPoints.Remove(equipSpawnPoints[i]);
-        if(!PlayerPrefs.HasKey("IntroDone"))
+        if (playerToy.name == "NewCicada(Clone)" || playerToy.name == "NewGun(Clone)")
+        {
+            playerToy.transform.GetChild(0).GetComponent<ToyToolboxInteractionManager>().HideEquipVisuals();
+        }
+        else
+            playerToy.GetComponent<ToyToolboxInteractionManager>().HideEquipVisuals();
+        /*if(PlayerPrefs.GetInt("IntroDone") != 1)
         {
             if(playerToy.name=="NewCicada(Clone)"||playerToy.name=="NewGun(Clone)")
             {
@@ -246,8 +275,9 @@ public class GameManager : MonoBehaviour
             }
             else
             playerToy.GetComponent<ToyToolboxInteractionManager>().HideEquipVisuals();
-        }
-        
+        }*/
+
+
         HideKeyItemSpawns();
 
         yield return new WaitForSeconds(1);
@@ -287,7 +317,14 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         Instantiate(keyItem[0], prizeSpawn.position, Quaternion.identity);
         ItemCycleManager.RemoveToyPrefabInGameManager(0);
-        readyToReboot= true;
+        if(GameEndReporter.tutorialDone)
+        {
+            readyToReboot= true;
+        }
+        /*if(PlayerPrefs.GetInt("IntroDone") == 1)
+        {
+            readyToReboot = true;
+        }*/
     }
 
 
@@ -339,7 +376,9 @@ public class GameManager : MonoBehaviour
         }
         roomSpawnPoints.AddRange(GameObject.FindGameObjectsWithTag("Respawn"));
         player = Instantiate(endPlayerPrefab, roomSpawnPoints[3].transform.position + new Vector3(0, 2, 0), roomSpawnPoints[3].transform.localRotation).transform;
+        EndingManager.instance.cam = player.GetComponentInChildren<Camera>();
     }
+
 
 
     #endregion
@@ -360,20 +399,14 @@ public class GameManager : MonoBehaviour
         EnemyInteractionManager.killPlayer = false;
         yield return null;
         if(!WeakStateManager.instance.weakened)
-        WeakStateManager.instance.SwitchToWeakState();
+        {
+            WeakStateManager.instance.SwitchToWeakState();
+        }
+        
     }
     #endregion
 
     #region Utils
-    void ManualRestartGame(InputAction.CallbackContext obj)
-    {
-        if (obj.ReadValue<float>() == 1 && readyToReboot)
-        {
-            SpawnPlayerInRoom();
-            readyToReboot = false;
-        }
-    }
-
 
     #endregion
 }
