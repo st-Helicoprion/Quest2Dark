@@ -12,10 +12,11 @@ public class GunSonarManager : MonoBehaviour
     public InputActionReference shootSonarLeft;
     public bool isHeld;
     public int handID;
-    public HandAnimation handState, heldHand;
+    public static HandAnimation handState, heldHand;
     public AudioSource gunAudioSource;
     public float gunDelay;
     public ToyToolboxInteractionManager toolboxInteractionManager;
+    public Animator anim;
 
     private void Update()
     {
@@ -39,6 +40,7 @@ public class GunSonarManager : MonoBehaviour
         {
             if(gunDelay<0)
             {
+                anim.SetTrigger("Shoot");
                 gunAudioSource.pitch = Random.Range(1.7f, 2.1f);
                 gunAudioSource.PlayOneShot(AudioManager.instance.ToysSFX[1]);
                 StartCoroutine(SpawnBulletRepeat(BulletSpawnPoint.position, BulletSpawnPoint.rotation));
@@ -53,6 +55,7 @@ public class GunSonarManager : MonoBehaviour
         //SpawnBullet觸發後，每經過TimeInterval的時間，生成一個聲波，總共生SpawnSonar個
             bulletTemp = GameObject.Instantiate(BulletPrefab, vector3,quaternion);
             gunDelay = 1;
+            anim.SetTrigger("Load");
             yield return null;
     }
 

@@ -158,6 +158,7 @@ MonoBehaviour:
   video: {fileID: 0}
   tutSonarPoint: {x: 0, y: 0, z: 0}
   anim: {fileID: 0}
+  controlsMap: {fileID: 0}
   cicadaGoal: 0
   gunGoal: 0
   planeGoal: 0
@@ -165,15 +166,22 @@ MonoBehaviour:
   cicadaVid: {fileID: 9110443156937159213, guid: 39d4e2238021a384d94ae5b07e08a03e, type: 3}
   planeVid: {fileID: 5217121663812607334, guid: f9d9b991478673144be67b76e1595a05, type: 3}
   topVid: {fileID: 6838022405109842228, guid: 26d12d1793911a64c9cd5d95abc59495, type: 3}
-  gunVid: {fileID: 1843291449014676752, guid: eebf53008f6c64942b9027c4baa5495b, type: 3}
+  linesToUse: {fileID: 0}
   introLines:
   - {fileID: 11400000, guid: 4469af5070ddc394aaf161d790c7b428, type: 2}
   - {fileID: 11400000, guid: 34eedd2d30df6e544bc26b4e3d685268, type: 2}
   cicadaTutLines:
   - {fileID: 11400000, guid: 0764c77aec266064c810d4b503f3cb03, type: 2}
-  gunTutLines: []
-  planeTutLines: []
-  topTutLines: []
+  - {fileID: 11400000, guid: f89e521683addba47ba2772a4cf1dc0e, type: 2}
+  gunTutLines:
+  - {fileID: 11400000, guid: e01d60b9ac891b649b84cf1f2d47b441, type: 2}
+  - {fileID: 11400000, guid: a8cbd66b1be867947869e793f97aea6c, type: 2}
+  planeTutLines:
+  - {fileID: 11400000, guid: 7f604ed58e2740c41b11d95ab10b4816, type: 2}
+  - {fileID: 11400000, guid: 96d27b7aad1ef0a4e8e88e78dd9e68c9, type: 2}
+  topTutLines:
+  - {fileID: 11400000, guid: b15a25c3416db0a49a8d0898d91c1e1d, type: 2}
+  - {fileID: 11400000, guid: ea24a2dc026e2dd4b9935c261d7b8958, type: 2}
 --- !u!4 &277976111
 Transform:
   m_ObjectHideFlags: 0
@@ -218,15 +226,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64b30123164e422498396a6fd3c71314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  language: 0
+  language: 1
   engFontAsset: {fileID: 11400000, guid: b43ad26968bb88d44a7e171c4a97f57b, type: 2}
-  mandFontAsset: {fileID: 11400000, guid: 5d4065493a33df8458378c403a05cbab, type: 2}
+  mandFontAsset: {fileID: 11400000, guid: fc70e431d8687b546937b4cccb5e573b, type: 2}
+  kekActive: {fileID: 0}
+  anim: {fileID: 0}
+  linesToUse: {fileID: 0}
   story1: 0
   story2: 0
   story3: 0
   storyLines:
   - {fileID: 11400000, guid: 8db6e24bac1dd1740b6bbd177122ff51, type: 2}
   - {fileID: 11400000, guid: 8d74bd0ddd177de4785b468c21476c6c, type: 2}
+  giftBox: {fileID: 1815431155946330096, guid: d917bd614babd3945ac2fd4805a9ea00, type: 3}
 --- !u!4 &1546507170
 Transform:
   m_ObjectHideFlags: 0
@@ -289,12 +301,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c4a51d217fc7f4428db9dba26dfca43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameTimeLimit: 600
+  gameForceEnd: 0
+  sendForceSignal: 0
   player: {fileID: 0}
   spawnPoints: {fileID: 0}
   spawnPointID: 0
   enemyWaveID: 0
   enemySummonID: 0
-  enemyPattern: 03000000020000000300000002000000
+  enemyPattern: 06000000040000000200000002000000
   playerEquipID: 01000000030000000000000002000000
   playerPrefab: {fileID: 4845216885473641645, guid: 0cfc0b131d1b16946bb495e66a9512f9, type: 3}
   endPlayerPrefab: {fileID: 4845216885473641645, guid: bc6848aad4778d545a1e969b56f3774d, type: 3}
@@ -308,10 +323,14 @@ MonoBehaviour:
   - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
   - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
   - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
-  - {fileID: 5250758653461402767, guid: 9d6d2985bae35f84fa800b81ebe13699, type: 3}
+  - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
+  - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
   - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
   - {fileID: 5250758653461402767, guid: 9d6d2985bae35f84fa800b81ebe13699, type: 3}
   - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
+  - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
+  - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
+  - {fileID: 5250758653461402767, guid: 9d6d2985bae35f84fa800b81ebe13699, type: 3}
   - {fileID: 5925241361927654960, guid: 9fc793f253d9ad645b2178a637c4fcc7, type: 3}
   - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
   - {fileID: 5250758653461402767, guid: 9d6d2985bae35f84fa800b81ebe13699, type: 3}
@@ -478,17 +497,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
   BGMAudioClips:
-  - {fileID: 8300000, guid: 0fc84a6a4c73e9145a05222b03e538c7, type: 3}
-  - {fileID: 8300000, guid: adf2ac02cc1019041b8e8629f8200782, type: 3}
+  - {fileID: 0}
+  - {fileID: 8300000, guid: 9ff9fcc46d2944f4c81f3fd2d8f11996, type: 3}
+  - {fileID: 8300000, guid: 066b7631b8e7ab74fbf4a33580cfde99, type: 3}
+  - {fileID: 8300000, guid: 17d19b005cd63724299893fdf7fc497b, type: 3}
+  - {fileID: 8300000, guid: bf0143226c7e9fb4da47f45607dab191, type: 3}
+  - {fileID: 8300000, guid: ef45e881291336a478eaaecc2e9667c1, type: 3}
+  - {fileID: 8300000, guid: c95b8f323dd7172478eac3ba9693b24c, type: 3}
+  - {fileID: 8300000, guid: 009c4f230ffee0c44bb60cc670868374, type: 3}
+  - {fileID: 8300000, guid: a52a3c95c7d3af14c88cb09768467916, type: 3}
+  - {fileID: 8300000, guid: 0b5e321400e0ecc458897335fb0ca524, type: 3}
+  - {fileID: 8300000, guid: 30526779d332112439445c474a9018de, type: 3}
   UISFXAudioClips:
   - {fileID: 8300000, guid: ad5f057f7f86a7142bc9e118c002421b, type: 3}
   - {fileID: 8300000, guid: 7b79990770d11154cbd98bc3795f9978, type: 3}
   - {fileID: 8300000, guid: 596fa071c02aa2742ae16f649d9e7262, type: 3}
+  - {fileID: 8300000, guid: 4fdacdb154ee75d4aa6f5c84f41e2a17, type: 3}
+  - {fileID: 8300000, guid: 03b24c86fd3e7ba4bb377e6f2edc1c5f, type: 3}
   FingerMonsterAudioClips:
-  - {fileID: 8300000, guid: 7ec3d3acae77dce4b9936600974b2e1a, type: 3}
+  - {fileID: 8300000, guid: 5361b3d6724c24f4ab1a1c92da84ad7a, type: 3}
+  - {fileID: 8300000, guid: 8d119416e50264a4a8ca68750cab4756, type: 3}
   StickGiantAudioClips:
   - {fileID: 8300000, guid: d53462c3271a9f3499d72537784dec55, type: 3}
-  - {fileID: 8300000, guid: 109363b18aa4bb24680f4fb0389e8420, type: 3}
+  - {fileID: 8300000, guid: f32bf3fe5df7a5642b4fea0d85c38b7d, type: 3}
   ToysSFX:
   - {fileID: 8300000, guid: 764d9fec90b3b2645801a29bdee5ba76, type: 3}
   - {fileID: 8300000, guid: d15c8bba891e1fb47bdb1eb8846fee4c, type: 3}
@@ -521,9 +552,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: bc7838141f59d734b9c04e7f088c576e, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0

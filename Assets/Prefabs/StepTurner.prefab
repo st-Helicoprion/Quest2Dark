@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1448149026019617928}
   m_Layer: 0
   m_Name: Steps
-  m_TagString: Untagged
+  m_TagString: Steps
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2938358496882629423}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7981418361505078617}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!33 &5522483179859189353
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -99,6 +99,13 @@ MonoBehaviour:
   weakStateMat: {fileID: 2100000, guid: 73688ef18a2d637438cd2e17c08e01dd, type: 2}
   normalStateMat: {fileID: 2100000, guid: 43e10937175638749b7678799736f9cd, type: 2}
   rend: {fileID: 6153895709397146978}
+  outlinedRend: []
+  weakOutlines: []
+  normalOutlines: []
+  pSystem: {fileID: 0}
+  outlined: 0
+  pTrailed: 0
+  standard: 0
 --- !u!1 &7477611716072552930
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,7 +117,7 @@ GameObject:
   - component: {fileID: 7981418361505078617}
   m_Layer: 0
   m_Name: StepTurner
-  m_TagString: Untagged
+  m_TagString: Steps
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

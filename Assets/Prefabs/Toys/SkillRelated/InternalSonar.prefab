@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSonar: {fileID: 0}
+  speed: 10
 --- !u!1001 &4214342904496996881
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -139,6 +140,11 @@ MonoBehaviour:
   weakStateMat: {fileID: 2100000, guid: fe6074a30f964b74296cd7ce105708dd, type: 2}
   normalStateMat: {fileID: 2100000, guid: 724ba0272a00916428bd62aed78573f4, type: 2}
   rend: {fileID: 3296018285268164245}
+  outlinedRend: []
+  pSystem: {fileID: 0}
+  outlined: 0
+  pTrailed: 0
+  whited: 0
 --- !u!4 &4465006728274388474 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ebfb002c05c44e6429b7eabafbd6359b, type: 3}

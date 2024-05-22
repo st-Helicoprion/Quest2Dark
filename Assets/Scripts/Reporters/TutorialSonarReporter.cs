@@ -6,6 +6,8 @@ public class TutorialSonarReporter : MonoBehaviour
 {
     public Transform playerSonar;
     public bool primed;
+    public AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,7 @@ public class TutorialSonarReporter : MonoBehaviour
         {
             if(playerSonar.position.y>transform.position.y)
             {
+                audioSource.PlayOneShot(AudioManager.instance.UISFXAudioClips[3]);
                 TutorialsManager.instance.cicadaGoal = true;
                 Destroy(transform.parent.gameObject);
             }
@@ -28,13 +31,14 @@ public class TutorialSonarReporter : MonoBehaviour
         {
             if(CustomTopManager.isSpinning)
             {
+                audioSource.PlayOneShot(AudioManager.instance.UISFXAudioClips[3]);
                 TutorialsManager.instance.topGoal = true;
                 Destroy(transform.parent.gameObject);
             }
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if(other.CompareTag("SpinningTop"))
         {

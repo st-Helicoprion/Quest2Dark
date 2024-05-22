@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f6edaa18b6dbd43bf2d357bba16718, type: 3}
+  m_Name: EKekEnding
+  m_EditorClassIdentifier: 
+  language: EN
+  lines:
+  - 'You did it !
+
+    YOU DONE DID IT !'
+  - 'There you are
+
+    [HANA]!'
+  - 'Begone [KEK]...
+
+    I don''t need you
+
+    here...'
+  - 'As if ! I''m here to
+
+    drag [US] back !'
+  - 'Here''s my final
+
+    request HERO !'
+  - 'Beat the *&@!#\
+
+    out of that heart
+
+    there !'
+  - "Whatever happens\ndon't you dare \nslow down !!"
+  - 'Are we really
+
+    going to leave
+
+    this place...?'
+  - 'That''s right HANA
+
+    it''s time to go !'
+  - 'B-But the world
+
+    outside w-will...'
+  - 'HE is living proof of
+
+    their heart HANA !'
+  - 'Surely there will be
+
+    more out there !
+
+    More just like him !'
+  - 'Perhaps the time has
+
+    truly come....
+
+    Perhaps now....'
+  - Back together now !
+  - 'You don''t know
+
+    the good you''ve done
+
+    here today...'
+  - I owe you one
+  - '@#$0* ! we''re
+
+    a step too late !?'
+  - 'This world is
+
+    caving in !'
+  - '[KEK]...man will
+
+    never accept [US]'
+  - This is it...
+  - 'WE are naught
+
+    but demons...'
+  - 'No...[HANA]...
+
+    but he came all
+
+    this way...'
+  - 'You fool...to trust
+
+    mankind...
+
+    such futility...'
+  - 'A lonely death...
+
+    is all WE have...'
+  - "*&#)!< !\nThere's no \nother way HERO !"
+  - 'Get behind me !
+
+'
+  - 'Pains me to ask
+
+    this but....'
+  - Tell my kids...
+  - 'DADDY LOVES
+
+    THEM !!!'

@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f6edaa18b6dbd43bf2d357bba16718, type: 3}
+  m_Name: EKekStory
+  m_EditorClassIdentifier: 
+  language: EN
+  lines:
+  - 'AH HERO !
+
+    How''d you find me !?'
+  - "You must want to \nknow more about here,\nhear me now~"
+  - "[She was a fiend from yonder,  \nA herald of sciences of the flesh \nand the
+    spirit]"
+  - '[Mankind prayed to her, with gifts
+
+    of blood and markings on stone]'
+  - '[But the weak minds of man,
+
+    invited chaos and ruin]'
+  - '[The goddess'' blessing distorted,
+
+    her truth defiled, nothing now
+
+    but
+    a demon in their eyes]'
+  - "[A goddess with the legacy\nof ruin, well that's just a \ndemon...]"
+  - "[Alas,  no matter how hard \nthe demon cares for man]"
+  - "[To man, she is a parallel\n line, never to intersect]"
+  - '[This world is a craft of
+
+    solitude and separation,
+
+    a clear line divides
+    you and I]'
+  - Oh what a magical tale...
+  - 'Such grandeur !
+
+    Truly....uhh, magical !'
+  - 'As magical as this
+
+    gift from the stars~'
+  - 'AGAIN ! You have found me
+
+    yet again ! That''s our HERO
+
+    for ya~'
+  - 'Then let me continue
+
+    where I left off...'
+  - "[She was liquid,  \nencased in a shell]"
+  - "[A shell in the form of  \nman, such was her desire,\nto be one of them]"
+  - '[Alas the weak hearts of
+
+    man, gave in to fear]'
+  - '[Fear begot violence,
+
+    they lashed out, and
+
+    imprisoned her]'
+  - '[Cuts and slashes, tore
+
+    apart that mockery of
+
+    human skin]'
+  - '[But they could never take
+
+    her human heart]'
+  - "[This world is a craft of \nfluids and vessels,  the\nshell morphs to the contents,\nand
+    the contents obey the mind]"
+  - What an abstract story, eh ?
+  - 'Such splendor !
+
+    How so abstract...'
+  - 'As abstract as this
+
+    fluid-filled gift !'
+  - 'Ah HERO, flawless job
+
+    I have now truly nowhere
+
+    else to hide~'
+  - "Here's the final part of\nthat story I was \ntelling..."
+  - "[Seeking acceptance,  \nshe offered man knowledge,\nThey feared her]"
+  - '[In her curiosity, she wore
+
+    their form, They rejected her]'
+  - "[As she came upon\na heart willing to \nunderstand her]"
+  - '[She was met with steel
+
+    cages, swords, fire....
+
+    mutilation...]'
+  - '[Man''s world held no
+
+    tolerance, outliers are
+
+    met only with persecution]'
+  - '[Her heart understood,
+
+    and died... ]'
+  - '[A castle of pure darkness
+
+    she created, let no one
+
+    dare approach]'
+  - '[Awaiting the impossible
+
+    acceptance, the hand never
+
+    to be extended]'
+  - '[The home never to
+
+    welcome her]'
+  - '[This world is a craft of ruin
+
+    and darkness, a castle
+
+    spawning phantoms
+    made
+
+    by her darkened heart,
+
+    to keep everything out]'
+  - Ah how truly deep...
+  - 'Such magnificence !
+
+    Such...'
+  - 'Oh #$^@% !
+
+    Look at the time !'
+  - "Take this and \nGO ! Shoo !"

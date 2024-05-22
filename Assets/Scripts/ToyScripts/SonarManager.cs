@@ -7,7 +7,7 @@ public class SonarManager : MonoBehaviour
 {
     public Transform sonar;
     public static CicadaHitboxManager hitboxManager;
-    public float maxSonarHeight, minSonarHeight, increaseRate, internalSonarCount;
+    public float maxSonarHeight, minSonarHeight, increaseRate, internalSonarCount, internalSonarRate;
     public GameObject internalSonar, cicadaStick, cicadaTub, cicadaRope, sonarDust;
     public ToyToolboxInteractionManager interactionManager;
     public AudioSource cicadaAudioSource;
@@ -18,8 +18,6 @@ public class SonarManager : MonoBehaviour
     void Start()
     {
         buffer = 0;
-        maxSonarHeight = 10;
-        minSonarHeight = -52;
         sonar = GameObject.Find("PlayerSonar").transform;
         CheckForHitBoxManager();
         sonarSkin = sonar.GetComponent<Renderer>();
@@ -37,19 +35,23 @@ public class SonarManager : MonoBehaviour
         DetectSonar();
         CheckStickActive();
 
-        if(interactionManager.isInBox)
+        if (interactionManager != null && sonarSkin != null)
         {
-            DecreaseSonarHeight();
-        }
-
-        if(!sonarSkin.enabled)
-        {
-            if(ToyToolboxInteractionManager.itemTaken)
+            if (interactionManager.isInBox)
             {
-                sonarSkin.enabled = true;
-                sonarDust.SetActive(true);
+                DecreaseSonarHeight();
+            }
+
+            if (!sonarSkin.enabled)
+            {
+                if (ToyToolboxInteractionManager.itemTaken)
+                {
+                    sonarSkin.enabled = true;
+                    sonarDust.SetActive(true);
+                }
             }
         }
+        else return;
 
     }
 
@@ -65,7 +67,7 @@ public class SonarManager : MonoBehaviour
     void SonarHeightClamp()
     {
 
-        maxSonarHeight = Mathf.Clamp(maxSonarHeight, -5, 20);
+        maxSonarHeight = Mathf.Clamp(maxSonarHeight, -5, 50);
         Vector3 sonarHeight = sonar.localPosition;
         sonarHeight.y = Mathf.Clamp(sonarHeight.y, minSonarHeight, maxSonarHeight);
         sonar.localPosition = sonarHeight;
@@ -99,7 +101,7 @@ public class SonarManager : MonoBehaviour
             sonar.tag = "Sonar";
             internalSonarCount += Time.deltaTime;
 
-            if (internalSonarCount > 1)
+            if (internalSonarCount > internalSonarRate)
             {
                 Instantiate(internalSonar, sonar.parent);
                 internalSonarCount = 0;
@@ -118,7 +120,7 @@ public class SonarManager : MonoBehaviour
             if (hitboxManager.isSonarUp == true)
             {
                 IncreaseSonarHeight();
-                buffer = 2.5f;
+                buffer = 3f;
 
             }
             else
@@ -141,15 +143,20 @@ public class SonarManager : MonoBehaviour
 
     void CheckStickActive()
     {
-        if (cicadaStick.activeInHierarchy)
+        if (cicadaStick != null)
         {
-            cicadaTub.SetActive(true);
-            cicadaRope.SetActive(true);
+            if (cicadaStick.activeInHierarchy)
+            {
+                cicadaTub.SetActive(true);
+                cicadaRope.SetActive(true);
+            }
+            else
+            {
+                cicadaTub.SetActive(false);
+                cicadaRope.SetActive(false);
+            }
         }
-        else
-        {
-            cicadaTub.SetActive(false);
-            cicadaRope.SetActive(false);
-        }
+        else return;
+        
     }
 }

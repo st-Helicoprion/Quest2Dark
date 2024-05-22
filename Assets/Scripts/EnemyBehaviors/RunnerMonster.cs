@@ -267,6 +267,10 @@ public class RunnerMonster : MonoBehaviour
 
     IEnumerator ReleaseWarningSonar()
     {
+        if(!audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
         while (sonar.transform.localScale.x < 10*huntRadius&&warn)
         {
             sonar.transform.localScale += new Vector3(2, 2, 2);

@@ -5,41 +5,20 @@ using TMPro;
 
 public class KekBehavior : MonoBehaviour
 {
-    public Vector3 rootPos;
-    public bool offRoot, attracted;
     public TextMeshPro dialogueText;
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        rootPos = transform.position;
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(transform.position != rootPos&&!attracted)
-        { 
-            offRoot= true;
-        }
-        else
+        if(other.name == "woodairplane")
         {
-            offRoot= false;
-        }
-
-        if(offRoot&&!attracted)
-        {
-            ReturnToRootPos();
+            this.tag = "Untagged";
         }
     }
-
     private void OnTriggerStay(Collider other)
     {
 
         if (other.CompareTag("TopSonar"))
         {
-            attracted = true;
             dialogueText.text = "Ooh~ spinny~!";
             GameObject top = GameObject.FindWithTag("SpinningTop");
             
@@ -49,7 +28,6 @@ public class KekBehavior : MonoBehaviour
     {
         if (other.CompareTag("TopSonar"))
         {
-            attracted = false;
             dialogueText.text = "";
 
         }
@@ -60,25 +38,13 @@ public class KekBehavior : MonoBehaviour
         if (collision.transform.CompareTag("Bullet"))
         {
             dialogueText.text = "*#@<Y*9!";
+            StartCoroutine(KnockbackCoroutine());
 
         }
     }
 
-    void ReturnToRootPos()
+    IEnumerator KnockbackCoroutine()
     {
-        
-        Vector3 direction = rootPos - transform.position;
-        transform.position += 0.1f*direction;
-        transform.LookAt(direction);
-    }
-
-    IEnumerator KnockbackCoroutine(Collision collision)
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            transform.position -= Vector3.forward;
-            yield return null;
-        }
         yield return new WaitForSeconds(0.5f);
         dialogueText.text = "";
     }

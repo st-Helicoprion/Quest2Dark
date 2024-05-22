@@ -11,6 +11,7 @@ using UnityEngine.Experimental.Rendering;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 using UnityEngine.XR.Interaction.Toolkit;
 
 
@@ -18,6 +19,9 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
+    public float gameTimeLimit;
+    public bool gameForceEnd, sendForceSignal;
 
     public Transform player;
 
@@ -51,18 +55,19 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
             
+
         }
         else
         {
             instance = this;
             ItemCycleManager.StoreKeyItemList();
-            restart.action.performed += ManualRestartGame;
+           
             DontDestroyOnLoad(gameObject);
 
             
         }
 
-          
+        restart.action.performed += ExitGame;
     }
 
     // Start is called before the first frame update
@@ -80,37 +85,56 @@ public class GameManager : MonoBehaviour
             SpawnPlayerOnMap();
         }*/
 
-        if(EnemyInteractionManager.killPlayer)
+        if (SceneManager.GetActiveScene().name == "LabyrinthGameScene")
         {
-            PlayerDeath();
-            
-        }
+            if (!TutorialsManager.isTut && !DialogueManager.isStory && PrizeBoxManager.taken && !gameForceEnd)
+            {
+                gameTimeLimit -= Time.deltaTime;
+            }
 
-        if(win)
-        {
-            WinConditionReached();
-        }
+            if (gameTimeLimit < 0 && !win)
+            {
+                gameTimeLimit = 600;
+                gameForceEnd = true;
+                sendForceSignal = true;
+                win = true;
+            }
 
-        if (!TutorialsManager.isTut && PrizeBoxManager.taken)
-        {
-            enemySpawnCountdown -= Time.deltaTime;
-        }
-        else if(enemyWaveID>=4)
-        {
-            return;
-        }
+            if (EnemyInteractionManager.killPlayer)
+            {
+                PlayerDeath();
 
-        if(enemySpawnCountdown<0)
-        {
-            enemySpawnCountdown = enemySpawnInterval;
-            StartCoroutine(EnemySpawnCoroutine());
+            }
+
+            if (win)
+            {
+                WinConditionReached();
+            }
+
+            if (!TutorialsManager.isTut && PrizeBoxManager.taken&&!DialogueManager.isStory)
+            {
+                enemySpawnCountdown -= Time.deltaTime;
+            }
+            else if (enemyWaveID >= 4)
+            {
+                return;
+            }
+
+            if (enemySpawnCountdown < 0 && SceneManager.GetActiveScene().name == "LabyrinthGameScene")
+            {
+                enemySpawnCountdown = enemySpawnInterval;
+                StartCoroutine(EnemySpawnCoroutine());
+            }
+            else return;
         }
+        else return;
 
     }
 
     #region Characters
-    void SpawnPlayerInRoom()
+    public void SpawnPlayerInRoom()
     { 
+        ClearSaveBools();
         roomSpawnPoints.Clear();
         equipSpawnPoints.Clear();
         enemyWaveID = 0;
@@ -142,14 +166,29 @@ public class GameManager : MonoBehaviour
     {
         int i = Random.Range(0, 3);
         player = Instantiate(playerPrefab, roomSpawnPoints[i].transform.position + new Vector3(0, 2, 0), roomSpawnPoints[i].transform.rotation).transform;
+        InitPlayerLinks();
+
+
+        StartCoroutine(SpawnPlayerEquip(i));
+        
+
+    }
+
+    void InitPlayerLinks()
+    {
         UIViewAligner.player = player.gameObject.GetNamedChild("Main Camera").transform;
         IntroSpawnReporter.player = UIViewAligner.player;
         WeakStateManager.instance.player = player;
         PrizeBoxManager.taken = false;
 
-        StartCoroutine(SpawnPlayerEquip(i));
-        
+        TutorialsManager.instance.controlsMap = FindObjectOfType<DebugHelper>();
+        TutorialsManager.instance.controlsMap.enabled = false;
 
+        /*if (PlayerPrefs.GetInt("IntroEnd") == 1)
+        {
+            TutorialsManager.instance.controlsMap.enabled = true;
+        }
+        else return;*/
     }
 
     IEnumerator MapSpawnCoroutine()
@@ -190,7 +229,7 @@ public class GameManager : MonoBehaviour
 
    IEnumerator SpawnEnemiesDynamic()
     {
-        if (enemyWaveID < 4)
+        if (enemyWaveID < 4 && SceneManager.GetActiveScene().name == "LabyrinthGameScene")
         {
             enemySpawned = true;
             yield return new WaitForSeconds(1);
@@ -200,11 +239,12 @@ public class GameManager : MonoBehaviour
                 Instantiate(enemyPrefab[enemySummonID], spawnPoints.GetChild(enemySpawnPointsSave[i]).position + new Vector3(0, 5, 0), Quaternion.identity);
                 Debug.Log("Enemy spawned");
                 enemySummonID++;
-                
+
             }
             enemyWaveID++;
             enemySpawnPointsSave.Clear();
         }
+      
         
     }
 
@@ -228,16 +268,23 @@ public class GameManager : MonoBehaviour
         TutorialsManager.givenToy = playerToy;
         ItemCycleManager.RemoveToyPrefabInGameManager(playerEquipID[equipIDToSummon]);
         equipSpawnPoints.Remove(equipSpawnPoints[i]);
-        if(!PlayerPrefs.HasKey("IntroDone"))
+        if (playerToy.name == "NewCicada(Clone)" || playerToy.name == "NewGun(Clone)")
         {
-            if(playerToy.name=="NewCicada(Clone)")
+            playerToy.transform.GetChild(0).GetComponent<ToyToolboxInteractionManager>().HideEquipVisuals();
+        }
+        else
+            playerToy.GetComponent<ToyToolboxInteractionManager>().HideEquipVisuals();
+        /*if(PlayerPrefs.GetInt("IntroDone") != 1)
+        {
+            if(playerToy.name=="NewCicada(Clone)"||playerToy.name=="NewGun(Clone)")
             {
                 playerToy.transform.GetChild(0).GetComponent<ToyToolboxInteractionManager>().HideEquipVisuals();
             }
             else
             playerToy.GetComponent<ToyToolboxInteractionManager>().HideEquipVisuals();
-        }
-        
+        }*/
+
+
         HideKeyItemSpawns();
 
         yield return new WaitForSeconds(1);
@@ -277,7 +324,14 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         Instantiate(keyItem[0], prizeSpawn.position, Quaternion.identity);
         ItemCycleManager.RemoveToyPrefabInGameManager(0);
-        readyToReboot= true;
+        if(GameEndReporter.tutorialDone)
+        {
+            readyToReboot= true;
+        }
+        /*if(PlayerPrefs.GetInt("IntroDone") == 1)
+        {
+            readyToReboot = true;
+        }*/
     }
 
 
@@ -299,10 +353,6 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Win
-        void CheckWinCondition()
-    {
-
-    }
     void WinConditionReached()
     {
         StartCoroutine(WinCoroutine());
@@ -316,7 +366,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3);
         //SpawnPlayerInRoom();
         StartCoroutine(EndRoomCoroutine());
-        readyToReboot = false;
+        
 
     }
 
@@ -328,8 +378,11 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         roomSpawnPoints.AddRange(GameObject.FindGameObjectsWithTag("Respawn"));
-        player = Instantiate(endPlayerPrefab, roomSpawnPoints[3].transform.position + new Vector3(0, 2, 0), roomSpawnPoints[0].transform.localRotation).transform;
+        player = Instantiate(endPlayerPrefab, roomSpawnPoints[3].transform.position + new Vector3(0, 2, 0), roomSpawnPoints[3].transform.localRotation).transform;
+        EndingManager.instance.cam = player.GetComponentInChildren<Camera>();
+        InitPlayerLinks();
     }
+
 
 
     #endregion
@@ -350,20 +403,41 @@ public class GameManager : MonoBehaviour
         EnemyInteractionManager.killPlayer = false;
         yield return null;
         if(!WeakStateManager.instance.weakened)
-        WeakStateManager.instance.SwitchToWeakState();
+        {
+            WeakStateManager.instance.SwitchToWeakState();
+        }
+        
     }
     #endregion
 
     #region Utils
-    void ManualRestartGame(InputAction.CallbackContext obj)
+    public void ClearSaveBools()
     {
-        if (obj.ReadValue<float>() == 1 && readyToReboot)
-        {
-            SpawnPlayerInRoom();
-            readyToReboot = false;
-        }
+        gameTimeLimit = 600;
+        enemySpawnCountdown = enemySpawnInterval;
+
+        TutorialsManager.waitForTutEnd = false;
+        GameEndReporter.tutorialDone = false;
+        TutorialsManager.cicadaTut = false;
+        TutorialsManager.topTut = false;
+        TutorialsManager.planeTut = false;
+        TutorialsManager.gunTut = false;
+        gameForceEnd = false;
+        PrizeBoxManager.taken = false;
+        DialogueManager.instance.story1= false;
+        DialogueManager.instance.story2= false;
+        DialogueManager.instance.story3= false;
     }
 
-
+    public void ExitGame(InputAction.CallbackContext obj)
+    {
+        if(this!=null)
+        {
+            if(obj.ReadValue<float>() ==1)
+            {
+                Application.Quit();
+            }
+        }
+    }
     #endregion
 }

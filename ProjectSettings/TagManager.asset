@@ -27,7 +27,8 @@ TagManager:
   - GunSonar
   - Bullet
   - Runner
-  - Spectator
+  - Steps
+  - EndShifter
   layers:
   - Default
   - TransparentFX
@@ -40,7 +41,7 @@ TagManager:
   - PlaneSonarLayer
   - Minimap
   - ThrowMarkers
-  - 
+  - PurePhysics
   - 
   - 
   - 

@@ -74,7 +74,12 @@ public class NewToolboxManager : MonoBehaviour
 
                 for(int k =0;k<interactorsList.Count;k++)
                 {
-                    interactorsList[k].ShowEquipVisuals();
+                    if (interactorsList[k].isInBox)
+                    {
+                        interactorsList[k].ShowEquipVisuals();
+
+                    }
+                    else continue;
                 }
                 this.transform.parent = leftHand;
                 this.transform.localPosition = offsetList[0];
@@ -93,7 +98,12 @@ public class NewToolboxManager : MonoBehaviour
                 }
                 for (int k = 0; k < interactorsList.Count; k++)
                 {
-                    interactorsList[k].ShowEquipVisuals();
+                    if (interactorsList[k].isInBox)
+                    {
+                        interactorsList[k].ShowEquipVisuals();
+
+                    }
+                    else continue;
                 }
                 this.transform.parent = rightHand;
                 this.transform.localPosition = offsetList[1];

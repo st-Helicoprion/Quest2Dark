@@ -11,6 +11,7 @@ public class HopterHitboxManager : MonoBehaviour
     public float hopterLifeCount, visualAidCount, hopterLifetime;
     public bool enemyTagged, targetFound;
     public AudioSource planeAudioSource;
+    public Animator anim;
 
     private void Start()
     {
@@ -18,6 +19,7 @@ public class HopterHitboxManager : MonoBehaviour
        SetFlightDirection();
         planeAudioSource.pitch = Random.Range(1, 1.3f);
         planeAudioSource.PlayOneShot(AudioManager.instance.ToysSFX[0]);
+        anim.SetBool("Flying", true);
     }
 
     private void Update()
@@ -69,7 +71,7 @@ public class HopterHitboxManager : MonoBehaviour
             Vector3 targetDirection = (enemy.transform.position + new Vector3(0, 5, 0)) - transform.position;
             if (Mathf.Abs(enemy.transform.position.x - transform.position.x) > 0.25f || Mathf.Abs(enemy.transform.position.z - transform.position.z) > 0.25f)
             {
-                transform.position += 2 * Time.deltaTime * targetDirection;
+                transform.parent.position += 2 * Time.deltaTime * targetDirection;
             }
 
 

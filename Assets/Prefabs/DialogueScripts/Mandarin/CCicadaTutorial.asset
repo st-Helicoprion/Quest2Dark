@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f6edaa18b6dbd43bf2d357bba16718, type: 3}
+  m_Name: CCicadaTutorial
+  m_EditorClassIdentifier: 
+  language: ZH
+  lines:
+  - "\u52C7\u8005, \u4F60\u62FF\u5230\u4E86\u751A\u9EBC\u4E86?\n\u963F~\u4F60\u62FF\u5230[\u7AF9\u87EC]\u4E86!"
+  - "\u65CB\u8F49\u7AF9\u87EC\u5C31\u80FD\u5C55\u958B\n\u4E00\u500B[\u8072\u6CE2],
+    \u4F86\u5427,\n\u5FEB\u7528\u5B83\u65BD\u5C55\u4F60\u7684\u9B54\u6CD5!"
+  - "\u96A8\u8457\u4F60\u8F49\u5F97\u8D8A, \u8072\u6CE2\u7684\u7BC4\u570D\u5C31\u6703\n\u8D8A\u5927
+    ! \u8A66\u8457\u64F4\u5927\u8072\u6CE2\u76F4\u5230\u5B83\u78B0\u5230\n\u767D\u8272\u7684\u7DDA
+    !"
+  - "\u6C92\u932F ! \u592A\u68D2\u4E86 !\n\u518D\u8B93\u5B83\u66F4\u5927\u4E00\u9EDE
+    !"
+  - "\u6211\u7684\u8001\u5929\u554A ! \n\u4F60\u7C21\u76F4\u662F\u500B\u5929\u624D
+    !\n"

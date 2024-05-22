@@ -8,11 +8,20 @@ public class StoryPortalReporter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        storyStandby= true;
+        if(other.CompareTag("Player"))
+        {
+            storyStandby = true;
+        }
+        
     }
 
     private void OnTriggerExit(Collider other)
     {
-        storyStandby= false;
+        if (other.CompareTag("Player"))
+        {
+            storyStandby = false;
+            StoryItemHider.summonToy = false;
+        }
+        
     }
 }

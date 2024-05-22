@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
@@ -31,26 +32,93 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         audioSource= GetComponent<AudioSource>();
-        CheckBGMToPlay();
     }
 
     public void CheckBGMToPlay()
     {
-        Debug.Log("audioclip confirmed");
-        //if (SceneManager.GetActiveScene().name == "RogueRoomScene")
-        if (SceneManager.GetActiveScene().name == "LabyrinthGameScene"||SceneManager.GetActiveScene().name=="MechanicsTest")
-        {
-            /*audioSource.clip = BGMAudioClips[0];
-            audioSource.Play();*/
-        }
-        /*else if(SceneManager.GetActiveScene().name == "GameLevelMain")
-        {
-            audioSource.clip = BGMAudioClips[1];
-            audioSource.Play();
-        }*/
+        StartCoroutine(VolumeFadeOut());
+
+        audioSource.clip = BGMAudioClips[BGMSwitcherReporter.currentAreaID];
+        audioSource.Play();
+
+        StartCoroutine(VolumeFadeIn());
     }
 
-    
+    public IEnumerator VolumeFadeOut()
+    {
+        while(audioSource.volume>0)
+        {
+            audioSource.volume-=0.075f;
+            yield return null;
+        }
+        
+    }
 
+    public IEnumerator VolumeFadeIn()
+    {
+        while (audioSource.volume <1)
+        {
+            audioSource.volume+=0.075f;
+            yield return null;
+        }
 
+    }
+
+    public void WeakStateMusic()
+    {
+        StartCoroutine(VolumeFadeOut());
+
+        audioSource.clip = BGMAudioClips[7];
+        audioSource.Play();
+       
+        StartCoroutine(VolumeFadeIn());
+    }
+
+    public void KekThemeMusic()
+    {
+        StartCoroutine(VolumeFadeOut());
+
+        audioSource.clip = BGMAudioClips[8];
+        audioSource.Play();
+      
+        StartCoroutine(VolumeFadeIn());
+    }
+
+    public void EndMapMusic()
+    {
+        StartCoroutine(VolumeFadeOut());
+
+        audioSource.clip = BGMAudioClips[6];
+        audioSource.Play();
+       
+        StartCoroutine(VolumeFadeIn());
+    }
+
+    public void GoodEndMusic()
+    {
+        StartCoroutine(VolumeFadeOut());
+
+        audioSource.clip = BGMAudioClips[5];
+        audioSource.Play();
+        
+        StartCoroutine(VolumeFadeIn());
+    }
+
+    public void HeartMiniStartMusic()
+    {
+        StartCoroutine(VolumeFadeOut());
+
+        audioSource.clip = BGMAudioClips[9];
+        audioSource.Play();
+      
+        StartCoroutine(VolumeFadeIn());
+    }
+
+    public void HeartMiniLoopMusic()
+    {
+
+        audioSource.clip = BGMAudioClips[10];
+        audioSource.Play();
+       
+    }
 }
