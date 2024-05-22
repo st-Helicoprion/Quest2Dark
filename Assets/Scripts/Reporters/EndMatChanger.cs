@@ -6,16 +6,16 @@ public class EndMatChanger : MonoBehaviour
 {
     public Material[] endMat;
     public Renderer[] rend;
-    private void OnTriggerEnter(Collider other)
+
+    private void Update()
     {
-       if(other.CompareTag("EndShifter"))
+        if (EndingManager.instance.changeMapMat)
         {
-            foreach(Renderer r in rend)
+            foreach (Renderer r in rend)
             {
                 r.materials = endMat;
             }
-            
+
         }
-        else return;
-    }  
+    }
 }

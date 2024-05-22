@@ -48,7 +48,7 @@ public class AudioManager : MonoBehaviour
     {
         while(audioSource.volume>0)
         {
-            audioSource.volume-=0.1f;
+            audioSource.volume-=0.075f;
             yield return null;
         }
         
@@ -56,9 +56,9 @@ public class AudioManager : MonoBehaviour
 
     public IEnumerator VolumeFadeIn()
     {
-        while (audioSource.volume <0.5f)
+        while (audioSource.volume <1)
         {
-            audioSource.volume+=0.1f;
+            audioSource.volume+=0.075f;
             yield return null;
         }
 

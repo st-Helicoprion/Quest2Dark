@@ -708,17 +708,6 @@
                 },
                 {
                     "name": "",
-                    "id": "40eec714-c95b-47d3-9f2b-7ad48e28b0eb",
-                    "path": "<XRController>{LeftHand}/secondaryButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Restart",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "ec3fbc62-408b-413d-9e22-22dab882f2e7",
                     "path": "<Keyboard>/escape",
                     "interactions": "",

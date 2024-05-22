@@ -92,7 +92,7 @@ public class HandAnimation : MonoBehaviour
             {
                 
                 animator.SetFloat("Grip", 0f);
-               
+                
             }
         yield return null;
 

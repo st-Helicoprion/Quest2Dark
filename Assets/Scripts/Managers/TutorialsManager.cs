@@ -2,15 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using Unity.XR.CoreUtils;
 using UnityEditor;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using static DialogueManager;
-using static Unity.VisualScripting.Icons;
-using static UnityEditor.Progress;
 
 public class TutorialsManager : MonoBehaviour
 {
@@ -169,6 +166,7 @@ public class TutorialsManager : MonoBehaviour
     {
         player.parent.parent.GetComponentInChildren<PlayerMoveFeedback>().enabled = false;
         player.parent.parent.GetComponentInChildren<ContinuousMoveProviderBase>().moveSpeed = 0;
+        PlayerMoveFeedback.moving = false;
 
         tutSonarPoint = player.parent.parent.position;
         GameObject activeTutSonar=Instantiate(tutSonarPrefab, tutSonarPoint - new Vector3(0, 29, 0), Quaternion.identity);
@@ -228,7 +226,8 @@ public class TutorialsManager : MonoBehaviour
     {
         player.parent.parent.GetComponentInChildren<PlayerMoveFeedback>().enabled = false;
         player.parent.parent.GetComponentInChildren<ContinuousMoveProviderBase>().moveSpeed = 0;
-        foreach(TargetPracticeReporter targets in spawnPointToUse.tutSpots)
+        PlayerMoveFeedback.moving = false;
+        foreach (TargetPracticeReporter targets in spawnPointToUse.tutSpots)
         {
             targets.ShowBox();
         }
@@ -295,7 +294,8 @@ public class TutorialsManager : MonoBehaviour
     {
         player.parent.parent.GetComponentInChildren<PlayerMoveFeedback>().enabled = false;
         player.parent.parent.GetComponentInChildren<ContinuousMoveProviderBase>().moveSpeed = 0;
-    
+        PlayerMoveFeedback.moving = false;
+
         spawnPointToUse.tutSpots[0].ShowBox();
         while (!planeGoal)
         {
@@ -359,6 +359,7 @@ public class TutorialsManager : MonoBehaviour
     {
         player.parent.parent.GetComponentInChildren<PlayerMoveFeedback>().enabled = false;
         player.parent.parent.GetComponentInChildren<ContinuousMoveProviderBase>().moveSpeed = 0;
+        PlayerMoveFeedback.moving = false;
 
         spawnPointToUse.tutSpots[0].ShowSonar();
         while (!topGoal)
@@ -419,7 +420,6 @@ public class TutorialsManager : MonoBehaviour
             linesToUse = introLines[1];
         }
 
-        GameEndReporter.tutorialDone = true;
         if(!GameEndReporter.callTower)
         {
             GameEndReporter.callTower = true;
@@ -433,15 +433,21 @@ public class TutorialsManager : MonoBehaviour
         dialogueText.text = linesToUse.lines[6];
         yield return new WaitForSeconds(3);
         dialogueText.text = linesToUse.lines[7];
-        anim.SetTrigger("Greet");
         yield return new WaitForSeconds(3);
         dialogueText.text = linesToUse.lines[8];
-        ActivateControlsUI();
         anim.SetTrigger("Greet");
         yield return new WaitForSeconds(3);
         dialogueText.text = linesToUse.lines[9];
         yield return new WaitForSeconds(3);
+        dialogueText.text = linesToUse.lines[10];
+        anim.SetTrigger("Greet");
+        yield return new WaitForSeconds(3);
+        dialogueText.text = linesToUse.lines[11];
+        ActivateControlsUI();
+        anim.SetTrigger("Greet");
+        yield return new WaitForSeconds(3);
 
+        GameEndReporter.tutorialDone = true;
         //PlayerPrefs.SetInt("IntroDone", 1);
         GameManager.readyToReboot = true;
         DeactivateControlsUI();
@@ -468,9 +474,9 @@ public class TutorialsManager : MonoBehaviour
             linesToUse = introLines[1];
         }
         yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[10];
+        dialogueText.text = linesToUse.lines[12];
         yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[11];
+        dialogueText.text = linesToUse.lines[13];
         yield return new WaitForSeconds(3);
         Destroy(kekActive.gameObject);
 
@@ -495,6 +501,9 @@ public class TutorialsManager : MonoBehaviour
         }
         else
         {
+
+            anim = kekActive.GetComponentInChildren<Animator>();
+
             if (KeyItemReporter.tutID == 0&&!cicadaTut)
             {
                 kekActive.position = spawnPointToUse.transform.position;
@@ -506,7 +515,7 @@ public class TutorialsManager : MonoBehaviour
                 {
                     linesToUse = cicadaTutLines[1];
                 }
-                StartCoroutine(CicadaTutorial(kekActive.GetComponentInChildren<TextMeshPro>()));
+                StartCoroutine(CicadaTutorial(kekActive.GetChild(3).Find("KekDialog").GetComponent<TextMeshPro>()));
 
             }
             else if (KeyItemReporter.tutID == 1&&!gunTut)
@@ -520,7 +529,7 @@ public class TutorialsManager : MonoBehaviour
                 {
                     linesToUse = gunTutLines[1];
                 }
-                StartCoroutine(GunTutorial(kekActive.GetComponentInChildren<TextMeshPro>()));
+                StartCoroutine(GunTutorial(kekActive.GetChild(3).Find("KekDialog").GetComponent<TextMeshPro>()));
             }
             else if (KeyItemReporter.tutID == 2&&!planeTut)
             {
@@ -533,7 +542,7 @@ public class TutorialsManager : MonoBehaviour
                 {
                     linesToUse = planeTutLines[1];
                 }
-                StartCoroutine(PlaneTutorial(kekActive.GetComponentInChildren<TextMeshPro>()));
+                StartCoroutine(PlaneTutorial(kekActive.GetChild(3).Find("KekDialog").GetComponent<TextMeshPro>()));
             }
             else if (KeyItemReporter.tutID == 3&&!topTut)
             {
@@ -546,7 +555,7 @@ public class TutorialsManager : MonoBehaviour
                 {
                     linesToUse = topTutLines[1];
                 }
-                StartCoroutine(TopTutorial(kekActive.GetComponentInChildren<TextMeshPro>()));
+                StartCoroutine(TopTutorial(kekActive.GetChild(3).Find("KekDialog").GetComponent<TextMeshPro>()));
             }
             else return;
 

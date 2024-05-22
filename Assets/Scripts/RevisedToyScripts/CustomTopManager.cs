@@ -148,7 +148,7 @@ public class CustomTopManager : MonoBehaviour
        
         if(PlayerMoveFeedback.moving)
         {
-            rb.AddForce(4 * force * direction);
+            rb.AddForce(2 * force * direction);
         }else
         rb.AddForce(direction * force);
         topAudioSource.Stop();

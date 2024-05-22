@@ -10,6 +10,7 @@ public class UIViewAligner : MonoBehaviour
     private void Start()
     {
         gameObject.SetActive(true);
+        
     }
 
     // Update is called once per frame

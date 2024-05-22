@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using static DialogueManager;
-using static Unity.VisualScripting.Icons;
 
 public class EndingManager : MonoBehaviour
 {
@@ -16,7 +14,7 @@ public class EndingManager : MonoBehaviour
                       flowerRain, dustCloud;
     public Transform splatPoint, kekSpawnPoint, kekMovePoint;
     public Camera cam; public Color bgColor;
-    public bool gameFinished, isPlayingEnd;
+    public bool gameFinished, isPlayingEnd, changeMapMat;
     public LineRenderer snipeLine;
 
     [Header("Minigame")]
@@ -80,6 +78,7 @@ public class EndingManager : MonoBehaviour
         kekLine.text = linesToUse.lines[0];
         yield return new WaitForSeconds(3);
         kekLine.text = linesToUse.lines[1];
+        kekActive.LookAt(qq.position);
         yield return new WaitForSeconds(3);
         girlLine.text = linesToUse.lines[2];
         kekLine.text = "";
@@ -89,7 +88,7 @@ public class EndingManager : MonoBehaviour
         yield return new WaitForSeconds(3);
         kekLine.text = linesToUse.lines[4];
         StartCoroutine(MoveKek(kekMovePoint.position));
-        kekActive.LookAt(qq.position);
+        kekActive.LookAt(cam.transform.position);
         yield return new WaitForSeconds(3);
         kekLine.text = linesToUse.lines[5];
         minigameHeart.SetActive(true);
@@ -158,12 +157,13 @@ public class EndingManager : MonoBehaviour
         }
         girlLine.text = linesToUse.lines[14];
         flowerBed.SetActive(true);
+        qq.position = flowerBed.transform.position + new Vector3(0, 1, 0);
         AudioManager.instance.GoodEndMusic();
         yield return new WaitForSeconds(3);
         girlLine.text = linesToUse.lines[15];
         yield return new WaitForSeconds(3);
-        Destroy(qq.gameObject);
-        creditsPanel.SetActive(true);
+        //creditsPanel.SetActive(true);
+        StartCoroutine(ReturnToStart());
     }
 
         public void BadEnd()
@@ -213,6 +213,8 @@ public class EndingManager : MonoBehaviour
         kekLine.text = linesToUse.lines[26];
         yield return new WaitForSeconds(3);
         kekLine.text = linesToUse.lines[27];
+        yield return new WaitForSeconds(3);
+        kekLine.text = linesToUse.lines[28];
         StartCoroutine(ShootSnipeLine());
         while (!gameFinished)
         {
@@ -224,29 +226,30 @@ public class EndingManager : MonoBehaviour
         girlSplat.SetActive(true);
         Destroy(qq.gameObject);
         yield return new WaitForSeconds(3);
-        creditsPanel.SetActive(true);
+        //creditsPanel.SetActive(true);
+        StartCoroutine(ReturnToStart());
     }
 
     IEnumerator ExpandNewMat()
     {
+        changeMapMat = true;
         cam.backgroundColor = bgColor;
         Destroy(kekActive.gameObject);
+        Destroy(minigameHeart);
         while (fadeToWhite.transform.localScale.x<50)
         {
             fadeToWhite.transform.localScale += new Vector3(.5f, .5f, .5f);
             yield return null;
         }
         gameFinished = true;
+        dustCloud.SetActive(false);
+        flowerRain.SetActive(true);
     }
 
     IEnumerator ShootSnipeLine()
     {
-        while(snipeLine.GetPosition(1)!=splatPoint.position)
-        {
-            Vector3 trackingPos = splatPoint.position-snipeLine.GetPosition(1);
-            snipeLine.SetPosition(1, trackingPos);
-            yield return new WaitForSeconds(0.05f);
-        }
+        
+        yield return new WaitForSeconds(3);
         gameFinished = true;
         snipeLine.gameObject.SetActive(false);
     }
@@ -258,8 +261,8 @@ public class EndingManager : MonoBehaviour
             Vector3 kekDir = mergePoint.position-kekActive.position;
             Vector3 girlDir = mergePoint.position-qq.position;
 
-            kekActive.position += kekDir;
-            qq.position += girlDir;
+            kekActive.position += 0.05f*kekDir;
+            qq.position += 0.05f*girlDir;
             yield return null;
         }
         StartCoroutine(ExpandNewMat());
@@ -281,8 +284,15 @@ public class EndingManager : MonoBehaviour
         while(kekActive.position!=targetPos)
         {
             Vector3 direction = targetPos- kekActive.position;
-            kekActive.position += direction;
+            kekActive.position += 0.05f*direction;
         }
         yield return null;
+    }
+
+    IEnumerator ReturnToStart()
+    {
+        GameManager.readyToReboot = false;
+        yield return new WaitForSeconds(20);
+        GameManager.instance.SpawnPlayerInRoom();
     }
 }

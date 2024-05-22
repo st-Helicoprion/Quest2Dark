@@ -123,7 +123,7 @@ MonoBehaviour:
   - {fileID: 3878130029140462488}
   - {fileID: 2322778675444775120}
   videoPos: {fileID: 1658517480013124226}
-  giftSpot: {x: 0, y: 0, z: 0}
+  giftSpot: {fileID: 0}
 --- !u!1 &5022287693596095211
 GameObject:
   m_ObjectHideFlags: 0

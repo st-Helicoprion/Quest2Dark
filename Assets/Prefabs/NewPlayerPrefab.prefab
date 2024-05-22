@@ -953,7 +953,7 @@ MonoBehaviour:
   customCont: 1
   customImgs: 0
   engLine: shoot-------
-  mandLine: "\u958B\u5F37-------"
+  mandLine: "\u958B\u69CD-------"
   textToAdapt: {fileID: 8629313776004157882}
   engImg: {fileID: 0}
   mandImg: {fileID: 0}

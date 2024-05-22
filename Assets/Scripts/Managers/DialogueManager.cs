@@ -92,6 +92,7 @@ public class DialogueManager : MonoBehaviour
             TutorialsManager.kekActive= Instantiate(TutorialsManager.instance.kek, TutorialsManager.spawnPointToUse.transform.position, Quaternion.identity).transform;
             kekActive = TutorialsManager.kekActive;
             anim = kekActive.GetComponentInChildren<Animator>();
+            
             kekActive.LookAt(player.position);
 
             AudioManager.instance.KekThemeMusic();
@@ -140,9 +141,15 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = linesToUse.lines[7];
         yield return new WaitForSeconds(5);
         dialogueText.text = linesToUse.lines[8];
-        anim.SetTrigger("Greet");
         yield return new WaitForSeconds(5);
         dialogueText.text = linesToUse.lines[9];
+        yield return new WaitForSeconds(5);
+        dialogueText.text = linesToUse.lines[10];
+        anim.SetTrigger("Greet");
+        yield return new WaitForSeconds(5);
+        dialogueText.text= linesToUse.lines[11];
+        yield return new WaitForSeconds(5);
+        dialogueText.text = linesToUse.lines[12];
        /* yield return new WaitForSeconds(5);
         dialogueText.text = linesToUse.lines[10];
         anim.SetTrigger("Greet");*/
@@ -172,12 +179,8 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("watching story 2");
         isStory = true;
         yield return new WaitForSeconds(1);
-        dialogueText.text = linesToUse.lines[11];
-        anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[12];
-        yield return new WaitForSeconds(5);
         dialogueText.text = linesToUse.lines[13];
+        anim.SetTrigger("Greet");
         yield return new WaitForSeconds(5);
         dialogueText.text = linesToUse.lines[14];
         yield return new WaitForSeconds(5);
@@ -190,12 +193,17 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = linesToUse.lines[18];
         yield return new WaitForSeconds(5);
         dialogueText.text = linesToUse.lines[19];
-        anim.SetTrigger("Greet");
         yield return new WaitForSeconds(5);
         dialogueText.text = linesToUse.lines[20];
         yield return new WaitForSeconds(5);
         dialogueText.text = linesToUse.lines[21];
+        yield return new WaitForSeconds(5);
+        dialogueText.text = linesToUse.lines[22];
         anim.SetTrigger("Greet");
+        yield return new WaitForSeconds(5);
+        dialogueText.text = linesToUse.lines[23];
+        yield return new WaitForSeconds(5);
+        dialogueText.text = linesToUse.lines[24];
         if (TutorialsManager.spawnPointToUse.giftSpot != null)
         {
             Instantiate(giftBox, TutorialsManager.spawnPointToUse.giftSpot.position, Quaternion.identity);
@@ -225,12 +233,8 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("watching story 3");
         isStory = true;
         yield return new WaitForSeconds(1);
-        dialogueText.text = linesToUse.lines[23];
-        anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[24];
-        yield return new WaitForSeconds(5);
         dialogueText.text = linesToUse.lines[25];
+        anim.SetTrigger("Greet");
         yield return new WaitForSeconds(5);
         dialogueText.text = linesToUse.lines[26];
         yield return new WaitForSeconds(5);
@@ -253,14 +257,16 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = linesToUse.lines[35];
         yield return new WaitForSeconds(5);
         dialogueText.text = linesToUse.lines[36];
-        anim.SetTrigger("Greet");
         yield return new WaitForSeconds(5);
         dialogueText.text = linesToUse.lines[37];
+        anim.SetTrigger("Greet");
         yield return new WaitForSeconds(5);
         dialogueText.text = linesToUse.lines[38];
         anim.SetTrigger("Greet");
         yield return new WaitForSeconds(5);
         dialogueText.text = linesToUse.lines[39];
+        yield return new WaitForSeconds(5);
+        dialogueText.text = linesToUse.lines[40];
         if (TutorialsManager.spawnPointToUse.giftSpot != null)
         {
             Instantiate(giftBox, TutorialsManager.spawnPointToUse.giftSpot.position, Quaternion.identity);

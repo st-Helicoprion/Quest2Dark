@@ -226,9 +226,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64b30123164e422498396a6fd3c71314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  language: 0
+  language: 1
   engFontAsset: {fileID: 11400000, guid: b43ad26968bb88d44a7e171c4a97f57b, type: 2}
-  mandFontAsset: {fileID: 11400000, guid: d41f9dfb7d333c140a76ed7b0881e408, type: 2}
+  mandFontAsset: {fileID: 11400000, guid: fc70e431d8687b546937b4cccb5e573b, type: 2}
   kekActive: {fileID: 0}
   anim: {fileID: 0}
   linesToUse: {fileID: 0}
@@ -309,7 +309,7 @@ MonoBehaviour:
   spawnPointID: 0
   enemyWaveID: 0
   enemySummonID: 0
-  enemyPattern: 03000000020000000300000002000000
+  enemyPattern: 06000000040000000200000002000000
   playerEquipID: 01000000030000000000000002000000
   playerPrefab: {fileID: 4845216885473641645, guid: 0cfc0b131d1b16946bb495e66a9512f9, type: 3}
   endPlayerPrefab: {fileID: 4845216885473641645, guid: bc6848aad4778d545a1e969b56f3774d, type: 3}
@@ -323,10 +323,14 @@ MonoBehaviour:
   - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
   - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
   - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
-  - {fileID: 5250758653461402767, guid: 9d6d2985bae35f84fa800b81ebe13699, type: 3}
+  - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
+  - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
   - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
   - {fileID: 5250758653461402767, guid: 9d6d2985bae35f84fa800b81ebe13699, type: 3}
   - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
+  - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
+  - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
+  - {fileID: 5250758653461402767, guid: 9d6d2985bae35f84fa800b81ebe13699, type: 3}
   - {fileID: 5925241361927654960, guid: 9fc793f253d9ad645b2178a637c4fcc7, type: 3}
   - {fileID: 4998528432997065592, guid: 5f18678ec34681d4ab7d4a9e28be4aa0, type: 3}
   - {fileID: 5250758653461402767, guid: 9d6d2985bae35f84fa800b81ebe13699, type: 3}
@@ -497,7 +501,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9ff9fcc46d2944f4c81f3fd2d8f11996, type: 3}
   - {fileID: 8300000, guid: 066b7631b8e7ab74fbf4a33580cfde99, type: 3}
   - {fileID: 8300000, guid: 17d19b005cd63724299893fdf7fc497b, type: 3}
-  - {fileID: 8300000, guid: c95b8f323dd7172478eac3ba9693b24c, type: 3}
+  - {fileID: 8300000, guid: bf0143226c7e9fb4da47f45607dab191, type: 3}
   - {fileID: 8300000, guid: ef45e881291336a478eaaecc2e9667c1, type: 3}
   - {fileID: 8300000, guid: c95b8f323dd7172478eac3ba9693b24c, type: 3}
   - {fileID: 8300000, guid: 009c4f230ffee0c44bb60cc670868374, type: 3}

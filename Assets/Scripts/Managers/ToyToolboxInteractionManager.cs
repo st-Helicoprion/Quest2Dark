@@ -56,7 +56,16 @@ public class ToyToolboxInteractionManager : MonoBehaviour
         }
 
         TutorialUIToggle();
-        
+
+        if (StoryItemHider.summonToy)
+        {
+            if (!isInBox && !isInHand)
+            {
+                ShowEquipVisuals();
+            }
+            else return;
+        }
+
     }
 
 
@@ -234,7 +243,6 @@ public class ToyToolboxInteractionManager : MonoBehaviour
             {
                 handState.retractTut.SetActive(false);
                 handState.shootTut.SetActive(false);
-
             }
             else return;
             }
