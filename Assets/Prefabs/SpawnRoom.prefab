@@ -303,7 +303,7 @@ Transform:
   m_GameObject: {fileID: 5803265289100988133}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 5}
+  m_LocalPosition: {x: 0, y: 2.5, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1168,6 +1168,14 @@ PrefabInstance:
       propertyPath: logos.Array.data[0]
       value: 
       objectReference: {fileID: 5022287693596095211}
+    - target: {fileID: 8747397234344369187, guid: d917bd614babd3945ac2fd4805a9ea00, type: 3}
+      propertyPath: m_fontSize
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747397234344369187, guid: d917bd614babd3945ac2fd4805a9ea00, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 9108422351290152003, guid: d917bd614babd3945ac2fd4805a9ea00, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
