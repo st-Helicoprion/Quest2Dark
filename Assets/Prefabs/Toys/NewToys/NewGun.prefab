@@ -1928,6 +1928,7 @@ GameObject:
   - component: {fileID: 7804098987387759571}
   - component: {fileID: 2669878676695519432}
   - component: {fileID: 4957014131223659631}
+  - component: {fileID: 9083004273122357985}
   m_Layer: 0
   m_Name: UIText
   m_TagString: Untagged
@@ -2088,6 +2089,26 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 2669878676695519432}
   m_maskType: 0
+--- !u!114 &9083004273122357985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102314656246690321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30fd633c72bccdd4689c311d8b501eb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customCont: 1
+  customImgs: 0
+  engLine: Grip to take
+  mandLine: "\u6309\u4E0B[\u6293\u63E1\u9375]\u62FF\u8D77"
+  textToAdapt: {fileID: 4957014131223659631}
+  engImg: {fileID: 0}
+  mandImg: {fileID: 0}
+  imgToAdapt: {fileID: 0}
 --- !u!1 &2189537628529174265
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6849872687435670685}
   - component: {fileID: 6544543333772835462}
+  - component: {fileID: 6651134825849508426}
   m_Layer: 0
   m_Name: EndInternalSonar
   m_TagString: Untagged
@@ -47,6 +48,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSonar: {fileID: 0}
   speed: 100
+--- !u!114 &6651134825849508426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6897076775816023034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 097159013aa0e044d81f3270b6c93e12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endMat:
+  - {fileID: 2100000, guid: ea9da6a4470fe33409c2b8a40a634877, type: 2}
+  rend:
+  - {fileID: 3296018285268164245}
 --- !u!1001 &4214342904496996881
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -112,6 +129,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebfb002c05c44e6429b7eabafbd6359b, type: 3}
+--- !u!23 &3296018285268164245 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: ebfb002c05c44e6429b7eabafbd6359b, type: 3}
+  m_PrefabInstance: {fileID: 4214342904496996881}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4465006728274388474 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ebfb002c05c44e6429b7eabafbd6359b, type: 3}

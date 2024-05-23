@@ -1029,9 +1029,9 @@ MonoBehaviour:
   winMessage: {fileID: 2102875358874587464}
   audioSource: {fileID: 2450724331983536266}
   audioClips:
-  - {fileID: 8300000, guid: e180ce0c42dfaa94ab550462b9294ec7, type: 3}
-  - {fileID: 8300000, guid: bf459d3a82977824fa9414033b5dfc41, type: 3}
-  - {fileID: 8300000, guid: 04f9e91b1aa6fdf44bd96c281b56cf35, type: 3}
+  - {fileID: 8300000, guid: e2ca412fa77828c4d8e4a314f32dcca4, type: 3}
+  - {fileID: 8300000, guid: 842dc7a8202888a49a7ee29299d9fcbc, type: 3}
+  - {fileID: 8300000, guid: 6d8f6ed1fc2b25d4482b1afa49a72948, type: 3}
 --- !u!205 &536392126216229559
 LODGroup:
   m_ObjectHideFlags: 0

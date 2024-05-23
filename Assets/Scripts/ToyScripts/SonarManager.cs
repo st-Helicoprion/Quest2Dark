@@ -120,7 +120,7 @@ public class SonarManager : MonoBehaviour
             if (hitboxManager.isSonarUp == true)
             {
                 IncreaseSonarHeight();
-                buffer = 3f;
+                buffer = 3*1.7f;
 
             }
             else

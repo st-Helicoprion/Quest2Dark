@@ -15,6 +15,7 @@ public class StickGiant : MonoBehaviour
     public Vector3 idleTarget;
     public Animator anim;
     public bool refreshTarget, creeping, isNearPlayer, tracking;
+    public static bool musicOn;
     public float count, creepCount;
     public LineRenderer lineToPlayer;
     public AudioSource audioSource, warningAudioSource;
@@ -172,10 +173,13 @@ public class StickGiant : MonoBehaviour
             audioSource.volume += 0.1f;
         else audioSource.volume = 1;
 
-            
-        if (!audioSource.isPlaying)
+        if(!musicOn)
         {
-            audioSource.PlayOneShot(AudioManager.instance.StickGiantAudioClips[1]);
+            musicOn = true;
+            AudioManager.instance.audioSource.clip = AudioManager.instance.StickGiantAudioClips[1];
+            AudioManager.instance.audioSource.Play();
+        
+
         }
 
         CheckForRemoveTracker();
@@ -207,6 +211,14 @@ public class StickGiant : MonoBehaviour
                 allAgents[i].GetComponent<FingerMonster>().FreezeMonster();
                 allAgents[i].GetComponent<FingerMonster>().isControlled = false;
             }
+
+        }
+
+        if(musicOn)
+        {
+            musicOn = false;
+            AudioManager.instance.audioSource.clip = AudioManager.instance.BGMAudioClips[BGMSwitcherReporter.currentAreaID];
+            AudioManager.instance.audioSource.Play();
 
         }
     }

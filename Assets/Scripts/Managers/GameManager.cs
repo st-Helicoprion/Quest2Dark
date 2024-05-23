@@ -177,12 +177,16 @@ public class GameManager : MonoBehaviour
     void InitPlayerLinks()
     {
         UIViewAligner.player = player.gameObject.GetNamedChild("Main Camera").transform;
-        IntroSpawnReporter.player = UIViewAligner.player;
-        WeakStateManager.instance.player = player;
-        PrizeBoxManager.taken = false;
 
-        TutorialsManager.instance.controlsMap = FindObjectOfType<DebugHelper>();
-        TutorialsManager.instance.controlsMap.enabled = false;
+        if (SceneManager.GetActiveScene().name == "LabyrinthGameScene")
+        {
+            IntroSpawnReporter.player = UIViewAligner.player;
+            WeakStateManager.instance.player = player;
+            PrizeBoxManager.taken = false;
+            TutorialsManager.instance.controlsMap = FindObjectOfType<DebugHelper>();
+            TutorialsManager.instance.controlsMap.enabled = false;
+        }
+       
 
         /*if (PlayerPrefs.GetInt("IntroEnd") == 1)
         {
@@ -378,7 +382,7 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         roomSpawnPoints.AddRange(GameObject.FindGameObjectsWithTag("Respawn"));
-        player = Instantiate(endPlayerPrefab, roomSpawnPoints[3].transform.position + new Vector3(0, 2, 0), roomSpawnPoints[3].transform.localRotation).transform;
+        player = Instantiate(endPlayerPrefab, roomSpawnPoints[3].transform.position + new Vector3(0, 2, 0), roomSpawnPoints[3].transform.rotation).transform;
         EndingManager.instance.cam = player.GetComponentInChildren<Camera>();
         InitPlayerLinks();
     }

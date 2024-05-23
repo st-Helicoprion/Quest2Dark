@@ -78,6 +78,7 @@ public class AudioManager : MonoBehaviour
     {
         StartCoroutine(VolumeFadeOut());
 
+        BGMSwitcherReporter.currentAreaID = 0;
         audioSource.clip = BGMAudioClips[8];
         audioSource.Play();
       

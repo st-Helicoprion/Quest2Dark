@@ -78,6 +78,7 @@ public class CustomTopManager : MonoBehaviour
         SpinAnim();
         if (!topAudioSource.isPlaying)
         {
+            topAudioSource.volume = 0.5f;
             topAudioSource.PlayOneShot(AudioManager.instance.ToysSFX[2]);
         }
         if (!domainExpanded)
@@ -143,6 +144,9 @@ public class CustomTopManager : MonoBehaviour
     void ReleaseTop()
     {
        Vector3 direction = trackedPositions[^1] - trackedPositions[0];
+       /* direction.x=Mathf.Clamp(direction.x, 0.7f, 10);
+        direction.y = Mathf.Clamp(direction.y, 0.7f, 10);
+        direction.z = Mathf.Clamp(direction.z, 0.7f, 10);*/
         transform.parent= null;
         rb.isKinematic = false;
        
