@@ -5,15 +5,20 @@ using TMPro;
 
 public class LanguageAdaptor : MonoBehaviour
 {
-    public bool customCont, customImgs;
-    public string engLine, mandLine;
+    public bool customCont, customImgs, customColor;
+    [TextArea]
+    public string engLine;
+    [TextArea]
+    public string mandLine;
+
     public TextMeshPro textToAdapt;
-    public Material engImg, mandImg;
+    public Material engImg, mandImg, engBlackImg, mandBlackImg;
     public Renderer imgToAdapt;
 
     // Update is called once per frame
     void Update()
     {
+
         if(DialogueManager.instance.language==DialogueManager.LangSelect.EN)
         {
             if(customImgs)
@@ -48,5 +53,25 @@ public class LanguageAdaptor : MonoBehaviour
                 }
             }
         }
+
+        if(EndingManager.instance!=null)
+        {
+            if (EndingManager.instance.changeMapMat)
+            {
+                if (customColor)
+                {
+                    textToAdapt.color = Color.black;
+                    if (DialogueManager.instance.language == DialogueManager.LangSelect.EN && customImgs)
+                    {
+                        imgToAdapt.material = engBlackImg;
+                    }
+                    else if (DialogueManager.instance.language == DialogueManager.LangSelect.ZH && customImgs)
+                    {
+                        imgToAdapt.material = mandBlackImg;
+                    }
+                }
+            }
+        }
+        else return;
     }
 }

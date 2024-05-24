@@ -37,6 +37,22 @@ public class HandAnimation : MonoBehaviour
             reloadCheck= false;
             StartCoroutine(CheckForEmptyHand());
         }
+
+        if(!TutorialsManager.isTut&&retractTut!=null&&shootTut!=null)
+        {
+            retractTut.SetActive(false);
+            shootTut.SetActive(false);
+        }
+
+        if(shootTut!=null)
+        {
+            if (GunSonarManager.heldHand == this)
+            {
+                shootTut.SetActive(true);
+            }
+            else { shootTut.SetActive(false); }
+        }
+      
     }
 
     private void Awake() => animator = GetComponent<Animator>();
@@ -109,8 +125,6 @@ public class HandAnimation : MonoBehaviour
                 StartCoroutine(CheckForEmptyHand());
 
             }
-
-
             
         }
 
@@ -126,4 +140,6 @@ public class HandAnimation : MonoBehaviour
 
 
     }
+
+   
 }

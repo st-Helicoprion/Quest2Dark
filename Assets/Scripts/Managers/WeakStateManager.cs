@@ -32,7 +32,12 @@ public class WeakStateManager : MonoBehaviour
     public void SwitchToWeakState()
     {
         weakened=true;
-        AudioManager.instance.WeakStateMusic();
+        if (!StickGiant.musicOn)
+        {
+            AudioManager.instance.WeakStateMusic();
+
+        }
+        else return;
     }
 
 }

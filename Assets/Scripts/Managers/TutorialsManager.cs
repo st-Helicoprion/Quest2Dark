@@ -450,7 +450,6 @@ public class TutorialsManager : MonoBehaviour
         GameEndReporter.tutorialDone = true;
         //PlayerPrefs.SetInt("IntroDone", 1);
         GameManager.readyToReboot = true;
-        DeactivateControlsUI();
         Destroy(kekActive.gameObject);
 
         player.parent.parent.GetComponentInChildren<PlayerMoveFeedback>().enabled = true;
@@ -477,6 +476,8 @@ public class TutorialsManager : MonoBehaviour
         dialogueText.text = linesToUse.lines[12];
         yield return new WaitForSeconds(3);
         dialogueText.text = linesToUse.lines[13];
+        yield return new WaitForSeconds(3);
+        dialogueText.text = linesToUse.lines[14];
         yield return new WaitForSeconds(3);
         Destroy(kekActive.gameObject);
 

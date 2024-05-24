@@ -124,6 +124,8 @@ public class FingerMonster : MonoBehaviour
         wakeDelay = 3.5f;
         attackHitbox.SetActive(false);
         isChasing = false;
+
+        audioSource.Stop();
     }
 
     void Wander()//monster walks randomly around map

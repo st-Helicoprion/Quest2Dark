@@ -19,6 +19,7 @@ public class ToyToolboxInteractionManager : MonoBehaviour
     public List<ToolboxVacancyChecker> boxList = new();
     public Collider[] colliders;
     public Renderer[] equipVisuals;
+    public AudioSource audioSource;
 
 
     public static bool itemTaken;
@@ -29,6 +30,10 @@ public class ToyToolboxInteractionManager : MonoBehaviour
     {
         itemTaken = false;
         
+    }
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
     }
     private void Update()
     {
@@ -211,19 +216,8 @@ public class ToyToolboxInteractionManager : MonoBehaviour
 
     void TutorialUIToggle()
     {
-            if (TutorialsManager.isTut && !isInBox )
+            if (TutorialsManager.isTut && !isInBox &&handState!=null)
             {
-                if (handState != null)
-                {
-                    if (transform.CompareTag("Gun")&&handState==GunSonarManager.handState)
-                    {
-                        handState.shootTut.SetActive(true);
-                    
-                    }
-                    else
-                    {
-                        handState.shootTut.SetActive(false);
-                    }
 
                     if (transform.CompareTag("SpinningTop") && CustomTopManager.isSpinning)
                     {
@@ -233,8 +227,6 @@ public class ToyToolboxInteractionManager : MonoBehaviour
                     {
                         handState.retractTut.SetActive(false);
                     }
-                }
-                else return;
                 
             }
             else
@@ -300,6 +292,7 @@ public class ToyToolboxInteractionManager : MonoBehaviour
                     handState.grip = false;
                     print("place in hand");
                     StickToyToHand(handState, handState.handID);
+                    audioSource.PlayOneShot(AudioManager.instance.UISFXAudioClips[5],0.5f);
                    
                 }
 

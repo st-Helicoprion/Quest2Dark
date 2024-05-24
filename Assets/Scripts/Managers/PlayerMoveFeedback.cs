@@ -45,13 +45,13 @@ public class PlayerMoveFeedback : MonoBehaviour
 
                 if (!audioSource.isPlaying&&playerMovement.moveSpeed<3)
                 {
-                    audioSource.volume = 0.5f;
+                    audioSource.volume = 0.25f;
                     audioSource.pitch = Random.Range(1, 1.3f);
                     audioSource.PlayOneShot(moveSound);
                 }
                 if (!audioSource.isPlaying&&playerMovement.moveSpeed > 3)
                 {
-                    audioSource.volume = 0.5f;
+                    audioSource.volume = 0.25f;
                     //audioSource.pitch = Random.Range(1, 1.3f);
                     audioSource.PlayOneShot(runSound);
                     

@@ -15,7 +15,6 @@ public class EndingManager : MonoBehaviour
     public Transform splatPoint, kekSpawnPoint, kekMovePoint;
     public Camera cam; public Color bgColor;
     public bool gameFinished, isPlayingEnd, changeMapMat;
-    public LineRenderer snipeLine;
 
     [Header("Minigame")]
     public bool isMinigame;
@@ -67,7 +66,7 @@ public class EndingManager : MonoBehaviour
             kekActive = Instantiate(kek, kekSpawnPoint.position, Quaternion.identity).transform;
             kekActive.LookAt(cam.transform);
             kekAnim = kekActive.GetComponentInChildren<Animator>();
-            StartCoroutine(GoodEndCoroutine(kekActive.GetChild(3).Find("KekDialog").GetComponent<TextMeshPro>(), qq.GetChild(3).Find("Dialog").GetComponent<TextMeshPro>()));
+            StartCoroutine(GoodEndCoroutine(kekActive.GetChild(3).Find("KekDialog").GetComponent<TextMeshPro>(), qq.GetChild(1).Find("Dialog").GetComponent<TextMeshPro>()));
 
         }
        
@@ -157,12 +156,13 @@ public class EndingManager : MonoBehaviour
         }
         girlLine.text = linesToUse.lines[14];
         flowerBed.SetActive(true);
-        qq.position = flowerBed.transform.position + new Vector3(0, 1, 0);
+        StartCoroutine(MoveGirl(flowerBed.transform.position + new Vector3(0, 1, 0)));
         AudioManager.instance.GoodEndMusic();
         yield return new WaitForSeconds(3);
         girlLine.text = linesToUse.lines[15];
         yield return new WaitForSeconds(3);
-        //creditsPanel.SetActive(true);
+        creditsPanel.SetActive(true);
+        yield return new WaitForSeconds(70);
         StartCoroutine(ReturnToStart());
     }
 
@@ -173,7 +173,7 @@ public class EndingManager : MonoBehaviour
             kekActive = Instantiate(kek, kekSpawnPoint.position, Quaternion.identity).transform;
             kekActive.LookAt(cam.transform);
             kekAnim = kekActive.GetComponentInChildren<Animator>();
-            StartCoroutine(BadEndCoroutine(kekActive.GetChild(3).Find("KekDialog").GetComponent<TextMeshPro>(), qq.GetChild(3).Find("Dialog").GetComponent<TextMeshPro>()));
+            StartCoroutine(BadEndCoroutine(kekActive.GetChild(3).Find("KekDialog").GetComponent<TextMeshPro>(), qq.GetChild(1).Find("Dialog").GetComponent<TextMeshPro>()));
 
         }
        
@@ -215,7 +215,8 @@ public class EndingManager : MonoBehaviour
         kekLine.text = linesToUse.lines[27];
         yield return new WaitForSeconds(3);
         kekLine.text = linesToUse.lines[28];
-        StartCoroutine(ShootSnipeLine());
+        yield return new WaitForSeconds(3);
+        gameFinished = true;
         while (!gameFinished)
         {
             yield return null;
@@ -223,35 +224,32 @@ public class EndingManager : MonoBehaviour
         Destroy(kekActive.gameObject);
         splat.SetActive(true);
         yield return new WaitForSeconds(3);
-        girlSplat.SetActive(true);
         Destroy(qq.gameObject);
+        girlSplat.SetActive(true);
         yield return new WaitForSeconds(3);
-        //creditsPanel.SetActive(true);
+        creditsPanel.SetActive(true);
+        yield return new WaitForSeconds(70);
         StartCoroutine(ReturnToStart());
     }
 
     IEnumerator ExpandNewMat()
     {
-        changeMapMat = true;
-        cam.backgroundColor = bgColor;
         Destroy(kekActive.gameObject);
         Destroy(minigameHeart);
         while (fadeToWhite.transform.localScale.x<50)
         {
-            fadeToWhite.transform.localScale += new Vector3(.5f, .5f, .5f);
+            fadeToWhite.transform.localScale += new Vector3(.1f, .1f, .1f);
+
+            if(fadeToWhite.transform.localScale.x>15)
+            {
+                changeMapMat = true;
+                cam.backgroundColor = bgColor;
+            }
             yield return null;
         }
         gameFinished = true;
         dustCloud.SetActive(false);
         flowerRain.SetActive(true);
-    }
-
-    IEnumerator ShootSnipeLine()
-    {
-        
-        yield return new WaitForSeconds(3);
-        gameFinished = true;
-        snipeLine.gameObject.SetActive(false);
     }
 
     IEnumerator MergeCoroutine()
@@ -289,10 +287,22 @@ public class EndingManager : MonoBehaviour
         yield return null;
     }
 
+    IEnumerator MoveGirl(Vector3 targetPos)
+    {
+        while (qq.position != targetPos)
+        {
+            Vector3 direction = targetPos - qq.position;
+            qq.position += 0.05f * direction;
+        }
+        yield return null;
+    }
     IEnumerator ReturnToStart()
     {
+        yield return null;
         GameManager.readyToReboot = false;
-        yield return new WaitForSeconds(20);
+        changeMapMat = false;
         GameManager.instance.SpawnPlayerInRoom();
+        AudioManager.instance.audioSource.clip = AudioManager.instance.BGMAudioClips[11];
+        AudioManager.instance.audioSource.Play();
     }
 }

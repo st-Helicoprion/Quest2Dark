@@ -27,9 +27,7 @@ public class DebugHelper : MonoBehaviour
     private void Start()
     {
         debug.action.performed += EnableTestObjects;
-        debug.action.performed += DisableExtraObjects;
         debug.action.canceled += DisableTestObjects;
-        debug.action.canceled += EnableExtraObjects;
     }
 
     private void Update()
@@ -70,6 +68,7 @@ public class DebugHelper : MonoBehaviour
             {
                 if (testObjects.Length > 0)
                 {
+                    extraObjects[0].SetActive(false);
                     for (int i = 0; i < testObjects.Length; i++)
                     {
                         testObjects[i].SetActive(true);
@@ -91,6 +90,7 @@ public class DebugHelper : MonoBehaviour
             {
                 if (testObjects.Length > 0)
                 {
+                    extraObjects[0].SetActive(true);
                     for (int i = 0; i < testObjects.Length; i++)
                     {
                         testObjects[i].SetActive(false);
@@ -102,78 +102,5 @@ public class DebugHelper : MonoBehaviour
             }
         }
     }
-
-    void DisableExtraObjects(InputAction.CallbackContext obj)
-    {/*
-        if (this != null&&PlayerPrefs.GetInt("IntroDone")!=1)
-        {
-            if (obj.ReadValue<float>() == 1)
-            {
-                if (extraObjects.Length > 0)
-                {
-                    for (int i = 0; i < extraObjects.Length; i++)
-                    {
-                        extraObjects[i].SetActive(false);
-
-                    }
-                }
-                else return;
-
-            }
-        }*/
-
-        if(this!=null&&!GameEndReporter.tutorialDone)
-        {
-            if (obj.ReadValue<float>() == 1)
-            {
-                if (extraObjects.Length > 0)
-                {
-                    for (int i = 0; i < extraObjects.Length; i++)
-                    {
-                        extraObjects[i].SetActive(false);
-
-                    }
-                }
-                else return;
-
-            }
-        }
-    }
-
-    void EnableExtraObjects(InputAction.CallbackContext obj)
-    {
- /*       if (this != null && PlayerPrefs.GetInt("IntroDone") != 1)
-        {
-            if (obj.ReadValue<float>() == 0)
-            {
-                if (extraObjects.Length > 0)
-                {
-                    for (int i = 0; i < extraObjects.Length; i++)
-                    {
-                        extraObjects[i].SetActive(true);
-
-                    }
-                }
-                else return;
-
-            }
-        }
-*/
-        if (this != null && !GameEndReporter.tutorialDone)
-        {
-            if (obj.ReadValue<float>() == 0)
-            {
-                if (extraObjects.Length > 0)
-                {
-                    for (int i = 0; i < extraObjects.Length; i++)
-                    {
-                        extraObjects[i].SetActive(true);
-
-                    }
-                }
-                else return;
-
-            }
-        }
-    }
+    
 }
