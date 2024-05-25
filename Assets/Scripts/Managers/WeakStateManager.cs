@@ -20,11 +20,15 @@ public class WeakStateManager : MonoBehaviour
             weakCountdown-=Time.deltaTime;
         }
 
+        if(weakCountdown<weakInterval-2)
+        {
+            player.tag = "Player";
+        }
+
         if(weakCountdown < 0) 
         {
             weakened = false;
             weakCountdown = weakInterval;
-            player.tag = "Player";
             ToyToolboxInteractionManager.itemTaken = true;
             AudioManager.instance.CheckBGMToPlay();
         }

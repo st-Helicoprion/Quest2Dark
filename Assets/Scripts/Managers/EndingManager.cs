@@ -104,35 +104,35 @@ public class EndingManager : MonoBehaviour
                 minigameProgress += Time.deltaTime;
             }
             
-            if(minigameProgress>3&&minigameProgress<6)
+            if(minigameProgress>1&&minigameProgress<3)
             {
                 girlLine.text = linesToUse.lines[7];
             }
-            else if(minigameProgress>6&&minigameProgress<9)
+            else if(minigameProgress>3&&minigameProgress<5)
             {
                 kekLine.text = linesToUse.lines[8];
                 girlLine.text = "";
             }
-            else if(minigameProgress>9&&minigameProgress<12)
+            else if(minigameProgress>5&&minigameProgress<7)
             {
                 girlLine.text = linesToUse.lines[9];
                 kekLine.text = "";
             }
-            else if(minigameProgress>12&&minigameProgress<15)
+            else if(minigameProgress>7&&minigameProgress<9)
             {
                 kekLine.text = linesToUse.lines[10];
                 girlLine.text = "";
             }
-            else if(minigameProgress>15&&minigameProgress<18)
+            else if(minigameProgress>9&&minigameProgress<11)
             {
                 kekLine.text = linesToUse.lines[11];
             }
-            else if (minigameProgress > 18 && minigameProgress < 21)
+            else if (minigameProgress > 11 && minigameProgress < 13)
             {
                 girlLine.text = linesToUse.lines[12];
                 kekLine.text = "";
             }
-            else if (minigameProgress > 21)
+            else if (minigameProgress > 13)
             {
                 kekLine.text = linesToUse.lines[13];
                 girlLine.text = "";
@@ -155,12 +155,11 @@ public class EndingManager : MonoBehaviour
             yield return null;
         }
         girlLine.text = linesToUse.lines[14];
-        flowerBed.SetActive(true);
+        
         StartCoroutine(MoveGirl(flowerBed.transform.position + new Vector3(0, 1, 0)));
         AudioManager.instance.GoodEndMusic();
         yield return new WaitForSeconds(3);
         girlLine.text = linesToUse.lines[15];
-        yield return new WaitForSeconds(3);
         creditsPanel.SetActive(true);
         yield return new WaitForSeconds(70);
         StartCoroutine(ReturnToStart());
@@ -226,7 +225,6 @@ public class EndingManager : MonoBehaviour
         yield return new WaitForSeconds(3);
         Destroy(qq.gameObject);
         girlSplat.SetActive(true);
-        yield return new WaitForSeconds(3);
         creditsPanel.SetActive(true);
         yield return new WaitForSeconds(70);
         StartCoroutine(ReturnToStart());
@@ -236,7 +234,7 @@ public class EndingManager : MonoBehaviour
     {
         Destroy(kekActive.gameObject);
         Destroy(minigameHeart);
-        while (fadeToWhite.transform.localScale.x<50)
+        while (fadeToWhite.transform.localScale.x<30)
         {
             fadeToWhite.transform.localScale += new Vector3(.1f, .1f, .1f);
 
@@ -244,12 +242,14 @@ public class EndingManager : MonoBehaviour
             {
                 changeMapMat = true;
                 cam.backgroundColor = bgColor;
+                flowerBed.SetActive(true);
+                dustCloud.SetActive(false);
+                flowerRain.SetActive(true);
             }
             yield return null;
         }
         gameFinished = true;
-        dustCloud.SetActive(false);
-        flowerRain.SetActive(true);
+        
     }
 
     IEnumerator MergeCoroutine()

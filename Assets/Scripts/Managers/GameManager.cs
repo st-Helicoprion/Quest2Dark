@@ -420,6 +420,8 @@ public class GameManager : MonoBehaviour
         gameTimeLimit = 600;
         enemySpawnCountdown = enemySpawnInterval;
 
+        StopAllCoroutines();
+
         TutorialsManager.waitForTutEnd = false;
         GameEndReporter.tutorialDone = false;
         TutorialsManager.cicadaTut = false;

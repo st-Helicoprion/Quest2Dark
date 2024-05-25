@@ -26,11 +26,11 @@ public class ToyToolboxInteractionManager : MonoBehaviour
 
     public float timeInBox, timeInHand;
 
-    private void Awake()
+   /* private void Awake()
     {
         itemTaken = false;
         
-    }
+    }*/
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
