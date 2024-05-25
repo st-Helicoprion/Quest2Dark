@@ -183,8 +183,14 @@ public class GameManager : MonoBehaviour
             IntroSpawnReporter.player = UIViewAligner.player;
             WeakStateManager.instance.player = player;
             PrizeBoxManager.taken = false;
+
             TutorialsManager.instance.controlsMap = FindObjectOfType<DebugHelper>();
             TutorialsManager.instance.controlsMap.enabled = false;
+
+            TutorialsManager.cicadaTut = false;
+            TutorialsManager.topTut = false;
+            TutorialsManager.planeTut = false;
+            TutorialsManager.gunTut = false;
         }
        
 
@@ -424,15 +430,15 @@ public class GameManager : MonoBehaviour
 
         TutorialsManager.waitForTutEnd = false;
         GameEndReporter.tutorialDone = false;
-        TutorialsManager.cicadaTut = false;
-        TutorialsManager.topTut = false;
-        TutorialsManager.planeTut = false;
-        TutorialsManager.gunTut = false;
         gameForceEnd = false;
         PrizeBoxManager.taken = false;
         DialogueManager.instance.story1= false;
         DialogueManager.instance.story2= false;
         DialogueManager.instance.story3= false;
+     
+
+        AudioManager.instance.audioSource.clip = AudioManager.instance.BGMAudioClips[11];
+        AudioManager.instance.audioSource.Play();
     }
 
     public void ExitGame(InputAction.CallbackContext obj)

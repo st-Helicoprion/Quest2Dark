@@ -29,11 +29,6 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        audioSource= GetComponent<AudioSource>();
-    }
-
     public void CheckBGMToPlay()
     {
         StartCoroutine(VolumeFadeOut());

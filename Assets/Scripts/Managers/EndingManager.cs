@@ -259,8 +259,8 @@ public class EndingManager : MonoBehaviour
             Vector3 kekDir = mergePoint.position-kekActive.position;
             Vector3 girlDir = mergePoint.position-qq.position;
 
-            kekActive.position += 0.05f*kekDir;
-            qq.position += 0.05f*girlDir;
+            kekActive.position += 0.1f*kekDir;
+            qq.position += 0.1f*girlDir;
             yield return null;
         }
         StartCoroutine(ExpandNewMat());
@@ -299,9 +299,11 @@ public class EndingManager : MonoBehaviour
     IEnumerator ReturnToStart()
     {
         yield return null;
-        GameManager.readyToReboot = false;
         changeMapMat = false;
+        
+        GameManager.readyToReboot = false;
         GameManager.instance.SpawnPlayerInRoom();
+
         AudioManager.instance.audioSource.clip = AudioManager.instance.BGMAudioClips[11];
         AudioManager.instance.audioSource.Play();
     }

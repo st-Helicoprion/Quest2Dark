@@ -27,7 +27,7 @@ public class CanvasUtilsList : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "LabyrinthGameScene")
         {
-            text.text = GameManager.instance.gameTimeLimit.ToString();
+            text.text = "Time : "+GameManager.instance.gameTimeLimit.ToString();
         }
             
     }
@@ -45,8 +45,8 @@ public class CanvasUtilsList : MonoBehaviour
     {
         if (GameManager.readyToReboot)
         {
-            GameManager.instance.SpawnPlayerInRoom();
             GameManager.readyToReboot = false;
+            GameManager.instance.SpawnPlayerInRoom();
         }
         else return;
     }
