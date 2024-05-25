@@ -2103,11 +2103,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customCont: 1
   customImgs: 0
+  customColor: 0
   engLine: Grip to take
   mandLine: "\u6309\u4E0B[\u6293\u63E1\u9375]\u62FF\u8D77"
   textToAdapt: {fileID: 4957014131223659631}
   engImg: {fileID: 0}
   mandImg: {fileID: 0}
+  engBlackImg: {fileID: 0}
+  mandBlackImg: {fileID: 0}
   imgToAdapt: {fileID: 0}
 --- !u!1 &2189537628529174265
 GameObject:
@@ -2799,8 +2802,8 @@ MonoBehaviour:
   - {x: 0, y: 0.051, z: 0.025}
   - {x: 0, y: -90, z: 0}
   handOffset:
-  - {x: 0.02, y: 0.05, z: 0.05}
-  - {x: -0.02, y: 0.05, z: 0.05}
+  - {x: 0.02, y: 0.05, z: 0.06}
+  - {x: -0.02, y: 0.05, z: 0.06}
   isInHand: 0
   swapHands: 0
   isInBox: 0
@@ -2821,6 +2824,7 @@ MonoBehaviour:
   - {fileID: 5626870094371775591}
   - {fileID: 3753285576942529486}
   - {fileID: 1179134365366056584}
+  audioSource: {fileID: 0}
   timeInBox: 0
   timeInHand: 0
 --- !u!65 &169555061296994055
@@ -2842,8 +2846,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.03513131, y: 0.2, z: 0.11685641}
-  m_Center: {x: 0.002862012, y: -0.050000004, z: -0.02}
+  m_Size: {x: 0.03513131, y: 0.2, z: 0.27}
+  m_Center: {x: 0.002862012, y: -0.050000004, z: 0}
 --- !u!54 &3320305499459092730
 Rigidbody:
   m_ObjectHideFlags: 0

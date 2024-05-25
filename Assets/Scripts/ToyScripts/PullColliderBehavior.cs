@@ -54,12 +54,13 @@ public class PullColliderBehavior : MonoBehaviour
                 promptPool.Add(prompt);
             }
         }
+        else return;
         
     }
     private void OnTriggerExit(Collider other)
     {
-      if (other.CompareTag("LeftHand") || other.CompareTag("RightHand"))
-      {
+        if (other.CompareTag("LeftHand") || other.CompareTag("RightHand"))
+        {
             ClearPrompts();
 
             if (CustomTopManager.isReadyToSpin && !hand.handNotEmpty)
@@ -68,8 +69,9 @@ public class PullColliderBehavior : MonoBehaviour
                 CustomTopManager.isSpinning = true;
             }
             else return;
-           
-      }
+
+        }
+        else return;
         
     }
 }

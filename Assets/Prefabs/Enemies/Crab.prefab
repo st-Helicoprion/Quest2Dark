@@ -514,8 +514,8 @@ MonoBehaviour:
   attackHitbox: {fileID: 0}
   anim: {fileID: 4859121352558000662}
   audioSource: {fileID: 0}
-  triggeredCount: 2
-  triggeredLifetime: 2
+  triggeredCount: 4
+  triggeredLifetime: 4
   wakeDelay: 3.5
 --- !u!54 &4676854037798909967
 Rigidbody:

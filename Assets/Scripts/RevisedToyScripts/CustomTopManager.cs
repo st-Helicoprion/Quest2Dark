@@ -193,20 +193,20 @@ public class CustomTopManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //on entry into pull collider, release top and add force
-        if (other.CompareTag("PullTrigger")&&!isSpinning&&toolboxHelper.isInHand)
-        {
-            isReadyToSpin = true;
-            ReleaseTop();
-            SummonRope();
-        }
-
         if (other.CompareTag("ToyBox"))
         {
             rb.isKinematic=true;
             ExitNoReturn();
         }
 
+        //on entry into pull collider, release top and add force
+        if (other.CompareTag("PullTrigger") && !isSpinning && toolboxHelper.isInHand)
+        {
+            isReadyToSpin = true;
+            ReleaseTop();
+            SummonRope();
+        }
+        
        
 
     }

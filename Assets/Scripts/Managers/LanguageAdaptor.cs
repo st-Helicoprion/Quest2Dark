@@ -18,49 +18,56 @@ public class LanguageAdaptor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if(DialogueManager.instance.language==DialogueManager.LangSelect.EN)
+        if(EndingManager.instance==null)
         {
-            if(customImgs)
+            if (DialogueManager.instance.language == DialogueManager.LangSelect.EN)
             {
-                imgToAdapt.material= engImg;
+                if (customImgs)
+                {
+                    imgToAdapt.material = engImg;
+
+                }
+                else
+                {
+                    textToAdapt.font = DialogueManager.instance.engFontAsset;
+                    if (customCont)
+                    {
+                        textToAdapt.text = engLine;
+                    }
+                }
 
             }
-            else
+
+            else if (DialogueManager.instance.language == DialogueManager.LangSelect.ZH)
             {
-                textToAdapt.font = DialogueManager.instance.engFontAsset;
-                if (customCont)
+                if (customImgs)
                 {
-                    textToAdapt.text = engLine;
+                    imgToAdapt.material = mandImg;
+
+                }
+                else
+                {
+                    textToAdapt.font = DialogueManager.instance.mandFontAsset;
+                    if (customCont)
+                    {
+                        textToAdapt.text = mandLine;
+                    }
                 }
             }
-
         }
+       
 
-        else if(DialogueManager.instance.language==DialogueManager.LangSelect.ZH)
-        {
-            if (customImgs)
-            {
-                imgToAdapt.material = mandImg;
-
-            }
-            else
-            {
-                textToAdapt.font = DialogueManager.instance.mandFontAsset;
-                if (customCont)
-                {
-                    textToAdapt.text = mandLine;
-                }
-            }
-        }
-
-        if(EndingManager.instance!=null)
+        else if(EndingManager.instance!=null)
         {
             if (EndingManager.instance.changeMapMat)
             {
                 if (customColor)
                 {
-                    textToAdapt.color = Color.black;
+                    if(textToAdapt!=null)
+                    {
+                        textToAdapt.color = Color.black;
+                    }
+
                     if (DialogueManager.instance.language == DialogueManager.LangSelect.EN && customImgs)
                     {
                         imgToAdapt.material = engBlackImg;
