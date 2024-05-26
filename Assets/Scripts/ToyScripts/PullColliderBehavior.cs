@@ -43,7 +43,7 @@ public class PullColliderBehavior : MonoBehaviour
             else return;
        
     }
-    private void OnTriggerEnter(Collider other)
+/*    private void OnTriggerEnter(Collider other)
     {
         if (CustomTopManager.isReadyToSpin)
         {
@@ -55,23 +55,23 @@ public class PullColliderBehavior : MonoBehaviour
             }
         }
         else return;
-        
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("LeftHand") || other.CompareTag("RightHand"))
-        {
-            ClearPrompts();
 
-            if (CustomTopManager.isReadyToSpin && !hand.handNotEmpty)
-            {
-                CustomTopManager.isReadyToSpin = false;
-                CustomTopManager.isSpinning = true;
-            }
-            else return;
+    }*/
+    /*  private void OnTriggerExit(Collider other)
+      {
+          if (other.CompareTag("LeftHand") || other.CompareTag("RightHand"))
+          {
+              ClearPrompts();
 
-        }
-        else return;
-        
-    }
+              if (CustomTopManager.isReadyToSpin && !hand.handNotEmpty)
+              {
+                  CustomTopManager.isReadyToSpin = false;
+                  CustomTopManager.isSpinning = true;
+              }
+              else return;
+
+          }
+          else return;
+
+      }*/
 }

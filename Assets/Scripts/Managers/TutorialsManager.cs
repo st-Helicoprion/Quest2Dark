@@ -148,17 +148,20 @@ public class TutorialsManager : MonoBehaviour
 
     IEnumerator CicadaTutorial(TextMeshPro dialogueText)
     {
-        
-        cicadaTut = true;
-        isTut = true;
-        dialogueText.text = linesToUse.lines[0];
-        anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[1] ;
-        video = Instantiate(cicadaVid, spawnPointToUse.videoPos.position, Quaternion.identity);
-        anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(3);
-        StartCoroutine(CicadaUsageTutorial(dialogueText));
+        if(anim!=null)
+        {
+            cicadaTut = true;
+            isTut = true;
+            dialogueText.text = linesToUse.lines[0];
+            anim.SetTrigger("Greet");
+            yield return new WaitForSeconds(3);
+            dialogueText.text = linesToUse.lines[1];
+            video = Instantiate(cicadaVid, spawnPointToUse.videoPos.position, Quaternion.identity);
+            anim.SetTrigger("Greet");
+            yield return new WaitForSeconds(3);
+            StartCoroutine(CicadaUsageTutorial(dialogueText));
+        }
+       
        
     }
 
@@ -210,16 +213,20 @@ public class TutorialsManager : MonoBehaviour
     }
     IEnumerator GunTutorial(TextMeshPro dialogueText)
     {
-        gunTut = true;
-        isTut  = true;
-        dialogueText.text = linesToUse.lines[0];
-        anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[1];
-        //video = Instantiate(gunVid, spawnPointToUse.videoPos.position, Quaternion.identity);
-        anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(3);
-        StartCoroutine(GunUsageTutorial(dialogueText));
+        if(anim!=null)
+        {
+            gunTut = true;
+            isTut = true;
+            dialogueText.text = linesToUse.lines[0];
+            anim.SetTrigger("Greet");
+            yield return new WaitForSeconds(3);
+            dialogueText.text = linesToUse.lines[1];
+            //video = Instantiate(gunVid, spawnPointToUse.videoPos.position, Quaternion.identity);
+            anim.SetTrigger("Greet");
+            yield return new WaitForSeconds(3);
+            StartCoroutine(GunUsageTutorial(dialogueText));
+        }
+        
     }
 
     IEnumerator GunUsageTutorial(TextMeshPro dialogueText)
@@ -274,20 +281,23 @@ public class TutorialsManager : MonoBehaviour
     }
     IEnumerator PlaneTutorial(TextMeshPro dialogueText)
     {
-       
-        planeTut = true;
-        isTut=true;
-        dialogueText.text = linesToUse.lines[0];
-        anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[1];
-        video = Instantiate(planeVid, spawnPointToUse.videoPos.position, Quaternion.identity);
-        anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(6);
-        dialogueText.text = linesToUse.lines[2];
-        anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(3);
-        StartCoroutine(PlaneUsageTutorial(dialogueText));
+       if(anim!=null)
+        {
+            planeTut = true;
+            isTut = true;
+            dialogueText.text = linesToUse.lines[0];
+            anim.SetTrigger("Greet");
+            yield return new WaitForSeconds(3);
+            dialogueText.text = linesToUse.lines[1];
+            video = Instantiate(planeVid, spawnPointToUse.videoPos.position, Quaternion.identity);
+            anim.SetTrigger("Greet");
+            yield return new WaitForSeconds(6);
+            dialogueText.text = linesToUse.lines[2];
+            anim.SetTrigger("Greet");
+            yield return new WaitForSeconds(3);
+            StartCoroutine(PlaneUsageTutorial(dialogueText));
+        }
+  
     }
 
     IEnumerator PlaneUsageTutorial(TextMeshPro dialogueText)
@@ -343,16 +353,19 @@ public class TutorialsManager : MonoBehaviour
 
     IEnumerator TopTutorial(TextMeshPro dialogueText)
     {
-        
-        topTut = true;
-        isTut=true;
-        dialogueText.text = linesToUse.lines[0];
-        yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[1];
-        video = Instantiate(topVid, spawnPointToUse.videoPos.position, Quaternion.identity);
-        anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(6);
-        StartCoroutine(TopUsageTutorial(dialogueText));
+        if(anim!=null)
+        {
+            topTut = true;
+            isTut=true;
+            dialogueText.text = linesToUse.lines[0];
+            yield return new WaitForSeconds(3);
+            dialogueText.text = linesToUse.lines[1];
+            video = Instantiate(topVid, spawnPointToUse.videoPos.position, Quaternion.identity);
+            anim.SetTrigger("Greet");
+            yield return new WaitForSeconds(6);
+            StartCoroutine(TopUsageTutorial(dialogueText));
+
+        }
     }
 
     IEnumerator TopUsageTutorial(TextMeshPro dialogueText)

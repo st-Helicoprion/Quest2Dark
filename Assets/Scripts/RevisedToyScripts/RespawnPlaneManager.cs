@@ -20,7 +20,7 @@ public class RespawnPlaneManager : MonoBehaviour
     }
     private void Update()
     {
-        transform.parent.localRotation = new Quaternion(0, mainCamera.localRotation.y, 0, mainCamera.localRotation.w);
+        transform.parent.localRotation = new Quaternion(0, mainCamera.localRotation.y, 0,mainCamera.localRotation.w);
        
     }
     void StartTracking(GameObject other)

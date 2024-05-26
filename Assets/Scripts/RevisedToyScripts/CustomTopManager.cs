@@ -141,12 +141,18 @@ public class CustomTopManager : MonoBehaviour
         else trackedPositions.Add(transform.position);
     }
 
+    IEnumerator SpinCoroutine()
+    {
+        ReleaseTop();
+        yield return new WaitForSeconds(1);
+        isSpinning = true;
+    }
+
     void ReleaseTop()
     {
        Vector3 direction = trackedPositions[^1] - trackedPositions[0];
-       /* direction.x=Mathf.Clamp(direction.x, 0.7f, 10);
-        direction.y = Mathf.Clamp(direction.y, 0.7f, 10);
-        direction.z = Mathf.Clamp(direction.z, 0.7f, 10);*/
+        Debug.Log("topDir="+direction);
+
         transform.parent= null;
         rb.isKinematic = false;
        
@@ -202,9 +208,10 @@ public class CustomTopManager : MonoBehaviour
         //on entry into pull collider, release top and add force
         if (other.CompareTag("PullTrigger") && !isSpinning && toolboxHelper.isInHand)
         {
-            isReadyToSpin = true;
-            ReleaseTop();
-            SummonRope();
+            /*isReadyToSpin = true;
+            isReadyToSpin = false;*/
+            StartCoroutine(SpinCoroutine());
+          
         }
         
        

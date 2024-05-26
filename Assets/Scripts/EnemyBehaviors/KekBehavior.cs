@@ -19,7 +19,15 @@ public class KekBehavior : MonoBehaviour
 
         if (other.CompareTag("TopSonar"))
         {
-            dialogueText.text = "Ooh~ spinny~!";
+            if (DialogueManager.instance.language == DialogueManager.LangSelect.EN)
+            {
+                dialogueText.text = "Ooh~ spinny~!";
+
+            }
+            else if (DialogueManager.instance.language == DialogueManager.LangSelect.ZH)
+            {
+                dialogueText.text = "ÂàÂàÂà~!";
+            }
             GameObject top = GameObject.FindWithTag("SpinningTop");
             
         }
@@ -37,6 +45,7 @@ public class KekBehavior : MonoBehaviour
     {
         if (collision.transform.CompareTag("Bullet"))
         {
+            
             dialogueText.text = "*#@<Y*9!";
             StartCoroutine(KnockbackCoroutine());
 

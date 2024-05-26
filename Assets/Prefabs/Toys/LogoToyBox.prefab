@@ -903,11 +903,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customCont: 1
   customImgs: 0
+  customColor: 0
   engLine: touch box to start
-  mandLine: "\u89F8\u78B0\u76D2\u5B50\u958B\u59CB\u904A\u6232"
+  mandLine: "\u96D9\u624B\u89F8\u78B0\u76D2\u5B50\u958B\u59CB\u904A\u6232"
   textToAdapt: {fileID: 8747397234344369187}
   engImg: {fileID: 0}
   mandImg: {fileID: 0}
+  engBlackImg: {fileID: 0}
+  mandBlackImg: {fileID: 0}
   imgToAdapt: {fileID: 0}
 --- !u!1 &5462544670658023613
 GameObject:

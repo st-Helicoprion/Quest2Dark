@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4065312221016603511, guid: eae64a51f30090d4c86a3fe79971382d, type: 2}
+  - {fileID: 2320637312844532589, guid: fc70e431d8687b546937b4cccb5e573b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -104,8 +104,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: eae64a51f30090d4c86a3fe79971382d, type: 2}
-  m_sharedMaterial: {fileID: -4065312221016603511, guid: eae64a51f30090d4c86a3fe79971382d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc70e431d8687b546937b4cccb5e573b, type: 2}
+  m_sharedMaterial: {fileID: 2320637312844532589, guid: fc70e431d8687b546937b4cccb5e573b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -188,11 +188,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customCont: 0
   customImgs: 0
+  customColor: 0
   engLine: 
   mandLine: 
   textToAdapt: {fileID: 8863259808098952258}
   engImg: {fileID: 0}
   mandImg: {fileID: 0}
+  engBlackImg: {fileID: 0}
+  mandBlackImg: {fileID: 0}
   imgToAdapt: {fileID: 0}
 --- !u!1 &1953273182435255249
 GameObject:
