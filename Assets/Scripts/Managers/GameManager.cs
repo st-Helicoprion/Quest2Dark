@@ -183,6 +183,7 @@ public class GameManager : MonoBehaviour
             IntroSpawnReporter.player = UIViewAligner.player;
             WeakStateManager.instance.player = player;
             PrizeBoxManager.taken = false;
+            ToyToolboxInteractionManager.itemTaken= false;  
 
             TutorialsManager.instance.controlsMap = FindObjectOfType<DebugHelper>();
             TutorialsManager.instance.controlsMap.enabled = false;
