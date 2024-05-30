@@ -177,7 +177,6 @@ public class StickGiant : MonoBehaviour
         {
             musicOn = true;
             AudioManager.instance.audioSource.clip = AudioManager.instance.StickGiantAudioClips[1];
-            AudioManager.instance.audioSource.Play();
         
 
         }
@@ -218,7 +217,6 @@ public class StickGiant : MonoBehaviour
         {
             musicOn = false;
             AudioManager.instance.audioSource.clip = AudioManager.instance.BGMAudioClips[BGMSwitcherReporter.currentAreaID];
-            AudioManager.instance.audioSource.Play();
 
         }
     }
