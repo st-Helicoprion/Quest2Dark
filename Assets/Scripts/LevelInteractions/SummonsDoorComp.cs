@@ -15,7 +15,7 @@ public class SummonsDoorComp : MonoBehaviour
             anim.SetTrigger("Open");
         }
 
-        if(anim.GetCurrentAnimatorStateInfo(0).IsName("OpenDoor"))
+        if(anim.GetCurrentAnimatorStateInfo(0).IsName("MonsterDoorOpen"))
         {
             if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f && !anim.IsInTransition(0))
             {

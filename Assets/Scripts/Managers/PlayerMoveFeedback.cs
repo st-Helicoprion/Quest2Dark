@@ -36,7 +36,9 @@ public class PlayerMoveFeedback : MonoBehaviour
             if (Mathf.Abs(playerCC.velocity.z) > 0.5f || Mathf.Abs(playerCC.velocity.x) > 0.5f)
             {
                 moving = true;
+               
                 footstepsInterval -= Time.deltaTime;
+                WallFinderUI.blockerInterval -= Time.deltaTime;
                 if (playerMovement.moveSpeed < 5)
                 {
                     playerMovement.moveSpeed += Time.deltaTime;
@@ -60,7 +62,8 @@ public class PlayerMoveFeedback : MonoBehaviour
                 if(footstepsInterval<0)
                 {
                     footstepsInterval = 0.2f;
-                    if(stepsNum<footsteps.Length)
+                    
+                    if (stepsNum<footsteps.Length)
                     {
                          MoveFootstepsToPlayer();
                     }

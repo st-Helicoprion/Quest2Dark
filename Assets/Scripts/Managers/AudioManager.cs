@@ -46,7 +46,7 @@ public class AudioManager : MonoBehaviour
             audioSource.volume-=0.075f;
             yield return null;
         }
-        
+        audioSource.Stop();
     }
 
     public IEnumerator VolumeFadeIn()

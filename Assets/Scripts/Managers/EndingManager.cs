@@ -292,7 +292,7 @@ public class EndingManager : MonoBehaviour
         while (qq.position != targetPos)
         {
             Vector3 direction = targetPos - qq.position;
-            qq.position += 0.05f * direction;
+            qq.position += 0.02f * direction;
         }
         yield return null;
     }
