@@ -54,7 +54,7 @@ public class GameEndReporter : MonoBehaviour
         }
         
         Vector3 towerTargetPos = towerObj.localPosition;
-        while(towerObj.localPosition.y<35)
+        while(towerObj.localPosition.y<40)
         {
             towerTargetPos.y += 0.5f;
             towerTargetPos.x= towerObj.localPosition.x;

@@ -144,6 +144,7 @@ public class CustomTopManager : MonoBehaviour
     IEnumerator SpinCoroutine()
     {
         ReleaseTop();
+        SummonRope();
         yield return new WaitForSeconds(1);
         isSpinning = true;
     }

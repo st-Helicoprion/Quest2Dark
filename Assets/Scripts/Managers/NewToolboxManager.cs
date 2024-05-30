@@ -43,6 +43,14 @@ public class NewToolboxManager : MonoBehaviour
             colliderList[j].enabled = false;
 
         }
+
+        if(checkerList.Count<1)
+        {
+            for (int i = 0; i < transform.childCount - 2; i++)
+            {
+                checkerList.AddRange(GetComponentsInChildren<ToolboxVacancyChecker>());
+            }
+        }
     }
     void OpenToolBox(InputAction.CallbackContext boxInput)
     {
@@ -52,13 +60,6 @@ public class NewToolboxManager : MonoBehaviour
             boxAudioSource.pitch = 1.2f;
             boxAudioSource.PlayOneShot(AudioManager.instance.UISFXAudioClips[1]);
 
-            if(checkerList.Count<1)
-            {
-                for (int i = 0; i < transform.childCount - 2; i++)
-                {
-                    checkerList.AddRange(GetComponentsInChildren<ToolboxVacancyChecker>());
-                }
-            }
 
             interactorsList.AddRange(FindObjectsOfType<ToyToolboxInteractionManager>());
 
