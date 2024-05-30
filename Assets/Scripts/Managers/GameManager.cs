@@ -192,6 +192,11 @@ public class GameManager : MonoBehaviour
             TutorialsManager.topTut = false;
             TutorialsManager.planeTut = false;
             TutorialsManager.gunTut = false;
+
+            TutorialsManager.instance.cicadaGoal = false;
+            TutorialsManager.instance.gunGoal = false;
+            TutorialsManager.instance.planeGoal = false;
+            TutorialsManager.instance.topGoal = false;
         }
        
 
@@ -439,7 +444,6 @@ public class GameManager : MonoBehaviour
      
 
         AudioManager.instance.audioSource.clip = AudioManager.instance.BGMAudioClips[11];
-        AudioManager.instance.audioSource.Play();
     }
 
     public void ExitGame(InputAction.CallbackContext obj)

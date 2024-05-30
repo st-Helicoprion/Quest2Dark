@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WeakStateManager : MonoBehaviour
 {
@@ -29,7 +30,10 @@ public class WeakStateManager : MonoBehaviour
         {
             weakened = false;
             weakCountdown = weakInterval;
-            ToyToolboxInteractionManager.itemTaken = true;
+            if(SceneManager.GetActiveScene().name == "LabyrinthGameScene")
+            {
+                ToyToolboxInteractionManager.itemTaken = true;
+            }
             AudioManager.instance.CheckBGMToPlay();
         }
     }

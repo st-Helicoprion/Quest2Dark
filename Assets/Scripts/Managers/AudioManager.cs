@@ -34,7 +34,6 @@ public class AudioManager : MonoBehaviour
         StartCoroutine(VolumeFadeOut());
 
         audioSource.clip = BGMAudioClips[BGMSwitcherReporter.currentAreaID];
-        audioSource.Play();
 
         StartCoroutine(VolumeFadeIn());
     }
@@ -46,7 +45,6 @@ public class AudioManager : MonoBehaviour
             audioSource.volume-=0.075f;
             yield return null;
         }
-        audioSource.Stop();
     }
 
     public IEnumerator VolumeFadeIn()
@@ -64,7 +62,6 @@ public class AudioManager : MonoBehaviour
         StartCoroutine(VolumeFadeOut());
 
         audioSource.clip = BGMAudioClips[7];
-        audioSource.Play();
        
         StartCoroutine(VolumeFadeIn());
     }
@@ -75,7 +72,6 @@ public class AudioManager : MonoBehaviour
 
         BGMSwitcherReporter.currentAreaID = 0;
         audioSource.clip = BGMAudioClips[8];
-        audioSource.Play();
       
         StartCoroutine(VolumeFadeIn());
     }
@@ -85,7 +81,6 @@ public class AudioManager : MonoBehaviour
         StartCoroutine(VolumeFadeOut());
 
         audioSource.clip = BGMAudioClips[6];
-        audioSource.Play();
        
         StartCoroutine(VolumeFadeIn());
     }
@@ -95,7 +90,6 @@ public class AudioManager : MonoBehaviour
         StartCoroutine(VolumeFadeOut());
 
         audioSource.clip = BGMAudioClips[5];
-        audioSource.Play();
         
         StartCoroutine(VolumeFadeIn());
     }
@@ -105,7 +99,6 @@ public class AudioManager : MonoBehaviour
         StartCoroutine(VolumeFadeOut());
 
         audioSource.clip = BGMAudioClips[9];
-        audioSource.Play();
       
         StartCoroutine(VolumeFadeIn());
     }
@@ -114,7 +107,7 @@ public class AudioManager : MonoBehaviour
     {
 
         audioSource.clip = BGMAudioClips[10];
-        audioSource.Play();
+        
        
     }
 }
