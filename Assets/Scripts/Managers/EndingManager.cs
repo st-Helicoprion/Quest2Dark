@@ -305,5 +305,6 @@ public class EndingManager : MonoBehaviour
         GameManager.instance.SpawnPlayerInRoom();
 
         AudioManager.instance.audioSource.clip = AudioManager.instance.BGMAudioClips[11];
+        AudioManager.instance.audioSource.Play();
     }
 }

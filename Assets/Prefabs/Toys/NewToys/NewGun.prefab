@@ -2105,7 +2105,7 @@ MonoBehaviour:
   customImgs: 0
   customColor: 0
   engLine: Grip to take
-  mandLine: "\u6309\u4E0B[\u6293\u63E1\u9375]\u62FF\u8D77"
+  mandLine: "\u6309\u4E0B[\u4E2D\u6307\u9375]\u62FF\u8D77"
   textToAdapt: {fileID: 4957014131223659631}
   engImg: {fileID: 0}
   mandImg: {fileID: 0}
@@ -2897,7 +2897,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 5
+  MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

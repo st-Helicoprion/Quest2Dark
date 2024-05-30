@@ -2970,11 +2970,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customCont: 1
   customImgs: 0
+  customColor: 0
   engLine: Grip to take
-  mandLine: "\u6309\u4E0B[\u6293\u63E1\u9375]\u62FF\u8D77"
+  mandLine: "\u6309\u4E0B[\u4E2D\u6307\u9375]\u62FF\u8D77"
   textToAdapt: {fileID: 7368040478856684670}
   engImg: {fileID: 0}
   mandImg: {fileID: 0}
+  engBlackImg: {fileID: 0}
+  mandBlackImg: {fileID: 0}
   imgToAdapt: {fileID: 0}
 --- !u!1001 &577689789996189219
 PrefabInstance:

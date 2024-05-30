@@ -444,6 +444,7 @@ public class GameManager : MonoBehaviour
      
 
         AudioManager.instance.audioSource.clip = AudioManager.instance.BGMAudioClips[11];
+        AudioManager.instance.audioSource.Play();
     }
 
     public void ExitGame(InputAction.CallbackContext obj)

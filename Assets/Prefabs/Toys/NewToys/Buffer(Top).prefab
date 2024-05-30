@@ -865,6 +865,7 @@ MonoBehaviour:
   - {fileID: 6452577443719900684}
   - {fileID: 3272651496157979369}
   - {fileID: 376336186495595550}
+  audioSource: {fileID: 0}
   timeInBox: 0
   timeInHand: 0
 --- !u!114 &2250616387243599385
@@ -1475,11 +1476,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customCont: 1
   customImgs: 0
+  customColor: 0
   engLine: Grip to take
-  mandLine: "\u6309\u4E0B[\u6293\u63E1\u9375]\u62FF\u8D77"
+  mandLine: "\u6309\u4E0B[\u4E2D\u6307\u9375]\u62FF\u8D77"
   textToAdapt: {fileID: 5250439036348144767}
   engImg: {fileID: 0}
   mandImg: {fileID: 0}
+  engBlackImg: {fileID: 0}
+  mandBlackImg: {fileID: 0}
   imgToAdapt: {fileID: 0}
 --- !u!1 &5572283184515348416
 GameObject:

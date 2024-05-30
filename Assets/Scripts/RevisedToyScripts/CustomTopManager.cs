@@ -144,7 +144,6 @@ public class CustomTopManager : MonoBehaviour
     IEnumerator SpinCoroutine()
     {
         ReleaseTop();
-        SummonRope();
         yield return new WaitForSeconds(1);
         isSpinning = true;
     }
@@ -152,7 +151,6 @@ public class CustomTopManager : MonoBehaviour
     void ReleaseTop()
     {
        Vector3 direction = trackedPositions[^1] - trackedPositions[0];
-        Debug.Log("topDir="+direction);
 
         transform.parent= null;
         rb.isKinematic = false;

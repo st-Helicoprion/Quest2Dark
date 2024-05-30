@@ -292,7 +292,7 @@ public class ToyToolboxInteractionManager : MonoBehaviour
                     handState.grip = false;
                     print("place in hand");
                     StickToyToHand(handState, handState.handID);
-                    audioSource.PlayOneShot(AudioManager.instance.UISFXAudioClips[5],0.5f);
+                    audioSource.PlayOneShot(AudioManager.instance.UISFXAudioClips[5],0.25f);
                    
                 }
 

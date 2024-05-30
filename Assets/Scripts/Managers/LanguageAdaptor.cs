@@ -55,8 +55,6 @@ public class LanguageAdaptor : MonoBehaviour
                 }
             }
         }
-       
-
         else if(EndingManager.instance!=null)
         {
             if (EndingManager.instance.changeMapMat)
@@ -76,8 +74,23 @@ public class LanguageAdaptor : MonoBehaviour
                     {
                         imgToAdapt.material = mandBlackImg;
                     }
+
+                    
                 }
+
+
             }
+
+            if (DialogueManager.instance.language == DialogueManager.LangSelect.EN)
+            {
+                textToAdapt.font = DialogueManager.instance.engFontAsset;
+            }
+            else if (DialogueManager.instance.language == DialogueManager.LangSelect.ZH)
+            {
+
+                textToAdapt.font = DialogueManager.instance.mandFontAsset;
+            }
+
         }
         else return;
     }
