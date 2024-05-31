@@ -57,11 +57,22 @@ public class LanguageAdaptor : MonoBehaviour
         }
         else if(EndingManager.instance!=null)
         {
+
+          /*  if (DialogueManager.instance.language == DialogueManager.LangSelect.EN)
+            {
+                textToAdapt.font = DialogueManager.instance.engFontAsset;
+            }
+            else if (DialogueManager.instance.language == DialogueManager.LangSelect.ZH)
+            {
+
+                textToAdapt.font = DialogueManager.instance.mandFontAsset;
+            }*/
+
             if (EndingManager.instance.changeMapMat)
             {
                 if (customColor)
                 {
-                    if(textToAdapt!=null)
+                    if (textToAdapt != null)
                     {
                         textToAdapt.color = Color.black;
                     }
@@ -75,21 +86,12 @@ public class LanguageAdaptor : MonoBehaviour
                         imgToAdapt.material = mandBlackImg;
                     }
 
-                    
+
                 }
 
 
             }
-
-            if (DialogueManager.instance.language == DialogueManager.LangSelect.EN)
-            {
-                textToAdapt.font = DialogueManager.instance.engFontAsset;
-            }
-            else if (DialogueManager.instance.language == DialogueManager.LangSelect.ZH)
-            {
-
-                textToAdapt.font = DialogueManager.instance.mandFontAsset;
-            }
+            else return;
 
         }
         else return;
