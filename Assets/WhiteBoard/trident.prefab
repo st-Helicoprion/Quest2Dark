@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 7112274137948969147}
   m_Layer: 0
   m_Name: trident
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -220,6 +220,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5327aee7fd7a7b040942807a253fb3e3, type: 3}
       propertyPath: m_Name
       value: seaweed1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5327aee7fd7a7b040942807a253fb3e3, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

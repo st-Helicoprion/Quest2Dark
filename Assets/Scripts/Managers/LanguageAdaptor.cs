@@ -57,16 +57,27 @@ public class LanguageAdaptor : MonoBehaviour
         }
         else if(EndingManager.instance!=null)
         {
-
-          /*  if (DialogueManager.instance.language == DialogueManager.LangSelect.EN)
+            if(textToAdapt!=null)
             {
-                textToAdapt.font = DialogueManager.instance.engFontAsset;
+                if (DialogueManager.instance.language == DialogueManager.LangSelect.EN)
+                {
+                    textToAdapt.font = DialogueManager.instance.engFontAsset;
+                    if (customCont)
+                    {
+                        textToAdapt.text = engLine;
+                    }
+                }
+                else if (DialogueManager.instance.language == DialogueManager.LangSelect.ZH)
+                {
+
+                    textToAdapt.font = DialogueManager.instance.mandFontAsset;
+                    if (customCont)
+                    {
+                        textToAdapt.text = mandLine;
+                    }
+                }
             }
-            else if (DialogueManager.instance.language == DialogueManager.LangSelect.ZH)
-            {
 
-                textToAdapt.font = DialogueManager.instance.mandFontAsset;
-            }*/
 
             if (EndingManager.instance.changeMapMat)
             {

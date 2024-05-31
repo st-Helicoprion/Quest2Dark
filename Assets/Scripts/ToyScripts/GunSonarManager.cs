@@ -107,17 +107,19 @@ public class GunSonarManager : MonoBehaviour
             {
                 shootSonarLeft.action.performed += SpawnBullet;
                 shootSonarRight.action.performed -= SpawnBullet;
-                heldHand = handState;   
+                heldHand = handState;
             }
 
-            if (handID == 1 && handState.grip)
+            else if (handID == 1 && handState.grip)
             {
                 shootSonarLeft.action.performed -= SpawnBullet;
                 shootSonarRight.action.performed += SpawnBullet;
                 heldHand = handState;
             }
-        }
 
+            else return;
+        }
+        else return;
 
 
     }

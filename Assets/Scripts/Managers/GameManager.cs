@@ -1,17 +1,9 @@
-using Obi;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using TMPro;
-using Unity.AI.Navigation;
-using Unity.VisualScripting;
 using Unity.XR.CoreUtils;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 using UnityEngine.XR.Interaction.Toolkit;
 
 
@@ -36,7 +28,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> keyItem = new();
     public GameObject[] enemyPrefab;
 
-    public static bool readyToReboot, win, enemySpawned;
+    public static bool readyToReboot, win, enemySpawned, holdEnemySpawn;
 
     [Header("Labyrinth")]
     public List<GameObject> roomSpawnPoints;
@@ -111,14 +103,11 @@ public class GameManager : MonoBehaviour
                 WinConditionReached();
             }
 
-            if (!TutorialsManager.isTut && PrizeBoxManager.taken&&!DialogueManager.isStory)
+            if (!TutorialsManager.isTut && PrizeBoxManager.taken && !DialogueManager.isStory && !holdEnemySpawn && enemyWaveID < 4)
             {
                 enemySpawnCountdown -= Time.deltaTime;
             }
-            else if (enemyWaveID >= 4)
-            {
-                return;
-            }
+            else return;
 
             if (enemySpawnCountdown < 0 && SceneManager.GetActiveScene().name == "LabyrinthGameScene")
             {
@@ -267,7 +256,9 @@ public class GameManager : MonoBehaviour
     IEnumerator EnemySpawnCoroutine()
     {
         GetEnemySpawnPoints();
+        holdEnemySpawn = true;
         yield return new WaitForSeconds(30);
+        holdEnemySpawn = false;
         StartCoroutine(SpawnEnemiesDynamic());
     }
     #endregion

@@ -42,7 +42,7 @@ public class StickGiant : MonoBehaviour
                 CreepToPlayer();
             }
 
-            if (tracking) AlertAllMonsters();
+            if (tracking&&!WeakStateManager.instance.weakened) AlertAllMonsters();
 
             if (!tracking) CheckPlayerDistance(10);
         }
@@ -188,7 +188,7 @@ public class StickGiant : MonoBehaviour
     void CheckForRemoveTracker()
     {
         CheckPlayerDistance(40);
-        if(!isNearPlayer)
+        if(!isNearPlayer||WeakStateManager.instance.weakened)
         {
             RemoveTracker();
         }

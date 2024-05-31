@@ -13,7 +13,6 @@ public class EnemyInteractionManager : MonoBehaviour
     public StickGiant giantEnemy;
     public Collider enemyCollider;
     public Animator anim;
-    public GameObject stunLight;
 
     public void Start()
     {
@@ -29,12 +28,7 @@ public class EnemyInteractionManager : MonoBehaviour
             enemyCollider.enabled = true;
         }
 
-        if(!WeakStateManager.instance.weakened&&stunLight!=null)
-        {
-            stunLight.SetActive(false);
-        }
-        else
-            return;
+      
     }
     void CheckForRenderer()
     {
@@ -122,7 +116,6 @@ public class EnemyInteractionManager : MonoBehaviour
                 killPlayer = true;
                 other.tag= "Untagged";
                 anim.SetTrigger("Smash");
-                stunLight.SetActive(true);
                 Debug.Log("player is dead");
 
             }

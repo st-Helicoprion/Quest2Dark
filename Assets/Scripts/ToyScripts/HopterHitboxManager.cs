@@ -9,7 +9,7 @@ public class HopterHitboxManager : MonoBehaviour
     public GameObject hopterSonarPrefab, trackerLight;
     public Transform enemy, playerCam;
     public float hopterLifeCount, visualAidCount, hopterLifetime;
-    public bool enemyTagged, targetFound;
+    public bool enemyTagged, targetFound, wallHit;
     public AudioSource planeAudioSource;
     public Animator anim;
 
@@ -23,12 +23,16 @@ public class HopterHitboxManager : MonoBehaviour
     }
 
     private void Update()
-    {  
-        if(enemyTagged)
+    {
+        if (!wallHit)
         {
-            HopterTracking();
+            if (enemyTagged)
+            {
+                HopterTracking();
+            }
+            else HopterMoveForward();
         }
-        else HopterMoveForward();
+        else return;
 
         if(!enemyTagged)
         {
@@ -114,6 +118,12 @@ public class HopterHitboxManager : MonoBehaviour
         }
         
     }
+
+    IEnumerator ErasePlane()
+    {
+        yield return new WaitForSeconds(1);
+        Destroy(transform.parent.gameObject);
+    }
   
     private void OnTriggerEnter(Collider other)
     {
@@ -124,7 +134,16 @@ public class HopterHitboxManager : MonoBehaviour
             Debug.Log("enemy tagged, tracking start");
             hopterLifeCount = 0;
         }
-      
+           
+        if(other.CompareTag("Ground"))
+        {
+            wallHit= true;
+            Rigidbody parentRB = transform.parent.GetComponent<Rigidbody>();
+            Collider parentColl = transform.parent.GetComponent<Collider>();
+            parentColl.isTrigger = false;
+            parentRB.isKinematic = false;
+            StartCoroutine(ErasePlane());
+        }
     }
 
 

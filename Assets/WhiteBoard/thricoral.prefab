@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 5106010759755958083}
   m_Layer: 0
   m_Name: thricoral
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -220,6 +220,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 31476632294c6284eaad7175567dd45a, type: 3}
       propertyPath: m_Name
       value: coral2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 31476632294c6284eaad7175567dd45a, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
