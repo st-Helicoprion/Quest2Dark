@@ -66,29 +66,33 @@ public class RespawnPlaneManager : MonoBehaviour
                 planesOnHand.RemoveAt(0);
             }
         }
-        else if(boxArray.Length > 0)
+        else
         {
-            for(int i =0;i< boxArray.Length;i++)
-            {
-                if (!boxArray[i].isOccupied)
+            
+                for (int i = 0; i < boxArray.Length; i++)
                 {
-                    planeInstance = Instantiate(planePrefab, Vector3.zero, Quaternion.identity);
-                    planeInstance.GetComponent<ToyToolboxInteractionManager>().PlaceToyInBox(boxArray[i]);
-                    if (!NewToolboxManager.isOpen && planeInstance.GetComponent<ToyToolboxInteractionManager>().isInBox)
+                    if (!boxArray[i].isOccupied)
                     {
-                        planeInstance.GetComponent<ToyToolboxInteractionManager>().HideEquipVisuals();
-                    }
+                        planeInstance = Instantiate(planePrefab, Vector3.zero, Quaternion.identity);
+                        planeInstance.GetComponent<ToyToolboxInteractionManager>().PlaceToyInBox(boxArray[i]);
+                        if (!NewToolboxManager.isOpen && planeInstance.GetComponent<ToyToolboxInteractionManager>().isInBox)
+                        {
+                            planeInstance.GetComponent<ToyToolboxInteractionManager>().HideEquipVisuals();
+                        }
 
-                    planesOnHand.Add(planeInstance);
+                        planesOnHand.Add(planeInstance);
 
-                    while (planesOnHand.Count > 1)
-                    {
-                        Destroy(planesOnHand[0]);
-                        planesOnHand.RemoveAt(0);
+                        while (planesOnHand.Count > 1)
+                        {
+                            Destroy(planesOnHand[0]);
+                            planesOnHand.RemoveAt(0);
+                        }
+                        break;
                     }
-                    break;
                 }
-            }
+            
+            
+
         }
        
     }

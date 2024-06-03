@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64b30123164e422498396a6fd3c71314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  language: 1
+  language: 0
   engFontAsset: {fileID: 11400000, guid: b43ad26968bb88d44a7e171c4a97f57b, type: 2}
   mandFontAsset: {fileID: 11400000, guid: fc70e431d8687b546937b4cccb5e573b, type: 2}
   kekActive: {fileID: 0}

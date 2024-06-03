@@ -2651,6 +2651,7 @@ MonoBehaviour:
   hopterLifetime: 0
   enemyTagged: 0
   targetFound: 0
+  wallHit: 0
   planeAudioSource: {fileID: 7471770098055207082}
   anim: {fileID: 0}
 --- !u!135 &8061185710515389337
@@ -3370,6 +3371,7 @@ MonoBehaviour:
   hopterLifetime: 0
   enemyTagged: 0
   targetFound: 0
+  wallHit: 0
   planeAudioSource: {fileID: 1400866208286234101}
   anim: {fileID: 7354016710999734453}
 --- !u!135 &3501504311597297122
