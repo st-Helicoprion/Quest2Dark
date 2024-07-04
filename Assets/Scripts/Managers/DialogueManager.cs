@@ -23,8 +23,18 @@ public class DialogueManager : MonoBehaviour
     public bool story2;
     public bool story3;
     public LanguageScripts[] storyLines;
-    public GameObject giftBox;
+    public GameObject giftBox, nextIndicator;
 
+    public InputActionReference uiPressLeft, uiPressRight;
+    bool holding, nextLine;
+
+    private void OnEnable()
+    {
+        uiPressLeft.action.performed += GoToNextLine;
+        uiPressLeft.action.canceled += ReleaseButton;
+        uiPressRight.action.performed += GoToNextLine;
+        uiPressRight.action.canceled += ReleaseButton;
+    }
     private void Awake()
     {
         if(instance)
@@ -72,6 +82,8 @@ public class DialogueManager : MonoBehaviour
         {
             kekActive = TutorialsManager.kekActive;
             TextMeshPro dialogueText = kekActive.GetChild(3).Find("KekDialog").GetComponent<TextMeshPro>();
+            nextIndicator = kekActive.GetChild(3).Find("NextIndicator").gameObject;
+            nextIndicator.SetActive(false);
             anim = kekActive.GetComponentInChildren<Animator>();
 
             if (story1)
@@ -98,6 +110,8 @@ public class DialogueManager : MonoBehaviour
             AudioManager.instance.KekThemeMusic();
 
             TextMeshPro dialogueText = kekActive.GetChild(3).Find("KekDialog").GetComponent<TextMeshPro>();
+            nextIndicator = kekActive.GetChild(3).Find("NextIndicator").gameObject;
+            nextIndicator.SetActive(false);
 
             if (story1)
             {
@@ -123,33 +137,83 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("watching story 1");
         isStory = true;
         yield return new WaitForSeconds(1);
-        dialogueText.text = linesToUse.lines[0];
         anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[1];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[2];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[3];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[4];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[5];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[6];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[7];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[8];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[9];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[10];
+        nextIndicator.SetActive(true);
+        while(!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[0];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[1];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[2];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[3];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[4];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[5];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[6];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[7];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[8];
+            yield return null;
+        }
+        nextLine= false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[9];
+            yield return null;
+        }
+        nextLine = false;
         anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(5);
-        dialogueText.text= linesToUse.lines[11];
-        yield return new WaitForSeconds(5);
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[10];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[11];
+            yield return null;
+        }
+        nextLine = false;
         dialogueText.text = linesToUse.lines[12];
+        nextIndicator.SetActive(false);
        /* yield return new WaitForSeconds(5);
         dialogueText.text = linesToUse.lines[10];
         anim.SetTrigger("Greet");*/
@@ -179,31 +243,77 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("watching story 2");
         isStory = true;
         yield return new WaitForSeconds(1);
-        dialogueText.text = linesToUse.lines[13];
         anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[14];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[15];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[16];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[17];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[18];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[19];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[20];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[21];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[22];
+        nextIndicator.SetActive(true);
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[13];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[14];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[15];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[16];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[17];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[18];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[19];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[20];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[21];
+            yield return null;
+        }
+        nextLine = false;
         anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[23];
-        yield return new WaitForSeconds(5);
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[22];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[23];
+            yield return null;
+        }
+        nextLine = false;
         dialogueText.text = linesToUse.lines[24];
+        nextIndicator.SetActive(false);
         if (TutorialsManager.spawnPointToUse.giftSpot != null)
         {
             Instantiate(giftBox, TutorialsManager.spawnPointToUse.giftSpot.position, Quaternion.identity);
@@ -233,40 +343,102 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("watching story 3");
         isStory = true;
         yield return new WaitForSeconds(1);
-        dialogueText.text = linesToUse.lines[25];
         anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[26];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[27];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[28];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[29];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[30];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[31];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[32];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[33];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[34];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[35];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[36];
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[37];
+        nextIndicator.SetActive(true);
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[25];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[26];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[27];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[28];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[29];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[30];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[31];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[32];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[33];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[34];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[35];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[36];
+            yield return null;
+        }
+        nextLine = false;
         anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[38];
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[37];
+            yield return null;
+        }
+        nextLine = false;
         anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(5);
-        dialogueText.text = linesToUse.lines[39];
-        yield return new WaitForSeconds(5);
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[38];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[39];
+            yield return null;
+        }
+        nextLine = false;
         dialogueText.text = linesToUse.lines[40];
+        nextIndicator.SetActive(false);
         if (TutorialsManager.spawnPointToUse.giftSpot != null)
         {
             Instantiate(giftBox, TutorialsManager.spawnPointToUse.giftSpot.position, Quaternion.identity);
@@ -283,6 +455,33 @@ public class DialogueManager : MonoBehaviour
         //PlayerPrefs.SetInt("Story3Seen", 1);
         story3 = true;
         isStory = false;
+        
+    }
+
+    public void GoToNextLine(InputAction.CallbackContext obj)
+    {
+        if(obj.ReadValue<float>()==1)
+        {
+            if(!holding)
+            {
+                nextLine = true;
+                holding = true;
+            }
+            else
+            {
+                nextLine= false;
+            }
+           
+        }
+       
+    }
+
+    public void ReleaseButton(InputAction.CallbackContext obj)
+    {
+        if(obj.ReadValue<float>()==0)
+        {
+            holding = false;
+        }
         
     }
 }

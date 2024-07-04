@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static DialogueManager;
 
 public class EndingManager : MonoBehaviour
@@ -11,7 +12,7 @@ public class EndingManager : MonoBehaviour
     public LanguageScripts[] storyLines;
     public GameObject fadeToWhite, creditsPanel, 
                       splat, girlSplat, flowerBed,
-                      flowerRain, dustCloud;
+                      flowerRain, dustCloud, nextIndicator, qqNextIndicator;
     public Transform splatPoint, kekSpawnPoint, kekMovePoint;
     public Camera cam; public Color bgColor;
     public bool gameFinished, isPlayingEnd, changeMapMat;
@@ -27,6 +28,16 @@ public class EndingManager : MonoBehaviour
     public Animator kekAnim;
     public Animator girlAnim;
 
+    public InputActionReference uiPressLeft, uiPressRight;
+    bool holding, nextLine;
+
+    private void OnEnable()
+    {
+        uiPressLeft.action.performed += GoToNextLine;
+        uiPressLeft.action.canceled += ReleaseButton;
+        uiPressRight.action.performed += GoToNextLine;
+        uiPressRight.action.canceled += ReleaseButton;
+    }
 
     private void Awake()
     {
@@ -38,6 +49,7 @@ public class EndingManager : MonoBehaviour
         //girlAnim = qq.GetComponentInChildren<Animator>();
 
         AudioManager.instance.EndMapMusic();
+
     }
 
     private void Update()
@@ -66,6 +78,8 @@ public class EndingManager : MonoBehaviour
             kekActive = Instantiate(kek, kekSpawnPoint.position, Quaternion.identity).transform;
             kekActive.LookAt(cam.transform);
             kekAnim = kekActive.GetComponentInChildren<Animator>();
+            nextIndicator = kekActive.GetChild(3).Find("NextIndicator").gameObject;
+            nextIndicator.SetActive(false);
             StartCoroutine(GoodEndCoroutine(kekActive.GetChild(3).Find("KekDialog").GetComponent<TextMeshPro>(), qq.GetChild(1).Find("Dialog").GetComponent<TextMeshPro>()));
 
         }
@@ -74,31 +88,71 @@ public class EndingManager : MonoBehaviour
 
     IEnumerator GoodEndCoroutine(TextMeshPro kekLine, TextMeshPro girlLine)
     {
-        kekLine.text = linesToUse.lines[0];
-        yield return new WaitForSeconds(3);
-        kekLine.text = linesToUse.lines[1];
-        kekActive.LookAt(qq.position);
-        yield return new WaitForSeconds(3);
-        girlLine.text = linesToUse.lines[2];
-        kekLine.text = "";
-        yield return new WaitForSeconds(3);
-        kekLine.text = linesToUse.lines[3];
-        girlLine.text = "";
-        yield return new WaitForSeconds(3);
-        kekLine.text = linesToUse.lines[4];
+        while(!nextLine)
+        {
+            kekLine.text = linesToUse.lines[0];
+            nextIndicator.SetActive(true);
+            yield return null;
+        }
+        nextLine= false;
+        while(!nextLine)
+        {
+            kekLine.text = linesToUse.lines[1];
+            kekActive.LookAt(qq.position);
+            nextIndicator.SetActive(true);
+            yield return null;
+        }
+        nextLine= false;
+        while(!nextLine)
+        {
+            girlLine.text = linesToUse.lines[2];
+            kekLine.text = "";
+            nextIndicator.SetActive(false);
+            qqNextIndicator.SetActive(true);
+            yield return null;
+        }
+        nextLine = false;
+        while(!nextLine)
+        {
+            kekLine.text = linesToUse.lines[3];
+            girlLine.text = "";
+            nextIndicator.SetActive(true);
+            qqNextIndicator.SetActive(false);
+            yield return null;
+        }
+        nextLine = false;
+        while(!nextLine)
+        {
+            kekLine.text = linesToUse.lines[4];
+            nextIndicator.SetActive(true);
+            yield return null;
+        }
+        nextLine = false;
         StartCoroutine(MoveKek(kekMovePoint.position));
         kekActive.LookAt(cam.transform.position);
-        yield return new WaitForSeconds(3);
-        kekLine.text = linesToUse.lines[5];
         minigameHeart.SetActive(true);
-        yield return new WaitForSeconds(3);
-        kekLine.text = linesToUse.lines[6];
+        while (!nextLine)
+        {
+            kekLine.text = linesToUse.lines[5];
+            nextIndicator.SetActive(true);
+            yield return null;
+        }
+        nextLine = false;
         isMinigame = true;
-        yield return new WaitForSeconds(3);
+        while (!nextLine)
+        {
+            kekLine.text = linesToUse.lines[6];
+            nextIndicator.SetActive(true);
+            yield return null;
+        }
+        nextLine = false;
         kekLine.text = "";
         AudioManager.instance.HeartMiniStartMusic();
+       
         while (isMinigame)
         {
+            nextIndicator.SetActive(false);
+            qqNextIndicator.SetActive(false);
             if(!HeartPunching.stopTime)
             {
                 minigameProgress += Time.deltaTime;
@@ -154,12 +208,24 @@ public class EndingManager : MonoBehaviour
         {
             yield return null;
         }
-        girlLine.text = linesToUse.lines[14];
-        
         StartCoroutine(MoveGirl(flowerBed.transform.position + new Vector3(0, 1, 0)));
         AudioManager.instance.GoodEndMusic();
-        yield return new WaitForSeconds(3);
-        girlLine.text = linesToUse.lines[15];
+        while(!nextLine)
+        {
+            girlLine.text = linesToUse.lines[14];
+            qqNextIndicator.SetActive(true);
+            yield return null;
+        }
+        nextLine = false;
+        while(!nextLine)
+        {
+            girlLine.text = linesToUse.lines[15];
+            qqNextIndicator.SetActive(true);
+            yield return null;
+        }
+        nextLine= false;
+        girlLine.text = "";
+        qqNextIndicator.SetActive(false);
         creditsPanel.SetActive(true);
         yield return new WaitForSeconds(70);
         StartCoroutine(ReturnToStart());
@@ -172,6 +238,8 @@ public class EndingManager : MonoBehaviour
             kekActive = Instantiate(kek, kekSpawnPoint.position, Quaternion.identity).transform;
             kekActive.LookAt(cam.transform);
             kekAnim = kekActive.GetComponentInChildren<Animator>();
+            nextIndicator = kekActive.GetChild(3).Find("NextIndicator").gameObject;
+            nextIndicator.SetActive(false);
             StartCoroutine(BadEndCoroutine(kekActive.GetChild(3).Find("KekDialog").GetComponent<TextMeshPro>(), qq.GetChild(1).Find("Dialog").GetComponent<TextMeshPro>()));
 
         }
@@ -181,40 +249,109 @@ public class EndingManager : MonoBehaviour
 
     IEnumerator BadEndCoroutine(TextMeshPro kekLine, TextMeshPro girlLine)
     {
-        kekLine.text = linesToUse.lines[16];
-        yield return new WaitForSeconds(3);
-        kekLine.text = linesToUse.lines[17];
-        yield return new WaitForSeconds(3);
-        girlLine.text = linesToUse.lines[18];
-        kekLine.text = "";
-        kekActive.LookAt(qq.transform);
-        yield return new WaitForSeconds(3);
-        girlLine.text = linesToUse.lines[19];
-        yield return new WaitForSeconds(3);
-        girlLine.text = linesToUse.lines[20];
-        yield return new WaitForSeconds(3);
-        kekLine.text = linesToUse.lines[21];
-        girlLine.text = "";
-        yield return new WaitForSeconds(3);
-        girlLine.text = linesToUse.lines[22];
-        kekLine.text = "";
-        yield return new WaitForSeconds(3);
-        girlLine.text = linesToUse.lines[23];
-        yield return new WaitForSeconds(3);
-        kekLine.text = linesToUse.lines[24];
-        girlLine.text = "";
-        kekActive.LookAt(cam.transform);
-        yield return new WaitForSeconds(3);
-        kekLine.text = linesToUse.lines[25];
+        while(!nextLine)
+        {
+            kekLine.text = linesToUse.lines[16];
+            nextIndicator.SetActive(true);
+            yield return null;
+        }
+        nextLine= false;
+        while (!nextLine)
+        {
+            kekLine.text = linesToUse.lines[17];
+            nextIndicator.SetActive(true);
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            girlLine.text = linesToUse.lines[18];
+            kekLine.text = "";
+            nextIndicator.SetActive(false);
+            qqNextIndicator.SetActive(true);
+            kekActive.LookAt(qq.transform);
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            girlLine.text = linesToUse.lines[19];
+            qqNextIndicator.SetActive(true);
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            girlLine.text = linesToUse.lines[20];
+            qqNextIndicator.SetActive(true);
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            kekLine.text = linesToUse.lines[21];
+            girlLine.text = "";
+            nextIndicator.SetActive(true);
+            qqNextIndicator.SetActive(false);
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            girlLine.text = linesToUse.lines[22];
+            kekLine.text = "";
+            nextIndicator.SetActive(false);
+            qqNextIndicator.SetActive(true);
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            girlLine.text = linesToUse.lines[23];
+            qqNextIndicator.SetActive(true);
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            kekLine.text = linesToUse.lines[24];
+            girlLine.text = "";
+            nextIndicator.SetActive(true);
+            qqNextIndicator.SetActive(false);
+            kekActive.LookAt(cam.transform);
+            yield return null;
+        }
+        nextLine = false;
         StartCoroutine(MoveKek(splatPoint.position));
         kekActive.LookAt(qq.position);
-        yield return new WaitForSeconds(3);
-        kekLine.text = linesToUse.lines[26];
-        yield return new WaitForSeconds(3);
-        kekLine.text = linesToUse.lines[27];
-        yield return new WaitForSeconds(3);
-        kekLine.text = linesToUse.lines[28];
-        yield return new WaitForSeconds(3);
+        while (!nextLine)
+        {
+            kekLine.text = linesToUse.lines[25];
+            nextIndicator.SetActive(true);
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            kekLine.text = linesToUse.lines[26];
+            nextIndicator.SetActive(true);
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            kekLine.text = linesToUse.lines[27];
+            nextIndicator.SetActive(true);
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            kekLine.text = linesToUse.lines[28];
+            nextIndicator.SetActive(true);
+            yield return null;
+        }
+        nextLine = false;
         gameFinished = true;
         while (!gameFinished)
         {
@@ -306,5 +443,32 @@ public class EndingManager : MonoBehaviour
 
         AudioManager.instance.audioSource.clip = AudioManager.instance.BGMAudioClips[11];
         AudioManager.instance.audioSource.Play();
+    }
+
+    public void GoToNextLine(InputAction.CallbackContext obj)
+    {
+        if (obj.ReadValue<float>() == 1)
+        {
+            if (!holding)
+            {
+                nextLine = true;
+                holding = true;
+            }
+            else
+            {
+                nextLine = false;
+            }
+
+        }
+
+    }
+
+    public void ReleaseButton(InputAction.CallbackContext obj)
+    {
+        if (obj.ReadValue<float>() == 0)
+        {
+            holding = false;
+        }
+
     }
 }

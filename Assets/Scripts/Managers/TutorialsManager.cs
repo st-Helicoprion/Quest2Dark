@@ -6,6 +6,7 @@ using Unity.XR.CoreUtils;
 using UnityEditor;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 using static DialogueManager;
 
@@ -15,7 +16,7 @@ public class TutorialsManager : MonoBehaviour
 
     public static bool waitForTutEnd, intro, isTut;
     public static bool cicadaTut, gunTut, planeTut, topTut;
-    public GameObject kek, toyBox, tutSonarPrefab, video;
+    public GameObject kek, toyBox, tutSonarPrefab, video, nextIndicator;
     public static GameObject givenToy;
     public static Transform player, kekActive;
     public Vector3 tutSonarPoint;
@@ -40,6 +41,17 @@ public class TutorialsManager : MonoBehaviour
     public LanguageScripts[] gunTutLines;
     public LanguageScripts[] planeTutLines;
     public LanguageScripts[] topTutLines;
+
+    public InputActionReference uiPressLeft, uiPressRight;
+    bool holding, nextLine;
+
+    private void OnEnable()
+    {
+        uiPressLeft.action.performed += GoToNextLine;
+        uiPressLeft.action.canceled += ReleaseButton;
+        uiPressRight.action.performed += GoToNextLine;
+        uiPressRight.action.canceled += ReleaseButton;
+    }
 
     private void Awake()
     {
@@ -105,6 +117,8 @@ public class TutorialsManager : MonoBehaviour
         isTut = true;
         kekActive = Instantiate(kek, spawnPointToUse.transform.position, Quaternion.identity).transform;
         anim = kekActive.GetComponentInChildren<Animator>();
+        nextIndicator = kekActive.GetChild(3).Find("NextIndicator").gameObject;
+        nextIndicator.SetActive(false);
         kekActive.LookAt(player.position);
 
         AudioManager.instance.KekThemeMusic();
@@ -126,14 +140,28 @@ public class TutorialsManager : MonoBehaviour
         player.parent.parent.GetComponentInChildren<PlayerMoveFeedback>().enabled = false;
         player.parent.parent.GetComponentInChildren<ContinuousMoveProviderBase>().moveSpeed = 0;
         yield return new WaitForSeconds(1.5f);
-        dialogueText.text = linesToUse.lines[0];
         anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[1];
+        nextIndicator.SetActive(true);
+        while(!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[0];
+            yield return null;
+        }
+        nextLine= false;
         anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[2];
-        yield return new WaitForSeconds(3);
+        while(!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[1];
+            yield return null;
+        }
+        nextLine = false;
+        while(!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[2];
+            yield return null;
+        }
+        nextLine= false;
+        nextIndicator.SetActive(false);
         //anim.SetTrigger("Poop");
         dialogueText.text = linesToUse.lines[3];
         intro = false;
@@ -152,13 +180,22 @@ public class TutorialsManager : MonoBehaviour
         {
             cicadaTut = true;
             isTut = true;
-            dialogueText.text = linesToUse.lines[0];
             anim.SetTrigger("Greet");
-            yield return new WaitForSeconds(3);
-            dialogueText.text = linesToUse.lines[1];
+            nextIndicator.SetActive(true);
+            while (!nextLine)
+            {
+                dialogueText.text = linesToUse.lines[0];
+                yield return null;
+            }
+            nextLine= false;
             video = Instantiate(cicadaVid, spawnPointToUse.videoPos.position, Quaternion.identity);
             anim.SetTrigger("Greet");
-            yield return new WaitForSeconds(3);
+            while (!nextLine)
+            {
+                dialogueText.text = linesToUse.lines[1];
+                yield return null;
+            }
+            nextLine= false;
             StartCoroutine(CicadaUsageTutorial(dialogueText));
         }
        
@@ -174,6 +211,7 @@ public class TutorialsManager : MonoBehaviour
         tutSonarPoint = player.parent.parent.position;
         GameObject activeTutSonar=Instantiate(tutSonarPrefab, tutSonarPoint - new Vector3(0, 29, 0), Quaternion.identity);
         activeTutSonar.transform.GetChild(0).GetComponent<TutorialSonarReporter>().enabled = true;
+        nextIndicator.SetActive(false);
         while(!cicadaGoal)
         {
             dialogueText.text = linesToUse.lines[2];
@@ -187,11 +225,17 @@ public class TutorialsManager : MonoBehaviour
             dialogueText.text = linesToUse.lines[3];
             yield return null;
         }
-        yield return new WaitForSeconds(1);
-        dialogueText.text = linesToUse.lines[4];
+        yield return new WaitForSeconds(1);  
         Destroy(video);
         anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(3);
+        nextIndicator.SetActive(true);
+        while(!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[4];
+            yield return null;
+        }
+        nextLine= false;
+        nextIndicator.SetActive(false);
         //PlayerPrefs.SetInt("Cicada", 1);
         waitForTutEnd = true;
         if(!GameEndReporter.tutorialDone)
@@ -217,13 +261,22 @@ public class TutorialsManager : MonoBehaviour
         {
             gunTut = true;
             isTut = true;
-            dialogueText.text = linesToUse.lines[0];
             anim.SetTrigger("Greet");
-            yield return new WaitForSeconds(3);
-            dialogueText.text = linesToUse.lines[1];
+            nextIndicator.SetActive(true);
+            while (!nextLine)
+            {
+                dialogueText.text = linesToUse.lines[0];
+                yield return null;
+            }
+            nextLine = false;
+            anim.SetTrigger("Greet");
+            while (!nextLine)
+            {
+                dialogueText.text = linesToUse.lines[1];
+                yield return null;
+            }
+            nextLine = false;
             //video = Instantiate(gunVid, spawnPointToUse.videoPos.position, Quaternion.identity);
-            anim.SetTrigger("Greet");
-            yield return new WaitForSeconds(3);
             StartCoroutine(GunUsageTutorial(dialogueText));
         }
         
@@ -238,6 +291,7 @@ public class TutorialsManager : MonoBehaviour
         {
             targets.ShowBox();
         }
+        nextIndicator.SetActive(false);
         while(!gunGoal)
         {
             dialogueText.text = linesToUse.lines[2];
@@ -256,10 +310,16 @@ public class TutorialsManager : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(1);
-        dialogueText.text = linesToUse.lines[5];
         Destroy(video);
         anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(3);
+        nextIndicator.SetActive(true);
+        while(!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[5];
+            yield return null;
+        }
+        nextLine = false;
+        nextIndicator.SetActive(false);
        // PlayerPrefs.SetInt("Gun", 1);
         waitForTutEnd = true;
         if (!GameEndReporter.tutorialDone)
@@ -285,16 +345,30 @@ public class TutorialsManager : MonoBehaviour
         {
             planeTut = true;
             isTut = true;
-            dialogueText.text = linesToUse.lines[0];
             anim.SetTrigger("Greet");
-            yield return new WaitForSeconds(3);
-            dialogueText.text = linesToUse.lines[1];
+            nextIndicator.SetActive(true);
+            while(!nextLine)
+            {
+                dialogueText.text = linesToUse.lines[0];
+                yield return null;
+            }
+            nextLine= false;
             video = Instantiate(planeVid, spawnPointToUse.videoPos.position, Quaternion.identity);
             anim.SetTrigger("Greet");
-            yield return new WaitForSeconds(6);
-            dialogueText.text = linesToUse.lines[2];
+            while(!nextLine)
+            {
+                dialogueText.text = linesToUse.lines[1];
+                yield return null;
+
+            }
+            nextLine= false;
             anim.SetTrigger("Greet");
-            yield return new WaitForSeconds(3);
+            while (!nextLine)
+            {
+                dialogueText.text = linesToUse.lines[2];
+                yield return null;
+            }
+            nextLine = false;
             StartCoroutine(PlaneUsageTutorial(dialogueText));
         }
   
@@ -307,6 +381,7 @@ public class TutorialsManager : MonoBehaviour
         PlayerMoveFeedback.moving = false;
 
         spawnPointToUse.tutSpots[0].ShowBox();
+        nextIndicator.SetActive(false);
         while (!planeGoal)
         {
             dialogueText.text = linesToUse.lines[3];
@@ -327,10 +402,17 @@ public class TutorialsManager : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(1);
-        dialogueText.text = linesToUse.lines[6];
         Destroy(video);
         anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(3);
+        nextIndicator.SetActive(true);
+        while(!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[6];
+            yield return null;
+
+        }
+        nextLine = false;
+        nextIndicator.SetActive(false);
         //PlayerPrefs.SetInt("Plane", 1);
         waitForTutEnd = true;
         if (!GameEndReporter.tutorialDone)
@@ -357,12 +439,23 @@ public class TutorialsManager : MonoBehaviour
         {
             topTut = true;
             isTut=true;
-            dialogueText.text = linesToUse.lines[0];
-            yield return new WaitForSeconds(3);
-            dialogueText.text = linesToUse.lines[1];
+            nextIndicator.SetActive(true);
+            while(!nextLine)
+            {
+                dialogueText.text = linesToUse.lines[0];
+                yield return null;
+
+            }
+            nextLine= false;
             video = Instantiate(topVid, spawnPointToUse.videoPos.position, Quaternion.identity);
             anim.SetTrigger("Greet");
-            yield return new WaitForSeconds(6);
+            while(!nextLine)
+            {
+                dialogueText.text = linesToUse.lines[1];
+                yield return null;
+
+            }
+            nextLine= false;
             StartCoroutine(TopUsageTutorial(dialogueText));
 
         }
@@ -375,6 +468,7 @@ public class TutorialsManager : MonoBehaviour
         PlayerMoveFeedback.moving = false;
 
         spawnPointToUse.tutSpots[0].ShowSonar();
+        nextIndicator.SetActive(false);
         while (!topGoal)
         {
             dialogueText.text = linesToUse.lines[2];
@@ -395,12 +489,24 @@ public class TutorialsManager : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(1);
-        dialogueText.text = linesToUse.lines[5];
         Destroy(video);
         anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[6];
-        yield return new WaitForSeconds(3);
+        nextIndicator.SetActive(true);
+        while(!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[5];
+            yield return null;
+
+        }
+        nextLine = false;
+        while(!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[6];
+            yield return null;
+
+        }
+        nextLine = false;
+        nextIndicator.SetActive(false);
         waitForTutEnd = true;
         //PlayerPrefs.SetInt("Top", 1);
         if (!GameEndReporter.tutorialDone)
@@ -438,28 +544,69 @@ public class TutorialsManager : MonoBehaviour
             GameEndReporter.callTower = true;
         }
         yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[4];
         anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[5];
-        yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[6];
-        yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[7];
-        yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[8];
+        nextIndicator.SetActive(true);
+        while(!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[4];
+            yield return null;
+
+        }
+        nextLine= false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[5];
+            yield return null;
+
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[6];
+            yield return null;
+
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[7];
+            yield return null;
+
+        }
+        nextLine = false;
         anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[9];
-        yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[10];
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[8];
+            yield return null;
+
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[9];
+            yield return null;
+
+        }
+        nextLine = false;
         anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[11];
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[10];
+            yield return null;
+
+        }
+        nextLine = false;
         ActivateControlsUI();
         anim.SetTrigger("Greet");
-        yield return new WaitForSeconds(3);
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[11];
+            yield return null;
 
+        }
+        nextLine = false;
+        nextIndicator.SetActive(false);
         GameEndReporter.tutorialDone = true;
         //PlayerPrefs.SetInt("IntroDone", 1);
         GameManager.readyToReboot = true;
@@ -485,12 +632,27 @@ public class TutorialsManager : MonoBehaviour
         {
             linesToUse = introLines[1];
         }
-        yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[12];
-        yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[13];
-        yield return new WaitForSeconds(3);
-        dialogueText.text = linesToUse.lines[14];
+
+        nextIndicator.SetActive(true);
+        while(!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[12];
+            yield return null;
+        }
+        nextLine= false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[13];
+            yield return null;
+        }
+        nextLine = false;
+        while (!nextLine)
+        {
+            dialogueText.text = linesToUse.lines[14];
+            yield return null;
+        }
+        nextLine = false;
+        nextIndicator.SetActive(false);
         yield return new WaitForSeconds(3);
         Destroy(kekActive.gameObject);
 
@@ -509,13 +671,16 @@ public class TutorialsManager : MonoBehaviour
         {
             kekActive = Instantiate(kek, spawnPointToUse.transform.position, Quaternion.identity).transform;
             anim = kekActive.GetComponentInChildren<Animator>();
+            nextIndicator = kekActive.GetChild(3).Find("NextIndicator").gameObject;
+            nextIndicator.SetActive(false);
             kekActive.LookAt(player.position);
 
             AudioManager.instance.KekThemeMusic();
         }
         else
         {
-
+            nextIndicator = kekActive.GetChild(3).Find("NextIndicator").gameObject;
+            nextIndicator.SetActive(false);
             anim = kekActive.GetComponentInChildren<Animator>();
 
             if (KeyItemReporter.tutID == 0&&!cicadaTut)
@@ -610,5 +775,31 @@ public class TutorialsManager : MonoBehaviour
         controlsMap.extraObjects[0].SetActive(false);
     }
 
+    
+    public void GoToNextLine(InputAction.CallbackContext obj)
+    {
+        if (obj.ReadValue<float>() == 1)
+        {
+            if (!holding)
+            {
+                nextLine = true;
+                holding = true;
+            }
+            else
+            {
+                nextLine = false;
+            }
 
+        }
+
+    }
+
+    public void ReleaseButton(InputAction.CallbackContext obj)
+    {
+        if (obj.ReadValue<float>() == 0)
+        {
+            holding = false;
+        }
+
+    }
 }

@@ -156,6 +156,7 @@ MonoBehaviour:
   toyBox: {fileID: 1815431155946330096, guid: d917bd614babd3945ac2fd4805a9ea00, type: 3}
   tutSonarPrefab: {fileID: 3970337055671145537, guid: f3c2ff90d4df5e2418660fa323ce939f, type: 3}
   video: {fileID: 0}
+  nextIndicator: {fileID: 0}
   tutSonarPoint: {x: 0, y: 0, z: 0}
   anim: {fileID: 0}
   controlsMap: {fileID: 0}
@@ -182,6 +183,8 @@ MonoBehaviour:
   topTutLines:
   - {fileID: 11400000, guid: b15a25c3416db0a49a8d0898d91c1e1d, type: 2}
   - {fileID: 11400000, guid: ea24a2dc026e2dd4b9935c261d7b8958, type: 2}
+  uiPressLeft: {fileID: -6395602842196007441, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  uiPressRight: {fileID: 3279264004350380116, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!4 &277976111
 Transform:
   m_ObjectHideFlags: 0
@@ -239,6 +242,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8db6e24bac1dd1740b6bbd177122ff51, type: 2}
   - {fileID: 11400000, guid: 8d74bd0ddd177de4785b468c21476c6c, type: 2}
   giftBox: {fileID: 1815431155946330096, guid: d917bd614babd3945ac2fd4805a9ea00, type: 3}
+  nextIndicator: {fileID: 0}
+  uiPressLeft: {fileID: -6395602842196007441, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  uiPressRight: {fileID: 3279264004350380116, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!4 &1546507170
 Transform:
   m_ObjectHideFlags: 0
